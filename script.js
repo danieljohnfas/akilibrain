@@ -1,81 +1,88 @@
+const imageFolder = 'newimages/';
+const totalImages = 200;
+const imagesPerSet = 10;
+const totalSets = Math.ceil(totalImages / imagesPerSet);
+const imageList = Array.from({ length: totalImages }, (_, i) => `newphoto${i + 1}.jpg`);
+let currentSet = 0;
+let zoomedIn = false;
 
-console.log("Script loaded and running");
+// Load images for the current set
+function loadImagesForSet() {
+    const startIndex = currentSet * imagesPerSet;
+    const img = document.getElementById('current-image');
 
-const imageFolder = 'newimages/'; // Folder containing images
-const totalImages = 390; // Total number of images
-const imagesPerPage = 20; // Number of images per page
-let shuffledImages = [];
-let currentPage = 0;
-let currentZoomIndex = 0;
-
-const galleryContainer = document.getElementById("gallery-container");
-const paginationContainer = document.getElementById("pagination");
-const modalImage = document.getElementById("modal-image");
-const modal = new bootstrap.Modal(document.getElementById("modal"));
-
-// Shuffle images array and initialize the gallery
-function shuffleImages() {
-    shuffledImages = Array.from({ length: totalImages }, (_, i) => `newphoto${i + 1}.jpg`);
-    shuffledImages.sort(() => Math.random() - 0.5);
-}
-
-// Display images for the current page
-function displayImages() {
-    galleryContainer.innerHTML = "";
-    const startIndex = currentPage * imagesPerPage;
-    const endIndex = Math.min(startIndex + imagesPerPage, shuffledImages.length);
-    const imagesToDisplay = shuffledImages.slice(startIndex, endIndex);
-
-    imagesToDisplay.forEach((image, index) => {
-        const imgElement = document.createElement("img");
-        imgElement.src = `${imageFolder}${image}`; // Directly load images
-        imgElement.classList.add("col-6", "col-md-3", "img-thumbnail");
-        imgElement.alt = `Image ${startIndex + index + 1}`;
-        imgElement.onclick = () => openZoomedView(startIndex + index);
-        galleryContainer.appendChild(imgElement);
-    });
+    if (startIndex < imageList.length) {
+        img.src = `${imageFolder}${imageList[startIndex]}`;
+        img.onload = () => console.log("Loaded image:", img.src);
+    }
 
     updatePagination();
 }
 
-// Update pagination buttons
+// Create pagination buttons
 function updatePagination() {
-    paginationContainer.innerHTML = "";
-    const totalPages = Math.ceil(shuffledImages.length / imagesPerPage);
+    const paginationContainer = document.getElementById('pagination');
+    paginationContainer.innerHTML = ''; // Clear existing buttons
 
-    for (let i = 0; i < totalPages; i++) {
-        const li = document.createElement("li");
-        li.classList.add("page-item");
-        if (i === currentPage) li.classList.add("active");
-
-        const button = document.createElement("button");
-        button.classList.add("page-link");
+    for (let i = 0; i < totalSets; i++) {
+        const button = document.createElement('button');
         button.textContent = i + 1;
-        button.onclick = () => goToPage(i);
+        button.className = 'page-button';
+        button.onclick = () => goToSet(i);
 
-        li.appendChild(button);
-        paginationContainer.appendChild(li);
+        if (i === currentSet) {
+            button.classList.add('active');
+        }
+
+        paginationContainer.appendChild(button);
     }
 }
 
-// Navigate to the specified page
-function goToPage(page) {
-    currentPage = page;
-    displayImages();
+// Navigate to a specific set by index
+function goToSet(setIndex) {
+    if (setIndex >= 0 && setIndex < totalSets) {
+        currentSet = setIndex;
+        loadImagesForSet();
+    }
 }
 
-// Open modal for zoomed view
-function openZoomedView(index) {
-    currentZoomIndex = index;
-    updateModalImage();
-    modal.show();
+// Initial load of the first set
+loadImagesForSet();
+
+// Download functionality
+function downloadImage() {
+    const link = document.createElement('a');
+    link.href = document.getElementById('current-image').src;
+    link.download = `downloaded-image.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
-// Update modal with current zoomed image
-function updateModalImage() {
-    modalImage.src = `${imageFolder}${shuffledImages[currentZoomIndex]}`; // Load full image in zoom
+// Share functionality
+function shareImage() {
+    const imgSrc = document.getElementById('current-image').src;
+    if (navigator.share) {
+        navigator.share({
+            title: "Here's my favorite image - check out more at https://bitch.asia",
+            url: imgSrc
+        }).catch(console.error);
+    } else {
+        alert("Share functionality is not supported in this browser.");
+    }
 }
 
-// Initialize gallery
-shuffleImages();
-displayImages();
+// Zoom and navigate functionality
+document.getElementById('image-container').addEventListener('click', function() {
+    const img = document.getElementById('current-image');
+    if (!zoomedIn) {
+        img.style.transform = 'scale(2)';
+        img.style.cursor = 'zoom-out';
+        zoomedIn = true;
+    } else {
+        img.style.transform = 'scale(1)';
+        img.style.cursor = 'zoom-in';
+        loadImagesForSet();
+        zoomedIn = false;
+    }
+});
