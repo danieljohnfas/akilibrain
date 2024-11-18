@@ -1,4 +1,4 @@
-const imageFolder = './newimages/';
+const imageFolder = '/newimages/'; // Ensure this matches the GitHub Pages folder
 const totalImages = 200;
 const imagesPerSet = 20; // Display 20 images per page
 const totalSets = Math.ceil(totalImages / imagesPerSet);
@@ -32,16 +32,19 @@ function zoomImage(imageIndex) {
     const overlay = document.createElement('div');
     overlay.id = 'zoom-overlay';
 
+    const imgContainer = document.createElement('div');
+    imgContainer.id = 'zoom-image-container';
+
     const img = document.createElement('img');
     img.src = `${imageFolder}${imageList[imageIndex]}`;
     img.className = 'zoomed-image';
 
+    // Add buttons
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Close';
     closeButton.className = 'close-button';
     closeButton.onclick = () => document.body.removeChild(overlay);
 
-    // Add navigation buttons
     const prevButton = document.createElement('button');
     prevButton.textContent = 'Previous';
     prevButton.className = 'nav-button prev-button';
@@ -60,11 +63,55 @@ function zoomImage(imageIndex) {
         imageIndex = newIndex;
     };
 
-    overlay.appendChild(img);
+    const actionContainer = document.createElement('div');
+    actionContainer.className = 'action-buttons-container';
+
+    const downloadButton = document.createElement('button');
+    downloadButton.textContent = 'Download';
+    downloadButton.className = 'action-button';
+    downloadButton.onclick = () => downloadImage(img.src);
+
+    const shareButton = document.createElement('button');
+    shareButton.textContent = 'Share';
+    shareButton.className = 'action-button';
+    shareButton.onclick = () => shareImage(img.src);
+
+    // Append buttons to action container
+    actionContainer.appendChild(downloadButton);
+    actionContainer.appendChild(shareButton);
+
+    // Append buttons and image
+    imgContainer.appendChild(prevButton);
+    imgContainer.appendChild(img);
+    imgContainer.appendChild(nextButton);
+
     overlay.appendChild(closeButton);
-    overlay.appendChild(prevButton);
-    overlay.appendChild(nextButton);
+    overlay.appendChild(imgContainer);
+    overlay.appendChild(actionContainer);
+
     document.body.appendChild(overlay);
+}
+
+// Download functionality
+function downloadImage(imageSrc) {
+    const link = document.createElement('a');
+    link.href = imageSrc;
+    link.download = 'downloaded-image.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Share functionality
+function shareImage(imageSrc) {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Image Share',
+            url: imageSrc,
+        }).catch(console.error);
+    } else {
+        alert('Share not supported in this browser.');
+    }
 }
 
 // Create pagination buttons
@@ -91,35 +138,6 @@ function goToSet(setIndex) {
     if (setIndex >= 0 && setIndex < totalSets) {
         currentSet = setIndex;
         loadImagesForSet();
-    }
-}
-
-// Download the first image in the set
-function downloadImage() {
-    const firstImage = document.querySelector('.gallery-image');
-    if (firstImage) {
-        const link = document.createElement('a');
-        link.href = firstImage.src;
-        link.download = 'downloaded-image.jpg';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-}
-
-// Share the first image in the set
-function shareImage() {
-    const firstImage = document.querySelector('.gallery-image');
-    if (firstImage) {
-        const imgSrc = firstImage.src;
-        if (navigator.share) {
-            navigator.share({
-                title: 'Image Share',
-                url: imgSrc,
-            }).catch(console.error);
-        } else {
-            alert('Share not supported in this browser.');
-        }
     }
 }
 
