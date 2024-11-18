@@ -1,4 +1,4 @@
-const imageFolder = '/newimages/';
+const imageFolder = './newimages/';
 const totalImages = 200;
 const imagesPerSet = 10;
 const totalSets = Math.ceil(totalImages / imagesPerSet);
@@ -44,4 +44,46 @@ function updatePagination() {
 function goToSet(setIndex) {
     if (setIndex >= 0 && setIndex < totalSets) {
         currentSet = setIndex;
-        loadIma
+        loadImagesForSet();
+    }
+}
+
+// Initial load of the first set
+loadImagesForSet();
+
+// Download functionality
+function downloadImage() {
+    const link = document.createElement('a');
+    link.href = document.getElementById('current-image').src;
+    link.download = 'downloaded-image.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Share functionality
+function shareImage() {
+    const imgSrc = document.getElementById('current-image').src;
+    if (navigator.share) {
+        navigator.share({
+            title: "Image Share",
+            url: imgSrc,
+        }).catch(console.error);
+    } else {
+        alert("Share not supported in this browser.");
+    }
+}
+
+// Zoom functionality
+document.getElementById('image-container').addEventListener('click', function () {
+    const img = document.getElementById('current-image');
+    if (!zoomedIn) {
+        img.style.transform = 'scale(2)';
+        img.style.cursor = 'zoom-out';
+        zoomedIn = true;
+    } else {
+        img.style.transform = 'scale(1)';
+        img.style.cursor = 'zoom-in';
+        zoomedIn = false;
+    }
+});
