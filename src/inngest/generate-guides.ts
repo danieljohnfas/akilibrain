@@ -58,7 +58,12 @@ const TROPICS = [
   "Entry-level job opportunities for graduates in Kenya",
   "The impact of AI on East African job markets",
   "Freelancing and the gig economy in Tanzania",
-  "Ethiopia's telecom liberalization and new tech jobs"
+  "Ethiopia's telecom liberalization and new tech jobs",
+  "Impact of mobile money (M-Pesa) on East African business",
+  "Agri-tech startups revolutionizing farming in Kenya and Uganda",
+  "Renewable energy careers and solar jobs in East Africa",
+  "Cybersecurity threats and compliance for Tanzanian banks",
+  "E-commerce logistics and supply chain roles in Rwanda"
 ];
 
 const GuideContentSchema = z.object({
