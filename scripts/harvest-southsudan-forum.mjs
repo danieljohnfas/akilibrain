@@ -100,9 +100,10 @@ async function harvestSouthSudanJobs() {
   console.log(`Target Country: ${ssCountry.name} (UUID: ${ssCountry.id})\n`);
 
   let totalInserted = 0;
-  const maxPages = 4;
+  const startPage = 5;
+  const maxPages = 18;
 
-  for (let page = 0; page <= maxPages; page++) {
+  for (let page = startPage; page <= maxPages; page++) {
     const listUrl = `https://comms.southsudanngoforum.org/c/jobs/5.json?page=${page}`;
     console.log(`Fetching Page ${page}: ${listUrl}...`);
 
