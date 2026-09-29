@@ -1,3 +1,4 @@
+-- SUPERSEDED: never journaled; its statements are now part of 0019_scraper_parsers.sql (idempotent). Safe to delete.
 -- Migration: employer_url columns on jobs, tenders, compliance_requirements
 -- Adds two columns to each table:
 --   employer_url: the resolved direct employer/authority URL (nullable)
