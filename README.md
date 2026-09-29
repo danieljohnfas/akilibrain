@@ -120,3 +120,10 @@ After a month or two, compare the paper log with what the backtest led you to ex
 | `tests/test_engine.py` | lookahead, accounting and sizing checks |
 
 This is a learning and testing tool, not financial advice.
+
+## Running on GitHub Actions
+
+- `tests` runs the checks on every push.
+- `backtest` (manual): Actions tab, backtest, Run workflow. Results are uploaded as an artifact.
+- `paper-trade` runs daily at 00:20 UTC and commits `results/paper_log.csv`. Set the repo variable `PAPER_SINCE` (and optionally `PAPER_SYMBOLS`, `PAPER_EXCHANGE`).
+- GitHub's runners are in the US, and Binance.com blocks US addresses, so the default exchange is OKX. If a run fails with a network error, try `kucoin` or `bybit`.
