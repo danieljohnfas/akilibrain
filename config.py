@@ -48,3 +48,21 @@ FOREX = {
     "alloc": 1.0,                # only used if you switch sizing to "percent"
     "max_leverage": 30.0,        # position value never exceeds 30x the account, whatever the broker allows
 }
+
+# Live trading: hard limits ------------------------------------------------------
+# These are enforced in code (live.py) and can only be changed by editing this file,
+# never from the command line or the environment. Live orders are also off unless
+# you pass --execute AND set LIVE_TRADING=yes AND the KILL_SWITCH file does not exist.
+LIVE = {
+    "exchange": "kucoin",
+    "allowed_symbols": ["BTC/USDT"],   # the bot refuses to trade anything else
+    "max_capital_usd": 20.0,           # most it will ever put into one position (your starting $20)
+    "max_order_usd": 20.0,             # largest single order
+    "min_notional": 5.0,               # skip orders smaller than this (exchange minimum, plus dust)
+    "fee_buffer": 0.005,               # leave 0.5% of the order value free for fees
+    "max_slippage": 0.005,             # limit orders priced at most 0.5% beyond the best bid/ask, immediate-or-cancel
+    "max_price_deviation": 0.05,       # abort if the live price is >5% away from yesterday's close (bad data)
+    "max_orders_per_day": 2,           # real orders, counted from results/live_log.csv
+    "halt_buys_below_equity_usd": 10.0,  # circuit breaker: no NEW positions if the account falls under this
+    "max_holding_usd": 200.0,          # abort if the account holds more coin than this: it isn't all "the bot's"
+}
