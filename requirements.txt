@@ -1,0 +1,7 @@
+pandas>=1.5
+numpy>=1.23
+matplotlib>=3.6
+ccxt>=4.0
+yfinance>=0.2.40
+# Windows only, to read data straight from your broker's MetaTrader 5 terminal:
+# MetaTrader5
