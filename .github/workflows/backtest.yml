@@ -1,22 +1,47 @@
 name: backtest
-# Manual run: Actions tab -> backtest -> Run workflow. Results are uploaded as an artifact.
+
 on:
   workflow_dispatch:
     inputs:
-      symbols: {description: "Space-separated symbols", default: "BTC/USDT EURUSD"}
-      balance: {description: "Starting balance", default: "2000"}
-      exchange: {description: "ccxt exchange (Binance blocks US runners)", default: "okx"}
-      command: {description: "backtest or optimize", default: "backtest"}
+      symbols:
+        description: Space-separated symbols
+        type: string
+        default: BTC/USDT EURUSD
+      balance:
+        description: Starting balance
+        type: string
+        default: "2000"
+      exchange:
+        description: ccxt exchange (Binance blocks US runners)
+        type: string
+        default: okx
+      command:
+        description: backtest or optimize
+        type: string
+        default: backtest
+
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: {python-version: "3.12", cache: pip}
+        with:
+          python-version: "3.12"
+          cache: pip
       - run: pip install -r requirements.txt
-      - run: python bot.py ${{ inputs.command }} ${{ inputs.symbols }} --balance ${{ inputs.balance }} --exchange ${{ inputs.exchange }} | tee results/report.txt
-        env: {MPLBACKEND: Agg}
+      - name: Run
+        env:
+          MPLBACKEND: Agg
+          SYMBOLS: ${{ inputs.symbols }}
+          BALANCE: ${{ inputs.balance }}
+          EXCHANGE: ${{ inputs.exchange }}
+          CMD: ${{ inputs.command }}
+        run: |
+          mkdir -p results
+          python bot.py "$CMD" $SYMBOLS --balance "$BALANCE" --exchange "$EXCHANGE" | tee results/report.txt
       - uses: actions/upload-artifact@v4
         if: always()
-        with: {name: backtest-results, path: results/}
+        with:
+          name: backtest-results
+          path: results/
