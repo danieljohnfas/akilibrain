@@ -12,9 +12,9 @@ on:
         type: string
         default: "2000"
       exchange:
-        description: ccxt exchange (Binance blocks US runners)
+        description: ccxt exchange (kucoin works from GitHub runners; okx, bybit and binance are blocked)
         type: string
-        default: okx
+        default: kucoin
       command:
         description: backtest or optimize
         type: string
@@ -38,6 +38,7 @@ jobs:
           EXCHANGE: ${{ inputs.exchange }}
           CMD: ${{ inputs.command }}
         run: |
+          set -o pipefail
           mkdir -p results
           python bot.py "$CMD" $SYMBOLS --balance "$BALANCE" --exchange "$EXCHANGE" | tee results/report.txt
       - uses: actions/upload-artifact@v4
