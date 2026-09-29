@@ -1,6 +1,6 @@
 name: paper-trade
 # Daily paper trading. Set repo variables PAPER_SINCE (YYYY-MM-DD, keep fixed),
-# PAPER_SYMBOLS (default "BTC/USDT EURUSD") and PAPER_EXCHANGE (default okx).
+# PAPER_SYMBOLS (default "BTC/USDT EURUSD") and PAPER_EXCHANGE (default kucoin).
 on:
   schedule:
     - cron: "20 0 * * *"   # 00:20 UTC, after the daily crypto candle closes
@@ -23,8 +23,9 @@ jobs:
           MPLBACKEND: Agg
           SINCE: ${{ vars.PAPER_SINCE }}
           SYMBOLS: ${{ vars.PAPER_SYMBOLS || 'BTC/USDT EURUSD' }}
-          EXCHANGE: ${{ vars.PAPER_EXCHANGE || 'okx' }}
+          EXCHANGE: ${{ vars.PAPER_EXCHANGE || 'kucoin' }}
         run: |
+          set -o pipefail
           mkdir -p results
           python bot.py paper $SYMBOLS --exchange "$EXCHANGE" ${SINCE:+--since "$SINCE"} | tee -a results/paper.out
       - name: Commit paper log
