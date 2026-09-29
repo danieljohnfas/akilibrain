@@ -1,0 +1,33 @@
+name: paper-trade
+# Daily paper trading. Set repo variables PAPER_SINCE (YYYY-MM-DD, keep fixed),
+# PAPER_SYMBOLS (default "BTC/USDT EURUSD") and PAPER_EXCHANGE (default okx).
+on:
+  schedule:
+    - cron: "20 0 * * *"   # 00:20 UTC, after the daily crypto candle closes
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: paper
+jobs:
+  paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12", cache: pip}
+      - run: pip install -r requirements.txt
+      - name: Run paper account
+        env:
+          MPLBACKEND: Agg
+          SINCE: ${{ vars.PAPER_SINCE }}
+          SYMBOLS: ${{ vars.PAPER_SYMBOLS || 'BTC/USDT EURUSD' }}
+          EXCHANGE: ${{ vars.PAPER_EXCHANGE || 'okx' }}
+        run: |
+          mkdir -p results
+          python bot.py paper $SYMBOLS --exchange "$EXCHANGE" ${SINCE:+--since "$SINCE"} | tee -a results/paper.out
+      - name: Commit paper log
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f results/paper_log.csv
+          git diff --cached --quiet || (git commit -m "paper log $(date -u +%F)" && git push)

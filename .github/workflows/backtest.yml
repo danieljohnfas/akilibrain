@@ -1,0 +1,22 @@
+name: backtest
+# Manual run: Actions tab -> backtest -> Run workflow. Results are uploaded as an artifact.
+on:
+  workflow_dispatch:
+    inputs:
+      symbols: {description: "Space-separated symbols", default: "BTC/USDT EURUSD"}
+      balance: {description: "Starting balance", default: "2000"}
+      exchange: {description: "ccxt exchange (Binance blocks US runners)", default: "okx"}
+      command: {description: "backtest or optimize", default: "backtest"}
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12", cache: pip}
+      - run: pip install -r requirements.txt
+      - run: python bot.py ${{ inputs.command }} ${{ inputs.symbols }} --balance ${{ inputs.balance }} --exchange ${{ inputs.exchange }} | tee results/report.txt
+        env: {MPLBACKEND: Agg}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: backtest-results, path: results/}
