@@ -2,7 +2,7 @@
 
 A daily trend-following backtester and paper trader for **crypto** (spot, through any exchange the `ccxt` library supports) and **forex** (through Yahoo Finance, your broker's MetaTrader 5 terminal, or CSV files).
 
-It does not place real orders. That is deliberate: backtest first, paper-trade for a month or two, and only then add order execution.
+Backtest first, paper-trade for a month or two, and only then use `live`, which places real spot orders with hard limits (see *Live trading*). It is a dry run unless you deliberately turn it on.
 
 ## Install
 
@@ -127,3 +127,32 @@ This is a learning and testing tool, not financial advice.
 - `backtest` (manual): Actions tab, backtest, Run workflow. Results are uploaded as an artifact.
 - `paper-trade` runs daily at 00:20 UTC and commits `results/paper_log.csv`. Set the repo variable `PAPER_SINCE` (and optionally `PAPER_SYMBOLS`, `PAPER_EXCHANGE`).
 - GitHub's runners are in the US, and Binance.com blocks US addresses, so the default exchange is KuCoin. OKX, Bybit and Binance were tested and are blocked or return no data from the runners.
+
+## Live trading (real money, hard limits)
+
+`python bot.py live BTC/USDT` is a **dry run**: it computes today's decision and prints the order it *would* send. Nothing is ordered unless all three are true: you pass `--execute`, the environment has `LIVE_TRADING=yes`, and there is no file named `KILL_SWITCH` in the repo root.
+
+The limits are in `config.LIVE` and can only be changed by editing that file:
+
+| Limit | Default |
+|---|---|
+| Symbols allowed | BTC/USDT only |
+| Most in one position / one order | 20 USD |
+| Order type | limit, immediate-or-cancel, at most 0.5% past the best bid/ask |
+| Long only, spot, no leverage | always |
+| Real orders per day | 2 |
+| No new positions if the account falls below | 10 USD |
+| Abort if live price is off yesterday's close by | 5% |
+| Abort if the account holds more coin than | 200 USD (use a dedicated account) |
+
+It keeps no state file: whether it is long is read from your exchange balance on every run, so re-running the same day is harmless. Any unexpected condition (stale data, odd price, missing keys, below-minimum order) stops the run and orders nothing.
+
+**Setup, once:**
+1. On KuCoin, create an API key with **trading on and withdrawals off**. Enable two-factor authentication and test a small withdrawal before depositing.
+2. Add repo secrets `KUCOIN_API_KEY`, `KUCOIN_API_SECRET`, `KUCOIN_API_PASSPHRASE` (Settings, Secrets and variables, Actions, Secrets). GitHub's IPs change, so the key can't be IP-restricted: the withdrawals-off setting is what protects you.
+3. Run the `live-trade` workflow by hand. With keys but no `LIVE_TRADING` variable it is a dry run that also reads your balance, which proves the keys work.
+4. Only when you are ready: set the repo variable `LIVE_TRADING` to `yes`.
+
+**Stop:** delete the `LIVE_TRADING` variable, or commit an empty `KILL_SWITCH` file. To exit a position, sell it by hand on the exchange.
+
+The order logic is tested against a fake exchange (`tests/test_live.py`), but it has **not** been run against the real KuCoin API. Do the dry run with real keys first. A trend follower loses on most trades and can sit in a 50% drawdown; only use money you can afford to lose.

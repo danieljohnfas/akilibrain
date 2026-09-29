@@ -1,0 +1,48 @@
+name: live-trade
+
+# Runs daily at 00:35 UTC, after the daily candle has closed. It is a DRY RUN unless
+# the repo variable LIVE_TRADING is exactly "yes". To stop everything at once, either
+# delete that variable or commit an empty file named KILL_SWITCH to the repo root.
+# Needs secrets KUCOIN_API_KEY, KUCOIN_API_SECRET, KUCOIN_API_PASSPHRASE
+# (create the key with trading enabled and withdrawals DISABLED).
+on:
+  schedule:
+    - cron: "35 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: live
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run tests
+        run: python tests/test_live.py
+      - name: Trade
+        env:
+          LIVE_TRADING: ${{ vars.LIVE_TRADING }}
+          KUCOIN_API_KEY: ${{ secrets.KUCOIN_API_KEY }}
+          KUCOIN_API_SECRET: ${{ secrets.KUCOIN_API_SECRET }}
+          KUCOIN_API_PASSPHRASE: ${{ secrets.KUCOIN_API_PASSPHRASE }}
+        run: |
+          set -o pipefail
+          mkdir -p results
+          EXEC=""
+          if [ "$LIVE_TRADING" = "yes" ]; then EXEC="--execute"; fi
+          python bot.py live BTC/USDT --exchange kucoin $EXEC | tee -a results/live.out
+      - name: Commit trade log
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f results/live_log.csv
+          git diff --cached --quiet || (git commit -m "live log $(date -u +%F)" && git pull --rebase origin main && git push)

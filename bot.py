@@ -6,6 +6,7 @@ trendbot: a daily trend-following backtester and paper trader for crypto and for
   python bot.py backtest EURUSD --balance 2000           # forex needs a bigger account (see README)
   python bot.py optimize BTC/USDT                        # tune on old data, check on unseen data
   python bot.py paper BTC/USDT EURUSD --since 2026-10-01 # run once a day to paper-trade
+  python bot.py live BTC/USDT                            # dry run of live trading (add --execute for real orders)
 
 Symbols with a slash are crypto (ccxt format, e.g. BTC/USDT); six-letter pairs are forex (EURUSD).
 """
@@ -76,6 +77,13 @@ def build_parser() -> argparse.ArgumentParser:
     o.add_argument("--top", type=int, default=10, help="rows to show (default %(default)s)")
     pp = sub.add_parser("paper", parents=[common], help="today's instruction plus a paper account; run once a day")
     pp.add_argument("--since", help="day the paper account starts, YYYY-MM-DD (default: the latest completed day)")
+    lp = sub.add_parser("live", help="live spot trading with hard limits (dry run unless --execute)")
+    lp.add_argument("symbols", nargs="+", help="must be in config.LIVE['allowed_symbols']")
+    lp.add_argument("--entry", type=int, default=config.DEFAULT_ENTRY_DAYS)
+    lp.add_argument("--exit", type=int, default=config.DEFAULT_EXIT_DAYS)
+    lp.add_argument("--exchange", help=f"default {config.LIVE['exchange']}")
+    lp.add_argument("--execute", action="store_true",
+                    help="place REAL orders. Also needs LIVE_TRADING=yes in the environment and no KILL_SWITCH file")
     return p
 
 
@@ -142,21 +150,34 @@ def cmd_paper(a, symbol: str) -> None:
               f"  python bot.py paper {symbol} --since {last:%Y-%m-%d}")
 
 
+def cmd_live(a, symbol: str) -> None:
+    import live
+    if a.execute and os.environ.get("LIVE_TRADING") != "yes":
+        raise live.Refused("--execute also needs LIVE_TRADING=yes in the environment. No orders placed")
+    exchange_id = a.exchange or config.LIVE["exchange"]
+    have_keys = bool(os.environ.get(f"{exchange_id.upper()}_API_KEY"))
+    ex = live.make_exchange(exchange_id, with_keys=a.execute or have_keys)
+    live.run(ex, symbol, a.entry, a.exit, execute=a.execute, read_balances=a.execute or have_keys,
+             log_path=os.path.join(RESULTS, "live_log.csv"), kill_switch_path=os.path.join(HERE, "KILL_SWITCH"))
+
+
 def main(argv=None) -> int:
     parser = build_parser()
     a = parser.parse_args(argv)
-    if a.risk is not None and a.alloc is not None:
+    if a.cmd != "live" and a.risk is not None and a.alloc is not None:
         parser.error("use --risk or --alloc, not both")
-    if a.csv and len(a.symbols) > 1:
+    if a.cmd != "live" and a.csv and len(a.symbols) > 1:
         parser.error("--csv works with one symbol at a time")
-    run = {"backtest": cmd_backtest, "optimize": cmd_optimize, "paper": cmd_paper}[a.cmd]
+    run = {"backtest": cmd_backtest, "optimize": cmd_optimize, "paper": cmd_paper, "live": cmd_live}[a.cmd]
     failed = False
     for symbol in a.symbols:
         try:
             run(a, symbol)
         except Exception as e:  # report and carry on with the other symbols
             failed = True
-            if detect_market(symbol) == "crypto":
+            if a.cmd == "live":
+                hint = "nothing was ordered unless the message above says an order filled"
+            elif detect_market(symbol) == "crypto":
                 hint = "try another exchange (--exchange okx, bybit or kucoin) or load a file with --csv"
             else:
                 hint = "try --fx-source mt5 (Windows, MT5 terminal open) or a file exported from MT5 with --csv"
