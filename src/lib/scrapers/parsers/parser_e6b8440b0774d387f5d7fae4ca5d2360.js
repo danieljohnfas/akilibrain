@@ -1,0 +1,1 @@
+// This page is a news article about job vacancies, not a listing of individual job postings. No jobs extracted.

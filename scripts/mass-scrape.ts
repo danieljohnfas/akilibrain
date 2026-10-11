@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-dotenv.config({ path: '.env' });
+dotenv.config({ path: '.env.local' });
 
 import { discoverJobs } from '../src/lib/scrapers/broad-search-engine';
 import { saveJobs } from '../src/inngest/scrape-jobs';
