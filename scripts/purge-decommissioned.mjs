@@ -25,7 +25,7 @@ async function main() {
   console.log(`Deleted ${res2.count} tenders.`);
 
   console.log('Purging decommissioned jobs...');
-  const res3 = await sql`DELETE FROM jobs WHERE is_active = false`;
+  const res3 = await sql`DELETE FROM jobs WHERE is_active = false OR (deadline IS NOT NULL AND deadline < NOW())`;
   console.log(`Deleted ${res3.count} jobs.`);
 
   await sql.end();

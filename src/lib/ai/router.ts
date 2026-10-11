@@ -421,7 +421,7 @@ export async function generateObjectWithFallback<T = unknown>(
   params: Record<string, any> & { schema?: ZodType<T> }
 ): Promise<GenerateObjectResult<T>> {
   while (keyPool.getAvailableCount() === 0) {
-    console.log('[AI Router] All models are on cooldown. Sleeping for 60s...');
+    console.log('[AI Router] All models are on cooldown. Pausing for 60s.');
     await new Promise(r => setTimeout(r, 60000));
   }
 
@@ -479,7 +479,7 @@ export async function generateTextWithFallback(
   params: Record<string, any>
 ): Promise<GenerateTextResult<Record<string, CoreTool>, never>> {
   while (keyPool.getAvailableCount() === 0) {
-    console.log('[AI Router] All models are on cooldown. Sleeping for 60s...');
+    console.log('[AI Router] All models are on cooldown. Pausing for 60s.');
     await new Promise(r => setTimeout(r, 60000));
   }
 
