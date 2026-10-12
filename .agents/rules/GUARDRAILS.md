@@ -7,7 +7,7 @@ This file is the safety contract for the agent platform.
 
 ## Always require my explicit approval before:
 
-- Any deploy to a public or production URL (Vercel production, Render production)
+- Any deploy to a public or production URL (Vercel production)
 - Any irreversible action: delete, send, pay, revoke access, drop database table
 - Any change to OAuth scopes, PAT permissions, or secrets configuration
 - Adding a new MCP server or third-party integration to `mcp_config.json`
@@ -67,7 +67,6 @@ The kill switch must be testable without live accounts.
 | Service | Hard limit |
 |---|---|
 | Neon DB | Stay within 500 MB storage |
-| Render | Never add paid services |
 | Vercel | Never add paid add-ons |
 | GitHub Actions | Stay within 2,000 min/month |
 | Any new service | Must have a free tier; must confirm before adding |
