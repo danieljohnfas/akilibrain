@@ -315,6 +315,27 @@ export default async function TenderDetailPage({
                 </a>
               )}
             </div>
+
+            {/* Travel / Transit Callout */}
+            <div className="pt-4 border-t border-white/10">
+              <div className="p-3.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs text-muted-foreground space-y-2">
+                <div className="flex items-center gap-2 font-semibold text-emerald-400">
+                  <ExternalLink className="w-4 h-4 shrink-0" />
+                  <span>Visiting authority for submission?</span>
+                </div>
+                <p>
+                  Traveling for tender submission, site visit, or pre-bid meetings{country ? ` in ${country}` : ''}? Compare buses, trains, and flights on{' '}
+                  <a
+                    href={`https://tiketichap.com/?utm_source=akilibrain&utm_medium=tender_detail&city=${encodeURIComponent(country || '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-emerald-400 underline font-medium hover:text-emerald-300"
+                  >
+                    TiketiChap
+                  </a>.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
