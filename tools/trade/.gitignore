@@ -1,0 +1,5 @@
+__pycache__/
+data/
+results/*
+!results/paper_log.csv
+!results/live_log.csv

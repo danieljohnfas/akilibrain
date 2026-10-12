@@ -1,0 +1,48 @@
+name: backtest
+
+on:
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: Space-separated symbols
+        type: string
+        default: BTC/USDT EURUSD
+      balance:
+        description: Starting balance
+        type: string
+        default: "2000"
+      exchange:
+        description: ccxt exchange (kucoin works from GitHub runners; okx, bybit and binance are blocked)
+        type: string
+        default: kucoin
+      command:
+        description: backtest or optimize
+        type: string
+        default: backtest
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run
+        env:
+          MPLBACKEND: Agg
+          SYMBOLS: ${{ inputs.symbols }}
+          BALANCE: ${{ inputs.balance }}
+          EXCHANGE: ${{ inputs.exchange }}
+          CMD: ${{ inputs.command }}
+        run: |
+          set -o pipefail
+          mkdir -p results
+          python bot.py "$CMD" $SYMBOLS --balance "$BALANCE" --exchange "$EXCHANGE" | tee results/report.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backtest-results
+          path: results/
