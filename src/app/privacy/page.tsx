@@ -241,7 +241,7 @@ export default function PrivacyPage() {
                   { service: 'Microsoft Clarity', purpose: 'Session recording & heatmaps (only with your consent)', data: 'Pages visited, clicks, scrolling, device/browser information' },
                   { service: 'PostHog', purpose: 'Product analytics (only with your consent)', data: 'Usage events, device/browser information' },
                   { service: 'Cloudflare', purpose: 'CDN, DDoS protection and DNS', data: 'IP address, request metadata' },
-                  { service: 'Linode (Akamai)', purpose: 'Web hosting', data: 'Request logs, IP address' },
+                  { service: 'Vercel', purpose: 'Web hosting', data: 'Request logs, IP address' },
                   { service: 'Supabase / PostgreSQL', purpose: 'Database & authentication', data: 'Account data, stored content' },
                   { service: 'AI model providers (e.g. Google Gemini, Mistral, Groq, Cerebras, SambaNova, OpenRouter, Cohere, DeepSeek, Together, Fireworks, Hyperbolic, NVIDIA, Perplexity, Novita, xAI, AI21, Alibaba Cloud, Zhipu AI, MiniMax, Cloudflare Workers AI, Hugging Face — whichever are enabled at the time)', purpose: 'AI chat, CV matching and evaluation, mock interviews, content extraction', data: 'The text you submit: questions, CV text, cover letters, interview answers' },
                   { service: 'Resend', purpose: 'Email delivery', data: 'Email address, name, email content' },

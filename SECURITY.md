@@ -32,7 +32,7 @@ The full list is in [`.env.example`](.env.example). The ones that matter for sec
    output is validated with zod. Model-written **code is never executed**.
 4. **Output encoding.** JSON-LD is serialised with `serializeJsonLd` (escapes `<`); HTML from the web or an
    LLM is sanitised before `dangerouslySetInnerHTML`.
-5. **Rate limits** use `clientIpFromHeaders` (trusts `X-Real-IP` set by our nginx, never the left-most
+5. **Rate limits** use `clientIpFromHeaders` (trusts `X-Real-IP` set by Vercel, never the left-most
    `X-Forwarded-For`) with Upstash + an in-memory fallback. Add `enforceRateLimit` to any new public or
    AI/email-sending endpoint.
 6. **Redirects** (`/api/out`) only go to URLs stored on the referenced record.

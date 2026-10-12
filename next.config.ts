@@ -2,10 +2,9 @@ import type { NextConfig } from "next";
 
 /**
  * Deployment targets:
- *  - Docker / Linode (production): the Dockerfile sets NEXT_OUTPUT=standalone so `next build`
- *    emits `.next/standalone` (the Dockerfile copies it). This flag was accidentally removed
- *    before, which made every Docker build fail at the COPY step.
- *  - Vercel: leave NEXT_OUTPUT unset (Vercel ignores/handles output itself).
+ *  - Vercel (production): leave NEXT_OUTPUT unset; Vercel handles the build output itself.
+ *  - Docker (local or self-hosted): the Dockerfile sets NEXT_OUTPUT=standalone so `next build`
+ *    emits `.next/standalone`, which the Dockerfile copies.
  */
 const useStandalone = process.env.NEXT_OUTPUT === "standalone";
 
@@ -44,9 +43,6 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
   { key: cspHeaderName, value: cspDirectives.join("; ") },
-  // Disable nginx response buffering so Server Components stream properly.
-  // Required when nginx sits in front of Next.js (Cloudflare → nginx → Next.js).
-  { key: "X-Accel-Buffering", value: "no" },
 ];
 
 const noindex = { key: "X-Robots-Tag", value: "noindex, nofollow" };
