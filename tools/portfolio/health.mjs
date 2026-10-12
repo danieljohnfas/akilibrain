@@ -54,8 +54,12 @@ async function get(url, { redirect = 'follow' } = {}) {
     signal: AbortSignal.timeout(30_000),
   });
   const body = redirect === 'manual' ? '' : await res.text();
-  return { status: res.status, location: res.headers.get('location'), body };
+  // Cloudflare bot protection challenges data-centre IPs (such as GitHub's runners).
+  const challenged = res.status === 403 && (res.headers.get('cf-mitigated') === 'challenge' || /just a moment|cf-chl|challenge-platform/i.test(body));
+  return { status: res.status, location: res.headers.get('location'), body, challenged };
 }
+
+const skipped = new Set();
 
 const failures = [];
 const fail = (site, msg) => failures.push(`${site}: ${msg}`);
@@ -64,6 +68,7 @@ for (const site of SITES) {
   for (const url of site.ok ?? []) {
     try {
       const r = await get(url);
+      if (r.challenged) { skipped.add(site.name); continue; }
       if (r.status !== 200) fail(site.name, `${url} returned ${r.status}`);
     } catch (e) {
       fail(site.name, `${url} unreachable (${e.message})`);
@@ -84,6 +89,7 @@ for (const site of SITES) {
   for (const [url, needle] of site.contains ?? []) {
     try {
       const r = await get(url);
+      if (r.challenged) { skipped.add(site.name); continue; }
       if (!r.body.includes(needle)) fail(site.name, `${url} no longer contains "${needle}"`);
     } catch (e) {
       fail(site.name, `${url} unreachable (${e.message})`);
@@ -96,6 +102,10 @@ for (const site of SITES) {
       if (m) fail(site.name, `${url} contains ad-network code ("${m[0]}")`);
     } catch {}
   }
+}
+
+if (skipped.size) {
+  console.log(`⚠ Bot protection blocked some checks from this network for: ${[...skipped].join(', ')}`);
 }
 
 if (failures.length) {
