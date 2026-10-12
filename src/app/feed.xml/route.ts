@@ -1,136 +1,76 @@
+import { NextResponse } from 'next/server';
 import { db, safeQuery } from '@/lib/db/client';
 import { jobs } from '@/lib/db/schema/jobs';
-import { tenders } from '@/lib/db/schema/tenders';
 import { countries, regions } from '@/lib/db/schema/shared';
-import { eq, desc, and, isNull, or, gt } from 'drizzle-orm';
+import { eq, and, or, isNull, gt, desc } from 'drizzle-orm';
 
-const BASE_URL = 'https://akilibrain.com';
+export const revalidate = 3600;
 
-function escapeXml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+function escapeCdata(str: string): string {
+  return str.replace(/]]>/g, ']]]]><![CDATA[>');
 }
 
 export async function GET() {
-  const now = new Date();
+  const activeCondition = and(
+    eq(jobs.isActive, true),
+    or(isNull(jobs.deadline), gt(jobs.deadline, new Date()))
+  );
 
-  // Fetch latest 30 active jobs
-  const jobRows = await safeQuery(
+  const latestJobs = await safeQuery(
     db
       .select({
         id: jobs.id,
         title: jobs.title,
         companyName: jobs.companyName,
         description: jobs.description,
+        createdAt: jobs.createdAt,
+        postedDate: jobs.postedDate,
         region: regions.name,
         country: countries.name,
-        postedDate: jobs.postedDate,
-        updatedAt: jobs.updatedAt,
-        deadline: jobs.deadline,
       })
       .from(jobs)
       .leftJoin(countries, eq(jobs.countryId, countries.id))
       .leftJoin(regions, eq(jobs.regionId, regions.id))
-      .where(
-        and(
-          eq(jobs.isActive, true),
-          or(isNull(jobs.deadline), gt(jobs.deadline, now))
-        )
-      )
-      .orderBy(desc(jobs.updatedAt))
-      .limit(30)
+      .where(activeCondition)
+      .orderBy(desc(jobs.createdAt))
+      .limit(50)
   );
 
-  // Fetch latest 20 open tenders
-  const tenderRows = await safeQuery(
-    db
-      .select({
-        id: tenders.id,
-        title: tenders.title,
-        authority: tenders.contractingAuthority,
-        description: tenders.description,
-        country: countries.name,
-        deadline: tenders.deadline,
-        publishedAt: tenders.publishedAt,
-        updatedAt: tenders.updatedAt,
-      })
-      .from(tenders)
-      .leftJoin(countries, eq(tenders.countryId, countries.id))
-      .where(
-        and(
-          eq(tenders.status, 'open'),
-          or(isNull(tenders.deadline), gt(tenders.deadline, now))
-        )
-      )
-      .orderBy(desc(tenders.updatedAt))
-      .limit(20)
-  );
+  const itemsXml = latestJobs
+    .map((job) => {
+      const pubDate = (job.postedDate || job.createdAt).toUTCString();
+      const location = [job.region, job.country].filter(Boolean).join(', ') || 'East Africa';
+      const company = job.companyName && job.companyName.toLowerCase() !== 'unknown' ? ` at ${job.companyName}` : '';
+      const title = `${job.title}${company} (${location})`;
+      const link = `https://akilibrain.com/jobs/${job.id}`;
+      const descText = job.description
+        ? job.description.slice(0, 400) + (job.description.length > 400 ? '...' : '')
+        : `Apply for ${job.title} in ${location}.`;
 
-  const jobItems = jobRows.map((j) => {
-    const title = escapeXml(`${j.title} — ${j.companyName}`);
-    const location = j.region ? `${j.country} • ${j.region}` : j.country ?? 'East Africa';
-    const desc = escapeXml(
-      (j.description ?? `${j.title} at ${j.companyName} in ${location}.`).slice(0, 300)
-    );
-    const pubDate = (j.postedDate ?? j.updatedAt).toUTCString();
-    const link = `${BASE_URL}/jobs/${j.id}`;
-    const deadline = j.deadline ? `Deadline: ${j.deadline.toDateString()}. ` : '';
-
-    return `
-    <item>
-      <title>${title}</title>
+      return `    <item>
+      <title><![CDATA[${escapeCdata(title)}]]></title>
       <link>${link}</link>
       <guid isPermaLink="true">${link}</guid>
-      <description>${escapeXml(deadline)}${desc}</description>
       <pubDate>${pubDate}</pubDate>
-      <category>Jobs</category>
+      <description><![CDATA[${escapeCdata(descText)}]]></description>
     </item>`;
-  });
-
-  const tenderItems = tenderRows.map((t) => {
-    const title = escapeXml(t.title);
-    const desc = escapeXml(
-      (t.description ?? `Government tender by ${t.authority} in ${t.country ?? 'East Africa'}.`).slice(0, 300)
-    );
-    const pubDate = (t.publishedAt ?? t.updatedAt).toUTCString();
-    const link = `${BASE_URL}/tenders/${t.id}`;
-    const deadline = t.deadline ? `Deadline: ${t.deadline.toDateString()}. ` : '';
-
-    return `
-    <item>
-      <title>${title}</title>
-      <link>${link}</link>
-      <guid isPermaLink="true">${link}</guid>
-      <description>${escapeXml(deadline)}${desc}</description>
-      <pubDate>${pubDate}</pubDate>
-      <category>Tenders</category>
-    </item>`;
-  });
+    })
+    .join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>AkiliBrain — East Africa Intelligence Feed</title>
-    <link>${BASE_URL}</link>
-    <description>Latest government tenders and job opportunities across East Africa — Kenya, Tanzania, Uganda, Rwanda, Ethiopia, DRC, and the wider region.</description>
-    <language>en-ke</language>
-    <lastBuildDate>${now.toUTCString()}</lastBuildDate>
-    <atom:link href="${BASE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
-    <image>
-      <url>${BASE_URL}/icon.svg</url>
-      <title>AkiliBrain</title>
-      <link>${BASE_URL}</link>
-    </image>
-    ${jobItems.join('')}
-    ${tenderItems.join('')}
+    <title>AkiliBrain — Latest Jobs &amp; Opportunities in East Africa</title>
+    <link>https://akilibrain.com</link>
+    <description>Daily updated verified job vacancies, careers, and procurement opportunities across Kenya, Tanzania, Uganda, and Rwanda.</description>
+    <language>en</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <atom:link href="https://akilibrain.com/feed.xml" rel="self" type="application/rss+xml"/>
+${itemsXml}
   </channel>
 </rss>`;
 
-  return new Response(xml, {
+  return new NextResponse(xml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
       'Cache-Control': 'public, max-age=3600, s-maxage=3600',
