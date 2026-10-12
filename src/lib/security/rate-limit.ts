@@ -103,8 +103,8 @@ function getUpstashLimiter(prefix: string, max: number, window: Window): Ratelim
  * `X-Forwarded-For` is client-controlled (its left-most entry can be forged even
  * behind Cloudflare), so it is only used as a last resort, and then only the
  * right-most entry (the one appended by our own proxy) is trusted.
- * nginx.conf overwrites `X-Real-IP` with the address it verified via
- * `set_real_ip_from`, which makes it the preferred source. Vercel also sets it.
+ * Vercel (production) sets `X-Real-IP` to the connecting client's address and does not
+ * let clients override it, which makes it the preferred source.
  */
 export function clientIpFromHeaders(headers: { get(name: string): string | null }): string {
   const realIp = headers.get('x-real-ip')?.trim();

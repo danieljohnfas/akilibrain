@@ -46,18 +46,13 @@ created by hand before drizzle was adopted.
 
 ## Deployment
 
-**Production (Linode + Docker + Cloudflare)**
+**Production (Vercel)**
 
-```bash
-cd /opt/akilibrain && git pull origin main
-docker compose -f docker-compose.prod.yml up -d --build web
-```
-
-- All runtime configuration comes from `/opt/akilibrain/.env` (`env_file`), and compose refuses to
-  start if `DATABASE_URL`, `ADMIN_SESSION_SECRET`, `INNGEST_EVENT_KEY` or `INNGEST_SIGNING_KEY` are missing.
-- The image is built with `NEXT_OUTPUT=standalone`; a container healthcheck calls `/api/health`
-  (503 when the database is unreachable).
-- Vercel also works: leave `NEXT_OUTPUT` unset.
+- Every push to `main` deploys automatically; pull requests get preview deployments.
+- Runtime configuration lives in Vercel → Project → Settings → Environment Variables (see `.env.example`).
+- Vercel does not run database migrations: apply new `drizzle/migrations/*.sql` files to Supabase yourself.
+- `/api/health` returns 503 when the database is unreachable.
+- A `Dockerfile` is kept for local or self-hosted builds (`NEXT_OUTPUT=standalone`).
 
 **Scraper sidecar (Render)** — `scraper/` is a FastAPI service. It refuses every request without the
 shared key: set the same `SIDECAR_API_KEY` on Render, on the app and in the GitHub Actions secrets.

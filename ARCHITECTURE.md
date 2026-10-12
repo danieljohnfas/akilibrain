@@ -15,18 +15,12 @@ AkiliBrain is a robust Next.js application that serves as a central intelligence
 
 ## 2. Hosting & Infrastructure
 
-### Production Stack (Linode)
-- **Server:** Linode VPS (address kept private)
-- **App Directory:** `/opt/akilibrain`
-- **Docker Compose:** `docker-compose.prod.yml`
-  - `akilibrain-web-1` — Next.js standalone (port 3000, internal)
-  - `akilibrain-nginx-1` — Nginx reverse proxy (port 80, public)
-- **DNS & TLS:** Cloudflare (Always Use HTTPS) → Nginx → Next.js
-  - Cloudflare handles TLS termination; no cert needed on the server
-- **Deployment:** `git pull origin main` → `docker compose -f docker-compose.prod.yml up -d --build web`
-  - The image builds with `NEXT_OUTPUT=standalone` (see `next.config.ts`); nginx only starts routing once `web` is healthy (`/api/health`, which returns 503 if the DB is unreachable).
-  - Configuration is injected with `env_file: .env`, so every variable in `.env.example` reaches the container (the old hand-maintained whitelist dropped several required secrets).
-  - nginx trusts `CF-Connecting-IP` only from Cloudflare's ranges (`set_real_ip_from`), overwrites `X-Forwarded-For`, and rate-limits per client.
+### Production (Vercel)
+- **Hosting:** Vercel project in the `danieljohnfassanga-3284s-projects` team; `akilibrain.com` points straight at Vercel (no proxy in front).
+- **Deployment:** every push to `main` on GitHub builds and deploys automatically. Pull requests get preview deployments.
+- **Configuration:** environment variables are set in the Vercel dashboard (Project → Settings → Environment Variables); `.env.example` lists them. Redeploy after changing one.
+- **Database migrations:** Vercel does not run them. Apply new files from `drizzle/migrations/` to the Supabase database before (or right after) the deploy that needs them; they are written to be idempotent.
+- **Client IPs:** Vercel sets `X-Real-IP`, which the rate limiter trusts first (`src/lib/security/rate-limit.ts`).
 
 ### Key Management
 | Variable | Source |
@@ -39,8 +33,7 @@ AkiliBrain is a robust Next.js application that serves as a central intelligence
 | `NEXT_PUBLIC_APP_URL` | `https://akilibrain.com` |
 
 ### Known Operational Issues
-- Disk usage reaches 96%+ on the 25G Linode disk — prune Docker images regularly: `docker system prune -af`
-- `INNGEST_EVENT_KEY` and `INNGEST_SIGNING_KEY` must be explicitly set in `/opt/akilibrain/.env` — they are not auto-populated
+- `INNGEST_EVENT_KEY` and `INNGEST_SIGNING_KEY` must be set in the Vercel environment variables, or background jobs do not run.
 - DB queries show `safeQuery timed out after 25000ms` when Supabase pooler is cold — these self-recover
 
 ## 3. Scraping Architecture

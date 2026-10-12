@@ -90,7 +90,6 @@ screenshot_*.png
 src.tar.gz
 scraper-progress.json
 auth_config.json
-/test-linode*.mjs
 /check-db-live.mjs
 /scratch_*.mjs
 /scratch_*.js
@@ -122,9 +121,6 @@ __pycache__/
 .git.bak/
 
 # Local runner & scratch scripts
-/linode-*.mjs
-/linode_*.mjs
-/*-linode*.mjs
 /jobs.json
 /jobs2.json
 /pull_logs.mjs
