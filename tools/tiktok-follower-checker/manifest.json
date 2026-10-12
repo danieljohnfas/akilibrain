@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "TikTok Follower Checker with Unfollow",
+  "version": "1.0",
+  "description": "Check who isn’t following you back on TikTok and unfollow them.",
+  "permissions": [
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://www.tiktok.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  }
+}
