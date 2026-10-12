@@ -34,6 +34,6 @@ Optional JS rendering: `git clone https://github.com/mendableai/firecrawl` into 
 3. Review `/stats` weekly and move `lowYield` hosts into `BLOCKLIST`.
 
 ## Deploy (Render)
-`render.yaml` is a Blueprint: in Render, **New → Blueprint**, pick this repo. Render generates
+Deployed via the `scrapelab` service in the repo-root `render.yaml` (rootDir: scrapelab). Render generates
 `SCRAPELAB_KEY_AKILIHUB`; copy it into akilihub's `SCRAPELAB_KEY` and set `SCRAPELAB_URL` to the service URL.
 Note: on the free plan the disk is ephemeral, so `/stats` resets on each deploy/restart.
