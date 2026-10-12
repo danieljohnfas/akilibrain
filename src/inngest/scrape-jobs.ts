@@ -98,7 +98,7 @@ async function saveJobsInner(
     // Strict employer-first resolution
     const classification = classifySourceUrl(job.sourceUrl);
     let employerUrl = classification.quickEmployerUrl;
-    let isAggregatorSource = classification.isAggregatorSource;
+    const isAggregatorSource = classification.isAggregatorSource;
 
     if (isAggregatorSource) {
       try {

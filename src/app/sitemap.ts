@@ -3,7 +3,7 @@ import { db, safeQuery } from '@/lib/db/client';
 import { jobs } from '@/lib/db/schema/jobs';
 import { guides } from '@/lib/db/schema/guides';
 import { tenders } from '@/lib/db/schema/tenders';
-import { eq, and, desc } from 'drizzle-orm';
+import { eq, desc } from 'drizzle-orm';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600; // Cache sitemap for 1 hour

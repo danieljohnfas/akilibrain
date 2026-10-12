@@ -1,3 +1,0 @@
-// The provided HTML is an "About Us" page for a law firm ("Vk advocates") and does not contain any job postings or a careers section.
-// As per instruction #2: "If this HTML does NOT contain real job postings (e.g., if it is a directory of companies, a list of categories, or just a generic article), you MUST leave the result array empty."
-// Therefore, the result array will remain empty as initialized.

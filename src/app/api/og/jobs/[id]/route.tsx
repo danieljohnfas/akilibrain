@@ -4,10 +4,11 @@ import { jobs } from '@/lib/db/schema/jobs';
 import { countries, regions } from '@/lib/db/schema/shared';
 import { eq } from 'drizzle-orm';
 
-const alt = 'Job posting on AkiliBrain';
+// NOTE: these were `export`ed as if this were an opengraph-image metadata file. Route handlers may
+// only export HTTP methods and route-segment config, so Next's type validation rejected them
+// (hidden until now by `ignoreBuildErrors`). They are plain constants.
+// Indexing is already blocked for every /api/* path via the X-Robots-Tag header in next.config.ts.
 const size = { width: 1200, height: 630 };
-const contentType = 'image/png';
-const robots = 'noindex';
 
 const jobTypeLabels: Record<string, string> = {
   full_time: 'Full Time',

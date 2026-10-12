@@ -30,7 +30,7 @@ export async function fetchBreezyJobs(config: any) {
       const department = req.department || '';
       const jobUrl = req.url || `https://${subdomain}.breezy.hr/p/${req.friendly_id || req.id}`;
 
-      let description = `Role: ${jobTitle} at ${companyName}.\nDepartment: ${department || 'General'}\nLocation: ${locCity}, ${locCountry}.\nEmployment Type: ${req.type?.name || 'Full-Time'}`;
+      const description = `Role: ${jobTitle} at ${companyName}.\nDepartment: ${department || 'General'}\nLocation: ${locCity}, ${locCountry}.\nEmployment Type: ${req.type?.name || 'Full-Time'}`;
       
       const cleanedSkills = extractAuthenticSkills(jobTitle, `${jobTitle} ${department} ${description}`);
 

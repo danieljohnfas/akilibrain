@@ -1,1 +1,0 @@
-// No job postings found; result remains empty.
