@@ -13,7 +13,7 @@ Every request goes through the same rules:
 
 ## Run
 ```bash
-cp .env.example .env   # set real keys
+cp .env.example .env   # set real keys (or SCRAPELAB_KEY_<PROJECT>=...)
 npm test
 npm start
 ```
@@ -32,3 +32,8 @@ Optional JS rendering: `git clone https://github.com/mendableai/firecrawl` into 
 1. Point akilihub's scrapers and tiketichap/sgr at `/scrape` instead of fetching directly.
 2. Have each pipeline call `/yield` after inserts.
 3. Review `/stats` weekly and move `lowYield` hosts into `BLOCKLIST`.
+
+## Deploy (Render)
+`render.yaml` is a Blueprint: in Render, **New → Blueprint**, pick this repo. Render generates
+`SCRAPELAB_KEY_AKILIHUB`; copy it into akilihub's `SCRAPELAB_KEY` and set `SCRAPELAB_URL` to the service URL.
+Note: on the free plan the disk is ephemeral, so `/stats` resets on each deploy/restart.

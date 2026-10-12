@@ -5,8 +5,8 @@
   "type": "module",
   "description": "Shared, polite scraping gateway for akilihub, tiketichap, getproducts and vault",
   "scripts": {
-    "start": "node --env-file=.env src/server.js",
+    "start": "node --env-file-if-exists=.env src/server.js",
     "test": "node --test test/*.test.js"
   },
-  "engines": { "node": ">=20" }
+  "engines": { "node": ">=22" }
 }
