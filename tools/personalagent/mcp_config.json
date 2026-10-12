@@ -1,0 +1,21 @@
+{
+  "servers": [
+    {
+      "name": "github",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "GITHUB_PAT_TOKEN"
+      },
+      "enabled": true,
+      "mock_mode": false
+    },
+    {
+      "name": "memory",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "enabled": true,
+      "mock_mode": false
+    }
+  ]
+}
