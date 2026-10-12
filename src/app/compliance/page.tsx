@@ -8,7 +8,6 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { buildBreadcrumbSchema } from '@/components/seo/schemas';
 import { parseGlobalSearchParams } from '@/lib/filters';
 import { AdSlot } from '@/components/shared/AdSlot';
-import { PremiumBanner } from '@/components/shared/PremiumBanner';
 import { DataLoadingState } from '@/components/shared/DataLoadingState';
 import React, { Suspense } from 'react';
 import { GlobalFilterBar, FilterConfig } from '@/components/shared/GlobalFilterBar';
@@ -303,11 +302,6 @@ async function ResourcesList({ params }: { params: ReturnType<typeof parseGlobal
               country={countryName || 'Unknown'}
               lastVerifiedAt={resource.lastVerifiedAt}
             />
-            {idx === 2 && (
-              <div className="col-span-1 md:col-span-2 lg:col-span-3">
-                <PremiumBanner />
-              </div>
-            )}
             {idx === 8 && (
               <div className="col-span-1 md:col-span-2 lg:col-span-3">
                 <AdSlot slotId="compliance-resources-1" />
@@ -482,11 +476,6 @@ async function BusinessesList({ params }: { params: ReturnType<typeof parseGloba
                 registrationDate={business.registrationDate}
                 directorsCount={business.directors?.length || 0}
               />
-              {idx === 2 && (
-                <div className="col-span-1 md:col-span-2 lg:col-span-3">
-                  <PremiumBanner />
-                </div>
-              )}
               {idx === 8 && (
                 <div className="col-span-1 md:col-span-2 lg:col-span-3">
                   <AdSlot slotId="compliance-businesses-1" />

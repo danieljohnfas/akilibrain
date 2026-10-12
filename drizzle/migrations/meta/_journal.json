@@ -148,6 +148,13 @@
       "when": 1790690611482,
       "tag": "0020_auth_trigger_handles_existing_subscribers",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1791813351635,
+      "tag": "0021_affiliate_clicks",
+      "breakpoints": true
     }
   ]
 }

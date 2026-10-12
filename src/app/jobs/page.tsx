@@ -13,7 +13,7 @@ import { buildItemListSchema, buildBreadcrumbSchema } from '@/components/seo/sch
 import { parseGlobalSearchParams } from '@/lib/filters';
 import { RelatedGuides } from '@/components/guides/RelatedGuides';
 import { AdSlot } from '@/components/shared/AdSlot';
-import { PremiumBanner } from '@/components/shared/PremiumBanner';
+import { CareerResources } from '@/components/shared/CareerResources';
 import { DataLoadingState } from '@/components/shared/DataLoadingState';
 import { SearchTracker } from '@/components/analytics/SearchTracker';
 import React, { Suspense } from 'react';
@@ -368,7 +368,7 @@ async function JobsList({ params }: { params: ReturnType<typeof parseGlobalSearc
                 />
                 {idx === 2 && (
                   <div className={layout === 'grid' ? "col-span-1 md:col-span-2 lg:col-span-3" : "w-full"}>
-                    <PremiumBanner />
+                    <CareerResources placement="jobs" />
                   </div>
                 )}
                 {idx === 8 && (

@@ -1,15 +1,10 @@
-import { createRequire } from 'module';
-import { join } from 'path';
-
-const projectRoot = 'c:/Users/nnm/Documents/projects/akilihub';
-const require = createRequire(join(projectRoot, 'package.json'));
-const dotenv = require('dotenv');
-dotenv.config({ path: join(projectRoot, '.env.local') });
+// Cloudflare traffic summary for akilibrain.com (read-only GraphQL Analytics API).
+// Run from the repo root: node --env-file=.env.local scripts/cf-analytics.mjs
 
 async function fetchCloudflareData() {
   const token = process.env.CLOUDFLARE_API_TOKEN;
   if (!token) {
-    console.error('CLOUDFLARE_API_TOKEN not found in .env.local');
+    console.error('CLOUDFLARE_API_TOKEN is not set. Run: node --env-file=.env.local scripts/cf-analytics.mjs');
     return;
   }
 

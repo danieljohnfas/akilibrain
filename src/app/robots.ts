@@ -17,6 +17,8 @@ export default function robots(): MetadataRoute.Robots {
           '/account',
           // Outbound redirect tracker
           '/api/out',
+          // Affiliate redirects
+          '/api/go/',
           // Search/filter state URLs that duplicate listing pages
           '/jobs?*',
           '/tenders?*',

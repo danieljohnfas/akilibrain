@@ -12,7 +12,6 @@ import { parseGlobalSearchParams } from '@/lib/filters';
 import { RelatedGuides } from '@/components/guides/RelatedGuides';
 import { GlobalFilterBar, FilterConfig } from '@/components/shared/GlobalFilterBar';
 import { AdSlot } from '@/components/shared/AdSlot';
-import { PremiumBanner } from '@/components/shared/PremiumBanner';
 import { DataLoadingState } from '@/components/shared/DataLoadingState';
 import { SearchTracker } from '@/components/analytics/SearchTracker';
 import React, { Suspense } from 'react';
@@ -308,11 +307,6 @@ async function TendersList({ params }: { params: ReturnType<typeof parseGlobalSe
                   documentUrl={tender.documentUrl}
                 />
               </div>
-              {idx === 2 && (
-                <div className="col-span-1 md:col-span-2 lg:col-span-3">
-                  <PremiumBanner />
-                </div>
-              )}
               {idx === 8 && (
                 <div className="col-span-1 md:col-span-2 lg:col-span-3">
                   <AdSlot slotId="tenders-feed-1" />
