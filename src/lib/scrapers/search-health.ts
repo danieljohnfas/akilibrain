@@ -14,7 +14,7 @@
  *     code (Inngest functions) never enables it, so a bad hour never turns into thrown errors there.
  */
 
-export type SearchEngine = "exa" | "cse" | "serper" | "ddg";
+export type SearchEngine = "exa" | "cse" | "serper" | "ddg" | "sidecar";
 
 export class SearchUnavailableError extends Error {
   constructor(message: string) {
@@ -48,6 +48,9 @@ export function isQuotaFailure(engine: SearchEngine, status: number, body = ""):
       return status === 429 || (status === 403 && /quota|rate/i.test(body));
     case "ddg":
       return status === 429;
+    case "sidecar":
+      // Rate limited, or the shared key is missing/wrong on one side: retrying every query is pointless.
+      return status === 429 || status === 401 || status === 403 || /SIDECAR_API_KEY/i.test(body);
   }
 }
 
@@ -71,7 +74,7 @@ export function engineAvailable(engine: SearchEngine): boolean {
 
 /** Engines currently in cooldown (for error messages). */
 export function enginesInCooldown(): SearchEngine[] {
-  return (["exa", "cse", "serper", "ddg"] as const).filter((e) => !engineAvailable(e));
+  return (["exa", "cse", "serper", "ddg", "sidecar"] as const).filter((e) => !engineAvailable(e));
 }
 
 export function reportEngineHttpFailure(engine: SearchEngine, status: number, body = ""): void {
