@@ -2,7 +2,7 @@ import { createRequire } from 'module';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const projectRoot = 'c:/Users/nnm/Documents/projects/akilihub';
+const projectRoot = process.cwd(); // run from the repo root
 const require = createRequire(join(projectRoot, 'package.json'));
 
 const { TypeSafeClient, choice, noul } = require('@typesafe-ai/sdk');

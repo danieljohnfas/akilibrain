@@ -14,7 +14,7 @@
  *     code (Inngest functions) never enables it, so a bad hour never turns into thrown errors there.
  */
 
-export type SearchEngine = "exa" | "cse" | "serper" | "ddg" | "sidecar";
+export type SearchEngine = "nimble" | "exa" | "cse" | "serper" | "ddg" | "sidecar";
 
 export class SearchUnavailableError extends Error {
   constructor(message: string) {
@@ -40,6 +40,8 @@ function cooldownMs(): number {
 /** True when the provider has said "out of credits / rate limited" (as opposed to a bad request). */
 export function isQuotaFailure(engine: SearchEngine, status: number, body = ""): boolean {
   switch (engine) {
+    case "nimble":
+      return status === 402 || status === 429 || (status === 403 && /quota|credit|limit/i.test(body));
     case "exa":
       return status === 402 || status === 429;
     case "serper":
@@ -74,7 +76,7 @@ export function engineAvailable(engine: SearchEngine): boolean {
 
 /** Engines currently in cooldown (for error messages). */
 export function enginesInCooldown(): SearchEngine[] {
-  return (["exa", "cse", "serper", "ddg", "sidecar"] as const).filter((e) => !engineAvailable(e));
+  return (["nimble", "exa", "cse", "serper", "ddg", "sidecar"] as const).filter((e) => !engineAvailable(e));
 }
 
 export function reportEngineHttpFailure(engine: SearchEngine, status: number, body = ""): void {

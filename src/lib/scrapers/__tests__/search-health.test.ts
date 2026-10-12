@@ -133,3 +133,12 @@ describe('sidecar search engine', () => {
     expect(isQuotaFailure('sidecar', 500, 'Internal Server Error')).toBe(false);
   });
 });
+
+describe('nimble search engine', () => {
+  it('cools down on payment/rate-limit responses only', () => {
+    expect(isQuotaFailure('nimble', 402)).toBe(true);
+    expect(isQuotaFailure('nimble', 429)).toBe(true);
+    expect(isQuotaFailure('nimble', 403, 'monthly credit limit reached')).toBe(true);
+    expect(isQuotaFailure('nimble', 400, 'bad request')).toBe(false);
+  });
+});

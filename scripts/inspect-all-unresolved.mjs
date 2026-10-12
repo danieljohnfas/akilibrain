@@ -2,7 +2,7 @@ import { createRequire } from 'module';
 import { join } from 'path';
 import fs from 'fs';
 
-const projectRoot = 'c:/Users/nnm/Documents/projects/akilihub';
+const projectRoot = process.cwd(); // run from the repo root
 const require = createRequire(join(projectRoot, 'package.json'));
 const dotenv = require('dotenv');
 dotenv.config({ path: join(projectRoot, '.env.local') });
