@@ -1,0 +1,22 @@
+name: Portfolio report
+
+# Monday Search Console summary for all seven sites, written to the run summary.
+# Needs the GSC_SERVICE_ACCOUNT_JSON repository secret (skips cleanly without it).
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: tools/portfolio
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node tools/portfolio/report.mjs
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
