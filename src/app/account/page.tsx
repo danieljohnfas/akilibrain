@@ -165,18 +165,6 @@ export default async function AccountPage({
                 <Button type="submit" variant="destructive" className="w-full">Permanently delete my account</Button>
               </form>
             </div>
-
-            {dbUser?.isPro && (
-              <div className="rounded-xl border border-indigo-500/30 bg-indigo-500/10 p-6 backdrop-blur-xl">
-                <h2 className="text-xl font-semibold mb-2 flex items-center gap-2 text-indigo-400">
-                  <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-                  Pro Subscription Active
-                </h2>
-                <p className="text-muted-foreground mb-4">
-                  Your Pro access is valid until {dbUser.proExpiresAt ? new Date(dbUser.proExpiresAt).toLocaleDateString() : 'forever'}.
-                </p>
-              </div>
-            )}
           </TabsContent>
 
           <TabsContent value="bookmarks" className="space-y-6">

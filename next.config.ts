@@ -79,6 +79,8 @@ const nextConfig: NextConfig = {
         destination: "https://akilibrain.com/:path*",
         permanent: true,
       },
+      // The paid plan was removed; send old links to the home page.
+      { source: "/pricing", destination: "/", permanent: true },
     ];
   },
 

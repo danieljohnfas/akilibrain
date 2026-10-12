@@ -41,9 +41,6 @@ export async function Navbar() {
                 <Button variant="outline">Sign In</Button>
               </Link>
             )}
-            <Link href="/pricing">
-              <Button variant="default" className="bg-primary/90 hover:bg-primary text-primary-foreground shadow-sm shadow-primary/20">Upgrade Pro</Button>
-            </Link>
           </div>
           
           <Sheet>
@@ -75,9 +72,6 @@ export async function Navbar() {
                     <div className="flex flex-col gap-3">
                       <Link href="/login" className="block w-full">
                         <Button className="w-full" variant="outline">Sign In</Button>
-                      </Link>
-                      <Link href="/pricing" className="block w-full">
-                        <Button className="w-full" variant="default">Upgrade Pro</Button>
                       </Link>
                     </div>
                   )}

@@ -11,7 +11,8 @@ import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { LayoutGrid, List } from 'lucide-react';
 import React from 'react';
-import { PremiumBanner } from '@/components/shared/PremiumBanner';
+import { CareerResources } from '@/components/shared/CareerResources';
+import { TravelToCity } from '@/components/shared/TravelToCity';
 
 export const dynamic = 'force-dynamic';
 
@@ -354,7 +355,7 @@ export default async function SlugRoute({
               />
               {idx === 2 && (
                 <div className={layout === 'grid' ? "col-span-1 md:col-span-2 lg:col-span-3" : "w-full"}>
-                  <PremiumBanner />
+                  <CareerResources topic={categoryName} placement="jobs-filtered" />
                 </div>
               )}
             </React.Fragment>
@@ -366,6 +367,8 @@ export default async function SlugRoute({
           <p className="text-muted-foreground">Try adjusting your category or checking back later.</p>
         </div>
       )}
+
+      <TravelToCity city={cityName} country={countryName} />
 
       {/* Pagination */}
       {data.length > 0 && (

@@ -12,7 +12,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { buildSalaryListSchema, buildBreadcrumbSchema } from '@/components/seo/schemas';
 import { parseGlobalSearchParams } from '@/lib/filters';
 import { GlobalFilterBar, FilterConfig } from '@/components/shared/GlobalFilterBar';
-import { PremiumBanner } from '@/components/shared/PremiumBanner';
+import { CareerResources } from '@/components/shared/CareerResources';
 import { AdSlot } from '@/components/shared/AdSlot';
 import { DataLoadingState } from '@/components/shared/DataLoadingState';
 import React, { Suspense } from 'react';
@@ -275,9 +275,7 @@ async function SalariesList({ params }: { params: ReturnType<typeof parseGlobalS
         </>
       ) : (
         <>
-          <div className="mb-6">
-            <PremiumBanner />
-          </div>
+          <CareerResources placement="salaries" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.map(({ salary, employer, country }, idx) => (
               <React.Fragment key={salary.id}>
