@@ -18,15 +18,16 @@ const jevClient = process.env.TYPESAFE_API_KEY
  */
 export async function systemOne(request, options = {}) {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
-  const token = process.env.CLOUDFLARE_WORKERS_AI_TOKEN;
+  const token = process.env.CLOUDFLARE_WORKERS_AI_TOKEN || process.env.CLOUDFLARE_API_TOKEN;
   
   let cloudflareError = null;
 
   // 1. Try Cloudflare Workers AI first
   if (accountId && token) {
     try {
-      const modelName = request.model === 'clef' ? '@cf/cloudflare/clef' : '@cf/cloudflare/clef-flash';
-      const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${modelName}`;
+      const endpointModel = request.model === 'clef' ? '@cf/cloudflare/clef' : '@cf/cloudflare/clef-flash';
+      const bodyModel = request.model === 'clef' ? 'clef' : 'clef-flash';
+      const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${endpointModel}`;
       
       const res = await fetch(url, {
         method: 'POST',
@@ -35,7 +36,7 @@ export async function systemOne(request, options = {}) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: modelName,
+          model: bodyModel,
           state: request.state,
           questions: request.questions
         }),

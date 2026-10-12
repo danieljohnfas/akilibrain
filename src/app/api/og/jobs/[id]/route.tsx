@@ -4,13 +4,10 @@ import { jobs } from '@/lib/db/schema/jobs';
 import { countries, regions } from '@/lib/db/schema/shared';
 import { eq } from 'drizzle-orm';
 
-export const alt = 'Job posting on AkiliBrain';
-export const size = { width: 1200, height: 630 };
-export const contentType = 'image/png';
-
-// Prevent Googlebot from indexing this image-generation endpoint.
-// Next.js translates this into an `X-Robots-Tag: noindex` response header.
-export const robots = 'noindex';
+const alt = 'Job posting on AkiliBrain';
+const size = { width: 1200, height: 630 };
+const contentType = 'image/png';
+const robots = 'noindex';
 
 const jobTypeLabels: Record<string, string> = {
   full_time: 'Full Time',

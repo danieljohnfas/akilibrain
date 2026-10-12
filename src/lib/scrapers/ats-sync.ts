@@ -7,6 +7,10 @@ import { fetchWorkdayJobs } from './ats-handlers/workday';
 import { fetchGreenhouseJobs } from './ats-handlers/greenhouse';
 import { fetchLeverJobs } from './ats-handlers/lever';
 import { fetchSmartRecruitersJobs } from './ats-handlers/smartrecruiters';
+import { fetchAshbyJobs } from './ats-handlers/ashby';
+import { fetchPinpointJobs } from './ats-handlers/pinpoint';
+import { fetchWorkableJobs } from './ats-handlers/workable';
+import { fetchBreezyJobs } from './ats-handlers/breezy';
 
 export async function runAtsSync() {
   console.log("[ATS Sync Engine] Starting daily ATS synchronization...");
@@ -42,6 +46,14 @@ export async function runAtsSync() {
         scrapedJobs = await fetchLeverJobs(config);
       } else if (atsType === 'smartrecruiters') {
         scrapedJobs = await fetchSmartRecruitersJobs(config);
+      } else if (atsType === 'ashby') {
+        scrapedJobs = await fetchAshbyJobs(config);
+      } else if (atsType === 'pinpoint') {
+        scrapedJobs = await fetchPinpointJobs(config);
+      } else if (atsType === 'workable') {
+        scrapedJobs = await fetchWorkableJobs(config);
+      } else if (atsType === 'breezy') {
+        scrapedJobs = await fetchBreezyJobs(config);
       } else {
         console.warn(`[ATS Sync Engine] Unsupported ATS type: ${atsType}`);
       }

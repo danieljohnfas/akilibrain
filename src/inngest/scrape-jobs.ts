@@ -44,49 +44,6 @@ async function getCountryId(countryHint: string): Promise<string | null> {
   return null;
 }
 
-function resolveSectorAndSkills(title: string, description?: string, existingSector?: string, existingSkills?: string[]) {
-  const text = `${title} ${description || ''}`.toLowerCase();
-  let sector = existingSector;
-  if (!sector || !sector.trim() || sector.toLowerCase() === 'other') {
-    if (text.includes('software') || text.includes('developer') || text.includes('engineer') || text.includes('data') || text.includes('tech') || text.includes('it ') || text.includes('network')) {
-      sector = 'Technology';
-    } else if (text.includes('account') || text.includes('finance') || text.includes('bank') || text.includes('audit')) {
-      sector = 'Finance & Banking';
-    } else if (text.includes('health') || text.includes('nurse') || text.includes('doctor') || text.includes('medic') || text.includes('clinic')) {
-      sector = 'Healthcare';
-    } else if (text.includes('teach') || text.includes('school') || text.includes('lecturer') || text.includes('educat')) {
-      sector = 'Education';
-    } else if (text.includes('farm') || text.includes('agri') || text.includes('crop')) {
-      sector = 'Agriculture';
-    } else if (text.includes('ngo') || text.includes('un ') || text.includes('humanitarian') || text.includes('community')) {
-      sector = 'NGO & Development';
-    } else if (text.includes('sales') || text.includes('marketing') || text.includes('business dev')) {
-      sector = 'Sales & Marketing';
-    } else {
-      sector = 'Services';
-    }
-  }
-
-  let skills = existingSkills;
-  if (!skills || !Array.isArray(skills) || skills.length === 0) {
-    if (sector === 'Technology') {
-      skills = ['Problem Solving', 'Technical Proficiency', 'Software Development'];
-    } else if (sector === 'Finance & Banking') {
-      skills = ['Financial Analysis', 'Accounting', 'Attention to Detail'];
-    } else if (sector === 'Healthcare') {
-      skills = ['Patient Care', 'Medical Knowledge', 'Communication'];
-    } else if (sector === 'Education') {
-      skills = ['Teaching', 'Curriculum Planning', 'Classroom Management'];
-    } else if (sector === 'Sales & Marketing') {
-      skills = ['Sales Strategy', 'Customer Relations', 'Communication'];
-    } else {
-      skills = ['Communication', 'Teamwork', 'Organization'];
-    }
-  }
-
-  return { sector, skills };
-}
-
 // ── Batch-insert save (fast path) ─────────────────────────────────────────────
 // Uses batch insert for efficiency (from mass-scrape learnings), falls back
 // to per-item insert on conflict-key violations.
@@ -152,17 +109,16 @@ export async function saveJobs(discovered: BroadJobResource[], countryCode: stri
   // Attempt batch insert first (10-30x faster than one-by-one)
   try {
     const values = resolvedJobs.map(job => {
-      const { sector, skills } = resolveSectorAndSkills(job.title, job.description, job.sector, job.skills);
       return {
         title: job.title,
         companyName: job.companyName || 'Unknown',
         description: job.description || 'No description',
         requirements: job.requirements,
-        sector,
+        sector: job.sector,
         profession: job.profession,
         experienceLevel: job.experienceLevel,
         educationLevel: job.educationLevel,
-        skills,
+        skills: job.skills,
         regionId: job.regionId,
         countryId: job.finalCountryId,
         jobType: sanitizeJobType(job.jobType),
@@ -185,17 +141,16 @@ export async function saveJobs(discovered: BroadJobResource[], countryCode: stri
     let inserted = 0;
     for (const job of resolvedJobs) {
       try {
-        const { sector, skills } = resolveSectorAndSkills(job.title, job.description, job.sector, job.skills);
         const rows = await db.insert(jobs).values({
           title: job.title,
           companyName: job.companyName || 'Unknown',
           description: job.description || 'No description',
           requirements: job.requirements,
-          sector,
+          sector: job.sector,
           profession: job.profession,
           experienceLevel: job.experienceLevel,
           educationLevel: job.educationLevel,
-          skills,
+          skills: job.skills,
           regionId: job.regionId,
           countryId: job.finalCountryId,
           jobType: sanitizeJobType(job.jobType),

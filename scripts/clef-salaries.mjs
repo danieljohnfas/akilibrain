@@ -1,11 +1,8 @@
 import postgres from 'postgres';
 import fs from 'fs';
 import path from 'path';
-import { createRequire } from 'module';
-
-const require = createRequire(path.join(process.cwd(), 'package.json'));
-const { choice } = require('@typesafe-ai/sdk');
-const { systemOne } = require('./scripts/clef-client.mjs');
+import { choice } from '@typesafe-ai/sdk';
+import { systemOne } from './clef-client.mjs';
 const jev = { systemOne };
 
 const envPath = path.resolve(process.cwd(), '.env.local');

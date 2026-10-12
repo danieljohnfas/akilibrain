@@ -3,6 +3,7 @@ import { countries } from '../../db/schema/shared';
 import { inArray } from 'drizzle-orm';
 
 import { fetchAtsApi } from '../../sources/ats-fetcher';
+import { normalizeSector, extractAuthenticSkills } from '../skill-extractor';
 
 export async function fetchWorkdayJobs(config: any) {
   try {
@@ -57,7 +58,8 @@ export async function fetchWorkdayJobs(config: any) {
         postedDate: req.postedOn ? new Date(req.postedOn) : new Date(),
         deadline: null,
         isActive: true,
-        sector: config.sector,
+        sector: normalizeSector(config.sector, req.title),
+        skills: extractAuthenticSkills(req.title, req.bulletFields?.join("\n")),
         needsAiExtraction: false
       });
     }

@@ -477,7 +477,7 @@ export async function generateObjectWithFallback<T = unknown>(
 
 export async function generateTextWithFallback(
   params: Record<string, any>
-): Promise<GenerateTextResult<Record<string, CoreTool>, never>> {
+): Promise<Awaited<ReturnType<typeof generateText>>> {
   while (keyPool.getAvailableCount() === 0) {
     console.log('[AI Router] All models are on cooldown. Pausing for 60s.');
     await new Promise(r => setTimeout(r, 60000));
@@ -499,7 +499,7 @@ export async function generateTextWithFallback(
         activeKey.name,
       );
       keyPool.markSuccess(activeKey.id);
-      return result;
+      return result as any;
 
     } catch (error: unknown) {
       const err = error as Error;
@@ -532,7 +532,7 @@ interface VisionModelCandidate {
 }
 
 export function getTextModelPool() {
-  return keyPool.getActiveKeys(); // Wait, getActiveKeys is not a method. I'll just export keyPool.
+  return keyPool.getStatus();
 }
 export { keyPool };
 

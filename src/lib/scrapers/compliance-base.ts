@@ -391,12 +391,12 @@ export function htmlToText(html: string, baseUrl: string): string {
     markdown = turndownService.turndown($.html() || '');
   } catch (err) {
     console.error('[htmlToText] Turndown failed, falling back to text:', (err as Error).message);
-    markdown = $('body').text() || $.text();
+    markdown = $('body').text() || $('html').text();
   }
 
   // Fallback if turndown somehow returns empty but body has text
   if (!markdown.trim()) {
-    markdown = $('body').text() || $.text();
+    markdown = $('body').text() || $('html').text();
   }
 
   return markdown.substring(0, 15000);

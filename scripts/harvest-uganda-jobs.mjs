@@ -201,7 +201,7 @@ async function harvestUgandaJobs() {
               ${ugandaId},
               'full_time',
               ${item.url},
-              ${directEndpoint},
+              ${directEndpoint || item.url},
               true,
               ${location.slice(0, 255)},
               true,
@@ -209,7 +209,7 @@ async function harvestUgandaJobs() {
             )
             ON CONFLICT (source_url) DO UPDATE SET 
               is_active = true,
-              employer_url = COALESCE(EXCLUDED.employer_url, jobs.employer_url),
+              employer_url = COALESCE(EXCLUDED.employer_url, jobs.employer_url, ${item.url}),
               is_aggregator_source = true
             RETURNING id
           `;
