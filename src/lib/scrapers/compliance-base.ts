@@ -121,6 +121,30 @@ export async function reportScrapelabYield(
   }
 }
 
+// Collects per-record outcomes during a save and reports them grouped by source host.
+// flush() is fire-and-forget so the gateway never slows down or breaks a scrape.
+export class ScrapelabYield {
+  private counts = new Map<string, { inserted: number; duplicates: number; rejected: number }>();
+
+  record(sourceUrl: string | null | undefined, outcome: 'inserted' | 'duplicates' | 'rejected'): void {
+    if (!sourceUrl) return;
+    let origin: string;
+    try {
+      origin = new URL(sourceUrl).origin + '/';
+    } catch {
+      return;
+    }
+    const c = this.counts.get(origin) ?? { inserted: 0, duplicates: 0, rejected: 0 };
+    c[outcome]++;
+    this.counts.set(origin, c);
+  }
+
+  flush(): void {
+    for (const [url, c] of this.counts) void reportScrapelabYield(url, c);
+    this.counts.clear();
+  }
+}
+
 export async function fetchHtml(url: string): Promise<string | null> {
   try {
     assertPublicHttpUrl(url);
