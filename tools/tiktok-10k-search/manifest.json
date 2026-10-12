@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "TikTok Users Search - 10k Following",
+  "version": "1.1",
+  "description": "Scrapes TikTok search results for users following 10k+ with <10k followers.",
+  "permissions": ["activeTab", "storage", "scripting", "webNavigation"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.tiktok.com/search*"],
+      "js": ["content.js"]
+    }
+  ]
+}
