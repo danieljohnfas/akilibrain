@@ -124,3 +124,12 @@ describe('circuit breaker', () => {
     expect(() => recordSearchOutcome(0)).toThrow(SearchUnavailableError);
   });
 });
+
+describe('sidecar search engine', () => {
+  it('cools down when the shared key is missing or rejected, not on ordinary errors', () => {
+    expect(isQuotaFailure('sidecar', 503, '{"detail":"SIDECAR_API_KEY is not configured"}')).toBe(true);
+    expect(isQuotaFailure('sidecar', 401, '{"detail":"Invalid sidecar key"}')).toBe(true);
+    expect(isQuotaFailure('sidecar', 429)).toBe(true);
+    expect(isQuotaFailure('sidecar', 500, 'Internal Server Error')).toBe(false);
+  });
+});

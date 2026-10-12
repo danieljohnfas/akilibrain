@@ -3,6 +3,7 @@ import { normalizeLocationAndGetRegionId } from '../ai/location';
 import { fetchHtml, htmlToTextEnriched } from './compliance-base';
 import { getAllAggregatorDomains } from '../sources/aggregators';
 import * as cheerio from 'cheerio';
+import { sidecarHeaders } from '../sidecar';
 import {
   engineAvailable,
   recordSearchOutcome,
@@ -82,6 +83,44 @@ async function searchDDGHtml(query: string, numResults: number): Promise<string[
   } catch (err) {
     console.error(`[searchDDGHtml] Error:`, err);
     reportEngineNetworkFailure('ddg');
+    return [];
+  }
+}
+
+// ── Scraper sidecar on Render (free: DuckDuckGo via ddgs from Render's network) ──
+// Used only when SCRAPLING_URL and SIDECAR_API_KEY are set. Render's free plan sleeps, so the
+// first call after idling can take ~50 s; the timeout allows for that.
+async function searchSidecar(query: string, numResults: number): Promise<string[]> {
+  const base = process.env.SCRAPLING_URL;
+  if (!base || !process.env.SIDECAR_API_KEY || !engineAvailable('sidecar')) return [];
+  try {
+    const res = await fetch(`${base.replace(/\/$/, '')}/search`, {
+      method: 'POST',
+      headers: sidecarHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify({ query, max_results: numResults }),
+      signal: AbortSignal.timeout(60_000),
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      console.warn(`[searchSidecar] returned ${res.status}: ${body.slice(0, 120)}`);
+      reportEngineHttpFailure('sidecar', res.status, body);
+      return [];
+    }
+    reportEngineSuccess('sidecar');
+    const data = (await res.json()) as { success?: boolean; results?: Array<{ url?: string }>; error?: string };
+    if (!data.success) {
+      console.warn(`[searchSidecar] search failed: ${data.error ?? 'unknown error'}`);
+      return [];
+    }
+    const urls = (data.results ?? [])
+      .map((r) => r.url ?? '')
+      .filter((u) => u.startsWith('http') && !BLOCKED_DOMAINS.some((d) => u.includes(d)))
+      .slice(0, numResults);
+    if (urls.length > 0) console.log(`[searchSidecar] returned ${urls.length} URLs for: "${query}"`);
+    return urls;
+  } catch (err) {
+    console.error('[searchSidecar] Error:', (err as Error).message);
+    reportEngineNetworkFailure('sidecar');
     return [];
   }
 }
@@ -302,20 +341,24 @@ async function searchAcrossEngines(query: string, numResults: number): Promise<s
   if (process.env.GOOGLE_CSE_API_KEY && process.env.GOOGLE_CSE_ID && engineAvailable('cse')) {
     const cseUrls = await searchGoogleCSE(query, numResults);
     if (cseUrls.length > 0) return cseUrls;
-    console.warn(`[searchGoogle] Google CSE returned 0 results — trying DDG`);
+    console.warn(`[searchGoogle] Google CSE returned 0 results — trying the sidecar`);
   }
 
-  // 3. Try DuckDuckGo HTML
+  // 3. Scraper sidecar (free, runs from Render)
+  const sidecarUrls = await searchSidecar(query, numResults);
+  if (sidecarUrls.length > 0) return sidecarUrls;
+
+  // 4. Try DuckDuckGo HTML
   const ddgUrls = await searchDDGHtml(query, numResults);
   if (ddgUrls.length > 0) return ddgUrls;
   console.warn(`[searchGoogle] DuckDuckGo HTML returned 0 results — trying SearXNG Dynamic`);
 
-  // 4. Try SearXNG dynamic rotating proxies
+  // 5. Try SearXNG dynamic rotating proxies
   const searxUrls = await searchSearXNG(query, numResults);
   if (searxUrls.length > 0) return searxUrls;
   console.warn(`[searchGoogle] SearXNG also returned 0 results — trying Serper`);
 
-  // 5. Try Serper
+  // 6. Try Serper
   if (process.env.SERPER_API_KEY && engineAvailable('serper')) {
     const serperUrls = await searchSerper(query, numResults);
     if (serperUrls.length > 0) return serperUrls;
