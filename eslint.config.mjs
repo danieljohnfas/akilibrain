@@ -49,6 +49,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "scraper/**",
+    "scrapelab/**",
+    "tools/**",
     "scratch/**",
     "render_cli/**",
     "koyeb_cli/**",

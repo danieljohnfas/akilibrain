@@ -48,3 +48,7 @@ docker-compose*.yml
 
 # TypeScript build info
 tsconfig.tsbuildinfo
+
+# Merged standalone projects (deployed separately)
+scrapelab
+tools

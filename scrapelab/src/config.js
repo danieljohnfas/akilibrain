@@ -15,7 +15,7 @@ export const config = {
   },
   firecrawlUrl: process.env.FIRECRAWL_URL || '', // e.g. http://localhost:3002 (self-hosted)
   firecrawlKey: process.env.FIRECRAWL_API_KEY || '',
-  userAgent: process.env.USER_AGENT || 'scrapelab/0.1 (+https://github.com/danieljohnfas/scrapelab)',
+  userAgent: process.env.USER_AGENT || 'scrapelab/0.1 (+https://github.com/danieljohnfas/akilibrain/tree/main/scrapelab)',
   minDomainIntervalMs: Number(process.env.MIN_DOMAIN_INTERVAL_MS || 2000),
   fetchTimeoutMs: Number(process.env.FETCH_TIMEOUT_MS || 15000),
   // Guidelines §6/§8: known-blocked / low-yield hosts are refused up front

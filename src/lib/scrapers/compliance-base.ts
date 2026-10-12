@@ -81,7 +81,7 @@ async function extractTextViaSidecar(
 
 type ScrapelabResult = { html: string } | { refused: string } | null;
 
-// Shared scraping gateway (github.com/danieljohnfas/scrapelab): blocklist, robots.txt,
+// Shared scraping gateway (github.com/danieljohnfas/akilibrain/tree/main/scrapelab): blocklist, robots.txt,
 // per-domain rate limiting and yield stats. null = gateway unavailable, use the local chain.
 async function fetchViaScrapelab(url: string): Promise<ScrapelabResult> {
   const base = process.env.SCRAPELAB_URL;

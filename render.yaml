@@ -49,6 +49,33 @@ services:
         generateValue: true
     autoDeploy: false
 
+  # ── 4. Scrapelab — shared polite scraping gateway (scrapelab/) ─────────────
+  - type: web
+    name: scrapelab
+    runtime: node
+    rootDir: scrapelab
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # One API key per consuming site; copy into that site's SCRAPELAB_KEY.
+      - key: SCRAPELAB_KEY_AKILIHUB
+        generateValue: true
+      - key: SCRAPELAB_KEY_TIKETICHAP
+        generateValue: true
+      - key: MIN_DOMAIN_INTERVAL_MS
+        value: "2000"
+      - key: BLOCKLIST
+        value: "glassdoor.com,youtube.com,tiktok.com"
+      - key: FIRECRAWL_URL
+        sync: false
+    autoDeploy: true
+
 # ── Postgres databases ───────────────────────────────────────────────────────
 databases:
   - name: akilihub-langflow-db
