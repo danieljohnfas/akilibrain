@@ -87,6 +87,39 @@ async function searchDDGHtml(query: string, numResults: number): Promise<string[
   }
 }
 
+// ── Nimble web search (paid, used first when NIMBLE_API_KEY is set) ────────────
+// POST https://sdk.nimbleway.com/v2/search -> { results: [{ url, title, ... }] }
+async function searchNimble(query: string, numResults: number): Promise<string[]> {
+  const key = process.env.NIMBLE_API_KEY?.trim();
+  if (!key || !engineAvailable('nimble')) return [];
+  try {
+    const res = await fetch('https://sdk.nimbleway.com/v2/search', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, max_results: Math.min(numResults, 20), search_depth: 'lite' }),
+      signal: AbortSignal.timeout(20_000),
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      console.warn(`[searchNimble] returned ${res.status}: ${body.slice(0, 120)}`);
+      reportEngineHttpFailure('nimble', res.status, body);
+      return [];
+    }
+    reportEngineSuccess('nimble');
+    const data = (await res.json()) as { results?: Array<{ url?: string }> };
+    const urls = (data.results ?? [])
+      .map((r) => r.url ?? '')
+      .filter((u) => u.startsWith('http') && !BLOCKED_DOMAINS.some((d) => u.includes(d)))
+      .slice(0, numResults);
+    if (urls.length > 0) console.log(`[searchNimble] returned ${urls.length} URLs for: "${query}"`);
+    return urls;
+  } catch (err) {
+    console.error('[searchNimble] Error:', (err as Error).message);
+    reportEngineNetworkFailure('nimble');
+    return [];
+  }
+}
+
 // ── Scraper sidecar on Render (free: DuckDuckGo via ddgs from Render's network) ──
 // Used only when SCRAPLING_URL and SIDECAR_API_KEY are set. Render's free plan sleeps, so the
 // first call after idling can take ~50 s; the timeout allows for that.
@@ -330,6 +363,10 @@ export async function searchGoogle(query: string, numResults: number = 20): Prom
 }
 
 async function searchAcrossEngines(query: string, numResults: number): Promise<string[]> {
+  // 0. Nimble web search
+  const nimbleUrls = await searchNimble(query, numResults);
+  if (nimbleUrls.length > 0) return nimbleUrls;
+
   // 1. Try Exa API — primary, AI-native, 1000 free searches/month
   if (process.env.EXA_API_KEY && engineAvailable('exa')) {
     const exaUrls = await searchExa(query, numResults);

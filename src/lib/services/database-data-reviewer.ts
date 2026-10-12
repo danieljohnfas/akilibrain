@@ -3,9 +3,7 @@ import { safeFetch, readBodyLimited } from '@/lib/security/safe-fetch';
 import { db, safeQuery } from '@/lib/db/client';
 import { jobs } from '@/lib/db/schema/jobs';
 import { eq, and, isNull, or } from 'drizzle-orm';
-import {
-  getJevClient,
-} from '@/lib/ai/jev-client';
+import { getDecisionClient } from '@/lib/ai/decision-engine';
 import { score, noul } from '@typesafe-ai/sdk';
 import {
   extractStructuredRequirements,
@@ -289,7 +287,7 @@ export function extractCleanJobFields(html: string, pageUrl: string) {
  * Uses Jev System One to review a record against data standards.
  */
 export async function reviewRecordWithJev(stateText: string) {
-  const client = getJevClient();
+  const client = getDecisionClient();
   if (!client) return null;
 
   try {

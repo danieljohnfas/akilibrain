@@ -1,12 +1,6 @@
-import { createRequire } from 'module';
-import { join } from 'path';
-
-const projectRoot = 'c:/Users/nnm/Documents/projects/akilihub';
-const require = createRequire(join(projectRoot, 'package.json'));
-const dotenv = require('dotenv');
-dotenv.config({ path: join(projectRoot, '.env.local') });
-
-const { TypeSafeClient } = require('@typesafe-ai/sdk');
+// Clef-first System One client for one-off scripts (the app uses src/lib/ai/decision-engine.ts).
+// Run scripts that import it with: node --env-file=.env.local scripts/<script>.mjs
+import { TypeSafeClient } from '@typesafe-ai/sdk';
 
 // Initialize Typesafe Jev client for fallback
 const jevClient = process.env.TYPESAFE_API_KEY 

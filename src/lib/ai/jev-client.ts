@@ -1,12 +1,13 @@
-import { TypeSafeClient, choice, noul, score } from '@typesafe-ai/sdk';
+import { choice, noul, score } from '@typesafe-ai/sdk';
+import { getDecisionClient, getJevClient, isDecisionEngineAvailable } from './decision-engine';
 
 /**
- * TypeSafe AI / Jev Client Wrapper
- *
- * Jev is a "System One" decision model optimized for rapid, structured decision-making
- * (classification, quality scoring, legitimacy verification) with calibrated probabilities
- * and 70-500ms latency.
+ * Structured decisions for the scrapers and CV matching: classification, quality scoring and
+ * legitimacy checks. Requests go to Clef (Cloudflare Workers AI) first and fall back to Jev
+ * (TypeSafe AI); see ./decision-engine.ts.
  */
+
+export { getJevClient };
 
 export interface ModuleClassificationResult {
   module: 'jobs' | 'tenders' | 'compliance' | 'unknown';
@@ -31,34 +32,11 @@ export interface MatchScoreResult {
   confidence: number;
 }
 
-// Singleton client instance
-let _client: TypeSafeClient | null = null;
-
 /**
- * Checks whether the Jev / TypeSafe AI API is configured via environment variable.
+ * True when Clef or Jev is configured (name kept for existing callers).
  */
 export function isJevAvailable(): boolean {
-  const key = process.env.TYPESAFE_API_KEY;
-  return Boolean(key && key.trim().length > 0);
-}
-
-/**
- * Returns the singleton TypeSafeClient or null if no API key is provided.
- */
-export function getJevClient(): TypeSafeClient | null {
-  if (!isJevAvailable()) return null;
-  if (!_client) {
-    try {
-      _client = new TypeSafeClient({
-        apiKey: process.env.TYPESAFE_API_KEY!.trim(),
-        timeout: 10_000,
-      });
-    } catch (err) {
-      console.warn('[Jev] Failed to initialize TypeSafeClient:', err);
-      return null;
-    }
-  }
-  return _client;
+  return isDecisionEngineAvailable();
 }
 
 /**
@@ -69,7 +47,7 @@ export async function classifyModule(
   state: string,
   options?: { timeout?: number }
 ): Promise<ModuleClassificationResult | null> {
-  const client = getJevClient();
+  const client = getDecisionClient();
   if (!client) return null;
 
   try {
@@ -117,7 +95,7 @@ export async function scoreQuality(
   state: string,
   options?: { timeout?: number }
 ): Promise<QualityScoreResult | null> {
-  const client = getJevClient();
+  const client = getDecisionClient();
   if (!client) return null;
 
   try {
@@ -162,7 +140,7 @@ export async function isRelevantOpportunity(
   state: string,
   options?: { timeout?: number }
 ): Promise<VerificationResult | null> {
-  const client = getJevClient();
+  const client = getDecisionClient();
   if (!client) return null;
 
   try {
@@ -208,7 +186,7 @@ export async function scoreCandidateJobMatch(
   jobText: string,
   options?: { timeout?: number }
 ): Promise<MatchScoreResult | null> {
-  const client = getJevClient();
+  const client = getDecisionClient();
   if (!client) return null;
 
   try {
