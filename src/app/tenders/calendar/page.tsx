@@ -11,6 +11,9 @@ import { format, isSameDay } from 'date-fns';
 export const metadata = {
   title: 'Tender Deadlines Calendar | AkiliBrain',
   description: 'View upcoming tender and procurement deadlines across East Africa.',
+  alternates: {
+    canonical: 'https://akilibrain.com/tenders/calendar',
+  },
 };
 
 export default async function TendersCalendarPage() {
