@@ -38,16 +38,24 @@
     "atsType": "greenhouse",
     "boardToken": "flutterwave",
     "defaultCountryCode": "NG",
-    "sector": "Fintech / Technology",
+    "sector": "Information Technology & Software",
     "employerUrl": "https://flutterwave.com/us/careers"
   },
   {
     "companyName": "M-KOPA",
-    "atsType": "greenhouse",
-    "boardToken": "mkopa",
+    "atsType": "ashby",
+    "boardToken": "m-kopa",
     "defaultCountryCode": "KE",
-    "sector": "Solar / Fintech",
+    "sector": "Finance, Banking & Insurance",
     "employerUrl": "https://m-kopa.com/careers"
+  },
+  {
+    "companyName": "GiveDirectly",
+    "atsType": "greenhouse",
+    "boardToken": "givedirectly",
+    "defaultCountryCode": "KE",
+    "sector": "NGO, Development & Social Services",
+    "employerUrl": "https://www.givedirectly.org/careers"
   },
   {
     "companyName": "Chipper Cash",
@@ -110,7 +118,152 @@
     "atsType": "greenhouse",
     "boardToken": "roomtoread",
     "defaultCountryCode": "TZ",
-    "sector": "Education & Literacy",
+    "sector": "Education & Training",
     "employerUrl": "https://www.roomtoread.org/about-us/careers"
+  },
+  {
+    "companyName": "ALX Africa",
+    "atsType": "greenhouse",
+    "boardToken": "alxafrica",
+    "defaultCountryCode": "KE",
+    "sector": "Education & Training",
+    "employerUrl": "https://boards.greenhouse.io/alxafrica"
+  },
+  {
+    "companyName": "African Leadership University (ALU)",
+    "atsType": "greenhouse",
+    "boardToken": "alu",
+    "defaultCountryCode": "RW",
+    "sector": "Education & Training",
+    "employerUrl": "https://boards.greenhouse.io/alu"
+  },
+  {
+    "companyName": "Moniepoint",
+    "atsType": "greenhouse",
+    "boardToken": "moniepoint",
+    "defaultCountryCode": "NG",
+    "sector": "Finance, Banking & Insurance",
+    "employerUrl": "https://moniepoint.com/careers"
+  },
+  {
+    "companyName": "Jumia Group",
+    "atsType": "greenhouse",
+    "boardToken": "jumia",
+    "defaultCountryCode": "NG",
+    "sector": "Information Technology & Software",
+    "employerUrl": "https://corporate.jumia.com/careers"
+  },
+  {
+    "companyName": "Talent Safari",
+    "atsType": "ashby",
+    "boardToken": "talentsafari",
+    "defaultCountryCode": "KE",
+    "sector": "Human Resources & Recruitment",
+    "employerUrl": "https://talentsafari.co"
+  },
+  {
+    "companyName": "LemFi",
+    "atsType": "ashby",
+    "boardToken": "lemfi",
+    "defaultCountryCode": "NG",
+    "sector": "Finance, Banking & Insurance",
+    "employerUrl": "https://lemfi.com/careers"
+  },
+  {
+    "companyName": "Sun King",
+    "atsType": "pinpoint",
+    "subdomain": "sunking",
+    "endpoint": "https://sunking.pinpointhq.com/postings.json",
+    "defaultCountryCode": "KE",
+    "sector": "Renewable Energy & Solar",
+    "employerUrl": "https://sunking.com/careers"
+  },
+  {
+    "companyName": "Amref Health Africa",
+    "atsType": "smartrecruiters",
+    "companyId": "AmrefHealthAfrica4",
+    "defaultCountryCode": "KE",
+    "sector": "Healthcare & Pharmaceuticals",
+    "employerUrl": "https://amref.org/careers"
+  },
+  {
+    "companyName": "The Place",
+    "atsType": "smartrecruiters",
+    "companyId": "ThePlace1",
+    "defaultCountryCode": "NG",
+    "sector": "Hospitality & Retail",
+    "employerUrl": "https://theplace.com.ng/careers"
+  },
+  {
+    "companyName": "iHUB",
+    "atsType": "smartrecruiters",
+    "companyId": "IHUB",
+    "defaultCountryCode": "KE",
+    "sector": "Information Technology & Software",
+    "employerUrl": "https://ihub.co.ke/careers"
+  },
+  {
+    "companyName": "Apollo Agriculture",
+    "atsType": "lever",
+    "accountName": "apolloagriculture",
+    "defaultCountryCode": "KE",
+    "sector": "Agriculture & Agribusiness",
+    "employerUrl": "https://www.apolloagriculture.com/careers"
+  },
+  {
+    "companyName": "Luno",
+    "atsType": "greenhouse",
+    "boardToken": "luno",
+    "defaultCountryCode": "ZA",
+    "sector": "Finance, Banking & Insurance",
+    "employerUrl": "https://www.luno.com/careers"
+  },
+  {
+    "companyName": "FairMoney Microfinance Bank",
+    "atsType": "workable",
+    "accountName": "fairmoney",
+    "defaultCountryCode": "NG",
+    "sector": "Finance, Banking & Insurance",
+    "employerUrl": "https://fairmoney.io/careers"
+  },
+  {
+    "companyName": "Turaco",
+    "atsType": "breezy",
+    "subdomain": "turaco",
+    "defaultCountryCode": "KE",
+    "sector": "Finance, Banking & Insurance",
+    "employerUrl": "https://turaco.breezy.hr"
+  },
+  {
+    "companyName": "Tala",
+    "atsType": "lever",
+    "accountName": "tala",
+    "defaultCountryCode": "KE",
+    "sector": "Finance, Banking & Insurance",
+    "employerUrl": "https://tala.co/careers"
+  },
+  {
+    "companyName": "Copia Global",
+    "atsType": "lever",
+    "accountName": "copia",
+    "defaultCountryCode": "KE",
+    "sector": "Logistics, Supply Chain & Storage",
+    "employerUrl": "https://copia.co.ke/careers"
+  },
+  {
+    "companyName": "Branch International",
+    "atsType": "greenhouse",
+    "boardToken": "branch",
+    "defaultCountryCode": "KE",
+    "sector": "Finance, Banking & Insurance",
+    "employerUrl": "https://branch.co/careers"
+  },
+  {
+    "companyName": "Kuda Bank",
+    "atsType": "workable",
+    "accountName": "kuda",
+    "defaultCountryCode": "NG",
+    "sector": "Finance, Banking & Insurance",
+    "employerUrl": "https://kuda.com/careers"
   }
 ]

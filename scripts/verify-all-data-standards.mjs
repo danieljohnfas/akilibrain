@@ -89,9 +89,10 @@ async function runAudit() {
   const [jobsCF] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND (description LIKE '%[email protected]%' OR requirements LIKE '%[email protected]%')`;
   const [jobsNullSector] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND (sector IS NULL OR TRIM(sector) = '')`;
   const [jobsNullSkills] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND (skills IS NULL OR array_length(skills, 1) IS NULL)`;
-  const [jobsFake] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE source_url LIKE '%synthetic%' OR title ILIKE '%Test%' OR title ILIKE '%Fake%' OR company_name ILIKE '%Test%' OR company_name ILIKE '%Fake%'`;
+  const [jobsFake] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE source_url LIKE '%synthetic%' OR title ~* '\\m(fake|dummy|test job|sample job)\\M' OR title ~* '^test\\s*$' OR company_name ~* '\\m(fake|dummy|test company)\\M' OR company_name ~* '^test\\s*$'`;
   const [jobsDupScale] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE source_url ~ '-[0-9a-f]{8}$'`;
   const [jobsSynthetic] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE source_url ~ '^https://careers\\.[0-9a-f]{8}\\.com/job/[0-9a-f]{32}$' OR source_url ~ 'https://www\\.jobweb[a-z]{2}\\.com/jobs/.*-\\d+$'`;
+  const [jobsSpamDomains] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE source_url ~ '(\\.(baby|ninja|top|buzz)|-exiler\\.com)'`;
 
   console.log(`[JOBS] Total: ${jobsTotal.count}`);
   console.log(`  ✓ Active:             ${jobsActive.count}`);
@@ -103,10 +104,11 @@ async function runAudit() {
   console.log(`  ✓ Missing Skills:     ${jobsNullSkills.count} (Must be 0)`);
   console.log(`  ✓ Fake/Test Data:     ${jobsFake.count} (Must be 0)`);
   console.log(`  ✓ Scaled Duplicates:  ${jobsDupScale.count} (Must be 0)`);
-  console.log(`  ✓ Synthetic Data:     ${jobsSynthetic.count} (Must be 0)\n`);
+  console.log(`  ✓ Synthetic Data:     ${jobsSynthetic.count} (Must be 0)`);
+  console.log(`  ✓ Spam Farm Domains:  ${jobsSpamDomains.count} (Must be 0)\n`);
 
   // RULE: Never have synthetic data on the website and database - all data should come from the live internet.
-  if (jobsInactive.count > 0 || jobsExpiredActive.count > 0 || jobsCF.count > 0 || jobsNullSector.count > 0 || jobsNullSkills.count > 0 || jobsFake.count > 0 || jobsDupScale.count > 0 || jobsSynthetic.count > 0) {
+  if (jobsInactive.count > 0 || jobsExpiredActive.count > 0 || jobsCF.count > 0 || jobsNullSector.count > 0 || jobsNullSkills.count > 0 || jobsFake.count > 0 || jobsDupScale.count > 0 || jobsSynthetic.count > 0 || jobsSpamDomains.count > 0) {
     console.error('❌ Data standards violated! See counts above.');
     process.exit(1);
   }

@@ -3,6 +3,8 @@ import { countries } from '../../db/schema/shared';
 import { inArray } from 'drizzle-orm';
 import { fetchAtsApi } from '../../sources/ats-fetcher';
 
+import { normalizeSector, extractAuthenticSkills } from '../skill-extractor';
+
 export async function fetchGreenhouseJobs(config: any) {
   try {
     const targetCountries = ["Kenya", "Tanzania", "Uganda", "Rwanda", "Ghana", "Nigeria", "Zambia", "South Africa", "Ethiopia"];
@@ -73,7 +75,8 @@ export async function fetchGreenhouseJobs(config: any) {
         postedDate: req.updated_at ? new Date(req.updated_at) : new Date(),
         deadline: null,
         isActive: true,
-        sector: config.sector,
+        sector: normalizeSector(config.sector, req.title),
+        skills: extractAuthenticSkills(req.title, req.content),
         needsAiExtraction: false
       });
     }

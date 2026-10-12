@@ -1,35 +1,48 @@
-try {
-  var jobContainers = $('div.job-listing');
-  if (jobContainers.length === 0) {
-    jobContainers = $('article.job');
-  }
-  if (jobContainers.length === 0) {
-    jobContainers = $('li.job');
-  }
-  if (jobContainers.length === 0) {
-    result = [];
+const scripts = $('script[type="application/ld+json"]');
+scripts.each((i, el) => {
+  let data;
+  try {
+    data = JSON.parse($(el).contents().text());
+  } catch (e) {
     return;
   }
-
-  jobContainers.each(function() {
-    var job = {};
-    job.title = $(this).find('h2.job-title').text().trim();
-    if (!job.title) {
-      job.title = $(this).find('h1.job-title').text().trim();
+  const handle = obj => {
+    if (!obj) return;
+    const type = obj['@type'];
+    const isJob = Array.isArray(type) ? type.includes('JobPosting') : type === 'JobPosting';
+    if (!isJob) return;
+    const job = {};
+    if (obj.title) job.title = obj.title;
+    else if (obj.name) job.title = obj.name;
+    if (obj.hiringOrganization && obj.hiringOrganization.name) job.companyName = obj.hiringOrganization.name;
+    if (obj.description) job.description = obj.description;
+    if (obj.jobLocation && obj.jobLocation.address && obj.jobLocation.address.addressLocality) {
+      job.location = obj.jobLocation.address.addressLocality;
     }
-    if (!job.title) {
-      return;
+    if (obj.employmentType) {
+      const et = obj.employmentType.toString().toLowerCase();
+      if (et.includes('full')) job.jobType = 'full_time';
+      else if (et.includes('part')) job.jobType = 'part_time';
+      else if (et.includes('contract')) job.jobType = 'contract';
+      else if (et.includes('intern')) job.jobType = 'internship';
+      else if (et.includes('remote')) job.jobType = 'remote';
     }
-
-    job.companyName = $(this).find('span.company-name').text().trim();
-    if (!job.companyName) {
-      job.companyName = $(this).find('div.company').text().trim();
+    if (obj.url) job.sourceUrl = obj.url;
+    if (obj.datePosted) job.postedDateIsoString = new Date(obj.datePosted).toISOString();
+    if (obj.validThrough) job.deadlineIsoString = new Date(obj.validThrough).toISOString();
+    if (obj.baseSalary) {
+      const salary = obj.baseSalary;
+      if (salary.value) {
+        if (salary.value.minValue) job.salaryMin = Number(salary.value.minValue);
+        if (salary.value.maxValue) job.salaryMax = Number(salary.value.maxValue);
+        if (salary.value.currency) job.salaryCurrency = salary.value.currency;
+      }
     }
-
-    job.description = $(this).find('div.job-description').text().trim();
-    if (!job.description) {
-      job.description = $(this).find('p.job-summary').text().trim();
-    }
-
-    job.location = $(this).find('span.job-location').text().trim();
-    if (!job
+    result.push(job);
+  };
+  if (Array.isArray(data)) {
+    data.forEach(item => handle(item));
+  } else {
+    handle(data);
+  }
+});

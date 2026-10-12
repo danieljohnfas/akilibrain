@@ -15,12 +15,11 @@ export function getStructuralFingerprint(html: string): string {
   const $ = cheerio.load(html);
   $('script, style, svg, iframe, noscript').remove();
   
-  $('*').contents().filter(function() {
-    return this.type === 'text' || this.type === 'comment';
+  $('*').contents().filter((_, el: any) => {
+    return el.type === 'text' || el.type === 'comment';
   }).remove();
 
-  $('*').each(function() {
-    const el = this as any;
+  $('*').each((_, el: any) => {
     if (el.attribs) {
       const cls = el.attribs['class'];
       const id = el.attribs['id'];

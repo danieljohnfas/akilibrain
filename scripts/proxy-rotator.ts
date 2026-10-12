@@ -73,10 +73,10 @@ async function run() {
       }
       
       if (workingProxies.length > 0) {
-        console.log([ProxyRotator] Found  working proxies. Saving to disk.);
+        console.log(`[ProxyRotator] Found ${workingProxies.length} working proxies. Saving to disk.`);
         fs.writeFileSync(PROXY_FILE, JSON.stringify(workingProxies, null, 2));
       } else {
-        console.log([ProxyRotator] Found 0 working proxies this round.);
+        console.log('[ProxyRotator] Found 0 working proxies this round.');
       }
       
     } catch (err: any) {

@@ -70,9 +70,9 @@ export const summarizeTenderDocumentJob = inngest.createFunction(
               });
               if (response.ok) {
                 const buffer = Buffer.from(await response.arrayBuffer());
-                const { default: pdfParse } = await import('pdf-parse');
-                const parsed = await pdfParse(buffer);
-                inputText = parsed.text?.slice(0, 8000) ?? '';
+                const { parsePdf } = await import('@/lib/scrapers/pdf-extract');
+                const parsedText = await parsePdf(buffer);
+                inputText = parsedText.slice(0, 8000);
               }
             } catch {
               logger.warn(`PDF fetch failed for tender ${tender.id}, falling back to metadata.`);

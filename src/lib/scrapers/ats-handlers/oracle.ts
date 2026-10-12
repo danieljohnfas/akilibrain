@@ -3,6 +3,7 @@ import { countries } from '../../db/schema/shared';
 import { inArray } from 'drizzle-orm';
 
 import { fetchAtsApi } from '../../sources/ats-fetcher';
+import { normalizeSector, extractAuthenticSkills } from '../skill-extractor';
 
 export async function fetchOracleJobs(config: any) {
   try {
@@ -62,7 +63,8 @@ export async function fetchOracleJobs(config: any) {
         postedDate: req.PostedDate ? new Date(req.PostedDate) : new Date(),
         deadline: req.PostingEndDate ? new Date(req.PostingEndDate) : null,
         isActive: true,
-        sector: config.sector,
+        sector: normalizeSector(config.sector, req.Title),
+        skills: extractAuthenticSkills(req.Title, req.ShortDescriptionStr),
         needsAiExtraction: false
       });
     }

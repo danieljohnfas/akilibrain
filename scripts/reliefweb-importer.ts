@@ -3,6 +3,7 @@ import { db } from '../src/lib/db/client';
 import { jobs } from '../src/lib/db/schema/jobs';
 import { countries } from '../src/lib/db/schema/shared';
 import { inArray } from 'drizzle-orm';
+import { extractAuthenticSkills, normalizeSector } from '../src/lib/scrapers/skill-extractor';
 
 async function main() {
   console.log("Fetching DB countries...");
@@ -84,7 +85,8 @@ async function main() {
             postedDate: fields["date"]?.created ? new Date(fields["date"].created) : new Date(),
             deadline: fields["date"]?.closing ? new Date(fields["date"].closing) : null,
             isActive: true,
-            sector: "NGO / Humanitarian",
+            sector: normalizeSector("NGO / Humanitarian", fields.title),
+            skills: extractAuthenticSkills(fields.title, fields.body),
             needsAiExtraction: false
           });
         }
