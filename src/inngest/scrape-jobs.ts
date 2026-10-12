@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import { classifySourceUrl, resolveEmployerUrl } from "@/lib/sources/employer-resolver";
 import { scrapersDisabled, jobInsertTarget, jobSecondPassEnabled } from '@/lib/scrapers/cost-controls';
 import { isJevAvailable, isRelevantOpportunity } from "@/lib/ai/jev-client";
+import { ScrapelabYield } from "@/lib/scrapers/compliance-base";
 
 // ── Thresholds ────────────────────────────────────────────────────────────────
 const JOB_TARGET = jobInsertTarget(); // env SCRAPE_JOB_TARGET
@@ -48,6 +49,19 @@ async function getCountryId(countryHint: string): Promise<string | null> {
 // Uses batch insert for efficiency (from mass-scrape learnings), falls back
 // to per-item insert on conflict-key violations.
 export async function saveJobs(discovered: BroadJobResource[], countryCode: string): Promise<number> {
+  const yieldReport = new ScrapelabYield();
+  try {
+    return await saveJobsInner(discovered, countryCode, yieldReport);
+  } finally {
+    yieldReport.flush();
+  }
+}
+
+async function saveJobsInner(
+  discovered: BroadJobResource[],
+  countryCode: string,
+  yieldReport: ScrapelabYield,
+): Promise<number> {
   const defaultCountryId = await getCountryId(countryCode);
   if (!defaultCountryId) return 0;
 
@@ -62,6 +76,7 @@ export async function saveJobs(discovered: BroadJobResource[], countryCode: stri
       // If the AI explicitly found a country code but we don't support it, reject the job!
       if (!jobCountryId) {
         console.log(`[scrape-jobs] Rejecting job for unsupported country code: ${job.countryCode}`);
+        yieldReport.record(job.sourceUrl, 'rejected');
         return null;
       }
     }
@@ -72,6 +87,7 @@ export async function saveJobs(discovered: BroadJobResource[], countryCode: stri
         const verification = await isRelevantOpportunity(`Title: ${job.title}\nCompany: ${job.companyName}\nDescription: ${(job.description || '').substring(0, 300)}`);
         if (verification && !verification.isValid) {
           console.log(`[scrape-jobs] Jev rejected low-probability opportunity (${verification.probability}): "${job.title}"`);
+          yieldReport.record(job.sourceUrl, 'rejected');
           return null;
         }
       } catch (e) {
@@ -134,7 +150,9 @@ export async function saveJobs(discovered: BroadJobResource[], countryCode: stri
         needsAiExtraction: job.needsAiExtraction ?? false,
       };
     });
-    const rows = await db.insert(jobs).values(values).onConflictDoNothing().returning({ id: jobs.id });
+    const rows = await db.insert(jobs).values(values).onConflictDoNothing().returning({ id: jobs.id, sourceUrl: jobs.sourceUrl });
+    const insertedUrls = new Set(rows.map(r => r.sourceUrl));
+    for (const job of resolvedJobs) yieldReport.record(job.sourceUrl, insertedUrls.has(job.sourceUrl) ? 'inserted' : 'duplicates');
     return rows.length;
   } catch {
     // Batch failed (e.g. unique constraint on one item): fall back to per-item
@@ -166,7 +184,9 @@ export async function saveJobs(discovered: BroadJobResource[], countryCode: stri
           needsAiExtraction: job.needsAiExtraction ?? false,
         }).onConflictDoNothing().returning({ id: jobs.id });
         if (rows.length > 0) inserted++;
+        yieldReport.record(job.sourceUrl, rows.length > 0 ? 'inserted' : 'duplicates');
       } catch (e) {
+        yieldReport.record(job.sourceUrl, 'rejected');
         console.error(`[scrape-jobs] Failed to insert job: ${job.title}`, e);
       }
     }

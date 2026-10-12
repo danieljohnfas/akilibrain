@@ -15,6 +15,7 @@ import {
   type PortalType,
 } from "@/lib/strategies/scraper-strategies";
 import { StrategyEngine } from "@/lib/strategies/engine";
+import { ScrapelabYield } from "@/lib/scrapers/compliance-base";
 
 // ── Portal definitions ────────────────────────────────────────────────────────
 // Each portal has a direct URL to scrape + broad-search queries as final fallback.
@@ -213,6 +214,8 @@ export async function saveBroadResults(
   items: BroadTenderResource[],
   countryId: string
 ): Promise<number> {
+  // Broad results are fetched via fetchHtml (scrapelab), so report their yield
+  const yieldReport = new ScrapelabYield();
   let inserted = 0;
   for (const t of items) {
     try {
@@ -239,10 +242,13 @@ export async function saveBroadResults(
         .onConflictDoNothing()
         .returning({ id: tenders.id });
       if (rows.length > 0) inserted++;
+      yieldReport.record(t.sourceUrl, rows.length > 0 ? 'inserted' : 'duplicates');
     } catch (e) {
+      yieldReport.record(t.sourceUrl, 'rejected');
       console.error(`[scrape-tenders] Broad insert failed: ${t.referenceNo}`, e);
     }
   }
+  yieldReport.flush();
   return inserted;
 }
 
