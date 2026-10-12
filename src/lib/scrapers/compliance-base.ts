@@ -79,6 +79,48 @@ async function extractTextViaSidecar(
   }
 }
 
+type ScrapelabResult = { html: string } | { refused: string } | null;
+
+// Shared scraping gateway (github.com/danieljohnfas/scrapelab): blocklist, robots.txt,
+// per-domain rate limiting and yield stats. null = gateway unavailable, use the local chain.
+async function fetchViaScrapelab(url: string): Promise<ScrapelabResult> {
+  const base = process.env.SCRAPELAB_URL;
+  if (!base) return null;
+  try {
+    const res = await fetch(`${base.replace(/\/$/, '')}/scrape`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.SCRAPELAB_KEY ?? ''}` },
+      body: JSON.stringify({ url, formats: ['html'] }),
+      signal: AbortSignal.timeout(60_000),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 403) return { refused: data.error ?? 'refused' };
+    if (!res.ok) return null;
+    const html = typeof data.content === 'string' ? data.content : data.content?.html;
+    return html && html.length > 300 ? { html } : null;
+  } catch {
+    return null;
+  }
+}
+
+// Report what actually landed in the DB so scrapelab can flag low-yield sources (guidelines §5, §8).
+export async function reportScrapelabYield(
+  url: string,
+  counts: { inserted?: number; duplicates?: number; rejected?: number },
+): Promise<void> {
+  const base = process.env.SCRAPELAB_URL;
+  if (!base) return;
+  try {
+    await fetch(`${base.replace(/\/$/, '')}/yield`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.SCRAPELAB_KEY ?? ''}` },
+      body: JSON.stringify({ url, ...counts }),
+      signal: AbortSignal.timeout(5_000),
+    });
+  } catch {
+  }
+}
+
 export async function fetchHtml(url: string): Promise<string | null> {
   try {
     assertPublicHttpUrl(url);
@@ -86,6 +128,15 @@ export async function fetchHtml(url: string): Promise<string | null> {
     console.warn("[fetchHtml] blocked URL:", url, err);
     return null;
   }
+
+  // 0. Scrapelab gateway. A refusal (blocklist / robots.txt) is final: don't route around it.
+  const gateway = await fetchViaScrapelab(url);
+  if (gateway && 'refused' in gateway) {
+    console.warn('[fetchHtml] scrapelab refused:', url, gateway.refused);
+    return null;
+  }
+  if (gateway) return gateway.html;
+
   const ua = USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
 
   // 1. Direct fetch with realistic browser headers
