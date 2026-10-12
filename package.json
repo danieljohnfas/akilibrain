@@ -1,0 +1,12 @@
+{
+  "name": "scrapelab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared, polite scraping gateway for akilihub, tiketichap, getproducts and vault",
+  "scripts": {
+    "start": "node --env-file=.env src/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": { "node": ">=20" }
+}
