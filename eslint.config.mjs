@@ -51,6 +51,7 @@ const eslintConfig = defineConfig([
     "scraper/**",
     "scrapelab/**",
     "tools/**",
+    "_archive/**",
     "scratch/**",
     "render_cli/**",
     "koyeb_cli/**",

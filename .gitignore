@@ -144,3 +144,6 @@ __pycache__/
 /generate-*.mjs
 /groq-*.mjs
 
+
+# Local-only archive of old copies (contains secrets/data; never commit)
+_archive/

@@ -52,3 +52,4 @@ tsconfig.tsbuildinfo
 # Merged standalone projects (deployed separately)
 scrapelab
 tools
+_archive
