@@ -16,7 +16,11 @@ const sql = postgres(process.env.DATABASE_URL, {
 });
 
 const { TypeSafeClient, score, noul, choice } = require('@typesafe-ai/sdk');
-const jev = new TypeSafeClient({ apiKey: process.env.TYPESAFE_API_KEY.trim() });
+const jev = new TypeSafeClient({
+  apiKey: process.env.TYPESAFE_API_KEY.trim(),
+  defaultModel: process.env.TYPESAFE_MODEL || 'jev-preview',
+  defaultHeaders: { 'TypeSafe-Danger-Zone-Images': 'true' }
+});
 
 async function deepAudit() {
   console.log('=== DEEP JOBS DATA QUALITY AUDIT ===\n');

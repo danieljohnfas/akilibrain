@@ -79,7 +79,11 @@ const sql = postgres(process.env.DATABASE_URL, { max: 5, idle_timeout: 20 });
 
 // ─── Jev SDK ──────────────────────────────────────────────────────────────────
 const { TypeSafeClient, score, noul } = require('@typesafe-ai/sdk');
-const jevClient = new TypeSafeClient({ apiKey: process.env.TYPESAFE_API_KEY });
+const jevClient = new TypeSafeClient({
+  apiKey: process.env.TYPESAFE_API_KEY.trim(),
+  defaultModel: process.env.TYPESAFE_MODEL || 'jev-preview',
+  defaultHeaders: { 'TypeSafe-Danger-Zone-Images': 'true' }
+});
 
 // ─── ATS & Aggregator domain checks ──────────────────────────────────────────
 const AGGREGATOR_DOMAINS = [
@@ -310,7 +314,7 @@ async function reviewWithJev(stateText) {
   try {
     const res = await jevClient.systemOne(
       {
-        state: stateText.substring(0, 4000),
+        state: stateText.substring(0, 50000),
         questions: {
           quality: score('Rate the completeness and quality of this opportunity listing:', [
             'Empty or broken - text is missing, corrupted, or boilerplate with no real details',
@@ -350,8 +354,8 @@ async function processJobRow(row, { dryRun }) {
   const initialText = [
     `Title: ${row.title}`,
     `Company: ${row.company_name || ''}`,
-    `Description: ${(row.description || '').substring(0, 800)}`,
-    `Requirements: ${(row.requirements || '').substring(0, 400)}`,
+    `Description: ${(row.description || '').substring(0, 20000)}`,
+    `Requirements: ${(row.requirements || '').substring(0, 10000)}`,
   ].join('\n');
 
   const review = await reviewWithJev(initialText);

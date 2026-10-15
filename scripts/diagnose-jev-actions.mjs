@@ -9,7 +9,11 @@ const { TypeSafeClient, choice, noul } = require('@typesafe-ai/sdk');
 const dotenv = require('dotenv');
 dotenv.config({ path: join(projectRoot, '.env.local') });
 
-const client = new TypeSafeClient({ apiKey: process.env.TYPESAFE_API_KEY.trim() });
+const client = new TypeSafeClient({
+  apiKey: process.env.TYPESAFE_API_KEY.trim(),
+  defaultModel: process.env.TYPESAFE_MODEL || 'jev-preview',
+  defaultHeaders: { 'TypeSafe-Danger-Zone-Images': 'true' }
+});
 
 async function diagnoseFile(file) {
   const content = readFileSync(join(projectRoot, '.github/workflows', file), 'utf-8');

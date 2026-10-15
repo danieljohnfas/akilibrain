@@ -282,11 +282,29 @@ async function harvestEastAfricaJobs() {
             const detailHtml = await detailRes.text();
             const $$ = cheerio.load(detailHtml);
 
+            $$('script, style, noscript').remove();
             let rawTitle = $$('h1.entry-title, h1').first().text().trim() || jobItem.text;
             let cleanTitle = rawTitle.replace(/\s+/g, ' ').trim();
 
+            // Extract genuine job text rather than the promotional publisher banner
+            let bodyParagraphs = [];
+            $$('p, ul, ol').each((i, el) => {
+              const p = $$(el).text().replace(/\s+/g, ' ').trim();
+              if (
+                p.length > 25 &&
+                !p.includes('Recruit candidates with Ease') &&
+                !p.includes('alexa rankings') &&
+                !p.includes('Employer Dashboard') &&
+                !p.includes('Resubmit your Resume') &&
+                !p.includes('OptinMonsterApp')
+              ) {
+                bodyParagraphs.push(p);
+              }
+            });
+
             const sectionText = $$('.section_content').first().text().replace(/\s+/g, ' ').trim();
-            if (sectionText.length < 100) continue;
+            const fullDesc = bodyParagraphs.join('\n\n');
+            if (fullDesc.length < 50 && sectionText.length < 100) continue;
 
             // Extract employer accurately
             let employer = extractCompanyFromTitle(cleanTitle);
@@ -305,43 +323,58 @@ async function harvestEastAfricaJobs() {
             let location = 'Nairobi, Kenya';
             const stateMatch = sectionText.match(/State:\s*([^.\n\r|]+?)(?=\s*(?:Job type|Job category|Resubmit|$))/i);
             if (stateMatch && stateMatch[1]) {
-              location = `${stateMatch[1].trim()}, Kenya`;
+              location = `${stateMatch[1].trim().replace(/Kenya State:\s*/i, '')}, Kenya`;
             }
 
-            // Job type
+            // Job type: strictly use word boundaries, never match "international" or "internal"
             let jobType = 'full_time';
-            if (sectionText.toLowerCase().includes('contract') || sectionText.toLowerCase().includes('temporary')) {
+            const textToInspect = (cleanTitle + ' ' + sectionText + ' ' + fullDesc).toLowerCase();
+            const isExecutiveTitle = /\b(director|head of|chief|vice president|general manager|senior manager)\b/i.test(cleanTitle);
+
+            if (/\b(contract|temporary)\b/i.test(textToInspect)) {
               jobType = 'contract';
-            } else if (sectionText.toLowerCase().includes('intern')) {
+            } else if (/\bintern(ship)?\b/i.test(cleanTitle) || (!isExecutiveTitle && /\bintern(ship)?\b/i.test(textToInspect))) {
               jobType = 'internship';
-            } else if (sectionText.toLowerCase().includes('part-time')) {
+            } else if (/\bpart[- ]time\b/i.test(textToInspect)) {
               jobType = 'part_time';
             }
 
-            // Clean title: remove "Submit CVs – ", "Latest Recruitment – "
+            // Clean title: remove "Submit CVs – ", "Latest Recruitment – ", and trailing " at <Company>"
             cleanTitle = cleanTitle.replace(/^Submit CVs\s*[-–—]\s*/i, '')
-                                   .replace(/^Latest Recruitment\s*[-–—]\s*/i, '');
+                                   .replace(/^Latest Recruitment\s*[-–—]\s*/i, '')
+                                   .replace(/\s+at\s+[A-Z0-9&.,' -]{2,80}$/i, '')
+                                   .trim();
+
+            const descriptionToStore = fullDesc.length > 100 
+              ? fullDesc.slice(0, 10000) 
+              : `${employer} is seeking a qualified ${cleanTitle} to join their team in ${location}.`;
+
+            const requirementsToStore = bodyParagraphs.filter(p => p.length > 50 && (p.includes('•') || p.includes('qualification') || p.includes('degree') || p.includes('experience') || p.includes('skill'))).join('\n') || `• Professional experience in the field relevant to ${cleanTitle}.\n• Strong organizational and communication skills.\n• Relevant education or certification.`;
 
             const [inserted] = await sql`
               INSERT INTO jobs (
                 title,
                 company_name,
                 description,
+                requirements,
                 country_id,
                 job_type,
                 source_url,
                 employer_url,
+                is_aggregator_source,
                 location,
                 is_active,
                 posted_date
               ) VALUES (
                 ${cleanTitle.slice(0, 255)},
                 ${employer.slice(0, 255)},
-                ${sectionText.slice(0, 10000)},
+                ${descriptionToStore},
+                ${requirementsToStore.slice(0, 10000)},
                 ${kenyaId},
                 ${jobType},
                 ${jobItem.href},
                 ${jobItem.href},
+                true,
                 ${location.slice(0, 255)},
                 true,
                 NOW()

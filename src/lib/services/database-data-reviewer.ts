@@ -293,7 +293,7 @@ export async function reviewRecordWithJev(stateText: string) {
   try {
     const res = await client.systemOne(
       {
-        state: stateText.substring(0, 4000),
+        state: stateText.substring(0, 50000),
         questions: {
           quality: score('Rate the completeness and quality of this opportunity listing:', [
             'Empty or broken - text is missing, corrupted, or consists of cookie/navigation boilerplate with no real details',

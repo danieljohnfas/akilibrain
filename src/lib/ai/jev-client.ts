@@ -1,4 +1,4 @@
-import { choice, noul, score } from '@typesafe-ai/sdk';
+import { choice, noul, score, box, image, withAssets } from '@typesafe-ai/sdk';
 import { getDecisionClient, getJevClient, isDecisionEngineAvailable } from './decision-engine';
 
 /**
@@ -7,7 +7,7 @@ import { getDecisionClient, getJevClient, isDecisionEngineAvailable } from './de
  * (TypeSafe AI); see ./decision-engine.ts.
  */
 
-export { getJevClient };
+export { getJevClient, choice, noul, score, box, image, withAssets };
 
 export interface ModuleClassificationResult {
   module: 'jobs' | 'tenders' | 'compliance' | 'unknown';
@@ -53,7 +53,7 @@ export async function classifyModule(
   try {
     const result = await client.systemOne(
       {
-        state: state.substring(0, 4000),
+        state: state.substring(0, 50000),
         questions: {
           module: choice(
             'Determine which platform module this opportunity or record belongs to:',
@@ -101,7 +101,7 @@ export async function scoreQuality(
   try {
     const result = await client.systemOne(
       {
-        state: state.substring(0, 4000),
+        state: state.substring(0, 50000),
         questions: {
           quality: score(
             'Score the completeness and depth of this opportunity listing:',
@@ -146,7 +146,7 @@ export async function isRelevantOpportunity(
   try {
     const result = await client.systemOne(
       {
-        state: state.substring(0, 3000),
+        state: state.substring(0, 50000),
         questions: {
           isLegitimate: noul(
             'Is this an active, legitimate opportunity (job vacancy, open tender, or business compliance rule) that an applicant or organization can act upon?',
@@ -190,7 +190,7 @@ export async function scoreCandidateJobMatch(
   if (!client) return null;
 
   try {
-    const combinedState = `CANDIDATE CV:\n${cvText.substring(0, 2000)}\n\nJOB DETAILS:\n${jobText.substring(0, 2000)}`;
+    const combinedState = `CANDIDATE CV:\n${cvText.substring(0, 30000)}\n\nJOB DETAILS:\n${jobText.substring(0, 30000)}`;
 
     const result = await client.systemOne(
       {

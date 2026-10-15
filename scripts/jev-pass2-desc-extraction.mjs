@@ -10,7 +10,11 @@ const postgres = require('postgres');
 const sql = postgres(process.env.DATABASE_URL, { ssl: 'require', max: 8, prepare: false });
 const { TypeSafeClient } = require('@typesafe-ai/sdk');
 
-const jev = new TypeSafeClient({ apiKey: process.env.TYPESAFE_API_KEY });
+const jev = new TypeSafeClient({
+  apiKey: process.env.TYPESAFE_API_KEY.trim(),
+  defaultModel: process.env.TYPESAFE_MODEL || 'jev-preview',
+  defaultHeaders: { 'TypeSafe-Danger-Zone-Images': 'true' }
+});
 
 // Use Jev to extract structured requirements from stored description text
 async function extractRequirementsWithJev(title, company, description) {
