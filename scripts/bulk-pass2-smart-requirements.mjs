@@ -10,7 +10,11 @@ const postgres = require('postgres');
 const sql = postgres(process.env.DATABASE_URL, { ssl: 'require', max: 5, prepare: false });
 const { TypeSafeClient, score } = require('@typesafe-ai/sdk');
 
-const jev = new TypeSafeClient({ apiKey: process.env.TYPESAFE_API_KEY });
+const jev = new TypeSafeClient({
+  apiKey: process.env.TYPESAFE_API_KEY.trim(),
+  defaultModel: process.env.TYPESAFE_MODEL || 'jev-preview',
+  defaultHeaders: { 'TypeSafe-Danger-Zone-Images': 'true' }
+});
 
 const DISCLAIMER_REGEX = /(?:do not make any payment|report job|all rights reserved|terms & conditions|login\/register|privacy policy|cookie policy|disclaimer|scam warning)/i;
 

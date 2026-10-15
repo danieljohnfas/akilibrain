@@ -10,7 +10,11 @@ const postgres = require('postgres');
 const sql = postgres(process.env.DATABASE_URL, { ssl: 'require', max: 1 });
 const { TypeSafeClient, score, noul, choice } = require('@typesafe-ai/sdk');
 
-const client = new TypeSafeClient({ apiKey: process.env.TYPESAFE_API_KEY.trim() });
+const client = new TypeSafeClient({
+  apiKey: process.env.TYPESAFE_API_KEY.trim(),
+  defaultModel: process.env.TYPESAFE_MODEL || 'jev-preview',
+  defaultHeaders: { 'TypeSafe-Danger-Zone-Images': 'true' }
+});
 
 async function main() {
   console.log('Auditing database data quality metrics across ALL jobs...\n');

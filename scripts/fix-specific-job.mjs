@@ -19,6 +19,8 @@ const { TypeSafeClient, score, noul, choice } = require('@typesafe-ai/sdk');
 
 const jev = new TypeSafeClient({
   apiKey: process.env.TYPESAFE_API_KEY.trim(),
+  defaultModel: process.env.TYPESAFE_MODEL || 'jev-preview',
+  defaultHeaders: { 'TypeSafe-Danger-Zone-Images': 'true' }
 });
 
 async function fixAndReverify() {

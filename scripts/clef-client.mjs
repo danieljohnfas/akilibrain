@@ -4,7 +4,13 @@ import { TypeSafeClient } from '@typesafe-ai/sdk';
 
 // Initialize Typesafe Jev client for fallback
 const jevClient = process.env.TYPESAFE_API_KEY 
-  ? new TypeSafeClient({ apiKey: process.env.TYPESAFE_API_KEY.trim() })
+  ? new TypeSafeClient({
+      apiKey: process.env.TYPESAFE_API_KEY.trim(),
+      defaultModel: process.env.TYPESAFE_MODEL?.trim() || 'jev-preview',
+      defaultHeaders: {
+        'TypeSafe-Danger-Zone-Images': 'true',
+      },
+    })
   : null;
 
 /**
@@ -64,7 +70,7 @@ export async function systemOne(request, options = {}) {
   // If the original request strictly asked for 'clef', Typesafe won't understand it, so we strip it.
   const fallbackRequest = {
     ...request,
-    model: 'jev-1.13.0' // Use a known stable Jev model
+    model: process.env.TYPESAFE_MODEL?.trim() || 'jev-preview' // Jev 1.14.0
   };
 
   const res = await jevClient.systemOne(fallbackRequest, options);

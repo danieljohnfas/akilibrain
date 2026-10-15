@@ -14,7 +14,11 @@ if (!process.env.TYPESAFE_API_KEY) {
   process.exit(1);
 }
 
-const client = new TypeSafeClient({ apiKey: process.env.TYPESAFE_API_KEY.trim() });
+const client = new TypeSafeClient({
+  apiKey: process.env.TYPESAFE_API_KEY.trim(),
+  defaultModel: process.env.TYPESAFE_MODEL || 'jev-preview',
+  defaultHeaders: { 'TypeSafe-Danger-Zone-Images': 'true' }
+});
 
 async function reviewWithJev(filename, content) {
   console.log(`\n${'='.repeat(70)}`);

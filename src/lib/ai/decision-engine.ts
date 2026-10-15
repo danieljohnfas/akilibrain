@@ -45,7 +45,14 @@ export function getJevClient(): TypeSafeClient | null {
   if (!isTypeSafeJevAvailable()) return null;
   if (!jevClient) {
     try {
-      jevClient = new TypeSafeClient({ apiKey: process.env.TYPESAFE_API_KEY!.trim(), timeout: DEFAULT_TIMEOUT_MS });
+      jevClient = new TypeSafeClient({
+        apiKey: process.env.TYPESAFE_API_KEY!.trim(),
+        defaultModel: process.env.TYPESAFE_MODEL?.trim() || 'jev-preview',
+        defaultHeaders: {
+          'TypeSafe-Danger-Zone-Images': 'true',
+        },
+        timeout: DEFAULT_TIMEOUT_MS,
+      });
     } catch (err) {
       console.warn('[Jev] Failed to initialize TypeSafeClient:', err);
       return null;

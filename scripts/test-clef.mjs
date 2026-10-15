@@ -29,7 +29,7 @@ async function testModel(modelName) {
 
 async function run() {
   await testModel('jev-1.13.0');
-  await testModel('@cf/cloudflare/clef-flash');
-  await testModel('clef-flash');
+  await testModel('jev-preview');
+  await testModel('jev-1.14.0');
 }
 run();

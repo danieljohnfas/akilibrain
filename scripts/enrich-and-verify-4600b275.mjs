@@ -9,7 +9,11 @@ dotenv.config({ path: join(projectRoot, '.env.local') });
 const { TypeSafeClient, score, noul, choice } = require('@typesafe-ai/sdk');
 const postgres = require('postgres');
 const sql = postgres(process.env.DATABASE_URL, { ssl: 'require', max: 1 });
-const client = new TypeSafeClient({ apiKey: process.env.TYPESAFE_API_KEY.trim() });
+const client = new TypeSafeClient({
+  apiKey: process.env.TYPESAFE_API_KEY.trim(),
+  defaultModel: process.env.TYPESAFE_MODEL || 'jev-preview',
+  defaultHeaders: { 'TypeSafe-Danger-Zone-Images': 'true' }
+});
 
 const JOB_ID = '4600b275-3a3f-4c6c-bdf0-846a1dac067c';
 

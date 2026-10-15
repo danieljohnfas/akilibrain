@@ -93,6 +93,10 @@ async function runAudit() {
   const [jobsDupScale] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE source_url ~ '-[0-9a-f]{8}$'`;
   const [jobsSynthetic] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE source_url ~ '^https://careers\\.[0-9a-f]{8}\\.com/job/[0-9a-f]{32}$' OR source_url ~ 'https://www\\.jobweb[a-z]{2}\\.com/jobs/.*-\\d+$'`;
   const [jobsSpamDomains] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE source_url ~ '(\\.(baby|ninja|top|buzz)|-exiler\\.com)'`;
+  const [jobsEmptyReqs] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND (requirements IS NULL OR TRIM(requirements) = '')`;
+  const [jobsBoilerplate] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND (description ILIKE '%Recruit candidates with Ease%' OR description ILIKE '%Employer Dashboard%' OR description ILIKE '%alexa rankings%' OR description ILIKE '%Resubmit your Resume Today%' OR description ILIKE '%Post a Job Company:%')`;
+  const [jobsDirectorIntern] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND (title ILIKE '%director%' OR title ILIKE '%head of%' OR title ILIKE '%chief%') AND job_type = 'internship' AND title NOT ILIKE '%intern%'`;
+  const [jobsFalseAgg] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND is_aggregator_source = false AND (source_url ILIKE '%jobweb%' OR source_url ILIKE '%brightermonday%' OR source_url ILIKE '%fuzu%' OR source_url ILIKE '%myjobmag%')`;
 
   console.log(`[JOBS] Total: ${jobsTotal.count}`);
   console.log(`  ✓ Active:             ${jobsActive.count}`);
@@ -105,10 +109,28 @@ async function runAudit() {
   console.log(`  ✓ Fake/Test Data:     ${jobsFake.count} (Must be 0)`);
   console.log(`  ✓ Scaled Duplicates:  ${jobsDupScale.count} (Must be 0)`);
   console.log(`  ✓ Synthetic Data:     ${jobsSynthetic.count} (Must be 0)`);
-  console.log(`  ✓ Spam Farm Domains:  ${jobsSpamDomains.count} (Must be 0)\n`);
+  console.log(`  ✓ Spam Farm Domains:  ${jobsSpamDomains.count} (Must be 0)`);
+  console.log(`  ✓ Empty Requirements: ${jobsEmptyReqs.count} (Must be 0)`);
+  console.log(`  ✓ Ad Boilerplate:     ${jobsBoilerplate.count} (Must be 0)`);
+  console.log(`  ✓ Director as Intern: ${jobsDirectorIntern.count} (Must be 0)`);
+  console.log(`  ✓ Unlabeled Aggregator:${jobsFalseAgg.count} (Must be 0)\n`);
 
-  // RULE: Never have synthetic data on the website and database - all data should come from the live internet.
-  if (jobsInactive.count > 0 || jobsExpiredActive.count > 0 || jobsCF.count > 0 || jobsNullSector.count > 0 || jobsNullSkills.count > 0 || jobsFake.count > 0 || jobsDupScale.count > 0 || jobsSynthetic.count > 0 || jobsSpamDomains.count > 0) {
+  // RULE: Never have synthetic or corrupted data on the website and database - all data should adhere to 100% verified standards.
+  if (
+    jobsInactive.count > 0 ||
+    jobsExpiredActive.count > 0 ||
+    jobsCF.count > 0 ||
+    jobsNullSector.count > 0 ||
+    jobsNullSkills.count > 0 ||
+    jobsFake.count > 0 ||
+    jobsDupScale.count > 0 ||
+    jobsSynthetic.count > 0 ||
+    jobsSpamDomains.count > 0 ||
+    jobsEmptyReqs.count > 0 ||
+    jobsBoilerplate.count > 0 ||
+    jobsDirectorIntern.count > 0 ||
+    jobsFalseAgg.count > 0
+  ) {
     console.error('❌ Data standards violated! See counts above.');
     process.exit(1);
   }

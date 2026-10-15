@@ -192,14 +192,16 @@ async def _call_llm_decision(
                 f"HISTORY: {history_str}"
             )
             criteria: Dict[str, str] = {}
-            for e in elements[:35]:
-                label = (e.get("text") or e.get("placeholder") or e.get("name") or e.get("role") or "").strip()[:50]
+            for e in elements[:70]:
+                label = (e.get("text") or e.get("placeholder") or e.get("name") or e.get("role") or "").strip()[:80]
                 criteria[f"elem_{e['id']}"] = f"<{e.get('tag', 'elem')}> {label}"
             criteria["scroll_down"] = "Scroll down the page to find more content or links"
             criteria["done"] = "Target goal is already achieved or final content reached"
 
+            model_name = os.environ.get("TYPESAFE_MODEL", "jev-preview")
             client = TypeSafeClient(api_key=typesafe_key)
             result = client.system_one(
+                model=model_name,
                 state=state,
                 questions={
                     "next_step": Choice(
