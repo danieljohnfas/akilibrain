@@ -1,6 +1,5 @@
 import { db } from '../../db/client';
 import { countries } from '../../db/schema/shared';
-import { isForeignMisattribution } from '../ingestion-standards';
 
 export interface CountryResolver {
   resolveCountryId(locationStr: string, fallbackCode?: string): string | null;
