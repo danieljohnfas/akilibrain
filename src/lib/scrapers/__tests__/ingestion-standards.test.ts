@@ -4,6 +4,7 @@ import {
   inferExperienceLevel,
   inferEducationLevel,
   stripScraperBoilerplate,
+  htmlToReadableText,
   normalizeJobRecordForIngestion,
   normalizeTenderForIngestion,
   normalizeComplianceForIngestion,
@@ -11,6 +12,26 @@ import {
 import { checkSalaryPlausibility } from '../../salaries/verify-plausibility';
 
 describe('Scraping & Data Ingestion Standards (ingestion-standards.ts)', () => {
+  describe('htmlToReadableText', () => {
+    it('converts rich text/HTML markup, lists, and comments into clean formatted text', () => {
+      const raw = '<div><!--block--><ul><li>Manage solar operations</li><li>Prepare reports</li></ul></div>&nbsp;&amp;&nbsp;<strong>Full-time</strong>';
+      const clean = htmlToReadableText(raw);
+      expect(clean).toContain('• Manage solar operations');
+      expect(clean).toContain('• Prepare reports');
+      expect(clean).toContain('& Full-time');
+      expect(clean).not.toContain('<');
+      expect(clean).not.toContain('&nbsp;');
+      expect(clean).not.toContain('<!--');
+    });
+
+    it('safely handles unclosed tags and HTML entities', () => {
+      const raw = '<a href="https://example.com">Link text</a> &#8211; with dash &amp; quotes &quot;hello&quot; <a href="http';
+      const clean = htmlToReadableText(raw);
+      expect(clean).not.toContain('<');
+      expect(clean).toContain('Link text – with dash & quotes "hello"');
+    });
+  });
+
   describe('isForeignMisattribution', () => {
     it('flags US states, European cities, and non-African orgs like Michigan / MASSP', () => {
       expect(isForeignMisattribution('Michigan Association Of Secondary School Principals (massp)')).toBe(true);

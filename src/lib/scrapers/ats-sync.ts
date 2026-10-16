@@ -11,7 +11,7 @@ import { fetchAshbyJobs } from './ats-handlers/ashby';
 import { fetchPinpointJobs } from './ats-handlers/pinpoint';
 import { fetchWorkableJobs } from './ats-handlers/workable';
 import { fetchBreezyJobs } from './ats-handlers/breezy';
-import { normalizeJobRecordForIngestion, isForeignMisattribution } from './ingestion-standards';
+import { normalizeJobRecordForIngestion } from './ingestion-standards';
 
 export async function runAtsSync() {
   console.log("[ATS Sync Engine] Starting daily ATS synchronization...");
@@ -64,7 +64,7 @@ export async function runAtsSync() {
 
     if (scrapedJobs.length > 0) {
       const normalizedScraped = scrapedJobs
-        .filter((j) => !isForeignMisattribution(`${j.title || ''} ${j.companyName || companyName} ${j.location || ''}`))
+        .filter((j) => Boolean(j.countryId && j.location))
         .map((j) => {
           const norm = normalizeJobRecordForIngestion(
             {

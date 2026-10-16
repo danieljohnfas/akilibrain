@@ -1,6 +1,7 @@
 import { fetchAtsApi } from '../../sources/ats-fetcher';
 import { normalizeSector, extractAuthenticSkills } from '../skill-extractor';
 import { createCountryResolver } from './country-resolver';
+import { htmlToReadableText } from '../ingestion-standards';
 
 export async function fetchPinpointJobs(config: any) {
   try {
@@ -18,9 +19,22 @@ export async function fetchPinpointJobs(config: any) {
 
     const parsedJobs = [];
     for (const req of jobsList) {
-      const locString = `${req.location?.name || ''} ${req.location?.city || ''} ${req.location?.country || ''}`;
-      const countryCode = req.location?.country_code || config.defaultCountryCode;
-      const countryId = resolver.resolveCountryId(locString, countryCode);
+      const descSnippet = (req.description || '').slice(0, 400).replace(/<[^>]+>/g, ' ');
+      const descLocMatch = descSnippet.match(/\b(?:Job\s+)?Location[s;:]*\s*([^\n.;]{2,60})/i);
+      const descLoc = descLocMatch ? descLocMatch[1].trim() : '';
+
+      const locCandidates = [
+        req.location?.name,
+        req.location?.city,
+        req.location?.country,
+        descLoc,
+        req.title,
+      ].filter(Boolean).join(' ');
+
+      const { countryId, location: resolvedLocation } = resolver.resolveLocationAndCountry(
+        locCandidates,
+        req.location?.country_code || config.defaultCountryCode,
+      );
 
       if (!countryId) continue;
 
@@ -30,13 +44,13 @@ export async function fetchPinpointJobs(config: any) {
       if (empType.includes('contract') || empType.includes('temp')) jobType = 'contract';
       if (empType.includes('intern')) jobType = 'internship';
 
-      const fullDesc = [
+      const fullDesc = htmlToReadableText([
         req.description || '',
         req.key_responsibilities ? `\n\nKey Responsibilities:\n${req.key_responsibilities}` : '',
         req.benefits ? `\n\nBenefits:\n${req.benefits}` : ''
-      ].join('').trim() || 'View full job description on company portal.';
+      ].join('').trim()) || 'View full job description on company portal.';
 
-      const requirements = req.skills_knowledge_expertise || '';
+      const requirements = htmlToReadableText(req.skills_knowledge_expertise || '');
 
       const jobSector = normalizeSector(config.sector || req.job?.department?.name, req.title);
       const jobSkills = extractAuthenticSkills(req.title, `${requirements} ${fullDesc}`);
@@ -46,6 +60,7 @@ export async function fetchPinpointJobs(config: any) {
         companyName: companyName,
         description: fullDesc,
         requirements: requirements,
+        location: resolvedLocation,
         countryId: countryId,
         jobType: jobType as any,
         sourceUrl: req.url || defaultEmployerUrl,

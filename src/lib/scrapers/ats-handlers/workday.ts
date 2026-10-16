@@ -1,19 +1,11 @@
-import { db } from '../../db/client';
-import { countries } from '../../db/schema/shared';
-import { inArray } from 'drizzle-orm';
-
 import { fetchAtsApi } from '../../sources/ats-fetcher';
 import { normalizeSector, extractAuthenticSkills } from '../skill-extractor';
+import { createCountryResolver } from './country-resolver';
+import { htmlToReadableText } from '../ingestion-standards';
 
 export async function fetchWorkdayJobs(config: any) {
   try {
-    const targetCountries = ["Kenya", "Tanzania", "Uganda", "Rwanda", "Ghana", "Nigeria", "Zambia", "South Africa", "Ethiopia"];
-    const dbCountries = await db.select().from(countries).where(inArray(countries.name, targetCountries));
-    
-    const countryMap = new Map<string, string>();
-    for (const c of dbCountries) {
-      countryMap.set(c.name, c.id);
-    }
+    const resolver = await createCountryResolver();
 
     const data = await fetchAtsApi(
       config.endpoint,
@@ -23,34 +15,30 @@ export async function fetchWorkdayJobs(config: any) {
       },
       { appliedFacets: {}, limit: 100, offset: 0, searchText: "" }
     );
-    const postings = data.jobPostings || [];
+    const postings = data?.jobPostings || [];
     if (postings.length === 0) return [];
 
     const parsedJobs = [];
     for (const req of postings) {
-      let countryId = null;
-      
       const loc = req.locationsText || "";
-      for (const [name, id] of countryMap.entries()) {
-        if (loc.includes(name)) {
-          countryId = id;
-          break;
-        }
-      }
+      const title = req.title || "";
+      const locCandidates = [loc, title].filter(Boolean).join(' ');
 
-      if (!countryId && config.defaultCountryCode) {
-         // Fallback to default
-         const defaultMap: Record<string, string> = { "ZA": "South Africa", "KE": "Kenya", "TZ": "Tanzania", "UG": "Uganda", "RW": "Rwanda" };
-         const defaultName = defaultMap[config.defaultCountryCode];
-         if (defaultName) countryId = countryMap.get(defaultName) || null;
-      }
+      const { countryId, location: resolvedLocation } = resolver.resolveLocationAndCountry(
+        locCandidates,
+        config.defaultCountryCode
+      );
 
       if (!countryId) continue;
+
+      const rawDesc = req.bulletFields?.join("\n") || "";
+      const cleanDesc = htmlToReadableText(rawDesc) || "View full job description on company portal.";
 
       parsedJobs.push({
         title: req.title,
         companyName: config.companyName,
-        description: req.bulletFields?.join("\n") || "View full job description on company portal.",
+        description: cleanDesc,
+        location: resolvedLocation,
         countryId: countryId,
         jobType: req.timeType?.includes("Part") ? "part_time" : "full_time",
         sourceUrl: `${config.siteUrl}${req.externalPath}`,
@@ -59,7 +47,7 @@ export async function fetchWorkdayJobs(config: any) {
         deadline: null,
         isActive: true,
         sector: normalizeSector(config.sector, req.title),
-        skills: extractAuthenticSkills(req.title, req.bulletFields?.join("\n")),
+        skills: extractAuthenticSkills(req.title, cleanDesc),
         needsAiExtraction: false
       });
     }

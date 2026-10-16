@@ -19,13 +19,14 @@ export async function fetchSmartRecruitersJobs(config: any) {
       const locRegion = req.location?.region || "";
       const locString = `${locCountry} ${locCity} ${locRegion}`;
 
-      const countryId = resolver.resolveCountryId(locString, locCountry);
+      const { countryId, location: resolvedLocation } = resolver.resolveLocationAndCountry(locString, locCountry);
       if (!countryId) continue; 
 
       parsedJobs.push({
         title: req.name,
         companyName: config.companyName,
-        description: `Role: ${req.name} based in ${locCity || locCountry.toUpperCase()}.\nEmployer: ${config.companyName}.\nView full description and requirements on the company portal.`,
+        description: `Role: ${req.name} based in ${resolvedLocation}.\nEmployer: ${config.companyName}.\nView full description and requirements on the company portal.`,
+        location: resolvedLocation,
         countryId: countryId,
         jobType: "full_time",
         sourceUrl: `https://jobs.smartrecruiters.com/${config.companyId}/${req.id}`,

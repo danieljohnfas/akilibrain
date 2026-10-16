@@ -1,19 +1,11 @@
-import { db } from '../../db/client';
-import { countries } from '../../db/schema/shared';
-import { inArray } from 'drizzle-orm';
 import { fetchAtsApi } from '../../sources/ats-fetcher';
-
 import { normalizeSector, extractAuthenticSkills } from '../skill-extractor';
+import { createCountryResolver } from './country-resolver';
+import { htmlToReadableText } from '../ingestion-standards';
 
 export async function fetchGreenhouseJobs(config: any) {
   try {
-    const targetCountries = ["Kenya", "Tanzania", "Uganda", "Rwanda", "Ghana", "Nigeria", "Zambia", "South Africa", "Ethiopia"];
-    const dbCountries = await db.select().from(countries).where(inArray(countries.name, targetCountries));
-    
-    const countryMap = new Map<string, string>();
-    for (const c of dbCountries) {
-      countryMap.set(c.name.toLowerCase(), c.id);
-    }
+    const resolver = await createCountryResolver();
 
     const endpoint = `https://boards-api.greenhouse.io/v1/boards/${config.boardToken}/jobs?content=true`;
     const data = await fetchAtsApi(endpoint);
@@ -26,57 +18,28 @@ export async function fetchGreenhouseJobs(config: any) {
 
     const parsedJobs = [];
     for (const req of jobsList) {
-      let countryId = null;
-      
-      const loc = (req.location?.name || "").toLowerCase();
-      
-      for (const [name, id] of countryMap.entries()) {
-        if (loc.includes(name)) {
-          countryId = id;
-          break;
-        }
-      }
+      const locCandidates = [req.location?.name, req.title].filter(Boolean).join(' ');
+      const fallbackCountryCode = config.defaultCountryCode || (config.country ? config.country.substring(0, 2).toUpperCase() : null);
+      const { countryId, location: resolvedLocation } = resolver.resolveLocationAndCountry(locCandidates, fallbackCountryCode);
 
-      const fallbackCountryCode = config.defaultCountryCode || (config.country ? config.country.substring(0,2).toUpperCase() : null);
+      if (!countryId) continue;
 
-      // If location doesn't specifically match but company operates strictly in default country
-      if (!countryId && fallbackCountryCode) {
-        const defaultMap: Record<string, string> = { 
-          "ZA": "south africa", "KE": "kenya", "TZ": "tanzania", "TA": "tanzania",
-          "UG": "uganda", "RW": "rwanda", "NG": "nigeria", "GH": "ghana", "ZM": "zambia", "ET": "ethiopia" 
-        };
-        const defaultName = defaultMap[fallbackCountryCode] || (config.country ? config.country.toLowerCase() : null);
-        if (defaultName && loc.includes(defaultName)) {
-           countryId = countryMap.get(defaultName) || null;
-        }
-        // If it says "Remote" and they are an African company, assign to default
-        if (!countryId && (loc.includes('remote') || loc.includes('anywhere'))) {
-            countryId = countryMap.get(defaultName) || null;
-        }
-      }
-      
-      // Final fallback to the country if explicitly defined in config
-      if (!countryId && config.country) {
-          countryId = countryMap.get(config.country.toLowerCase()) || null;
-      }
-
-      if (!countryId) continue; // Skip jobs not in our 9 target countries
+      const cleanDesc = htmlToReadableText(req.content || '') || 'View full description on company portal.';
 
       parsedJobs.push({
         title: req.title,
         companyName: companyName,
-        // Greenhouse returns raw HTML in content, but for DB we can keep it or strip it.
-        // We will store the HTML in description, frontend can render it safely.
-        description: req.content ? req.content.substring(0, 5000) : "View full description on company portal.",
+        description: cleanDesc.substring(0, 8000),
+        location: resolvedLocation,
         countryId: countryId,
-        jobType: "full_time", // Default
+        jobType: 'full_time',
         sourceUrl: req.absolute_url,
         employerUrl: employerUrl,
         postedDate: req.updated_at ? new Date(req.updated_at) : new Date(),
         deadline: null,
         isActive: true,
         sector: normalizeSector(config.sector, req.title),
-        skills: extractAuthenticSkills(req.title, req.content),
+        skills: extractAuthenticSkills(req.title, cleanDesc),
         needsAiExtraction: false
       });
     }
