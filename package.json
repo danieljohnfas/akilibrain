@@ -10,6 +10,8 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run",
     "audit:data": "node scripts/verify-all-data-standards.mjs",
+    "enforce:constraints": "node scripts/apply-db-storage-constraints.mjs",
+    "verify:standards": "vitest run src/lib/scrapers/__tests__/ingestion-standards.test.ts && tsc --noEmit -p tsconfig.json && node scripts/verify-all-data-standards.mjs",
     "test:e2e": "playwright test"
   },
   "dependencies": {

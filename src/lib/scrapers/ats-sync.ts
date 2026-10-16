@@ -11,6 +11,7 @@ import { fetchAshbyJobs } from './ats-handlers/ashby';
 import { fetchPinpointJobs } from './ats-handlers/pinpoint';
 import { fetchWorkableJobs } from './ats-handlers/workable';
 import { fetchBreezyJobs } from './ats-handlers/breezy';
+import { normalizeJobRecordForIngestion, isForeignMisattribution } from './ingestion-standards';
 
 export async function runAtsSync() {
   console.log("[ATS Sync Engine] Starting daily ATS synchronization...");
@@ -62,11 +63,47 @@ export async function runAtsSync() {
     }
 
     if (scrapedJobs.length > 0) {
-      console.log(`[ATS Sync Engine] ${companyName}: Fetched ${scrapedJobs.length} active jobs. Inserting...`);
+      const normalizedScraped = scrapedJobs
+        .filter((j) => !isForeignMisattribution(`${j.title || ''} ${j.companyName || companyName} ${j.location || ''}`))
+        .map((j) => {
+          const norm = normalizeJobRecordForIngestion(
+            {
+              title: j.title,
+              companyName: j.companyName || companyName,
+              description: j.description,
+              requirements: j.requirements,
+              sector: j.sector || config.sector,
+              experienceLevel: j.experienceLevel,
+              educationLevel: j.educationLevel,
+              skills: j.skills,
+              location: j.location,
+              jobType: j.jobType,
+              postedDate: j.postedDate,
+              deadline: j.deadline,
+            },
+            j.location || 'East Africa',
+          );
+          return {
+            ...j,
+            title: norm.title,
+            companyName: norm.companyName,
+            description: norm.description,
+            requirements: norm.requirements,
+            sector: norm.sector,
+            experienceLevel: norm.experienceLevel,
+            educationLevel: norm.educationLevel,
+            skills: norm.skills,
+            deadline: norm.deadline,
+            employerUrl: j.employerUrl || j.sourceUrl,
+            isAggregatorSource: false,
+          };
+        });
+
+      console.log(`[ATS Sync Engine] ${companyName}: Fetched ${normalizedScraped.length} valid active jobs. Inserting...`);
       
       // Batch insert with conflict ignore to prevent duplicates
-      for (let i = 0; i < scrapedJobs.length; i += 50) {
-        const chunk = scrapedJobs.slice(i, i + 50);
+      for (let i = 0; i < normalizedScraped.length; i += 50) {
+        const chunk = normalizedScraped.slice(i, i + 50);
         try {
           const result = await db.insert(jobs).values(chunk).onConflictDoNothing().returning({ id: jobs.id });
           totalInserted += result.length;

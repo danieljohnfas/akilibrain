@@ -8,6 +8,7 @@ import { classifySourceUrl, resolveEmployerUrl } from "@/lib/sources/employer-re
 import { scrapersDisabled, jobInsertTarget, jobSecondPassEnabled } from '@/lib/scrapers/cost-controls';
 import { isJevAvailable, isRelevantOpportunity } from "@/lib/ai/jev-client";
 import { ScrapelabYield } from "@/lib/scrapers/compliance-base";
+import { normalizeJobRecordForIngestion, isForeignMisattribution } from "@/lib/scrapers/ingestion-standards";
 
 // ── Thresholds ────────────────────────────────────────────────────────────────
 const JOB_TARGET = jobInsertTarget(); // env SCRAPE_JOB_TARGET
@@ -18,7 +19,10 @@ const JOB_TARGET = jobInsertTarget(); // env SCRAPE_JOB_TARGET
 const VALID_JOB_TYPES = ['full_time', 'part_time', 'contract', 'internship', 'remote'] as const;
 type JobType = typeof VALID_JOB_TYPES[number];
 
-function sanitizeJobType(raw: string | null | undefined): JobType {
+function sanitizeJobType(raw: string | null | undefined, title?: string): JobType {
+  if (title && /\b(director|head of|chief)\b/i.test(title) && !/\bintern\b/i.test(title)) {
+    return 'full_time';
+  }
   if (!raw) return 'full_time';
   const normalized = raw.toLowerCase().replace(/[^a-z_]/g, '').replace(/\s+/g, '_');
   if ((VALID_JOB_TYPES as readonly string[]).includes(normalized)) return normalized as JobType;
@@ -31,18 +35,23 @@ function sanitizeJobType(raw: string | null | undefined): JobType {
 }
 
 // ── Country lookup ────────────────────────────────────────────────────────────
-const countryCache = new Map<string, string>();
-async function getCountryId(countryHint: string): Promise<string | null> {
+const countryCache = new Map<string, { id: string; name: string }>();
+async function getCountryInfo(countryHint: string): Promise<{ id: string; name: string } | null> {
   if (!countryHint) return null;
   const code = countryHint.toUpperCase();
   if (countryCache.has(code)) return countryCache.get(code)!;
   
-  const result = await db.select({ id: countries.id }).from(countries).where(eq(countries.code, code)).limit(1);
+  const result = await db.select({ id: countries.id, name: countries.name }).from(countries).where(eq(countries.code, code)).limit(1);
   if (result.length > 0) {
-    countryCache.set(code, result[0].id);
-    return result[0].id;
+    countryCache.set(code, result[0]);
+    return result[0];
   }
   return null;
+}
+
+async function getCountryId(countryHint: string): Promise<string | null> {
+  const info = await getCountryInfo(countryHint);
+  return info?.id ?? null;
 }
 
 // ── Batch-insert save (fast path) ─────────────────────────────────────────────
@@ -62,19 +71,26 @@ async function saveJobsInner(
   countryCode: string,
   yieldReport: ScrapelabYield,
 ): Promise<number> {
-  const defaultCountryId = await getCountryId(countryCode);
-  if (!defaultCountryId) return 0;
+  const defaultCountry = await getCountryInfo(countryCode);
+  if (!defaultCountry) return 0;
 
   if (discovered.length === 0) return 0;
 
   // Resolve country dynamically per job and synchronously resolve employer URLs
   const resolvedJobs = (await Promise.all(discovered.map(async job => {
+    // Reject explicit foreign/non-African listings
+    if (isForeignMisattribution(`${job.title || ''} ${job.companyName || ''} ${job.description || ''}`)) {
+      console.log(`[scrape-jobs] Rejecting foreign misattributed job: "${job.title}" (${job.companyName})`);
+      yieldReport.record(job.sourceUrl, 'rejected');
+      return null;
+    }
+
     // If AI found a country, see if we have it in the DB. Otherwise, fallback to the cron's target country.
-    let jobCountryId = null;
+    let jobCountry = null;
     if (job.countryCode) {
-      jobCountryId = await getCountryId(job.countryCode);
+      jobCountry = await getCountryInfo(job.countryCode);
       // If the AI explicitly found a country code but we don't support it, reject the job!
-      if (!jobCountryId) {
+      if (!jobCountry) {
         console.log(`[scrape-jobs] Rejecting job for unsupported country code: ${job.countryCode}`);
         yieldReport.record(job.sourceUrl, 'rejected');
         return null;
@@ -114,21 +130,42 @@ async function saveJobsInner(
       }
     }
 
+    const finalCountry = jobCountry || defaultCountry;
+    const norm = normalizeJobRecordForIngestion(
+      {
+        title: job.title,
+        companyName: job.companyName,
+        description: job.description,
+        requirements: job.requirements,
+        sector: job.sector,
+        experienceLevel: job.experienceLevel,
+        educationLevel: job.educationLevel,
+        skills: job.skills,
+        jobType: job.jobType,
+        postedDate: job.postedDate,
+        deadline: job.deadline,
+      },
+      finalCountry.name,
+    );
+
     return { 
-      ...job, 
-      finalCountryId: jobCountryId || defaultCountryId,
-      employerUrl,
+      ...job,
+      ...norm,
+      finalCountryId: finalCountry.id,
+      employerUrl: employerUrl || job.sourceUrl,
       isAggregatorSource
     };
   }))).filter((j): j is NonNullable<typeof j> => j !== null);
+
+  if (resolvedJobs.length === 0) return 0;
 
   // Attempt batch insert first (10-30x faster than one-by-one)
   try {
     const values = resolvedJobs.map(job => {
       return {
         title: job.title,
-        companyName: job.companyName || 'Unknown',
-        description: job.description || 'No description',
+        companyName: job.companyName,
+        description: job.description,
         requirements: job.requirements,
         sector: job.sector,
         profession: job.profession,
@@ -137,12 +174,12 @@ async function saveJobsInner(
         skills: job.skills,
         regionId: job.regionId,
         countryId: job.finalCountryId,
-        jobType: sanitizeJobType(job.jobType),
+        jobType: sanitizeJobType(job.jobType, job.title),
         sourceUrl: job.sourceUrl,
         employerUrl: job.employerUrl,
         isAggregatorSource: job.isAggregatorSource,
         postedDate: job.postedDate || new Date(),
-        deadline: job.deadline ?? null,
+        deadline: job.deadline,
         salaryMin: job.salaryMin?.toString() ?? null,
         salaryMax: job.salaryMax?.toString() ?? null,
         salaryCurrency: job.salaryCurrency ?? null,
@@ -161,8 +198,8 @@ async function saveJobsInner(
       try {
         const rows = await db.insert(jobs).values({
           title: job.title,
-          companyName: job.companyName || 'Unknown',
-          description: job.description || 'No description',
+          companyName: job.companyName,
+          description: job.description,
           requirements: job.requirements,
           sector: job.sector,
           profession: job.profession,
@@ -171,12 +208,12 @@ async function saveJobsInner(
           skills: job.skills,
           regionId: job.regionId,
           countryId: job.finalCountryId,
-          jobType: sanitizeJobType(job.jobType),
+          jobType: sanitizeJobType(job.jobType, job.title),
           sourceUrl: job.sourceUrl,
           employerUrl: job.employerUrl,
           isAggregatorSource: job.isAggregatorSource,
           postedDate: job.postedDate || new Date(),
-          deadline: job.deadline ?? null,
+          deadline: job.deadline,
           salaryMin: job.salaryMin?.toString() ?? null,
           salaryMax: job.salaryMax?.toString() ?? null,
           salaryCurrency: job.salaryCurrency ?? null,

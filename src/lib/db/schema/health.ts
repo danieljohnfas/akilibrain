@@ -1,15 +1,18 @@
-import { pgTable, text, timestamp, uuid, numeric, integer, index, uniqueIndex } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, numeric, integer, index, uniqueIndex, check } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 import { countries } from './shared';
 
 export const healthIndicators = pgTable('health_indicators', {
   id: uuid('id').primaryKey().defaultRandom(),
   code: text('code').notNull().unique(), // WHO/DHIS2 indicator code
   name: text('name').notNull(),
-  unit: text('unit'), // e.g. 'per 1,000 live births', '%'
+  unit: text('unit').notNull().default('%'), // e.g. 'per 1,000 live births', '%'
   category: text('category'), // e.g. 'maternal', 'child', 'infectious'
   dhis2Id: text('dhis2_id'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
-});
+}, (table) => [
+  check('health_indicators_unit_not_empty_chk', sql`${table.unit} IS NOT NULL AND trim(${table.unit}) <> ''`),
+]);
 
 export const healthDataPoints = pgTable('health_data_points', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -25,6 +28,7 @@ export const healthDataPoints = pgTable('health_data_points', {
   index('health_year_idx').on(table.year),
   // Required for onConflictDoNothing to work — prevents duplicate data points
   uniqueIndex('health_data_unique_idx').on(table.indicatorId, table.countryId, table.year),
+  check('health_data_points_year_valid_chk', sql`${table.year} >= 1980 AND ${table.year} <= 2035`),
 ]);
 
 export { healthDataPoints as healthData };

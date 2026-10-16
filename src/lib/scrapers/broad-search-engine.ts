@@ -550,7 +550,7 @@ export async function extractJobsWithAI(text: string, sourceUrl: string, html: s
 
         return {
           title: job.title,
-          companyName: job.companyName || 'Unknown',
+          companyName: job.companyName || '',
           description: job.description || deterministic.description,
           requirements: job.requirements,
           regionId: regionId,
@@ -561,7 +561,7 @@ export async function extractJobsWithAI(text: string, sourceUrl: string, html: s
           salaryMin: job.salaryMin,
           salaryMax: job.salaryMax,
           salaryCurrency: job.salaryCurrency,
-          countryCode: job.countryCode || '',
+          countryCode: job.countryCode || deterministic.countryCode || '',
           needsAiExtraction: false
         };
       })
@@ -577,7 +577,8 @@ export async function extractJobsWithAI(text: string, sourceUrl: string, html: s
       const titleLower = job.title.toLowerCase().trim();
       if (titleLower.startsWith('[link]') || titleLower.startsWith('[image:')) return false;
       if (titleLower.includes('vacancies') || titleLower.includes('opportunities') || titleLower.includes('unknown') || titleLower.includes('job listing') || titleLower.includes('cookie') || titleLower.includes('privacy policy')) return false;
-      
+      if (/michigan association of secondary school principals|\bmassp\b/i.test(`${job.title} ${job.companyName}`)) return false;
+
       // Drop jobs that are already expired
       if (job.deadline && job.deadline.getTime() < Date.now()) {
         console.log(`[extractJobsWithAI] Dropping expired job: ${job.title} (Deadline: ${job.deadline.toISOString()})`);

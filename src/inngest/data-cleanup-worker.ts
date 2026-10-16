@@ -1,11 +1,17 @@
 import { inngest } from "@/inngest/client";
 import { db, safeQuery } from "@/lib/db/client";
 import { jobs } from "@/lib/db/schema/jobs";
-import { tenders } from "@/lib/db/schema/tenders";
+import { tenders, tenderSectors } from "@/lib/db/schema/tenders";
 import { complianceRequirements as compliance } from "@/lib/db/schema/compliance";
+import { countries } from "@/lib/db/schema/shared";
 import { dataVerificationLog } from "@/lib/db/schema/admin";
 import { jobApplications } from "@/lib/db/schema/applications";
 import { scrapersDisabled } from "@/lib/scrapers/cost-controls";
+import {
+  normalizeJobRecordForIngestion,
+  normalizeTenderForIngestion,
+  normalizeComplianceForIngestion,
+} from "@/lib/scrapers/ingestion-standards";
 import { eq, isNull, sql } from "drizzle-orm";
 import { generateObjectWithFallback } from "@/lib/ai/router";
 import { classifyModule } from "@/lib/ai/jev-client";
@@ -224,6 +230,22 @@ export const dataCleanupOrchestratorJob = inngest.createFunction(
     let movedCount = 0;
     let rateLimitHit = false;
 
+    // Lookup maps for country names/codes and tender sectors during cross-module migration
+    const [allCountries, allTenderSectors] = await Promise.all([
+      safeQuery(db.select({ id: countries.id, name: countries.name, code: countries.code }).from(countries)),
+      safeQuery(db.select({ id: tenderSectors.id, name: tenderSectors.name }).from(tenderSectors)),
+    ]);
+    const countryById = new Map(allCountries.map(c => [c.id, { name: c.name, code: c.code }]));
+    const resolveMigratedTenderSectorId = (text: string): string | null => {
+      if (allTenderSectors.length === 0) return null;
+      const lower = text.toLowerCase();
+      for (const s of allTenderSectors) {
+        const token = s.name.toLowerCase().split(/[&\s,/]+/).find(w => w.length >= 4);
+        if (token && lower.includes(token)) return s.id;
+      }
+      return allTenderSectors[0].id;
+    };
+
     // Process Jobs
     for (const job of unverifiedJobs) {
       const result = await step.run(`process-job-${job.id}`, async () => {
@@ -232,13 +254,30 @@ export const dataCleanupOrchestratorJob = inngest.createFunction(
           const { module } = await classifyRecordWithJevFallback(textToAnalyze);
 
           let actionTaken = 'none';
+          const countryInfo = countryById.get(job.countryId) || { name: 'East Africa', code: 'KE' };
 
           if (module === 'tenders') {
+            const normTender = normalizeTenderForIngestion(
+              {
+                title: job.title,
+                description: job.description,
+                contractingAuthority: job.companyName,
+                category: 'services',
+                deadline: job.deadline,
+              },
+              countryInfo.name,
+            );
+            const isPast = job.deadline ? new Date(job.deadline).getTime() <= Date.now() : false;
             await db.transaction(async (tx) => {
               await tx.insert(tenders).values({
                 title: job.title,
                 description: job.description,
-                contractingAuthority: job.companyName,
+                contractingAuthority: normTender.contractingAuthority,
+                category: 'services',
+                status: isPast ? 'closed' : 'open',
+                aiSummary: normTender.aiSummary,
+                employerUrl: job.sourceUrl,
+                sectorId: resolveMigratedTenderSectorId(`${job.title} ${job.description || ''}`),
                 sourceUrl: job.sourceUrl,
                 countryId: job.countryId,
                 regionId: job.regionId,
@@ -251,15 +290,28 @@ export const dataCleanupOrchestratorJob = inngest.createFunction(
             actionTaken = 'moved';
             movedCount++;
           } else if (module === 'compliance') {
+            const normComp = normalizeComplianceForIngestion(
+              {
+                title: job.title,
+                description: job.description || job.title,
+                issuingAuthority: job.companyName,
+              },
+              countryInfo.code,
+            );
             await db.transaction(async (tx) => {
               await tx.insert(compliance).values({
-                title: job.title,
-                description: job.description,
-                issuingAuthority: job.companyName,
+                title: normComp.title,
+                description: job.description || job.title,
+                issuingAuthority: normComp.issuingAuthority,
                 sourceUrl: job.sourceUrl,
+                employerUrl: job.sourceUrl,
                 countryId: job.countryId,
                 category: 'sector_specific',
-                status: 'active',
+                requiredDocuments: normComp.requiredDocuments,
+                renewalPeriodDays: normComp.renewalPeriodDays,
+                estimatedCost: normComp.estimatedCost,
+                isActive: true,
+                lastVerifiedAt: normComp.lastVerifiedAt,
               } as any).onConflictDoNothing();
               await removeJob(tx, job.id);
             });
@@ -295,33 +347,63 @@ export const dataCleanupOrchestratorJob = inngest.createFunction(
             const { module } = await classifyRecordWithJevFallback(textToAnalyze);
 
             let actionTaken = 'none';
+            const countryInfo = countryById.get(tender.countryId) || { name: 'East Africa', code: 'KE' };
 
             if (module === 'jobs') {
+              const normJob = normalizeJobRecordForIngestion(
+                {
+                  title: tender.title,
+                  companyName: tender.contractingAuthority,
+                  description: tender.description,
+                  deadline: tender.deadline,
+                },
+                countryInfo.name,
+              );
               await db.transaction(async (tx) => {
                 await tx.insert(jobs).values({
-                  title: tender.title,
-                  description: tender.description || '',
-                  companyName: tender.contractingAuthority || 'Unknown',
+                  title: normJob.title,
+                  description: normJob.description,
+                  requirements: normJob.requirements,
+                  companyName: normJob.companyName,
+                  sector: normJob.sector,
+                  experienceLevel: normJob.experienceLevel,
+                  educationLevel: normJob.educationLevel,
+                  jobType: 'contract',
+                  skills: normJob.skills,
+                  employerUrl: tender.sourceUrl,
                   sourceUrl: tender.sourceUrl,
                   countryId: tender.countryId,
                   regionId: tender.regionId,
                   postedDate: tender.publishedAt,
-                  deadline: tender.deadline,
+                  deadline: normJob.deadline,
                 } as any).onConflictDoNothing();
                 await tx.delete(tenders).where(eq(tenders.id, tender.id));
               });
               actionTaken = 'moved';
               movedCount++;
             } else if (module === 'compliance') {
+              const normComp = normalizeComplianceForIngestion(
+                {
+                  title: tender.title,
+                  description: tender.description || tender.title,
+                  issuingAuthority: tender.contractingAuthority,
+                },
+                countryInfo.code,
+              );
               await db.transaction(async (tx) => {
                 await tx.insert(compliance).values({
-                  title: tender.title,
-                  description: tender.description,
-                  issuingAuthority: tender.contractingAuthority,
+                  title: normComp.title,
+                  description: tender.description || tender.title,
+                  issuingAuthority: normComp.issuingAuthority,
                   sourceUrl: tender.sourceUrl,
+                  employerUrl: tender.sourceUrl,
                   countryId: tender.countryId,
                   category: 'sector_specific',
-                  status: 'active',
+                  requiredDocuments: normComp.requiredDocuments,
+                  renewalPeriodDays: normComp.renewalPeriodDays,
+                  estimatedCost: normComp.estimatedCost,
+                  isActive: true,
+                  lastVerifiedAt: normComp.lastVerifiedAt,
                 } as any).onConflictDoNothing();
                 await tx.delete(tenders).where(eq(tenders.id, tender.id));
               });
@@ -358,26 +440,57 @@ export const dataCleanupOrchestratorJob = inngest.createFunction(
             const { module } = await classifyRecordWithJevFallback(textToAnalyze);
 
             let actionTaken = 'none';
+            const countryInfo = countryById.get(comp.countryId) || { name: 'East Africa', code: 'KE' };
 
             if (module === 'jobs') {
+              const normJob = normalizeJobRecordForIngestion(
+                {
+                  title: comp.title,
+                  companyName: comp.issuingAuthority,
+                  description: comp.description,
+                },
+                countryInfo.name,
+              );
               await db.transaction(async (tx) => {
                 await tx.insert(jobs).values({
-                  title: comp.title,
-                  description: comp.description || '',
-                  companyName: comp.issuingAuthority || 'Unknown',
+                  title: normJob.title,
+                  description: normJob.description,
+                  requirements: normJob.requirements,
+                  companyName: normJob.companyName,
+                  sector: normJob.sector,
+                  experienceLevel: normJob.experienceLevel,
+                  educationLevel: normJob.educationLevel,
+                  jobType: 'full_time',
+                  skills: normJob.skills,
+                  employerUrl: comp.sourceUrl,
                   sourceUrl: comp.sourceUrl,
                   countryId: comp.countryId,
+                  deadline: normJob.deadline,
                 } as any).onConflictDoNothing();
                 await tx.delete(compliance).where(eq(compliance.id, comp.id));
               });
               actionTaken = 'moved';
               movedCount++;
             } else if (module === 'tenders') {
+              const normTender = normalizeTenderForIngestion(
+                {
+                  title: comp.title,
+                  description: comp.description,
+                  contractingAuthority: comp.issuingAuthority,
+                  category: 'services',
+                },
+                countryInfo.name,
+              );
               await db.transaction(async (tx) => {
                 await tx.insert(tenders).values({
                   title: comp.title,
                   description: comp.description,
-                  contractingAuthority: comp.issuingAuthority,
+                  contractingAuthority: normTender.contractingAuthority,
+                  category: 'services',
+                  status: 'open',
+                  aiSummary: normTender.aiSummary,
+                  employerUrl: comp.sourceUrl,
+                  sectorId: resolveMigratedTenderSectorId(`${comp.title} ${comp.description || ''}`),
                   sourceUrl: comp.sourceUrl,
                   countryId: comp.countryId,
                   referenceNo: `MIGRATED-${Date.now()}`,
