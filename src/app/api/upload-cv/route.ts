@@ -106,10 +106,13 @@ export async function POST(req: NextRequest) {
 
     const sessionId = ensureCvSessionId(req);
     const filename = (file.name || 'cv').replace(/[\u0000-\u001f\u007f]/g, '').slice(0, 200);
+    const persistedSummary =
+      summary ||
+      `Uploaded career document (${filename}) processed and indexed for AI career and compliance matching (${cleanText.length} chars extracted): ${cleanText.slice(0, 140)}`;
 
     const [doc] = await db
       .insert(userDocuments)
-      .values({ sessionId, filename, content: cleanText, summary })
+      .values({ sessionId, filename, content: cleanText, summary: persistedSummary })
       .returning({ id: userDocuments.id });
 
     const response = NextResponse.json({

@@ -5,32 +5,46 @@ import { db } from "@/lib/db/client";
 import { salarySubmissions } from "@/lib/db/schema/salaries";
 import { countries } from "@/lib/db/schema/shared";
 import { eq } from "drizzle-orm";
+import { checkSalaryPlausibility } from "@/lib/salaries/verify-plausibility";
 
 const SALARY_TARGET = 20; // Second pass if below this threshold
 
-async function getCountryId(countryHint: string): Promise<string | null> {
-  const result = await db.select({ id: countries.id }).from(countries).where(eq(countries.code, countryHint)).limit(1);
-  return result.length > 0 ? result[0].id : null;
+async function getCountryInfo(countryHint: string): Promise<{ id: string; name: string } | null> {
+  const result = await db.select({ id: countries.id, name: countries.name }).from(countries).where(eq(countries.code, countryHint)).limit(1);
+  return result.length > 0 ? result[0] : null;
 }
 
 export async function saveSalaries(discovered: BroadSalaryResource[], countryCode: string): Promise<number> {
-  const countryId = await getCountryId(countryCode);
-  if (!countryId) return 0;
+  const country = await getCountryInfo(countryCode);
+  if (!country) return 0;
 
   let inserted = 0;
   for (const item of discovered) {
     try {
-      const rows = await db.insert(salarySubmissions).values({
+      if (!item.grossMonthlySalary || !Number.isFinite(item.grossMonthlySalary) || item.grossMonthlySalary <= 0) {
+        continue;
+      }
+      const plausibility = await checkSalaryPlausibility({
         jobTitle: item.jobTitle,
-        countryId,
+        countryName: country.name,
         experienceLevel: item.experienceLevel,
         employmentType: item.employmentType,
         currency: item.currency,
+        grossMonthlySalary: item.grossMonthlySalary,
+      });
+      const isVerified = plausibility.plausible && plausibility.confidence !== 'low';
+
+      const rows = await db.insert(salarySubmissions).values({
+        jobTitle: item.jobTitle,
+        countryId: country.id,
+        experienceLevel: item.experienceLevel,
+        employmentType: item.employmentType,
+        currency: item.currency.trim().toUpperCase(),
         grossMonthlySalary: item.grossMonthlySalary.toString(),
-        netMonthlySalary: item.netMonthlySalary?.toString() || null,
+        netMonthlySalary: item.netMonthlySalary && item.netMonthlySalary <= item.grossMonthlySalary ? item.netMonthlySalary.toString() : null,
         yearsOfExperience: item.yearsOfExperience || null,
         isAnonymous: true,
-        isVerified: true,
+        isVerified,
         sourceUrl: item.sourceUrl || null,
       }).onConflictDoNothing().returning({ id: salarySubmissions.id });
       if (rows.length > 0) inserted++;

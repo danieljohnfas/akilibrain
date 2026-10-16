@@ -177,32 +177,44 @@ export function decodeCloudflareEmail(hex: string): string | null {
   }
 }
 
+export const PLACEHOLDER_COMPANY_REGEX =
+  /^(?:TRA|company\s*name|job\s*opportunity|reputable\s*company|anonymous\s*employer|various\s*verified\s*employers|tanzanian\s*employer|verified\s*employer.*|confidential.*|unknown(?:\s*company)?|employer|n\/a|undisclosed|client)$/i;
+
 /**
  * Extracts true company name from title or description when the stored company is 'TRA' or generic.
  */
 export function extractCompanyFromTitleOrText(title: string, text?: string | null): string | null {
-  if (!title) return null;
+  if (!title && !text) return null;
 
   // 1. Check title patterns like "Company — Role" or "Company - Role"
-  const dashMatch = title.match(/^([A-Za-z0-9&.,'\s]{3,40}?)\s+[—–-]\s+/);
-  if (dashMatch && dashMatch[1].trim()) {
-    const candidate = dashMatch[1].trim();
-    if (!/^(internship|vacancy|job|urgent|hiring|remote|fresh|tenders?|recruitment)/i.test(candidate)) {
-      return candidate;
+  if (title) {
+    const dashMatch = title.match(/^([A-Za-z0-9&.,'\s]{3,40}?)\s+[—–-]\s+/);
+    if (dashMatch && dashMatch[1].trim()) {
+      const candidate = dashMatch[1].trim();
+      if (!/^(internship|vacancy|job|urgent|hiring|remote|fresh|tenders?|recruitment)/i.test(candidate) && !PLACEHOLDER_COMPANY_REGEX.test(candidate)) {
+        return candidate;
+      }
+    }
+
+    // 2. Patterns like "Role at Company" or "Role Job Vacancy at Company"
+    const atMatch = title.match(/(?:at|for|with)\s+([A-Za-z0-9&.,'()\-\s]{3,55})$/i);
+    if (atMatch && atMatch[1].trim()) {
+      const cleaned = atMatch[1].trim().replace(/\s+(?:Tanzania|Kenya|Uganda|Rwanda|Ethiopia)$/i, '');
+      if (!PLACEHOLDER_COMPANY_REGEX.test(cleaned)) return cleaned;
     }
   }
 
-  // 2. Patterns like "Role at Company" or "Role Job Vacancy at Company"
-  const atMatch = title.match(/(?:at|for)\s+([A-Za-z0-9&.,'\s]{3,50})$/i);
-  if (atMatch && atMatch[1].trim()) {
-    return atMatch[1].trim().replace(/\s+(?:Tanzania|Kenya|Uganda|Rwanda|Ethiopia)$/i, '');
-  }
-
-  // 3. Look in description for "Organization: Company" or "Company: Company"
+  // 3. Look in description for "Organization: Company", "at <Org> in <Loc>.", or "role at <Org>."
   if (text) {
-    const orgMatch = text.match(/(?:Organization|Company|Employer)[:\s]+([A-Za-z0-9&.,'\s]{3,50})(?:\n|\r|$)/i);
+    const orgMatch =
+      text.match(/(?:Organization|Company|Employer)[:\s]+([A-Za-z0-9&.,'()\-\s]{3,55})(?:\n|\r|$)/i) ||
+      text.match(/\bat\s+([A-Z][A-Za-z0-9&'’().,\-\s]{2,60}?)\s+in\s+[A-Z][A-Za-z\s,]+?\.\s*(?:Originally|Apply|This|Candidates|The)/) ||
+      text.match(/(?:role|position|opportunity|vacancy|opening)\s+at\s+([A-Z][A-Za-z0-9&'’().,\-\s]{2,60}?)\.\s*(?:Apply|Originally|This|The|Candidates)/);
     if (orgMatch && orgMatch[1].trim()) {
-      return orgMatch[1].trim();
+      const candidate = orgMatch[1].trim().replace(/[.,;]+$/, '');
+      if (!PLACEHOLDER_COMPANY_REGEX.test(candidate)) {
+        return candidate;
+      }
     }
   }
 
@@ -360,13 +372,14 @@ export async function reviewAndEnrichJob(
     isAggregatorUrl(job.sourceUrl) ||
     (review?.isAggregator ?? false);
 
-  const needsRequirements = !job.requirements || job.requirements.trim().length < 40;
+  const needsRequirements = !job.requirements || job.requirements.trim().length < 80;
+  const needsCompanyResolution = !job.companyName || PLACEHOLDER_COMPANY_REGEX.test(job.companyName.trim());
   const needsDeadline = !job.deadline;
   const needsEmployerUrl = !job.employerUrl || isAggregatorUrl(job.employerUrl);
   const isShallow = (job.description?.length ?? 0) < 300 || review?.qualityLevel === 'shallow' || review?.qualityLevel === 'empty';
 
-  // If already rich, has direct employer URL, requirements, and deadline:
-  if (!needsRequirements && !needsDeadline && !needsEmployerUrl && !isShallow && !isAggregator) {
+  // If already rich, has direct employer URL, requirements, company name, and deadline:
+  if (!needsRequirements && !needsCompanyResolution && !needsDeadline && !needsEmployerUrl && !isShallow && !isAggregator) {
     return {
       id: job.id,
       module: 'jobs',
@@ -410,9 +423,9 @@ export async function reviewAndEnrichJob(
     updatedAt: new Date(),
   };
 
-  // Company Name Correction (e.g. fix 'TRA' scraper glitch or generic company names)
-  if (job.companyName === 'TRA' || !job.companyName || job.companyName.trim() === '') {
-    const candidateCompany = extractCompanyFromTitleOrText(job.title, job.description);
+  // Company Name Correction (e.g. fix 'TRA' scraper glitch or generic placeholder company names)
+  if (needsCompanyResolution) {
+    const candidateCompany = extractCompanyFromTitleOrText(job.title, job.description || extracted.cleanText);
     if (candidateCompany && candidateCompany !== job.companyName) {
       updatePayload.companyName = candidateCompany;
       fieldsUpdated.push('companyName');

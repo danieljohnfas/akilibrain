@@ -2,11 +2,12 @@ import { scrapersDisabled } from '@/lib/scrapers/cost-controls';
 import { inngest } from "./client";
 import { discoverTenders, BroadTenderResource } from "@/lib/scrapers/broad-search-engine-tenders";
 import { db } from "@/lib/db/client";
-import { tenders } from "@/lib/db/schema/tenders";
+import { tenders, tenderSectors } from "@/lib/db/schema/tenders";
 import { countries } from "@/lib/db/schema/shared";
 import { eq } from "drizzle-orm";
 import { normalizeLocationAndGetRegionId } from "@/lib/ai/location";
 import { classifySourceUrl } from "@/lib/sources/employer-resolver";
+import { normalizeTenderForIngestion } from "@/lib/scrapers/ingestion-standards";
 import {
   ScraplingStrategy,
   FirecrawlStrategy,
@@ -168,6 +169,27 @@ const PORTALS: Array<{
 ];
 
 // ── DB helpers ────────────────────────────────────────────────────────────────
+let cachedSectors: Array<{ id: string; name: string; slug: string }> | null = null;
+async function resolveTenderSectorId(text: string): Promise<string | null> {
+  if (!cachedSectors) {
+    cachedSectors = await db.select().from(tenderSectors);
+  }
+  if (!cachedSectors || cachedSectors.length === 0) return null;
+  const lower = (text || '').toLowerCase();
+  for (const s of cachedSectors) {
+    const keyword = s.name.toLowerCase().split(/\W+/)[0];
+    if (keyword && keyword.length >= 3 && lower.includes(keyword)) {
+      return s.id;
+    }
+  }
+  return cachedSectors[0].id;
+}
+
+async function getCountryNameById(countryId: string): Promise<string> {
+  const [row] = await db.select({ name: countries.name }).from(countries).where(eq(countries.id, countryId)).limit(1);
+  return row?.name || 'East Africa';
+}
+
 export async function getCountryId(countryCode: string): Promise<string | null> {
   const result = await db
     .select({ id: countries.id })
@@ -181,25 +203,40 @@ export async function saveTenderResults(
   items: TenderResult[],
   countryId: string
 ): Promise<number> {
+  const countryName = await getCountryNameById(countryId);
   let inserted = 0;
   for (const t of items) {
     try {
-      const regionId = await normalizeLocationAndGetRegionId(t.contractingAuthority);
+      const deadlineDate = t.deadline ? new Date(t.deadline) : null;
+      const { contractingAuthority, aiSummary } = normalizeTenderForIngestion(
+        {
+          title: t.title,
+          description: t.description,
+          contractingAuthority: t.contractingAuthority,
+          deadline: deadlineDate,
+        },
+        countryName,
+      );
+      const regionId = await normalizeLocationAndGetRegionId(contractingAuthority);
+      const sectorId = await resolveTenderSectorId(`${t.title} ${t.description || ''}`);
       const { isAggregatorSource, quickEmployerUrl } = classifySourceUrl(t.sourceUrl);
+      const status = deadlineDate && deadlineDate < new Date() ? "closed" : "open";
       const rows = await db
         .insert(tenders)
         .values({
           referenceNo: t.referenceNo,
           title: t.title,
           description: t.description ?? null,
-          contractingAuthority: t.contractingAuthority,
-          deadline: t.deadline ? new Date(t.deadline) : null,
+          contractingAuthority,
+          deadline: deadlineDate,
           sourceUrl: t.sourceUrl,
-          employerUrl: quickEmployerUrl,
+          employerUrl: quickEmployerUrl || t.sourceUrl,
+          aiSummary,
+          sectorId,
           isAggregatorSource,
           countryId,
           regionId,
-          status: "open",
+          status,
         })
         .onConflictDoNothing()
         .returning({ id: tenders.id });
@@ -215,6 +252,7 @@ export async function saveBroadResults(
   items: BroadTenderResource[],
   countryId: string
 ): Promise<number> {
+  const countryName = await getCountryNameById(countryId);
   // Broad results are fetched via fetchHtml (scrapelab), so report their yield
   const yieldReport = new ScrapelabYield();
   let inserted = 0;
@@ -222,23 +260,40 @@ export async function saveBroadResults(
     try {
       const { isAggregatorSource, quickEmployerUrl } = classifySourceUrl(t.sourceUrl);
       const safeBudget = (t.budget && t.budget <= 10000000000) ? t.budget.toString() : null;
+      const deadlineDate = t.deadline ? new Date(t.deadline) : null;
+      const { contractingAuthority, aiSummary } = normalizeTenderForIngestion(
+        {
+          title: t.title,
+          description: t.description,
+          contractingAuthority: t.contractingAuthority,
+          category: t.category,
+          budget: safeBudget,
+          currency: t.currency,
+          deadline: deadlineDate,
+        },
+        countryName,
+      );
+      const sectorId = await resolveTenderSectorId(`${t.title} ${t.description || ''}`);
+      const status = deadlineDate && deadlineDate < new Date() ? "closed" : "open";
       const rows = await db
         .insert(tenders)
         .values({
           referenceNo: t.referenceNo,
           title: t.title,
           description: t.description ?? null,
-          contractingAuthority: t.contractingAuthority,
+          contractingAuthority,
           category: t.category,
           budget: safeBudget,
           currency: t.currency,
-          deadline: t.deadline ?? null,
+          deadline: deadlineDate,
           sourceUrl: t.sourceUrl,
-          employerUrl: quickEmployerUrl,
+          employerUrl: quickEmployerUrl || t.sourceUrl,
+          aiSummary,
+          sectorId,
           isAggregatorSource,
           countryId,
           regionId: t.regionId ?? null,
-          status: "open",
+          status,
         })
         .onConflictDoNothing()
         .returning({ id: tenders.id });

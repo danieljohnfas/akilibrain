@@ -2,6 +2,7 @@ import { generateObjectWithFallback } from '../ai/router';
 import { z } from 'zod';
 import { fetchHtml, htmlToTextEnriched, fetchAndParseDocument } from './compliance-base';
 import { searchGoogle, SCRAPING_GUIDELINES } from './broad-search-engine';
+import { normalizeComplianceForIngestion } from './ingestion-standards';
 
 export interface BroadComplianceResource {
   title: string;
@@ -108,11 +109,20 @@ COMPLIANCE-SPECIFIC EXTRACTION RULES:
         category = 'health_safety';
       }
 
+      const norm = normalizeComplianceForIngestion(
+        {
+          title: inferredTitle,
+          description,
+          issuingAuthority: null,
+        },
+        'KE',
+      );
+
       return [{
-        title: inferredTitle,
+        title: norm.title,
         description,
         category,
-        issuingAuthority: 'Regulatory Authority',
+        issuingAuthority: norm.issuingAuthority,
         resourceType: 'guideline',
         sourceUrl,
       }];

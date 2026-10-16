@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, uuid, numeric, boolean, index, uniqueIndex, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, numeric, boolean, index, uniqueIndex, pgEnum, check } from 'drizzle-orm/pg-core';
 import { countries, regions } from './shared';
 import { sql } from 'drizzle-orm';
 
@@ -43,4 +43,8 @@ export const tenders = pgTable('tenders', {
   index('tenders_search_idx').using('gin', sql`to_tsvector('english', ${table.title} || ' ' || coalesce(${table.description}, ''))`),
   // Secondary dedup guard: prevents same tender re-inserted with a different auto-generated referenceNo
   uniqueIndex('tenders_title_authority_country_udx').on(table.title, table.contractingAuthority, table.countryId),
+  check('tenders_contracting_authority_valid_chk', sql`length(trim(${table.contractingAuthority})) >= 3 AND lower(trim(${table.contractingAuthority})) NOT IN ('the', 'to', 'by', 'a', 'under', 'procuring entity', 'south sudan contracting authority', 'unknown', 'n/a')`),
+  check('tenders_ai_summary_not_empty_chk', sql`${table.aiSummary} IS NOT NULL AND length(trim(${table.aiSummary})) >= 20`),
+  check('tenders_sector_id_not_null_chk', sql`${table.sectorId} IS NOT NULL`),
+  check('tenders_employer_url_not_empty_chk', sql`${table.employerUrl} IS NOT NULL AND trim(${table.employerUrl}) <> ''`),
 ]);

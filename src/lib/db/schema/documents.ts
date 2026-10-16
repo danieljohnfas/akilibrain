@@ -1,4 +1,5 @@
-import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, check } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 
 export const userDocuments = pgTable('user_documents', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -6,7 +7,9 @@ export const userDocuments = pgTable('user_documents', {
   filename: text('filename').notNull(),
   // Full extracted text
   content: text('content').notNull(),
-  // AI-compressed version if the original is too long
-  summary: text('summary'),
+  // Concise or AI-compressed summary of the uploaded document
+  summary: text('summary').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
-});
+}, (table) => [
+  check('user_documents_summary_not_empty_chk', sql`${table.summary} IS NOT NULL AND trim(${table.summary}) <> ''`),
+]);

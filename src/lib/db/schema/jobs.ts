@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, uuid, boolean, pgEnum, index, numeric } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, boolean, pgEnum, index, numeric, check } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 import { countries, regions } from './shared';
 
@@ -9,7 +9,7 @@ export const jobs = pgTable('jobs', {
   title: text('title').notNull(),
   companyName: text('company_name').notNull(),
   description: text('description').notNull(),
-  requirements: text('requirements'),
+  requirements: text('requirements').notNull().default(''),
   location: text('location'),
   countryId: uuid('country_id').notNull().references(() => countries.id),
   regionId: uuid('region_id').references(() => regions.id),
@@ -25,10 +25,10 @@ export const jobs = pgTable('jobs', {
   employerUrl: text('employer_url'),              // resolved employer/ATS/authority URL (null = not yet resolved)
   
   // AI Extracted Entity Fields
-  sector: text('sector'),
+  sector: text('sector').notNull().default('Corporate & Business Services'),
   profession: text('profession'),
-  experienceLevel: text('experience_level'),
-  educationLevel: text('education_level'),
+  experienceLevel: text('experience_level').notNull().default('mid_level'),
+  educationLevel: text('education_level').notNull().default('bachelors'),
   skills: text('skills').array(),
   
   isAggregatorSource: boolean('is_aggregator_source').notNull().default(false), // true if sourceUrl is an aggregator
@@ -44,6 +44,12 @@ export const jobs = pgTable('jobs', {
   index('jobs_created_at_idx').on(table.createdAt),
   index('jobs_needs_ai_idx').on(table.needsAiExtraction),
   index('jobs_search_idx').using('gin', sql`to_tsvector('english', ${table.title} || ' ' || coalesce(${table.description}, ''))`),
+  check('jobs_company_name_valid_chk', sql`length(trim(${table.companyName})) >= 2 AND lower(trim(${table.companyName})) NOT IN ('company name', 'anonymous employer', 'confidential', 'confidential employer', 'unknown', 'unknown company', 'n/a', 'undisclosed', 'client')`),
+  check('jobs_experience_level_not_empty_chk', sql`${table.experienceLevel} IS NOT NULL AND trim(${table.experienceLevel}) <> ''`),
+  check('jobs_education_level_not_empty_chk', sql`${table.educationLevel} IS NOT NULL AND trim(${table.educationLevel}) <> ''`),
+  check('jobs_sector_not_empty_chk', sql`${table.sector} IS NOT NULL AND trim(${table.sector}) <> ''`),
+  check('jobs_description_min_length_chk', sql`length(trim(${table.description})) >= 100`),
+  check('jobs_requirements_min_length_chk', sql`${table.requirements} IS NOT NULL AND length(trim(${table.requirements})) >= 80`),
 ]);
 
 

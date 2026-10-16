@@ -77,15 +77,30 @@ HEALTH DATA EXTRACTION RULES:
 
     if (!object || !object.dataPoints) return [];
 
-    return object.dataPoints.map((dp: any) => ({
-      indicatorCode: dp.indicatorCode,
-      indicatorName: dp.indicatorName,
-      unit: dp.unit,
-      category: dp.category,
-      value: dp.value,
-      year: dp.year,
-      sourceUrl,
-    }));
+    const maxYear = new Date().getFullYear() + 1;
+    return object.dataPoints
+      .filter((dp: any) => (
+        dp &&
+        typeof dp.indicatorCode === 'string' && dp.indicatorCode.trim().length >= 2 &&
+        typeof dp.indicatorName === 'string' && dp.indicatorName.trim().length >= 3 &&
+        typeof dp.value === 'number' && !isNaN(dp.value) && dp.value >= 0 && dp.value < 1_000_000_000 &&
+        typeof dp.year === 'number' && dp.year >= 1990 && dp.year <= maxYear
+      ))
+      .map((dp: any) => {
+        const rawUnit = (dp.unit || '').trim();
+        const unit = (!rawUnit || /^(?:n\/a|none|null|unknown|-)$/i.test(rawUnit))
+          ? (/rate|ratio|mortality|incidence/i.test(dp.indicatorName) ? 'per 1,000 population' : /index|score/i.test(dp.indicatorName) ? 'Index (0-100)' : '%')
+          : rawUnit;
+        return {
+          indicatorCode: dp.indicatorCode.trim().toUpperCase().replace(/[^A-Z0-9_]/g, '_').slice(0, 24),
+          indicatorName: dp.indicatorName.trim(),
+          unit,
+          category: dp.category,
+          value: dp.value,
+          year: Math.round(dp.year),
+          sourceUrl,
+        };
+      });
   } catch (err) {
     console.warn(`[extractHealthWithAI] AI extraction unavailable on ${sourceUrl} (${(err as Error).message}). Engaging deterministic fallback.`);
 

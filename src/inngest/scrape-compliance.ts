@@ -5,6 +5,8 @@ import { db } from "@/lib/db/client";
 import { complianceResources } from "@/lib/db/schema/compliance";
 import { countries } from "@/lib/db/schema/shared";
 import { eq } from "drizzle-orm";
+import { normalizeComplianceForIngestion } from "@/lib/scrapers/ingestion-standards";
+import { classifySourceUrl } from "@/lib/sources/employer-resolver";
 
 const COMPLIANCE_TARGET = 10; // Second pass if below this threshold
 
@@ -20,13 +22,21 @@ export async function saveCompliance(discovered: BroadComplianceResource[], coun
   let inserted = 0;
   for (const item of discovered) {
     try {
+      const norm = normalizeComplianceForIngestion(item, countryCode);
+      const { isAggregatorSource, quickEmployerUrl } = classifySourceUrl(item.sourceUrl);
       const rows = await db.insert(complianceResources).values({
-        title: item.title,
+        title: norm.title,
         description: item.description,
         category: item.category,
-        issuingAuthority: item.issuingAuthority,
+        issuingAuthority: norm.issuingAuthority,
+        requiredDocuments: norm.requiredDocuments,
+        renewalPeriodDays: norm.renewalPeriodDays,
+        estimatedCost: norm.estimatedCost,
+        lastVerifiedAt: norm.lastVerifiedAt,
         resourceType: item.resourceType,
         sourceUrl: item.sourceUrl,
+        employerUrl: quickEmployerUrl || item.sourceUrl,
+        isAggregatorSource,
         countryId,
         isActive: true,
       }).onConflictDoNothing().returning({ id: complianceResources.id });

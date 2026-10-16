@@ -17,15 +17,24 @@ export async function saveHealthData(discovered: BroadHealthResource[], countryC
   const countryId = await getCountryId(countryCode);
   if (!countryId) return 0;
 
+  const currentYear = new Date().getFullYear();
   let inserted = 0;
   for (const item of discovered) {
     try {
-      // 1. Ensure indicator exists
-      const indicatorCode = item.indicatorCode || item.indicatorName.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+      if (item.value === null || item.value === undefined || !Number.isFinite(Number(item.value))) {
+        continue;
+      }
+      const year = item.year && item.year >= 1990 && item.year <= currentYear + 1 ? item.year : currentYear - 1;
+      const cleanUnit = (item.unit || '').trim() || '%';
+
+      // 1. Ensure indicator exists (only after validating the data point to avoid orphan indicators)
+      const indicatorCode = (item.indicatorCode || item.indicatorName.toLowerCase().replace(/[^a-z0-9]+/g, '_')).trim();
+      if (!indicatorCode) continue;
+
       await db.insert(healthIndicators).values({
         code: indicatorCode,
-        name: item.indicatorName,
-        unit: item.unit || '%',
+        name: item.indicatorName.trim(),
+        unit: cleanUnit,
         category: item.category || 'general',
       }).onConflictDoNothing();
 
@@ -37,7 +46,7 @@ export async function saveHealthData(discovered: BroadHealthResource[], countryC
         indicatorId: indicator.id,
         countryId,
         value: item.value.toString(),
-        year: item.year || 2024,
+        year,
         source: item.sourceUrl || 'Web Scraping',
       }).onConflictDoNothing().returning({ id: healthDataPoints.id });
 

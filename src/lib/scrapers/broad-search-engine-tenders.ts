@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { fetchHtml, htmlToTextEnriched } from './compliance-base';
 import { searchGoogle, SCRAPING_GUIDELINES } from './broad-search-engine';
 import { extractDeterministicTenderFields } from './deterministic-extractor';
+import { normalizeTenderForIngestion } from './ingestion-standards';
 
 export interface BroadTenderResource {
   referenceNo: string;
@@ -139,11 +140,19 @@ TENDER-SPECIFIC EXTRACTION RULES:
       const inferredTitle = titleMatch ? titleMatch[1].trim().replace(/^[#*-\s]+/, '') : 'Procurement Opportunity';
       const refNo = deterministic.referenceNo || `TND-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
 
+      const norm = normalizeTenderForIngestion({
+        title: inferredTitle,
+        description: deterministic.description,
+        contractingAuthority: null,
+        category: deterministic.category,
+        deadline: deterministic.deadline,
+      });
+
       return [{
         referenceNo: refNo,
         title: inferredTitle,
         description: deterministic.description,
-        contractingAuthority: 'Procuring Entity',
+        contractingAuthority: norm.contractingAuthority,
         category: deterministic.category,
         regionId: null,
         budget: deterministic.budget,

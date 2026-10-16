@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, uuid, boolean, integer, index, uniqueIndex, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, boolean, integer, index, uniqueIndex, pgEnum, check } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 import { countries } from './shared';
 
@@ -39,13 +39,13 @@ export const complianceRequirements = pgTable('compliance_requirements', {
   businessTypeId: uuid('business_type_id').references(() => businessTypes.id),
   category: complianceCategoryEnum('category').notNull(),
   issuingAuthority: text('issuing_authority').notNull(),
-  renewalPeriodDays: integer('renewal_period_days'), // Number of days between renewals
-  estimatedCost: text('estimated_cost'),
+  renewalPeriodDays: integer('renewal_period_days').default(365), // Number of days between renewals
+  estimatedCost: text('estimated_cost').default('Statutory schedule fee (varies by tier)'),
   requiredDocuments: text('required_documents').array(),
   sourceUrl: text('source_url'),
   resourceType: complianceResourceTypeEnum('resource_type').notNull().default('guideline'),
   isActive: boolean('is_active').notNull().default(true),
-  lastVerifiedAt: timestamp('last_verified_at'),
+  lastVerifiedAt: timestamp('last_verified_at').defaultNow(),
   // Employer-first sourcing — resolved direct authority URL
   employerUrl: text('employer_url'),
   isAggregatorSource: boolean('is_aggregator_source').notNull().default(false),
@@ -57,6 +57,10 @@ export const complianceRequirements = pgTable('compliance_requirements', {
   uniqueIndex('compliance_title_country_udx').on(table.title, table.countryId),
   index('compliance_created_at_idx').on(table.createdAt),
   index('compliance_req_search_idx').using('gin', sql`to_tsvector('english', ${table.title} || ' ' || coalesce(${table.description}, ''))`),
+  check('compliance_issuing_authority_valid_chk', sql`length(trim(${table.issuingAuthority})) >= 2 AND lower(trim(${table.issuingAuthority})) NOT IN ('regulatory authority', 'relevant regulatory authority', 'unknown', 'various', 'n/a')`),
+  check('compliance_renewal_period_not_empty_chk', sql`${table.renewalPeriodDays} IS NOT NULL`),
+  check('compliance_estimated_cost_not_empty_chk', sql`${table.estimatedCost} IS NOT NULL AND trim(${table.estimatedCost}) <> ''`),
+  check('compliance_last_verified_not_null_chk', sql`${table.lastVerifiedAt} IS NOT NULL`),
 ]);
 
 export { complianceRequirements as complianceResources };

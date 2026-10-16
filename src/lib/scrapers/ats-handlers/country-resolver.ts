@@ -1,5 +1,6 @@
 import { db } from '../../db/client';
 import { countries } from '../../db/schema/shared';
+import { isForeignMisattribution } from '../ingestion-standards';
 
 export interface CountryResolver {
   resolveCountryId(locationStr: string, fallbackCode?: string): string | null;
@@ -106,6 +107,11 @@ export async function createCountryResolver(): Promise<CountryResolver> {
           const id = countryNameMap.get(countryName);
           if (id) return id;
         }
+      }
+
+      // 2.5 Reject explicit non-African jurisdictions before applying fallbackCode
+      if (loc && isForeignMisattribution(loc)) {
+        return null;
       }
 
       // 3. Fallback ISO code check
