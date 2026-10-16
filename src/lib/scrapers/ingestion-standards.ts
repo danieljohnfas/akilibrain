@@ -127,6 +127,101 @@ export function htmlToReadableText(input: string | null | undefined): string {
   return text;
 }
 
+const MONTH_MAP: Record<string, number> = {
+  january: 0, jan: 0,
+  february: 1, feb: 1,
+  march: 2, mar: 2,
+  april: 3, apr: 3,
+  may: 4,
+  june: 5, jun: 5,
+  july: 6, jul: 6,
+  august: 7, aug: 7,
+  september: 8, sep: 8, sept: 8,
+  october: 9, oct: 9,
+  november: 10, nov: 10,
+  december: 11, dec: 11,
+};
+
+/**
+ * Extracts an explicit application deadline from job description or requirements text.
+ * Handles formats like:
+ * - "Deadline for Application: Friday, 16th February, 2026"
+ * - "Closing date: 30th September 2026"
+ * - "Applications close on 31 May 2026"
+ * - "Deadline: 15/02/2026" or "15-02-2026"
+ */
+export function extractDeadlineFromText(text: string | null | undefined): Date | null {
+  if (!text) return null;
+
+  const m =
+    text.match(/\b(?:deadline(?:\s+for\s+applications?)?|closing\s+date|applications?\s+close(?:\s+on)?|no\s+later\s+than|before)[:\s]+(?:[a-z]+,?\s+)?(\d{1,2})(?:st|nd|rd|th)?\s+([a-z]+),?\s+(202[0-9])\b/i) ||
+    text.match(/\b(?:deadline(?:\s+for\s+applications?)?|closing\s+date)[:\s]+(?:[a-z]+,?\s+)?([a-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(202[0-9])\b/i);
+
+  if (m) {
+    let day: number, monthStr: string, year: number;
+    if (isNaN(Number(m[1]))) {
+      monthStr = m[1].toLowerCase();
+      day = parseInt(m[2], 10);
+      year = parseInt(m[3], 10);
+    } else {
+      day = parseInt(m[1], 10);
+      monthStr = m[2].toLowerCase();
+      year = parseInt(m[3], 10);
+    }
+
+    if (MONTH_MAP[monthStr] !== undefined && day >= 1 && day <= 31) {
+      const d = new Date(Date.UTC(year, MONTH_MAP[monthStr], day, 23, 59, 59));
+      if (!isNaN(d.getTime())) return d;
+    }
+  }
+
+  const mNum = text.match(/\b(?:deadline|closing\s+date)[:\s]+(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](202[0-9])\b/i);
+  if (mNum) {
+    const day = parseInt(mNum[1], 10);
+    const month = parseInt(mNum[2], 10) - 1;
+    const year = parseInt(mNum[3], 10);
+    if (month >= 0 && month <= 11 && day >= 1 && day <= 31) {
+      const d = new Date(Date.UTC(year, month, day, 23, 59, 59));
+      if (!isNaN(d.getTime())) return d;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Cleans job titles by removing vacancy quantity prefixes (e.g. "4 Transport Officer", "10 Insurance Officers"),
+ * redundant trailing company names ("... at Safaricom"), and aggregator suffixes ("... Job Vacancies").
+ */
+export function cleanJobTitle(title: string | null | undefined, companyName?: string | null): string {
+  if (!title) return 'Professional Opportunity';
+  let t = title.trim();
+
+  // Strip leading count like "4 Transport Officer", "10 Insurance officers", "3 Job Opportunities at Ocean View"
+  t = t.replace(/^[0-9]+\s+(?:job\s+opportunities|positions?|vacancies|posts?)\s+(?:at|in|for)\s+/i, '');
+  t = t.replace(/^[0-9]+\s+(?:job\s+opportunities|positions?|vacancies|posts?)\b/i, '');
+  t = t.replace(/^[0-9]+\s+([A-Z])/g, '$1');
+
+  // Strip leading prefixes like "Job Vacancy for [Role]" -> "[Role]"
+  t = t.replace(/^(?:urgent\s+)?job\s+vacanc(?:y|ies)\s+(?:at|in|for)\s+/i, '');
+  t = t.replace(/^new\s+recruitment\s+(?:at|in|for)\s+/i, '');
+  t = t.replace(/^[A-Z0-9\s-]+\s*[-–]\s*job\s+vacanc(?:y|ies)\s+for\s+/i, '');
+
+  // Strip redundant trailing " at [CompanyName]"
+  if (companyName) {
+    const escapedCo = companyName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const coRegex = new RegExp(`\\s+(?:at|@|–|-)\\s+${escapedCo}\\b.*$`, 'i');
+    t = t.replace(coRegex, '');
+  }
+  t = t.replace(/\s+(?:at|@)\s+[A-Z0-9&'’().,\-\s]{3,}$/, '');
+
+  // Strip trailing " Job Vacancy" or " Vacancies" ONLY at end
+  t = t.replace(/\s+(?:job\s+vacanc(?:y|ies)|vacanc(?:y|ies))\s*$/i, '');
+
+  t = t.replace(/\s+/g, ' ').trim();
+  return t.length >= 3 ? t : title.trim();
+}
+
 /**
  * Strips known scraper ad/CTA boilerplate from job descriptions and requirements,
  * automatically converting raw HTML markup to clean, formatted plain text.
@@ -143,6 +238,10 @@ export function stripScraperBoilerplate(text: string | null | undefined): string
     .replace(/Resubmit your Resume Today[^.\n]*\.?/gi, '')
     .replace(/Post a Job Company:[^.\n]*\.?/gi, '')
     .replace(/•?\s*comK-12 Alternative CertificationEvents MISTAFF\.?/gi, '')
+    .replace(/ALSO READ(?:\s+THIS)?\s*[:|][^\n.]*/gi, '')
+    .replace(/(?:OTHER JOBS|TANZANIA JOBS|NGO'?s?\s*JOBS|NAFASI ZA AJIRA|NAFASI ZA KAZI)[^\n.]*/gi, '')
+    .replace(/•?\s*\bajirayako@gmail\.com\b/gi, '')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
 
@@ -156,6 +255,7 @@ export interface NormalizedJobFields {
   educationLevel: string;
   skills: string[];
   deadline: Date;
+  isExpired: boolean;
 }
 
 /**
@@ -178,20 +278,29 @@ export function normalizeJobRecordForIngestion(
   },
   countryName = 'East Africa',
 ): NormalizedJobFields {
-  const title = (raw.title || 'Professional Opportunity').trim();
-  const sector = normalizeSector(raw.sector, title);
-  const experienceLevel = inferExperienceLevel(raw.experienceLevel, title, raw.description, raw.requirements);
-  const educationLevel = inferEducationLevel(raw.educationLevel, title, raw.description, raw.requirements);
+  const rawTitle = (raw.title || 'Professional Opportunity').trim();
+  // Strip boilerplate first so cross-posted ads (e.g. FINCA Microfinance Bank) don't contaminate the sector
+  let description = stripScraperBoilerplate(raw.description);
+  let requirements = stripScraperBoilerplate(raw.requirements);
 
   // Resolve company name without raw placeholders
   let companyName = (raw.companyName || '').trim();
   if (!companyName || PLACEHOLDER_COMPANY_REGEX.test(companyName) || /job opportunit/i.test(companyName)) {
-    const extracted = extractCompanyFromTitleOrText(title, raw.description);
-    companyName = extracted || `${countryName} ${sector} Hiring Partner`;
+    const extracted = extractCompanyFromTitleOrText(rawTitle, raw.description);
+    companyName = extracted || '';
   }
 
+  // Clean title: remove quantity prefixes and trailing company tags
+  const title = cleanJobTitle(rawTitle, companyName);
+
+  const sector = normalizeSector(raw.sector, `${title} ${description.slice(0, 300)}`);
+  if (!companyName) {
+    companyName = `${countryName} ${sector} Hiring Partner`;
+  }
+  const experienceLevel = inferExperienceLevel(raw.experienceLevel, title, description, requirements);
+  const educationLevel = inferEducationLevel(raw.educationLevel, title, description, requirements);
+
   // Clean and guarantee requirements >= 80 chars
-  let requirements = stripScraperBoilerplate(raw.requirements);
   if (requirements.length < 80) {
     const eduLabel =
       educationLevel === 'phd'
@@ -222,7 +331,6 @@ export function normalizeJobRecordForIngestion(
   }
 
   // Clean and guarantee description >= 100 chars
-  let description = stripScraperBoilerplate(raw.description);
   if (description.length < 100) {
     const locLabel = (raw.location && raw.location.trim()) || countryName;
     const jobTypeLabel = (raw.jobType || 'full_time').replace(/_/g, '-');
@@ -240,10 +348,12 @@ export function normalizeJobRecordForIngestion(
       ? raw.skills
       : extractAuthenticSkills(title, description, requirements);
 
-  // Guarantee valid future deadline (default +30 days if missing or already past)
+  // Extract in-text deadline if present; if expired, preserve true past deadline
   const now = new Date();
-  let deadline = raw.deadline && !isNaN(new Date(raw.deadline).getTime()) ? new Date(raw.deadline) : null;
-  if (!deadline || deadline <= now) {
+  const inTextDeadline = extractDeadlineFromText(description) || extractDeadlineFromText(requirements);
+  let deadline = inTextDeadline || (raw.deadline && !isNaN(new Date(raw.deadline).getTime()) ? new Date(raw.deadline) : null);
+  const isExpired = Boolean(deadline && deadline < now);
+  if (!deadline) {
     deadline = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
   }
 
@@ -257,6 +367,7 @@ export function normalizeJobRecordForIngestion(
     educationLevel,
     skills,
     deadline,
+    isExpired,
   };
 }
 
