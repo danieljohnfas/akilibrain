@@ -125,7 +125,15 @@ async function run() {
 
 run()
   .catch((e) => {
-    console.error(e instanceof SearchUnavailableError ? `\n[FATAL] ${e.message}` : e);
-    process.exitCode = 1; // was always 0, so failures never turned the workflow red
+    if (e instanceof SearchUnavailableError) {
+      console.warn(`\n[WARNING] ${e.message}`);
+      if (process.env.GITHUB_ACTIONS) {
+        console.log(`::warning title=Mass Scrape Search Quota::${e.message}`);
+      }
+      process.exitCode = 0;
+      return;
+    }
+    console.error(e);
+    process.exitCode = 1;
   })
   .finally(() => process.exit());

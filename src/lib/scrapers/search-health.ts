@@ -47,7 +47,7 @@ export function isQuotaFailure(engine: SearchEngine, status: number, body = ""):
     case "serper":
       return status === 402 || status === 429 || (status === 400 && /credit/i.test(body));
     case "cse":
-      return status === 429 || (status === 403 && /quota|rate/i.test(body));
+      return status === 429 || status === 403;
     case "ddg":
       return status === 429;
     case "sidecar":

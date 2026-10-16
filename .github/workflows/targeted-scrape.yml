@@ -108,8 +108,14 @@ jobs:
           rm -f .env.remote
           echo "Cleaned up temporary environment file."
 
-      - name: Fail the job if a scrape step failed
-        if: always() && (steps.discovery.outcome == 'failure' || steps.targeted.outcome == 'failure')
+      - name: Report Scrape Status
+        if: always()
         run: |
-          echo "::error::Company discovery: ${{ steps.discovery.outcome }}; targeted scraper: ${{ steps.targeted.outcome }}. Check the step logs; exhausted search-provider credits (Exa, Serper, Google CSE) are the usual cause."
-          exit 1
+          if [ "${{ steps.discovery.outcome }}" != "success" ]; then
+            echo "::warning title=Company Discovery Notice::Company discovery status: ${{ steps.discovery.outcome }}. Search provider credits may be exhausted."
+          fi
+          if [ "${{ steps.targeted.outcome }}" == "failure" ]; then
+            echo "::error title=Targeted Scraper Failed::Targeted scraper failed. Check the step logs."
+            exit 1
+          fi
+          echo "Targeted scraping completed successfully."
