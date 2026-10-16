@@ -298,11 +298,7 @@ export default async function TenderDetailPage({
                   <ExternalLink className="w-4 h-4 mr-2" />
                   {provenance.actionText}
                 </a>
-              ) : !tender.employerUrl && (
-                <div className="w-full text-center py-2 text-sm font-medium text-amber-600 border border-amber-200 bg-amber-50 rounded-md">
-                  Direct authority link pending resolution
-                </div>
-              )}
+              ) : null}
               {tender.documentUrl && (
                 <a 
                   href={tender.documentUrl} 
