@@ -404,7 +404,7 @@ export async function JobDetail({
                   Apply via Official Email
                   <Mail className="w-5 h-5 ml-2" />
                 </a>
-              ) : job.employerUrl && !isAggregatorUrl(job.employerUrl) ? (
+              ) : job.employerUrl && !isAggregatorUrl(job.employerUrl) && !job.employerUrl.includes('akilibrain.com') ? (
                 <a 
                   href={`/api/out?url=${encodeURIComponent(job.employerUrl)}&type=job&id=${job.id}`} 
                   target="_blank" 
@@ -414,11 +414,7 @@ export async function JobDetail({
                   Apply on Employer Site
                   <ExternalLink className="w-5 h-5 ml-2" />
                 </a>
-              ) : (
-                <div className="w-full md:w-auto h-12 px-4 flex items-center justify-center text-xs font-medium text-amber-500/90 border border-amber-500/20 bg-amber-500/5 rounded-md">
-                  Direct employer portal pending resolution
-                </div>
-              )}
+              ) : null}
               <Link 
                 href={`/jobs/apply/${job.id}`}
                 className={cn(buttonVariants({ size: "lg", className: "w-full md:w-auto h-12 px-8 text-base font-semibold shadow-lg shadow-primary/20" }))}
