@@ -25,10 +25,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "RESEND_API_KEY not configured" }, { status: 500 });
     }
     const resend = new Resend(resendKey);
-    const reportTo = process.env.ADMIN_REPORT_EMAIL;
-    if (!reportTo) {
-      return NextResponse.json({ error: "ADMIN_REPORT_EMAIL not configured" }, { status: 500 });
-    }
+    const reportTo = process.env.ADMIN_REPORT_EMAIL || process.env.ADMIN_EMAIL || "support@akilibrain.com";
 
     const result = await db.execute(sql`SELECT COUNT(*) as count FROM data_verification_log`);
     const verified = result[0]?.count || 0;
