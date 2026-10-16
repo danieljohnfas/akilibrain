@@ -1,6 +1,7 @@
 import { fetchAtsApi } from '../../sources/ats-fetcher';
 import { normalizeSector, extractAuthenticSkills } from '../skill-extractor';
 import { createCountryResolver } from './country-resolver';
+import { htmlToReadableText } from '../ingestion-standards';
 
 export async function fetchWorkableJobs(config: any) {
   try {
@@ -19,11 +20,11 @@ export async function fetchWorkableJobs(config: any) {
     const parsedJobs = [];
 
     for (const req of jobsList) {
-      const locString = `${req.location?.country || ''} ${req.location?.city || ''} ${req.location?.region || ''}`;
+      const locString = [req.location?.city, req.location?.region, req.location?.country].filter(Boolean).join(', ');
       const countryCode = req.location?.countryCode || config.defaultCountryCode || config.country;
-      const countryId = resolver.resolveCountryId(locString, countryCode);
+      const { countryId, location: resolvedLocation } = resolver.resolveLocationAndCountry(locString, countryCode);
 
-      if (!countryId) continue; // Skip non-target country jobs
+      if (!countryId) continue;
 
       // Fetch full details for job description and requirements
       let fullDescription = "";
@@ -33,11 +34,10 @@ export async function fetchWorkableJobs(config: any) {
         const detailEndpoint = `https://apply.workable.com/api/v2/accounts/${account}/jobs/${req.shortcode}`;
         const detail = await fetchAtsApi(detailEndpoint);
         if (detail) {
-          fullDescription = detail.description || "";
-          fullRequirements = detail.requirements || "";
+          fullDescription = htmlToReadableText(detail.description || "");
+          fullRequirements = htmlToReadableText(detail.requirements || "");
         }
       } catch (e) {
-        // Fallback gracefully
         fullDescription = `Position: ${req.title} at ${companyName}.`;
       }
 
@@ -47,7 +47,9 @@ export async function fetchWorkableJobs(config: any) {
       parsedJobs.push({
         title: req.title,
         companyName: companyName,
-        description: (fullDescription + (fullRequirements ? "\n\nRequirements:\n" + fullRequirements : "")).substring(0, 8000),
+        description: fullDescription || "View full job description on company portal.",
+        requirements: fullRequirements,
+        location: resolvedLocation,
         countryId: countryId,
         jobType: "full_time",
         sourceUrl: req.url || `https://apply.workable.com/${account}/j/${req.shortcode}/`,

@@ -23,14 +23,14 @@ export async function fetchBreezyJobs(config: any) {
       const countryCode = req.location?.country?.id || config.defaultCountryCode || config.country;
       const locString = `${locCountry} ${locCity} ${req.location?.name || ''}`;
 
-      const countryId = resolver.resolveCountryId(locString, countryCode);
-      if (!countryId) continue; // Skip non-target countries
+      const { countryId, location: resolvedLocation } = resolver.resolveLocationAndCountry(locString, countryCode);
+      if (!countryId) continue;
 
       const jobTitle = req.name || req.title;
       const department = req.department || '';
       const jobUrl = req.url || `https://${subdomain}.breezy.hr/p/${req.friendly_id || req.id}`;
 
-      const description = `Role: ${jobTitle} at ${companyName}.\nDepartment: ${department || 'General'}\nLocation: ${locCity}, ${locCountry}.\nEmployment Type: ${req.type?.name || 'Full-Time'}`;
+      const description = `Role: ${jobTitle} at ${companyName}.\nDepartment: ${department || 'General'}\nLocation: ${resolvedLocation}.\nEmployment Type: ${req.type?.name || 'Full-Time'}`;
       
       const cleanedSkills = extractAuthenticSkills(jobTitle, `${jobTitle} ${department} ${description}`);
 
@@ -38,6 +38,7 @@ export async function fetchBreezyJobs(config: any) {
         title: jobTitle,
         companyName: companyName,
         description: description.substring(0, 8000),
+        location: resolvedLocation,
         countryId: countryId,
         jobType: "full_time",
         sourceUrl: jobUrl,

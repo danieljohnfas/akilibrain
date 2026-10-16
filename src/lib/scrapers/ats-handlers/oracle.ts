@@ -1,27 +1,11 @@
-import { db } from '../../db/client';
-import { countries } from '../../db/schema/shared';
-import { inArray } from 'drizzle-orm';
-
 import { fetchAtsApi } from '../../sources/ats-fetcher';
 import { normalizeSector, extractAuthenticSkills } from '../skill-extractor';
+import { createCountryResolver } from './country-resolver';
+import { htmlToReadableText } from '../ingestion-standards';
 
 export async function fetchOracleJobs(config: any) {
   try {
-    const targetCountries = ["Kenya", "Tanzania", "Uganda", "Rwanda", "Ghana", "Nigeria", "Zambia", "South Africa", "Ethiopia"];
-    const dbCountries = await db.select().from(countries).where(inArray(countries.name, targetCountries));
-    
-    const countryMap = new Map<string, string>();
-    for (const c of dbCountries) {
-      let code = "UNKNOWN";
-      if (c.name === "Kenya") code = "KE";
-      if (c.name === "Tanzania") code = "TZ";
-      if (c.name === "Uganda") code = "UG";
-      if (c.name === "Rwanda") code = "RW";
-      if (c.name === "South Africa") code = "ZA";
-      
-      countryMap.set(code, c.id);
-      countryMap.set(c.name, c.id);
-    }
+    const resolver = await createCountryResolver();
 
     const data = await fetchAtsApi(config.endpoint);
     const rawJobs = data?.items?.[0]?.requisitionList || [];
@@ -30,21 +14,15 @@ export async function fetchOracleJobs(config: any) {
 
     const parsedJobs = [];
     for (const req of rawJobs) {
-      const countryCode = req.PrimaryLocationCountry;
       const loc = req.PrimaryLocation || "";
+      const locCountry = req.PrimaryLocationCountry || "";
       const title = req.Title || "";
       
-      let countryId = countryMap.get(countryCode);
-      if (!countryId) {
-        for (const [name, id] of countryMap.entries()) {
-          if (loc.includes(name) || title.includes(name)) {
-            countryId = id;
-            break;
-          }
-        }
-      }
+      const locCandidates = [loc, locCountry, title].filter(Boolean).join(' ');
+      const fallbackCountryCode = locCountry || config.defaultCountryCode;
+      const { countryId, location: resolvedLocation } = resolver.resolveLocationAndCountry(locCandidates, fallbackCountryCode);
       
-      if (!countryId) continue; // Only process our target footprint
+      if (!countryId) continue;
 
       // Construct dynamic URL from endpoint domain
       const url = new URL(config.endpoint);
@@ -52,10 +30,13 @@ export async function fetchOracleJobs(config: any) {
       const siteNumberMatch = config.endpoint.match(/siteNumber=([^,]+)/);
       const siteNumber = siteNumberMatch ? siteNumberMatch[1] : 'CX_3001';
 
+      const cleanDesc = htmlToReadableText(req.ShortDescriptionStr || req.Description || '') || "View full job description on company portal.";
+
       parsedJobs.push({
         title: req.Title,
         companyName: config.companyName,
-        description: req.ShortDescriptionStr || "No description provided.",
+        description: cleanDesc,
+        location: resolvedLocation,
         countryId: countryId,
         jobType: "full_time", // Default
         sourceUrl: `${host}/hcmUI/CandidateExperience/en/sites/${siteNumber}/job/${req.Id}`,
@@ -64,7 +45,7 @@ export async function fetchOracleJobs(config: any) {
         deadline: req.PostingEndDate ? new Date(req.PostingEndDate) : null,
         isActive: true,
         sector: normalizeSector(config.sector, req.Title),
-        skills: extractAuthenticSkills(req.Title, req.ShortDescriptionStr),
+        skills: extractAuthenticSkills(req.Title, cleanDesc),
         needsAiExtraction: false
       });
     }

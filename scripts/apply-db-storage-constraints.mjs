@@ -50,6 +50,16 @@ const CONSTRAINTS = [
     name: 'jobs_requirements_min_length_chk',
     expr: `requirements IS NOT NULL AND length(trim(requirements)) >= 80`,
   },
+  {
+    table: 'jobs',
+    name: 'jobs_no_raw_html_chk',
+    expr: `description !~ '<(div|p|ul|ol|li|strong|em|br|span|h[1-6]|table|tr|td|a|b|i)[>\\s/]' AND requirements !~ '<(div|p|ul|ol|li|strong|em|br|span|h[1-6]|table|tr|td|a|b|i)[>\\s/]' AND description NOT LIKE '%<!--%' AND requirements NOT LIKE '%<!--%'`,
+  },
+  {
+    table: 'jobs',
+    name: 'jobs_location_not_empty_chk',
+    expr: `location IS NOT NULL AND length(trim(location)) > 0`,
+  },
 
   // 2. TENDERS storage constraints
   {

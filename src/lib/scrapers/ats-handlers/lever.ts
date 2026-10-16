@@ -1,6 +1,7 @@
 import { fetchAtsApi } from '../../sources/ats-fetcher';
 import { normalizeSector, extractAuthenticSkills } from '../skill-extractor';
 import { createCountryResolver } from './country-resolver';
+import { htmlToReadableText } from '../ingestion-standards';
 
 export async function fetchLeverJobs(config: any) {
   try {
@@ -20,14 +21,20 @@ export async function fetchLeverJobs(config: any) {
     const parsedJobs = [];
     for (const req of jobsList) {
       const loc = req.categories?.location || "";
-      const countryId = resolver.resolveCountryId(loc, config.defaultCountryCode || config.country);
+      const { countryId, location: resolvedLocation } = resolver.resolveLocationAndCountry(
+        loc,
+        config.defaultCountryCode || config.country,
+      );
 
       if (!countryId) continue; 
+
+      const cleanDesc = htmlToReadableText(req.descriptionPlain || req.description || '') || 'View full description on company portal.';
 
       parsedJobs.push({
         title: req.text,
         companyName: companyName,
-        description: req.descriptionPlain || req.description,
+        description: cleanDesc,
+        location: resolvedLocation,
         countryId: countryId,
         jobType: "full_time",
         sourceUrl: req.hostedUrl,
@@ -36,7 +43,7 @@ export async function fetchLeverJobs(config: any) {
         deadline: null,
         isActive: true,
         sector: normalizeSector(config.sector, req.text),
-        skills: extractAuthenticSkills(req.text, req.descriptionPlain || req.description),
+        skills: extractAuthenticSkills(req.text, cleanDesc),
         needsAiExtraction: false
       });
     }

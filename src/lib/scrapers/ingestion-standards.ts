@@ -89,11 +89,52 @@ export function inferEducationLevel(
 }
 
 /**
- * Strips known scraper ad/CTA boilerplate from job descriptions and requirements.
+ * Converts raw HTML markup (from rich-text/Trix editors like Pinpoint, Greenhouse, Workable)
+ * into clean, readable plain text with preserved bullet points and structure.
+ * Strips all HTML comments, tags, and decodes HTML entities.
+ */
+export function htmlToReadableText(input: string | null | undefined): string {
+  if (!input) return '';
+  let text = input;
+
+  text = text.replace(/<!--[\s\S]*?-->/g, '');
+  text = text.replace(/<\s*li[^>]*>/gi, '\n• ');
+  text = text.replace(/<\s*\/li\s*>/gi, '\n');
+  text = text.replace(/<\s*br\s*\/?>/gi, '\n');
+  text = text.replace(/<\s*\/?(?:p|div|h[1-6]|tr|blockquote|section|article)[^>]*>/gi, '\n');
+  text = text.replace(/<[^>]*$/, '').replace(/<[^>]+>/g, '');
+
+  text = text
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&(?:apos|#39|rsquo|lsquo);/gi, "'")
+    .replace(/&(?:ldquo|rdquo);/gi, '"')
+    .replace(/&(?:ndash|mdash);/gi, ' - ')
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCharCode(Number(dec)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
+
+  text = text
+    .replace(/\r\n|\r/g, '\n')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/^ +| +$/gm, '')
+    .replace(/\n\s*•\s*•/g, '\n•')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
+  return text;
+}
+
+/**
+ * Strips known scraper ad/CTA boilerplate from job descriptions and requirements,
+ * automatically converting raw HTML markup to clean, formatted plain text.
  */
 export function stripScraperBoilerplate(text: string | null | undefined): string {
   if (!text) return '';
-  return text
+  const clean = htmlToReadableText(text);
+  return clean
     .replace(/\[email\s*protected\]/gi, 'the official application portal')
     .replace(/Sharing is Caring!?/gi, '')
     .replace(/•?\s*Canvassing will lead to automatic disqualification\.?/gi, '')

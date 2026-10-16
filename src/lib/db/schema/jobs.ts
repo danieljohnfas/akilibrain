@@ -50,6 +50,8 @@ export const jobs = pgTable('jobs', {
   check('jobs_sector_not_empty_chk', sql`${table.sector} IS NOT NULL AND trim(${table.sector}) <> ''`),
   check('jobs_description_min_length_chk', sql`length(trim(${table.description})) >= 100`),
   check('jobs_requirements_min_length_chk', sql`${table.requirements} IS NOT NULL AND length(trim(${table.requirements})) >= 80`),
+  check('jobs_no_raw_html_chk', sql`${table.description} !~ '<(div|p|ul|ol|li|strong|em|br|span|h[1-6]|table|tr|td|a|b|i)[>\\s/]' AND ${table.requirements} !~ '<(div|p|ul|ol|li|strong|em|br|span|h[1-6]|table|tr|td|a|b|i)[>\\s/]' AND ${table.description} NOT LIKE '%<!--%' AND ${table.requirements} NOT LIKE '%<!--%'`),
+  check('jobs_location_not_empty_chk', sql`${table.location} IS NOT NULL AND length(trim(${table.location})) > 0`),
 ]);
 
 

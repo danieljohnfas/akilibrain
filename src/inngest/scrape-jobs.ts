@@ -148,9 +148,12 @@ async function saveJobsInner(
       finalCountry.name,
     );
 
+    const jobLocation = (job as any).location?.trim() || finalCountry.name;
+
     return { 
       ...job,
       ...norm,
+      location: jobLocation,
       finalCountryId: finalCountry.id,
       employerUrl: employerUrl || job.sourceUrl,
       isAggregatorSource
@@ -167,6 +170,7 @@ async function saveJobsInner(
         companyName: job.companyName,
         description: job.description,
         requirements: job.requirements,
+        location: job.location,
         sector: job.sector,
         profession: job.profession,
         experienceLevel: job.experienceLevel,
@@ -201,6 +205,7 @@ async function saveJobsInner(
           companyName: job.companyName,
           description: job.description,
           requirements: job.requirements,
+          location: job.location,
           sector: job.sector,
           profession: job.profession,
           experienceLevel: job.experienceLevel,

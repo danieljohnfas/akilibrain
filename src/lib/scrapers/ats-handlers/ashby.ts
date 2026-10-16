@@ -1,18 +1,11 @@
-import { db } from '../../db/client';
-import { countries } from '../../db/schema/shared';
-import { inArray } from 'drizzle-orm';
 import { fetchAtsApi } from '../../sources/ats-fetcher';
 import { normalizeSector, extractAuthenticSkills } from '../skill-extractor';
+import { createCountryResolver } from './country-resolver';
+import { htmlToReadableText } from '../ingestion-standards';
 
 export async function fetchAshbyJobs(config: any) {
   try {
-    const targetCountries = ["Kenya", "Tanzania", "Uganda", "Rwanda", "Ghana", "Nigeria", "Zambia", "South Africa", "Ethiopia"];
-    const dbCountries = await db.select().from(countries).where(inArray(countries.name, targetCountries));
-
-    const countryMap = new Map<string, string>();
-    for (const c of dbCountries) {
-      countryMap.set(c.name.toLowerCase(), c.id);
-    }
+    const resolver = await createCountryResolver();
 
     const boardToken = config.boardToken || config.boardName;
     const endpoint = `https://api.ashbyhq.com/posting-api/job-board/${boardToken}`;
@@ -26,41 +19,11 @@ export async function fetchAshbyJobs(config: any) {
 
     const parsedJobs = [];
     for (const req of jobsList) {
-      let countryId = null;
-
-      const loc = (req.location || "").toLowerCase();
-      const desc = (req.descriptionPlain || req.description || "").toLowerCase();
-
-      // Check location text against supported countries
-      for (const [name, id] of countryMap.entries()) {
-        if (loc.includes(name)) {
-          countryId = id;
-          break;
-        }
-      }
-
-      // Check common African cities if country not explicitly named in location
-      if (!countryId) {
-        if (loc.includes('nairobi') || loc.includes('mombasa') || loc.includes('kisumu')) countryId = countryMap.get('kenya');
-        else if (loc.includes('lagos') || loc.includes('abuja') || loc.includes('epe')) countryId = countryMap.get('nigeria');
-        else if (loc.includes('accra') || loc.includes('kumasi')) countryId = countryMap.get('ghana');
-        else if (loc.includes('kampala') || loc.includes('entebbe')) countryId = countryMap.get('uganda');
-        else if (loc.includes('dar es salaam') || loc.includes('dodoma') || loc.includes('arusha')) countryId = countryMap.get('tanzania');
-        else if (loc.includes('kigali')) countryId = countryMap.get('rwanda');
-        else if (loc.includes('johannesburg') || loc.includes('cape town')) countryId = countryMap.get('south africa');
-      }
-
-      // Fallback to config default country if applicable
-      const fallbackCode = config.defaultCountryCode;
-      if (!countryId && fallbackCode) {
-        const defaultMap: Record<string, string> = {
-          "KE": "kenya", "NG": "nigeria", "GH": "ghana", "UG": "uganda", "TZ": "tanzania", "RW": "rwanda", "ZA": "south africa"
-        };
-        const defaultCountryName = defaultMap[fallbackCode];
-        if (defaultCountryName && (loc.includes('remote') || desc.includes(defaultCountryName))) {
-          countryId = countryMap.get(defaultCountryName) || null;
-        }
-      }
+      const locCandidates = [req.location, req.title].filter(Boolean).join(' ');
+      const { countryId, location: resolvedLocation } = resolver.resolveLocationAndCountry(
+        locCandidates,
+        config.defaultCountryCode,
+      );
 
       if (!countryId) continue;
 
@@ -71,12 +34,14 @@ export async function fetchAshbyJobs(config: any) {
       if (empType.includes('intern')) jobType = 'internship';
 
       const jobSector = normalizeSector(config.sector, req.title);
-      const jobSkills = extractAuthenticSkills(req.title, req.descriptionPlain);
+      const cleanDesc = htmlToReadableText(req.descriptionPlain || req.description || '') || 'View full description on company portal.';
+      const jobSkills = extractAuthenticSkills(req.title, cleanDesc);
 
       parsedJobs.push({
         title: req.title,
         companyName: companyName,
-        description: req.descriptionPlain || req.description || "View full description on company portal.",
+        description: cleanDesc,
+        location: resolvedLocation,
         countryId: countryId,
         jobType: jobType as any,
         sourceUrl: req.jobUrl || `https://jobs.ashbyhq.com/${boardToken}/${req.id}`,

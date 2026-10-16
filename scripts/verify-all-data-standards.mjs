@@ -134,7 +134,6 @@ async function runAudit() {
       OR company_name ILIKE '%confidential%'
       OR company_name ILIKE '%job opportunit%'
       OR company_name IN ('Reputable Company', 'Various Verified Employers', 'Unknown', 'Unknown Company')
-      OR company_name ILIKE '%Michigan Association Of Secondary School Principals%'
     )
   `;
   const [jobsFake] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE source_url LIKE '%synthetic%' OR title ~* '\\m(fake|dummy|test job|sample job)\\M' OR title ~* '^test\\s*$' OR company_name ~* '\\m(fake|dummy|test company)\\M' OR company_name ~* '^test\\s*$'`;
@@ -145,9 +144,37 @@ async function runAudit() {
   const [jobsBoilerplate] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND (description ILIKE '%Recruit candidates with Ease%' OR description ILIKE '%Employer Dashboard%' OR description ILIKE '%alexa rankings%' OR description ILIKE '%Resubmit your Resume Today%' OR description ILIKE '%Post a Job Company:%' OR requirements ILIKE '%Sharing is Caring!%' OR requirements ILIKE '%Canvassing will lead to automatic disqualification%')`;
   const [jobsDirectorIntern] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND (title ILIKE '%director%' OR title ILIKE '%head of%' OR title ILIKE '%chief%') AND job_type = 'internship' AND title NOT ILIKE '%intern%'`;
   const [jobsFalseAgg] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND is_aggregator_source = false AND (source_url ILIKE '%jobweb%' OR source_url ILIKE '%brightermonday%' OR source_url ILIKE '%fuzu%' OR source_url ILIKE '%myjobmag%')`;
+  const [jobsRawHtml] = await sql`
+    SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND (
+      description ~ '<(div|p|ul|ol|li|strong|em|br|span|h[1-6]|table|tr|td|a|b|i)[>\\s/]'
+      OR requirements ~ '<(div|p|ul|ol|li|strong|em|br|span|h[1-6]|table|tr|td|a|b|i)[>\\s/]'
+      OR description LIKE '%<!--%'
+      OR requirements LIKE '%<!--%'
+      OR description ~ '&(nbsp|amp|quot|lt|gt|#39|rsquo|lsquo|ldquo|rdquo);'
+      OR requirements ~ '&(nbsp|amp|quot|lt|gt|#39|rsquo|lsquo|ldquo|rdquo);'
+    )
+  `;
+  const [jobsNullLoc] = await sql`SELECT COUNT(*)::int as count FROM jobs WHERE is_active = true AND (location IS NULL OR TRIM(location) = '')`;
+  const [jobsMisattributedCountry] = await sql`
+    SELECT COUNT(*)::int as count FROM jobs j
+    JOIN countries c ON c.id = j.country_id
+    WHERE j.is_active = true AND c.code = 'KE' AND (
+      j.location ILIKE '%cameroon%'
+      OR j.location ILIKE '%douala%'
+      OR (j.location ILIKE '%nigeria%' AND j.company_name NOT ILIKE '%usiu%')
+      OR j.location ILIKE '%lagos%'
+      OR j.location ILIKE '%lansing%'
+      OR (j.location ILIKE '%michigan%' AND j.company_name NOT ILIKE '%usiu%')
+      OR j.location ILIKE '%mumbai%'
+      OR j.location ILIKE '%india%'
+    )
+  `;
 
   console.log(`[JOBS] Total: ${jobsTotal.count}`);
   console.log(`  ✓ Active:             ${jobsActive.count}`);
+  console.log(`  ✓ Raw HTML / Entities:${jobsRawHtml.count} (Must be 0)`);
+  console.log(`  ✓ Null/Empty Location:${jobsNullLoc.count} (Must be 0)`);
+  console.log(`  ✓ Country Misattributions:${jobsMisattributedCountry.count} (Must be 0)`);
   console.log(`  ✓ Expired & Active:   ${jobsExpiredActive.count} (Must be 0)`);
   console.log(`  ✓ Inactive Jobs:      ${jobsInactive.count} (Must be 0)`);
   console.log(`  ✓ Missing Employer:   ${jobsNullEmp.count} (Must be 0)`);
@@ -206,6 +233,9 @@ async function runAudit() {
     jobsBoilerplate.count > 0 ||
     jobsDirectorIntern.count > 0 ||
     jobsFalseAgg.count > 0 ||
+    jobsRawHtml.count > 0 ||
+    jobsNullLoc.count > 0 ||
+    jobsMisattributedCountry.count > 0 ||
     hiMissingUnit.count > 0 ||
     udMissingSummary.count > 0
   ) {
