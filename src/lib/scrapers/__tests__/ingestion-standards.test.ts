@@ -35,6 +35,7 @@ describe('Scraping & Data Ingestion Standards (ingestion-standards.ts)', () => {
       expect(inferEducationLevel(null, 'Public Health Advisor', 'MPH or MSc required')).toBe('masters_degree');
       expect(inferEducationLevel(null, 'Field Technician', 'TVET or Diploma in Electrical Engineering')).toBe('diploma');
       expect(inferEducationLevel(null, 'Software Engineer', 'BSc in Computer Science')).toBe('bachelor_degree');
+      expect(stripScraperBoilerplate('Sharing is Caring! Apply at [email protected]')).toBe('Apply at the official application portal');
     });
   });
 
