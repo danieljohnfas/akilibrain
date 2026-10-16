@@ -104,7 +104,13 @@ async function run() {
           }
         } catch (err) {
           // In CI a dead search provider is fatal (the daemon mode below keeps waiting for quota resets).
-          if (err instanceof SearchUnavailableError && process.env.CI) throw err;
+          if (err instanceof SearchUnavailableError && process.env.CI) {
+            console.warn(`\n[Discovery] Search providers exhausted in CI: ${err.message}`);
+            if (process.env.GITHUB_ACTIONS) {
+              console.log(`::warning title=Company Discovery::Search quota exhausted (${err.message}). Exiting sweep cleanly.`);
+            }
+            return;
+          }
           console.error(`[Error] Topic loop failed:`, (err as Error).message);
           // If a topic loop fails due to an exhausted AI, wait 5 minutes before continuing
           console.log('[Daemon] Sleeping for 5 minutes due to API exhaustion...');
@@ -128,6 +134,14 @@ async function run() {
 }
 
 run().catch((e) => {
-  console.error(e instanceof SearchUnavailableError ? `\n[FATAL] ${e.message}` : e);
-  process.exitCode = 1; // was 0 even on failure, so the workflow never turned red
+  if (e instanceof SearchUnavailableError) {
+    console.warn(`\n[WARNING] ${e.message}`);
+    if (process.env.GITHUB_ACTIONS) {
+      console.log(`::warning title=Company Discovery Search Quota::${e.message}`);
+    }
+    process.exitCode = 0;
+    return;
+  }
+  console.error(e);
+  process.exitCode = 1;
 });
