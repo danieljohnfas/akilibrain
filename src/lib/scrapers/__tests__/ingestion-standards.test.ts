@@ -5,6 +5,8 @@ import {
   inferEducationLevel,
   stripScraperBoilerplate,
   htmlToReadableText,
+  cleanJobTitle,
+  extractDeadlineFromText,
   normalizeJobRecordForIngestion,
   normalizeTenderForIngestion,
   normalizeComplianceForIngestion,
@@ -46,6 +48,35 @@ describe('Scraping & Data Ingestion Standards (ingestion-standards.ts)', () => {
     });
   });
 
+  describe('cleanJobTitle', () => {
+    it('strips leading vacancy counts and redundant trailing company names', () => {
+      expect(cleanJobTitle('4 Transport Officer at UDART', 'UDA Rapid Transit Plc (UDART)')).toBe('Transport Officer');
+      expect(cleanJobTitle('10 Insurance Officers')).toBe('Insurance Officers');
+      expect(cleanJobTitle('Senior Data Analyst at Safaricom PLC', 'Safaricom PLC')).toBe('Senior Data Analyst');
+      expect(cleanJobTitle('Accountant Job Vacancies')).toBe('Accountant');
+    });
+  });
+
+  describe('extractDeadlineFromText', () => {
+    it('extracts deterministic deadline dates from narrative text', () => {
+      const d1 = extractDeadlineFromText('Deadline for Application: Friday, 16th February, 2026.');
+      expect(d1).not.toBeNull();
+      expect(d1?.getUTCFullYear()).toBe(2026);
+      expect(d1?.getUTCMonth()).toBe(1); // 0-indexed February
+      expect(d1?.getUTCDate()).toBe(16);
+
+      const d2 = extractDeadlineFromText('Closing date: 30th September 2026');
+      expect(d2?.getUTCDate()).toBe(30);
+      expect(d2?.getUTCMonth()).toBe(8); // September
+
+      const d3 = extractDeadlineFromText('Deadline: 15/02/2026');
+      expect(d3?.getUTCDate()).toBe(15);
+      expect(d3?.getUTCMonth()).toBe(1);
+
+      expect(extractDeadlineFromText('Apply as soon as possible without delay')).toBeNull();
+    });
+  });
+
   describe('inferExperienceLevel & inferEducationLevel', () => {
     it('never classifies a Director or Head role as entry_level even if text mentions interns', () => {
       expect(inferExperienceLevel(null, 'Country Director', 'Will oversee staff and interns in Juba')).toBe('executive');
@@ -57,6 +88,9 @@ describe('Scraping & Data Ingestion Standards (ingestion-standards.ts)', () => {
       expect(inferEducationLevel(null, 'Field Technician', 'TVET or Diploma in Electrical Engineering')).toBe('diploma');
       expect(inferEducationLevel(null, 'Software Engineer', 'BSc in Computer Science')).toBe('bachelor_degree');
       expect(stripScraperBoilerplate('Sharing is Caring! Apply at [email protected]')).toBe('Apply at the official application portal');
+      expect(stripScraperBoilerplate('ALSO READ | Administration Manager at FINCA Microfinance Bank\nApply now')).toBe('Apply now');
+      expect(stripScraperBoilerplate('OTHER JOBS, TANZANIA JOBS, NAFASI ZA AJIRA\nRole overview')).toBe('Role overview');
+      expect(stripScraperBoilerplate('Send email to ajirayako@gmail.com for details')).toBe('Send email to for details');
     });
   });
 
