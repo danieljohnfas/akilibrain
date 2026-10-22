@@ -170,10 +170,15 @@ export default function AmazonAdsCentralDashboard() {
   }, []);
 
   useEffect(() => {
-    loadDashboard();
+    const timer = setTimeout(() => {
+      void loadDashboard();
+    }, 0);
     // Actively poll every hour (and check every 60s for live clicks/impressions)
     const interval = setInterval(loadDashboard, 60_000);
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(timer);
+      clearInterval(interval);
+    };
   }, [loadDashboard]);
 
   const handleManualRefresh = async () => {
