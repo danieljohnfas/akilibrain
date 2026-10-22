@@ -1,6 +1,7 @@
 import { db, safeQuery } from '@/lib/db/client';
 import { jobs } from '@/lib/db/schema/jobs';
 import { countries, regions } from '@/lib/db/schema/shared';
+import { getArchivedJob } from '@/lib/db/d1-archive';
 import { eq, or, and, isNull, gt, ilike, ne, desc } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import { Calendar, Building2, MapPin, ExternalLink, ArrowLeft, Briefcase, Mail } from 'lucide-react';
@@ -44,14 +45,26 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       .limit(1)
   );
 
-  if (!data.length) {
-    return { 
-      title: 'Job Not Found',
-      robots: { index: false, follow: false }
-    };
+  let job = data[0];
+  if (!job) {
+    const archived = await getArchivedJob(resolvedParams.id);
+    if (!archived) {
+      return { 
+        title: 'Job Not Found',
+        robots: { index: false, follow: false }
+      };
+    }
+    job = {
+      title: archived.job.title,
+      companyName: archived.job.companyName,
+      description: archived.job.description,
+      region: archived.region,
+      country: archived.country,
+      createdAt: archived.job.createdAt,
+      isActive: false,
+      deadline: archived.job.deadline,
+    } as any;
   }
-
-  const job = data[0];
   const companyStr = (!job.companyName || job.companyName.toLowerCase() === 'unknown') ? '' : ` at ${job.companyName}`;
   const title = `${job.title}${companyStr} | Jobs`;
   const desc = job.description 
@@ -128,13 +141,26 @@ export async function JobDetail({
     .limit(1));
 
 
+  let jobRecord = data[0];
+  let isFromArchive = false;
+
   if (!data.length) {
-    notFound();
+    const archived = await getArchivedJob(id);
+    if (!archived) {
+      notFound();
+    }
+    jobRecord = {
+      job: archived.job as any,
+      country: archived.country,
+      countryCode: archived.countryCode,
+      region: archived.region,
+    };
+    isFromArchive = true;
   }
 
-  const { job, country, countryCode, region } = data[0];
+  const { job, country, countryCode, region } = jobRecord;
 
-  const isExpired = job.deadline ? job.deadline < new Date() : !job.isActive;
+  const isExpired = isFromArchive || (job.deadline ? job.deadline < new Date() : !job.isActive);
   const typeColor = jobTypeColors[job.jobType || 'full_time'] || jobTypeColors['full_time'];
   const typeLabel = jobTypeLabels[job.jobType || 'full_time'] || 'Full Time';
   const targetUrl = job.employerUrl ?? job.sourceUrl;

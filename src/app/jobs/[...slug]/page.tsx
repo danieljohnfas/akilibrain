@@ -1,6 +1,7 @@
 import { db, safeQuery } from '@/lib/db/client';
 import { jobs } from '@/lib/db/schema/jobs';
 import { countries, regions } from '@/lib/db/schema/shared';
+import { getArchivedJob } from '@/lib/db/d1-archive';
 import { eq, desc, ilike, and, or, isNull, isNotNull, gt, count, sql, ne } from 'drizzle-orm';
 import type { Metadata } from 'next';
 import { JobDetail } from '../JobDetail';
@@ -50,11 +51,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         .limit(1)
     );
 
-    if (!data.length) {
-      return { title: 'Job Not Found', robots: { index: false, follow: false } };
+    let job = data[0];
+    if (!job) {
+      const archived = await getArchivedJob(lastSlug);
+      if (!archived) {
+        return { title: 'Job Not Found', robots: { index: false, follow: false } };
+      }
+      job = {
+        title: archived.job.title,
+        companyName: archived.job.companyName,
+        description: archived.job.description,
+        region: archived.region,
+        country: archived.country,
+        createdAt: archived.job.createdAt,
+        isActive: false,
+        deadline: archived.job.deadline,
+      } as any;
     }
-
-    const job = data[0];
     const companyStr = (!job.companyName || job.companyName.toLowerCase() === 'unknown') ? '' : ' at ' + job.companyName;
     const title = job.title + companyStr + ' | Jobs';
     const desc = job.description 
