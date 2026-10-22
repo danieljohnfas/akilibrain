@@ -2,7 +2,7 @@
 /**
  * Hot / Cold Tier Migration Script for AkiliBrain.com (High Performance Batched)
  * Moves expired jobs & closed tenders from Supabase Postgres (Hot) to Cloudflare D1 (Cold)
- * Uses multi-row SQL batching (50 rows per HTTP request) for fast completion (~2 minutes).
+ * Uses multi-row SQL batching (10 rows per HTTP request with automatic fallback on SQLITE_TOOBIG).
  */
 
 import postgres from 'postgres';
@@ -89,6 +89,38 @@ async function initSchema() {
   console.log('✓ D1 schema ready.');
 }
 
+async function executeBatchInsert(tableName, columns, rowValues) {
+  const batchSql = `
+    INSERT OR REPLACE INTO ${tableName} (
+      ${columns.join(', ')}
+    ) VALUES \n${rowValues.map(r => `(${r.map(sqlVal).join(', ')})`).join(',\n')};
+  `;
+
+  let retries = 3;
+  while (retries > 0) {
+    try {
+      await d1Exec(batchSql);
+      return;
+    } catch (err) {
+      if (err.message.includes('SQLITE_TOOBIG') || err.message.includes('too long')) {
+        // Fall back to smaller chunks of 2
+        for (const singleRow of rowValues) {
+          const singleSql = `
+            INSERT OR REPLACE INTO ${tableName} (
+              ${columns.join(', ')}
+            ) VALUES (${singleRow.map(sqlVal).join(', ')});
+          `;
+          await d1Exec(singleSql);
+        }
+        return;
+      }
+      retries--;
+      if (retries === 0) throw err;
+      await sleep(1500);
+    }
+  }
+}
+
 async function main() {
   const prune = process.argv.includes('--prune');
   console.log(`Starting High-Performance Hot -> Cold Migration (Prune: ${prune})...`);
@@ -110,11 +142,19 @@ async function main() {
     console.log(`  Jobs: ${jobsTotal.count} total, ${jobsExpired.count} expired to migrate`);
     console.log(`  Tenders: ${tendersTotal.count} total, ${tendersClosed.count} closed/expired to migrate`);
 
-    // --- PHASE 1: MIGRATE EXPIRED JOBS (Batched 50 rows per HTTP request) ---
-    console.log('\n--- Phase 1: Migrating Expired Jobs to D1 (Multi-Row Batched) ---');
-    const BATCH_SIZE = 50;
+    // --- PHASE 1: MIGRATE EXPIRED JOBS (Batched 10 rows per statement) ---
+    console.log('\n--- Phase 1: Migrating Expired Jobs to D1 (Batched 10/request) ---');
+    const BATCH_SIZE = 10;
     let offset = 0;
     let migratedJobs = 0;
+
+    const jobColumns = [
+      'id', 'title', 'company_name', 'description', 'requirements', 'location',
+      'country_id', 'country_name', 'region_name', 'job_type', 'source_url',
+      'posted_date', 'deadline', 'is_active', 'created_at', 'salary_min',
+      'salary_max', 'salary_currency', 'employer_url', 'sector', 'profession',
+      'experience_level', 'education_level', 'skills'
+    ];
 
     while (true) {
       const rows = await sql`
@@ -135,61 +175,40 @@ async function main() {
 
       if (rows.length === 0) break;
 
-      const valueTuples = rows.map(r => {
+      const rowValues = rows.map(r => {
         let skillsStr = null;
         if (r.skills) {
           skillsStr = Array.isArray(r.skills) ? JSON.stringify(r.skills) : String(r.skills);
         }
-        return `(${[
-          sqlVal(r.id),
-          sqlVal(r.title),
-          sqlVal(r.company_name),
-          sqlVal(r.description),
-          sqlVal(r.requirements),
-          sqlVal(r.location),
-          sqlVal(r.country_id),
-          sqlVal(r.country_name),
-          sqlVal(r.region_name),
-          sqlVal(r.job_type || 'full_time'),
-          sqlVal(r.source_url),
-          sqlVal(r.posted_date),
-          sqlVal(r.deadline),
-          '0',
-          sqlVal(r.created_at),
-          sqlVal(r.salary_min ? parseFloat(r.salary_min) : null),
-          sqlVal(r.salary_max ? parseFloat(r.salary_max) : null),
-          sqlVal(r.salary_currency),
-          sqlVal(r.employer_url),
-          sqlVal(r.sector),
-          sqlVal(r.profession),
-          sqlVal(r.experience_level),
-          sqlVal(r.education_level),
-          sqlVal(skillsStr)
-        ].join(', ')})`;
+        return [
+          r.id,
+          r.title,
+          r.company_name,
+          r.description,
+          r.requirements,
+          r.location,
+          r.country_id,
+          r.country_name,
+          r.region_name,
+          r.job_type || 'full_time',
+          r.source_url,
+          r.posted_date,
+          r.deadline,
+          0,
+          r.created_at,
+          r.salary_min ? parseFloat(r.salary_min) : null,
+          r.salary_max ? parseFloat(r.salary_max) : null,
+          r.salary_currency,
+          r.employer_url,
+          r.sector,
+          r.profession,
+          r.experience_level,
+          r.education_level,
+          skillsStr
+        ];
       });
 
-      const batchSql = `
-        INSERT OR REPLACE INTO archived_jobs (
-          id, title, company_name, description, requirements, location,
-          country_id, country_name, region_name, job_type, source_url,
-          posted_date, deadline, is_active, created_at, salary_min,
-          salary_max, salary_currency, employer_url, sector, profession,
-          experience_level, education_level, skills
-        ) VALUES \n${valueTuples.join(',\n')};
-      `;
-
-      let retries = 5;
-      while (retries > 0) {
-        try {
-          await d1Exec(batchSql);
-          break;
-        } catch (err) {
-          retries--;
-          if (retries === 0) throw err;
-          console.warn(`  D1 batch retry (${err.message}). Waiting 2s...`);
-          await sleep(2000);
-        }
-      }
+      await executeBatchInsert('archived_jobs', jobColumns, rowValues);
 
       migratedJobs += rows.length;
       offset += rows.length;
@@ -197,14 +216,21 @@ async function main() {
       if (migratedJobs % 500 === 0 || offset >= Number(jobsExpired.count)) {
         console.log(`  Migrated ${migratedJobs} / ${jobsExpired.count} expired jobs...`);
       }
-      await sleep(150); // Gentle pacing to avoid rate limit bursts
+      await sleep(100);
     }
     console.log(`✓ Completed jobs migration. Total migrated: ${migratedJobs}`);
 
-    // --- PHASE 2: MIGRATE CLOSED TENDERS (Batched 50 rows per HTTP request) ---
-    console.log('\n--- Phase 2: Migrating Closed/Expired Tenders to D1 (Multi-Row Batched) ---');
+    // --- PHASE 2: MIGRATE CLOSED TENDERS (Batched 10/request) ---
+    console.log('\n--- Phase 2: Migrating Closed/Expired Tenders to D1 (Batched 10/request) ---');
     offset = 0;
     let migratedTenders = 0;
+
+    const tenderColumns = [
+      'id', 'reference_no', 'title', 'description', 'contracting_authority',
+      'country_id', 'country_name', 'sector_name', 'category', 'status',
+      'budget', 'currency', 'published_at', 'deadline', 'source_url',
+      'document_url', 'extracted_text', 'employer_url', 'ai_summary', 'created_at'
+    ];
 
     while (true) {
       const rows = await sql`
@@ -224,50 +250,30 @@ async function main() {
 
       if (rows.length === 0) break;
 
-      const valueTuples = rows.map(r => `(${[
-        sqlVal(r.id),
-        sqlVal(r.reference_no),
-        sqlVal(r.title),
-        sqlVal(r.description),
-        sqlVal(r.contracting_authority),
-        sqlVal(r.country_id),
-        sqlVal(r.country_name),
-        sqlVal(r.sector_name),
-        sqlVal(r.category || 'other'),
-        sqlVal('closed'),
-        sqlVal(r.budget ? parseFloat(r.budget) : null),
-        sqlVal(r.currency),
-        sqlVal(r.published_at),
-        sqlVal(r.deadline),
-        sqlVal(r.source_url),
-        sqlVal(r.document_url),
-        sqlVal(r.extracted_text),
-        sqlVal(r.employer_url),
-        sqlVal(r.ai_summary),
-        sqlVal(r.created_at)
-      ].join(', ')})`);
+      const rowValues = rows.map(r => [
+        r.id,
+        r.reference_no,
+        r.title,
+        r.description,
+        r.contracting_authority,
+        r.country_id,
+        r.country_name,
+        r.sector_name,
+        r.category || 'other',
+        'closed',
+        r.budget ? parseFloat(r.budget) : null,
+        r.currency,
+        r.published_at,
+        r.deadline,
+        r.source_url,
+        r.document_url,
+        r.extracted_text,
+        r.employer_url,
+        r.ai_summary,
+        r.created_at
+      ]);
 
-      const batchSql = `
-        INSERT OR REPLACE INTO archived_tenders (
-          id, reference_no, title, description, contracting_authority,
-          country_id, country_name, sector_name, category, status,
-          budget, currency, published_at, deadline, source_url,
-          document_url, extracted_text, employer_url, ai_summary, created_at
-        ) VALUES \n${valueTuples.join(',\n')};
-      `;
-
-      let retries = 5;
-      while (retries > 0) {
-        try {
-          await d1Exec(batchSql);
-          break;
-        } catch (err) {
-          retries--;
-          if (retries === 0) throw err;
-          console.warn(`  D1 batch retry (${err.message}). Waiting 2s...`);
-          await sleep(2000);
-        }
-      }
+      await executeBatchInsert('archived_tenders', tenderColumns, rowValues);
 
       migratedTenders += rows.length;
       offset += rows.length;
@@ -275,7 +281,7 @@ async function main() {
       if (migratedTenders % 500 === 0 || offset >= Number(tendersClosed.count)) {
         console.log(`  Migrated ${migratedTenders} / ${tendersClosed.count} closed tenders...`);
       }
-      await sleep(150);
+      await sleep(100);
     }
     console.log(`✓ Completed tenders migration. Total migrated: ${migratedTenders}`);
 
