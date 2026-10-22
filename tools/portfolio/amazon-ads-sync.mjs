@@ -6,7 +6,7 @@
  * with zero local file or local database dependencies.
  */
 
-const LIVE_ENDPOINT = 'https://akilibrain.com/api/amazon-ads/refresh';
+const LIVE_ENDPOINT = 'https://tiketichap.com/api/amazon-ads';
 
 async function main() {
   console.log(`Triggering online hourly sync at ${LIVE_ENDPOINT}...`);
@@ -14,9 +14,8 @@ async function main() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      action: 'full_refresh',
+      action: 'full_sync',
       trigger: 'hourly_cron',
-      checkHealth: true,
     }),
   });
 
@@ -27,11 +26,10 @@ async function main() {
 
   const data = await res.json();
   console.log('Online hourly sync complete:', {
-    syncedAt: data.syncResult?.syncedAt,
-    nextScheduledSyncAt: data.syncResult?.nextScheduledSyncAt,
-    healthyProducts: data.syncResult?.healthReport?.healthyCount,
-    quarantinedDogs: data.syncResult?.healthReport?.quarantinedCount,
-    rotatedLowCtr: data.syncResult?.rotationReport?.rotatedCount,
+    syncedAt: data.dashboard?.lastSyncedAt,
+    nextScheduledSyncAt: data.dashboard?.nextScheduledSyncAt,
+    activeProductsCount: data.dashboard?.summary?.activeProductsCount,
+    clicksToday: data.dashboard?.summary?.clicksToday,
   });
 }
 
