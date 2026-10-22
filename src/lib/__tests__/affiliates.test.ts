@@ -8,14 +8,18 @@ afterEach(() => {
 });
 
 describe('affiliates', () => {
-  it('shows no partners until a template is configured', () => {
-    expect(enabledAffiliatePartners()).toEqual([]);
+  it('shows amazon as always enabled and no external course partners until configured', () => {
+    expect(enabledAffiliatePartners()).toEqual([{ id: 'amazon', name: 'Amazon' }]);
     expect(buildAffiliateUrl('coursera', 'data analyst')).toBeNull();
+    expect(buildAffiliateUrl('amazon', 'laptop stand')).toContain('tag=photoid03-20');
   });
 
   it('builds a search deep link inside the configured template', () => {
     process.env.AFFILIATE_COURSERA_TEMPLATE = 'https://aff.example/c/1/2/3?u={url}';
-    expect(enabledAffiliatePartners()).toEqual([{ id: 'coursera', name: 'Coursera' }]);
+    expect(enabledAffiliatePartners()).toEqual([
+      { id: 'amazon', name: 'Amazon' },
+      { id: 'coursera', name: 'Coursera' },
+    ]);
     const url = buildAffiliateUrl('coursera', 'data analyst');
     expect(url).toBe(
       'https://aff.example/c/1/2/3?u=' + encodeURIComponent('https://www.coursera.org/search?query=data%20analyst'),
@@ -32,7 +36,7 @@ describe('affiliates', () => {
   it('ignores templates that are not https or lack {url}', () => {
     process.env.AFFILIATE_COURSERA_TEMPLATE = 'http://aff.example/?u={url}';
     process.env.AFFILIATE_UDEMY_TEMPLATE = 'https://aff.example/no-placeholder';
-    expect(enabledAffiliatePartners()).toEqual([]);
+    expect(enabledAffiliatePartners()).toEqual([{ id: 'amazon', name: 'Amazon' }]);
   });
 
   it('only accepts known partner ids', () => {
