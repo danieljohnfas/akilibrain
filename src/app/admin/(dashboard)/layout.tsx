@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { LayoutDashboard, ShieldCheck, Activity, LogOut } from "lucide-react";
+import { LayoutDashboard, ShieldCheck, Activity, ShoppingBag, LogOut } from "lucide-react";
 import { Logo } from "@/components/shared/Logo";
 import { SESSION_COOKIE, verifyAdminSession } from "@/lib/admin/session";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/amazon-photoid03-20", label: "Amazon Ads (photoid03-20)", icon: ShoppingBag },
   { href: "/admin/resolve", label: "URL Resolution", icon: ShieldCheck },
   { href: "/admin/ai-status", label: "AI Status", icon: Activity },
 ];

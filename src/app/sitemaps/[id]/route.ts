@@ -44,11 +44,12 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     const staticPages = [
       { url: BASE_URL, lastModified: now, changeFrequency: 'daily', priority: 1 },
       { url: `${BASE_URL}/tenders`, lastModified: now, changeFrequency: 'hourly', priority: 0.9 },
-      { url: `${BASE_URL}/jobs`, lastModified: now, changeFrequency: 'hourly', priority: 0.9 },
+      { url: `${BASE_URL}/tenders/calendar`, lastModified: now, changeFrequency: 'daily', priority: 0.85 },
+      { url: `${BASE_URL}/jobs`, lastModified: now, changeFrequency: 'hourly', priority: 0.95 },
       { url: `${BASE_URL}/compliance`, lastModified: now, changeFrequency: 'daily', priority: 0.8 },
       { url: `${BASE_URL}/health`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
       { url: `${BASE_URL}/salaries`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
-      { url: `${BASE_URL}/guides`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+      { url: `${BASE_URL}/guides`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
       { url: `${BASE_URL}/countries`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
       { url: `${BASE_URL}/companies`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
       { url: `${BASE_URL}/developers`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
@@ -57,6 +58,20 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
       { url: `${BASE_URL}/privacy`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
       { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     ];
+
+    const jobHubSlugs = [
+      'uganda', 'kenya', 'tanzania', 'rwanda', 'ethiopia', 'somalia', 'burundi', 'south-sudan', 'drc',
+      'uganda/kampala', 'kenya/nairobi', 'tanzania/dar-es-salaam', 'rwanda/kigali', 'ethiopia/addis-ababa',
+      'kenya/biomedical-engineering', 'kenya/medical-engineering', 'kenya/nursing', 'kenya/research-assistant',
+      'uganda/human-resources', 'uganda/banking', 'uganda/engineering', 'uganda/electrical-engineering', 'uganda/sales',
+      'software-engineer', 'software-developer', 'medical-engineering', 'biomedical-engineering', 'internship', 'graduate',
+    ];
+    const jobHubPages = jobHubSlugs.map((slug) => ({
+      url: `${BASE_URL}/jobs/${slug}`,
+      lastModified: now,
+      changeFrequency: 'hourly',
+      priority: 0.9,
+    }));
 
     const [tenderRows, guideRows, countryRows] = await Promise.all([
       safeQuery(db.select({ id: tenders.id, updatedAt: tenders.updatedAt }).from(tenders).where(and(eq(tenders.status, 'open'), or(isNull(tenders.deadline), gt(tenders.deadline, new Date())))).limit(20000)),
@@ -77,15 +92,23 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
       lastModified: c.createdAt || now, changeFrequency: 'daily', priority: 0.85
     }));
 
-    const xml = buildUrlSet([...staticPages, ...tenderPages, ...guidePages, ...countryPages]);
+    const xml = buildUrlSet([...staticPages, ...jobHubPages, ...tenderPages, ...guidePages, ...countryPages]);
     return new NextResponse(xml, { headers: { 'Content-Type': 'application/xml' } });
   }
 
   if (id.startsWith('jobs-')) {
     const pageIndex = parseInt(id.replace('jobs-', ''), 10) || 0;
     const offset = pageIndex * PAGE_SIZE;
-    const jobRows = await safeQuery(db.select({ id: jobs.id, updatedAt: jobs.updatedAt }).from(jobs).where(and(eq(jobs.isActive, true), or(isNull(jobs.deadline), gt(jobs.deadline, new Date())))).limit(PAGE_SIZE).offset(offset));
-    
+    const sixtyDaysAgo = new Date(now.getTime() - 60 * 86400000);
+    const indexableJobCondition = or(
+      and(eq(jobs.isActive, true), or(isNull(jobs.deadline), gt(jobs.deadline, now))),
+      gt(jobs.deadline, sixtyDaysAgo),
+      and(eq(jobs.isActive, true), gt(jobs.createdAt, sixtyDaysAgo))
+    );
+    const jobRows = await safeQuery(db.select({ id: jobs.id, updatedAt: jobs.updatedAt }).from(jobs).where(indexableJobCondition).limit(PAGE_SIZE).offset(offset));
+    if (pageIndex > 0 && jobRows.length === 0) {
+      return new NextResponse('Not found', { status: 404 });
+    }
     const pages = jobRows.map((j) => ({
       url: `${BASE_URL}/jobs/${j.id}`, lastModified: j.updatedAt || now, changeFrequency: 'hourly', priority: 0.8
     }));
@@ -96,7 +119,9 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     const pageIndex = parseInt(id.replace('businesses-', ''), 10) || 0;
     const offset = pageIndex * PAGE_SIZE;
     const businessRows = await safeQuery(db.select({ id: businesses.id, updatedAt: businesses.updatedAt }).from(businesses).where(eq(businesses.status, 'active')).limit(PAGE_SIZE).offset(offset));
-    
+    if (pageIndex > 0 && businessRows.length === 0) {
+      return new NextResponse('Not found', { status: 404 });
+    }
     const pages = businessRows.map((b) => ({
       url: `${BASE_URL}/compliance/${b.id}`, lastModified: b.updatedAt || now, changeFrequency: 'weekly', priority: 0.6
     }));

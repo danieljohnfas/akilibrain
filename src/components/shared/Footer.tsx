@@ -70,8 +70,13 @@ export function Footer() {
           <NewsletterForm compact />
         </div>
       </div>
-      <div className="border-t border-white/5 py-6 text-center text-sm text-muted-foreground bg-black/20">
-        © {new Date().getFullYear()} AkiliBrain. All rights reserved. · <CookieSettingsButton />
+      <div className="border-t border-white/5 py-6 text-center text-sm text-muted-foreground bg-black/20 space-y-1">
+        <div>
+          © {new Date().getFullYear()} AkiliBrain. All rights reserved. · <CookieSettingsButton />
+        </div>
+        <div className="text-xs text-muted-foreground/60">
+          As an Amazon Associate (ID: photoid03-20) AkiliBrain earns from qualifying purchases.
+        </div>
       </div>
     </footer>
   );

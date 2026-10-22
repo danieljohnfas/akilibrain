@@ -62,7 +62,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       : 'Apply for the ' + job.title + ' position' + companyStr + ' in ' + (job.region || job.country || 'East Africa') + '.';
 
     const url = 'https://akilibrain.com/jobs/' + lastSlug;
-    const isExpired = job.deadline ? job.deadline < new Date() : !job.isActive;
+    // Keep recently expired jobs indexable for 60 days so organic rankings transfer
+    // smoothly to similar active jobs and country/category hubs; always allow following links.
+    const sixtyDaysAgo = new Date(Date.now() - 60 * 86400000);
+    const isStaleExpired = job.deadline
+      ? job.deadline < sixtyDaysAgo
+      : (!job.isActive && job.createdAt < sixtyDaysAgo);
 
     return {
       title,
@@ -71,10 +76,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       openGraph: { title, description: desc, url, type: 'article', publishedTime: job.createdAt.toISOString(), images: [{ url: 'https://akilibrain.com/api/og/jobs/' + lastSlug, width: 1200, height: 630 }] },
       twitter: { card: 'summary_large_image', title, description: desc, images: ['https://akilibrain.com/api/og/jobs/' + lastSlug] },
       alternates: { canonical: url },
-      ...(isExpired && { robots: { index: false, follow: false } }),
+      robots: { index: !isStaleExpired, follow: true },
     };
   } else {
     // SEO Landing Page Metadata
+    const COUNTRY_CODE_MAP: Record<string, string> = {
+      tz: 'tanzania', ke: 'kenya', ug: 'uganda', rw: 'rwanda', et: 'ethiopia',
+      so: 'somalia', bi: 'burundi', ss: 'south-sudan', dj: 'djibouti', cd: 'drc',
+    };
     const COUNTRIES = ['tanzania', 'kenya', 'uganda', 'rwanda', 'ethiopia', 'somalia', 'burundi', 'south-sudan', 'djibouti', 'drc', 'congo'];
     const CITIES = ['dar-es-salaam', 'arusha', 'mwanza', 'dodoma', 'nairobi', 'mombasa', 'kisumu', 'nakuru', 'kampala', 'entebbe', 'jinja', 'gulu', 'kigali', 'musanze', 'rubavu', 'addis-ababa', 'hawassa', 'dire-dawa', 'kinshasa', 'lubumbashi', 'goma', 'bujumbura', 'gitega', 'mogadishu', 'hargeisa', 'juba', 'malakal'];
     const EXPERIENCE = ['entry-level', 'junior', 'mid-level', 'senior', 'manager', 'director', 'executive', 'graduate', 'internship'];
@@ -88,7 +97,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     for (const slug of slugArray) {
       const s = slug.toLowerCase();
-      if (COUNTRIES.includes(s)) parsedCountry = s;
+      if (COUNTRY_CODE_MAP[s]) parsedCountry = COUNTRY_CODE_MAP[s];
+      else if (COUNTRIES.includes(s)) parsedCountry = s;
       else if (CITIES.includes(s)) parsedCity = s;
       else if (EXPERIENCE.includes(s)) parsedExperience = s;
       else if (EDUCATION.includes(s)) parsedEducation = s;
@@ -104,13 +114,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const titleParts = [experienceName, educationName, categoryName, 'Jobs'].filter(Boolean);
     const locParts = [cityName, countryName].filter(Boolean);
     
-    const title = titleParts.join(' ') + (locParts.length ? ' in ' + locParts.join(', ') : '');
+    const title = titleParts.join(' ') + (locParts.length ? ' in ' + locParts.join(', ') + ' Today (2026)' : ' Today (2026)');
+    const canonicalSlugParts = [
+      parsedCountry,
+      parsedCity,
+      parsedExperience,
+      parsedEducation,
+      ...keywordSlugs.map(k => k.toLowerCase()),
+    ].filter(Boolean);
     
     return {
       title,
-      description: 'Find the latest ' + title.toLowerCase() + ' and career opportunities. Salary information, vacancies, and top employers.',
+      description: 'Apply for verified ' + titleParts.join(' ').toLowerCase() + (locParts.length ? ' in ' + locParts.join(', ') : '') + ' today. Browse open vacancies, application deadlines, salary benchmarks, and top employers on AkiliBrain.',
       openGraph: { title, type: 'website' },
-      alternates: { canonical: 'https://akilibrain.com/jobs/' + slugArray.join('/') },
+      alternates: { canonical: 'https://akilibrain.com/jobs/' + (canonicalSlugParts.length ? canonicalSlugParts.join('/') : slugArray.join('/')) },
     };
   }
 }
@@ -132,6 +149,10 @@ export default async function SlugRoute({
   }
 
   // SEO Landing Page Mode
+  const COUNTRY_CODE_MAP: Record<string, string> = {
+    tz: 'tanzania', ke: 'kenya', ug: 'uganda', rw: 'rwanda', et: 'ethiopia',
+    so: 'somalia', bi: 'burundi', ss: 'south-sudan', dj: 'djibouti', cd: 'drc',
+  };
   const COUNTRIES = ['tanzania', 'kenya', 'uganda', 'rwanda', 'ethiopia', 'somalia', 'burundi', 'south-sudan', 'djibouti', 'drc', 'congo'];
   const CITIES = ['dar-es-salaam', 'arusha', 'mwanza', 'dodoma', 'nairobi', 'mombasa', 'kisumu', 'nakuru', 'kampala', 'entebbe', 'jinja', 'gulu', 'kigali', 'musanze', 'rubavu', 'addis-ababa', 'hawassa', 'dire-dawa', 'kinshasa', 'lubumbashi', 'goma', 'bujumbura', 'gitega', 'mogadishu', 'hargeisa', 'juba', 'malakal'];
   const EXPERIENCE = ['entry-level', 'junior', 'mid-level', 'senior', 'manager', 'director', 'executive', 'graduate', 'internship'];
@@ -145,7 +166,8 @@ export default async function SlugRoute({
 
   for (const slug of slugArray) {
     const s = slug.toLowerCase();
-    if (COUNTRIES.includes(s)) parsedCountry = s;
+    if (COUNTRY_CODE_MAP[s]) parsedCountry = COUNTRY_CODE_MAP[s];
+    else if (COUNTRIES.includes(s)) parsedCountry = s;
     else if (CITIES.includes(s)) parsedCity = s;
     else if (EXPERIENCE.includes(s)) parsedExperience = s;
     else if (EDUCATION.includes(s)) parsedEducation = s;

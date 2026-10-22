@@ -7,13 +7,19 @@ import { eq, and, or, isNull, gt, count } from 'drizzle-orm';
 export const revalidate = 3600;
 
 export async function GET() {
-  const activeCondition = and(
-    eq(jobs.isActive, true),
-    or(isNull(jobs.deadline), gt(jobs.deadline, new Date()))
+  const now = new Date();
+  const sixtyDaysAgo = new Date(now.getTime() - 60 * 86400000);
+  const indexableJobCondition = or(
+    and(
+      eq(jobs.isActive, true),
+      or(isNull(jobs.deadline), gt(jobs.deadline, now))
+    ),
+    gt(jobs.deadline, sixtyDaysAgo),
+    and(eq(jobs.isActive, true), gt(jobs.createdAt, sixtyDaysAgo))
   );
   
   const [jobsCountRes, bizCountRes] = await Promise.all([
-    safeQuery(db.select({ value: count() }).from(jobs).where(activeCondition)),
+    safeQuery(db.select({ value: count() }).from(jobs).where(indexableJobCondition)),
     safeQuery(db.select({ value: count() }).from(businesses).where(eq(businesses.status, 'active')))
   ]);
 

@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import Link from 'next/link';
 
 import { AutoLinker } from '@/components/seo/AutoLinker';
+import { AmazonGearBox } from '@/components/shared/AmazonGearBox';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildTenderSchema, buildBreadcrumbSchema } from '@/components/seo/schemas';
 import { isGeneratedSlug } from '@/lib/utils';
@@ -331,6 +332,15 @@ export default async function TenderDetailPage({
                   </a>.
                 </p>
               </div>
+            </div>
+
+            <div className="pt-4 border-t border-white/10">
+              <AmazonGearBox
+                slot="tender-office-gear"
+                context={`${tender.title} ${sector || ''}`}
+                title="Tender Bid & Office Gear"
+                compact
+              />
             </div>
           </div>
         </div>

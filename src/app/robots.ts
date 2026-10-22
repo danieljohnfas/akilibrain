@@ -21,8 +21,10 @@ export default function robots(): MetadataRoute.Robots {
           '/account',
           // Outbound redirect tracker
           '/api/out',
-          // Affiliate redirects
+          // Affiliate redirects & internal analytics
           '/api/go/',
+          '/api/amazon-ads/',
+          '/amazon-photoid03-20',
           // Search/filter state URLs that duplicate listing pages
           '/jobs?*',
           '/tenders?*',

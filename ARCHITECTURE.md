@@ -15,12 +15,12 @@ AkiliBrain is a robust Next.js application that serves as a central intelligence
 
 ## 2. Hosting & Infrastructure
 
-### Production (Vercel)
-- **Hosting:** Vercel project in the `danieljohnfassanga-3284s-projects` team; `akilibrain.com` points straight at Vercel (no proxy in front).
-- **Deployment:** every push to `main` on GitHub builds and deploys automatically. Pull requests get preview deployments.
-- **Configuration:** environment variables are set in the Vercel dashboard (Project → Settings → Environment Variables); `.env.example` lists them. Redeploy after changing one.
-- **Database migrations:** Vercel does not run them. Apply new files from `drizzle/migrations/` to the Supabase database before (or right after) the deploy that needs them; they are written to be idempotent.
-- **Client IPs:** Vercel sets `X-Real-IP`, which the rate limiter trusts first (`src/lib/security/rate-limit.ts`).
+### Production (Google Cloud Run + Cloudflare CDN / Vercel)
+- **Cloud Run (Always Free Tier):** Containerized standalone build (`Dockerfile`, `NEXT_OUTPUT=standalone`) deployed via `.github/workflows/deploy-cloudrun.yml` to Google Cloud Run (`us-central1`, 2M free requests/month, 360k GiB-seconds/month), fronted by Cloudflare Free CDN (`CDN-Cache-Control: public, max-age=300, stale-while-revalidate=3600` in `next.config.ts`).
+- **Legacy Vercel:** Vercel project in the `danieljohnfassanga-3284s-projects` team.
+- **Deployment:** every push to `main` on GitHub builds and deploys automatically.
+- **Database migrations:** Apply new files from `drizzle/migrations/` to the Supabase database before (or right after) the deploy that needs them; they are written to be idempotent.
+- **Client IPs:** `src/lib/security/rate-limit.ts` trusts `CF-Connecting-IP` (when behind Cloudflare CDN), then `X-Real-IP`, then the right-most `X-Forwarded-For` entry.
 
 ### Key Management
 | Variable | Source |
