@@ -107,11 +107,13 @@ function getUpstashLimiter(prefix: string, max: number, window: Window): Ratelim
  * let clients override it, which makes it the preferred source.
  */
 export function clientIpFromHeaders(headers: { get(name: string): string | null }): string {
-  const realIp = headers.get('x-real-ip')?.trim();
-  if (realIp) return realIp;
-
+  // When fronted by Cloudflare CDN (e.g. in front of Google Cloud Run), Cloudflare
+  // overwrites CF-Connecting-IP with the verified client IP.
   const cf = headers.get('cf-connecting-ip')?.trim();
   if (cf) return cf;
+
+  const realIp = headers.get('x-real-ip')?.trim();
+  if (realIp) return realIp;
 
   const xff = headers.get('x-forwarded-for');
   if (xff) {

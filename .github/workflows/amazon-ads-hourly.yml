@@ -1,0 +1,22 @@
+name: Amazon Associates Hourly Analytics & Product Health Sync
+
+on:
+  schedule:
+    # Runs every hour on the hour to update Cloudflare site traffic, product clicks,
+    # detect "Dogs of Amazon" / 404 product pages, and rotate zero-click products.
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync-amazon-ads:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run Hourly Amazon Ads Sync & Dogs-of-Amazon Health Check
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node tools/portfolio/amazon-ads-sync.mjs

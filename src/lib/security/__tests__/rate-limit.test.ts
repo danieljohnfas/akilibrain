@@ -37,6 +37,12 @@ describe('windowToMs', () => {
 });
 
 describe('clientIpFromHeaders', () => {
+  it('prefers cf-connecting-ip when fronted by Cloudflare CDN', () => {
+    expect(
+      clientIpFromHeaders(h({ 'cf-connecting-ip': '203.0.113.5', 'x-real-ip': '1.2.3.4', 'x-forwarded-for': '6.6.6.6' }))
+    ).toBe('203.0.113.5');
+  });
+
   it('prefers x-real-ip (set by our proxy) over forgeable x-forwarded-for', () => {
     expect(clientIpFromHeaders(h({ 'x-real-ip': '1.2.3.4', 'x-forwarded-for': '6.6.6.6, 7.7.7.7' }))).toBe('1.2.3.4');
   });

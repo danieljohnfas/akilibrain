@@ -10,6 +10,7 @@ import { format, formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { JobCard } from '@/components/jobs/JobCard';
+import { AmazonGearBox } from '@/components/shared/AmazonGearBox';
 
 import { AutoLinker } from '@/components/seo/AutoLinker';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -59,8 +60,12 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   const url = `https://akilibrain.com/jobs/${resolvedParams.id}`;
 
-  // A job is expired if its deadline has passed OR it was deactivated.
-  const isExpired = job.deadline ? job.deadline < new Date() : !job.isActive;
+  // Keep recently expired jobs indexable for 60 days so organic rankings transfer
+  // smoothly to similar active jobs and country/category hubs; always allow following links.
+  const sixtyDaysAgo = new Date(Date.now() - 60 * 86400000);
+  const isStaleExpired = job.deadline
+    ? job.deadline < sixtyDaysAgo
+    : (!job.isActive && job.createdAt < sixtyDaysAgo);
 
   return {
     title,
@@ -81,15 +86,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     alternates: {
       canonical: url,
     },
-    // Expired/closed jobs should not be indexed: their content is a dead end
-    // and Google's "duplicate canonical" signal is often triggered by the
-    // content changing after a job closes. noindex resolves that immediately.
-    ...(isExpired && {
-      robots: {
-        index: false,
-        follow: false,
-      },
-    }),
+    robots: {
+      index: !isStaleExpired,
+      follow: true,
+    },
   };
 }
 
@@ -169,41 +169,47 @@ export async function JobDetail({
     .limit(isExpired ? 6 : 3)
   );
 
+  const countrySlug = country
+    ? (country === 'Democratic Republic of the Congo' ? 'drc' : country.toLowerCase().replace(/\s+/g, '-'))
+    : 'uganda';
+
   return (
     <div className="container py-8 max-w-4xl mx-auto space-y-8">
-      {/* JSON-LD Schemas */}
-      <JsonLd schema={buildJobPostingSchema({
-        id: job.id,
-        title: job.title,
-        companyName: job.companyName,
-        description: job.description,
-        location: region,
-        country,
-        countryCode,
-        jobType: job.jobType,
-        postedDate: job.postedDate,
-        deadline: job.deadline,
-        sourceUrl: (job.employerUrl && !isAggregatorUrl(job.employerUrl)) ? job.employerUrl : `https://akilibrain.com/jobs/${job.id}`,
-        salaryMin: job.salaryMin ? parseFloat(job.salaryMin) : null,
-        salaryMax: job.salaryMax ? parseFloat(job.salaryMax) : null,
-        salaryCurrency: job.salaryCurrency,
-        sector: job.sector,
-        skills: job.skills,
-        experienceLevel: job.experienceLevel,
-        educationLevel: job.educationLevel,
-      })} />
-
+      {/* JSON-LD Schemas: only emit JobPosting for active jobs; always emit BreadcrumbList */}
+      {!isExpired && (
+        <JsonLd schema={buildJobPostingSchema({
+          id: job.id,
+          title: job.title,
+          companyName: job.companyName,
+          description: job.description,
+          location: region,
+          country,
+          countryCode,
+          jobType: job.jobType,
+          postedDate: job.postedDate,
+          deadline: job.deadline,
+          sourceUrl: (job.employerUrl && !isAggregatorUrl(job.employerUrl)) ? job.employerUrl : `https://akilibrain.com/jobs/${job.id}`,
+          salaryMin: job.salaryMin ? parseFloat(job.salaryMin) : null,
+          salaryMax: job.salaryMax ? parseFloat(job.salaryMax) : null,
+          salaryCurrency: job.salaryCurrency,
+          sector: job.sector,
+          skills: job.skills,
+          experienceLevel: job.experienceLevel,
+          educationLevel: job.educationLevel,
+        })} />
+      )}
 
       <JsonLd schema={buildBreadcrumbSchema([
         { name: 'Home', url: 'https://akilibrain.com' },
         { name: 'Jobs & Careers', url: 'https://akilibrain.com/jobs' },
+        ...(country ? [{ name: `Jobs in ${country}`, url: `https://akilibrain.com/jobs/${countrySlug}` }] : []),
         { name: `${job.title} at ${job.companyName}`, url: `https://akilibrain.com/jobs/${job.id}` },
       ])} />
 
       {/* Back Button */}
-      <Link href="/jobs" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+      <Link href={country ? `/jobs/${countrySlug}` : '/jobs'} className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
         <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Jobs
+        {country ? `Back to Jobs in ${country}` : 'Back to Jobs'}
       </Link>
 
       {/* Header */}
@@ -215,10 +221,13 @@ export async function JobDetail({
               The application deadline for this role has passed or the employer has stopped accepting applications. 
               Don&apos;t worry—we&apos;ve found {similarJobsRes.length} similar active jobs for you below!
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-3">
               <a href="#similar-jobs" className={buttonVariants({ variant: "destructive" })}>
                 View Similar Active Jobs ↓
               </a>
+              <Link href={`/jobs/${countrySlug}`} className={buttonVariants({ variant: "outline" })}>
+                Browse All Open Jobs in {country || 'East Africa'} →
+              </Link>
             </div>
           </div>
         )}
@@ -339,18 +348,23 @@ export async function JobDetail({
               <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">People who viewed this also searched for:</h3>
               <div className="flex flex-wrap gap-2">
                 {job.profession && (
-                  <Link href={`/jobs/${countryCode?.toLowerCase() || 'africa'}/${job.profession.toLowerCase().replace(/ /g, '-')}`} className="text-sm text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-full">
+                  <Link href={`/jobs/${countrySlug}/${job.profession.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-full">
                     {job.profession} Jobs in {country || 'East Africa'}
                   </Link>
                 )}
                 {job.sector && (
-                  <Link href={`/jobs/${countryCode?.toLowerCase() || 'africa'}/${job.sector.toLowerCase().replace(/ /g, '-')}`} className="text-sm text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-full">
-                    {job.sector} Sector Jobs
+                  <Link href={`/jobs/${countrySlug}/${job.sector.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-full">
+                    {job.sector} Sector Jobs in {country || 'East Africa'}
                   </Link>
                 )}
-                {(region || country) && (
-                  <Link href={`/jobs/${countryCode?.toLowerCase() || 'africa'}/${(region || country)!.toLowerCase().replace(/ /g, '-')}`} className="text-sm text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-full">
-                    Jobs in {region || country || 'East Africa'}
+                {region && (
+                  <Link href={`/jobs/${countrySlug}/${region.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-full">
+                    Jobs in {region}, {country || 'East Africa'}
+                  </Link>
+                )}
+                {country && (
+                  <Link href={`/jobs/${countrySlug}`} className="text-sm text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-full">
+                    All Jobs in {country} Today
                   </Link>
                 )}
               </div>
@@ -442,6 +456,16 @@ export async function JobDetail({
                   </a>.
                 </p>
               </div>
+            </div>
+
+            {/* Contextual Amazon Remote Interview & Career Gear */}
+            <div className="pt-4 border-t border-white/10">
+              <AmazonGearBox
+                slot="job-detail-sidebar"
+                context={`${job.title} ${job.profession || ''}`}
+                title="Interview & Remote Work Kit"
+                compact
+              />
             </div>
           </div>
         </div>

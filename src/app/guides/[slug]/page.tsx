@@ -4,6 +4,7 @@ import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import sanitizeHtml from 'sanitize-html';
+import { AmazonGearBox } from '@/components/shared/AmazonGearBox';
 
 // Allowlist of tags and attributes safe for editorial article content
 const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
@@ -109,6 +110,12 @@ export default async function GuideDetailPage(props: { params: Promise<{ slug: s
         <div 
           className="prose prose-invert prose-primary max-w-none prose-headings:font-semibold prose-a:text-primary hover:prose-a:underline"
           dangerouslySetInnerHTML={{ __html: sanitizeHtml(guide.contentHtml, SANITIZE_OPTIONS) }}
+        />
+
+        <AmazonGearBox
+          slot="guide-compliance-inline"
+          context={`${guide.title} ${guide.category}`}
+          title="Recommended Books & Professional Equipment"
         />
 
         <nav className="border-t border-white/10 pt-6 flex flex-col sm:flex-row gap-4 justify-between">

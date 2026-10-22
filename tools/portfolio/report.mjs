@@ -38,47 +38,90 @@ async function accessToken(key) {
   return data.access_token;
 }
 
+async function oauthRefreshToken(cfg) {
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: cfg.client_id,
+      client_secret: cfg.client_secret,
+      refresh_token: cfg.refresh_token,
+      grant_type: 'refresh_token',
+    }),
+  });
+  const data = await res.json();
+  if (!data.access_token) throw new Error(`OAuth refresh error: ${data.error_description || data.error}`);
+  return { token: data.access_token, quotaProject: cfg.quota_project_id || cfg.quota_project };
+}
+
 const day = (offset) => new Date(Date.now() - offset * 86_400_000).toISOString().slice(0, 10);
 
-async function query(token, property, body) {
+async function query(auth, property, body) {
+  const headers = {
+    authorization: `Bearer ${auth.token}`,
+    'content-type': 'application/json',
+  };
+  if (auth.quotaProject) headers['x-goog-user-project'] = auth.quotaProject;
   const res = await fetch(
     `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(property)}/searchAnalytics/query`,
-    { method: 'POST', headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' }, body: JSON.stringify(body) },
+    { method: 'POST', headers, body: JSON.stringify({ dataState: 'all', ...body }) },
   );
   const data = await res.json();
   if (data.error) throw new Error(data.error.message);
   return data.rows ?? [];
 }
 
-async function siteSummary(token, domain) {
-  // Search Console data lags ~3 days, so periods end 3 days ago.
-  const current = { startDate: day(30), endDate: day(3) };
-  const previous = { startDate: day(58), endDate: day(31) };
-  for (const property of [`sc-domain:${domain}`, `https://${domain}/`]) {
-    try {
-      const [[cur], [prev], top] = await Promise.all([
-        query(token, property, current),
-        query(token, property, previous),
-        query(token, property, { ...current, dimensions: ['query'], rowLimit: 5 }),
-      ]);
-      return { domain, property, cur: cur ?? { clicks: 0, impressions: 0 }, prev: prev ?? { clicks: 0, impressions: 0 }, top };
-    } catch (e) {
-      if (property.startsWith('https://')) return { domain, error: e.message };
+async function siteSummary(authList, domain) {
+  // Search Console data lags ~2-3 days, so periods end 2 days ago with dataState: 'all'.
+  const current = { startDate: day(29), endDate: day(2) };
+  const previous = { startDate: day(57), endDate: day(30) };
+  let lastError = 'no access: add the service account to this property';
+  for (const auth of authList) {
+    for (const property of [`sc-domain:${domain}`, `https://${domain}/`]) {
+      try {
+        const [[cur], [prev], top] = await Promise.all([
+          query(auth, property, current),
+          query(auth, property, previous),
+          query(auth, property, { ...current, dimensions: ['query'], rowLimit: 5 }),
+        ]);
+        return { domain, property, cur: cur ?? { clicks: 0, impressions: 0 }, prev: prev ?? { clicks: 0, impressions: 0 }, top };
+      } catch (e) {
+        lastError = e.message;
+      }
     }
   }
+  return { domain, error: lastError };
 }
 
 const change = (a, b) => (b ? `${a >= b ? '+' : ''}${Math.round(((a - b) / b) * 100)}%` : a ? 'new' : '–');
 
 async function main() {
-  const raw = process.env.GSC_SERVICE_ACCOUNT_JSON;
-  if (!raw) {
-    console.log('GSC_SERVICE_ACCOUNT_JSON is not set; skipping the Search Console report.');
+  const rawSa = process.env.GSC_SERVICE_ACCOUNT_JSON;
+  const rawOauth = process.env.GSC_OAUTH_TOKENS_JSON;
+  if (!rawSa && !rawOauth) {
+    console.log('Neither GSC_SERVICE_ACCOUNT_JSON nor GSC_OAUTH_TOKENS_JSON is set; skipping the Search Console report.');
     return;
   }
-  const token = await accessToken(JSON.parse(raw));
+  const authList = [];
+  if (rawSa) {
+    const parsed = JSON.parse(rawSa);
+    if (parsed.type === 'authorized_user' || parsed.refresh_token) {
+      authList.push(await oauthRefreshToken(parsed));
+    } else if (Array.isArray(parsed)) {
+      for (const item of parsed) {
+        authList.push(item.refresh_token ? await oauthRefreshToken(item) : { token: await accessToken(item) });
+      }
+    } else {
+      authList.push({ token: await accessToken(parsed) });
+    }
+  }
+  if (rawOauth) {
+    const oauthConfigs = JSON.parse(rawOauth);
+    const list = Array.isArray(oauthConfigs) ? oauthConfigs : [oauthConfigs];
+    for (const cfg of list) authList.push(await oauthRefreshToken(cfg));
+  }
   const results = [];
-  for (const domain of DOMAINS) results.push(await siteSummary(token, domain));
+  for (const domain of DOMAINS) results.push(await siteSummary(authList, domain));
 
   const lines = [
     `# Portfolio report, week of ${day(0)}`,

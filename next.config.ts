@@ -46,6 +46,10 @@ const securityHeaders = [
 ];
 
 const noindex = { key: "X-Robots-Tag", value: "noindex, nofollow" };
+const edgeCache = {
+  key: "CDN-Cache-Control",
+  value: "public, max-age=300, stale-while-revalidate=3600",
+};
 
 const nextConfig: NextConfig = {
   ...(useStandalone ? { output: "standalone" as const } : {}),
@@ -84,8 +88,28 @@ const nextConfig: NextConfig = {
     return [
       { source: "/:path*", headers: securityHeaders },
       ...[
+        "/",
+        "/jobs",
+        "/jobs/:path*",
+        "/tenders",
+        "/tenders/:path*",
+        "/grants",
+        "/grants/:path*",
+        "/salaries",
+        "/salaries/:path*",
+        "/companies",
+        "/companies/:path*",
+        "/guides",
+        "/guides/:path*",
+        "/health",
+        "/compliance",
+        "/sitemap.xml",
+        "/sitemaps/:path*",
+      ].map((source) => ({ source, headers: [edgeCache] })),
+      ...[
         "/api/:path*",
         "/admin/:path*",
+        "/amazon-photoid03-20",
         "/dashboard/:path*",
         "/login",
         "/signup",
