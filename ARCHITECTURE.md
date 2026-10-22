@@ -33,7 +33,7 @@ AkiliBrain is a robust Next.js application that serves as a central intelligence
 | `NEXT_PUBLIC_APP_URL` | `https://akilibrain.com` |
 
 ### Known Operational Issues
-- `INNGEST_EVENT_KEY` and `INNGEST_SIGNING_KEY` must be set in the Vercel environment variables, or background jobs do not run.
+- `INNGEST_EVENT_KEY` and `INNGEST_SIGNING_KEY` must be set in the Google Cloud Run / container environment variables, or background jobs do not run.
 - DB queries show `safeQuery timed out after 25000ms` when Supabase pooler is cold — these self-recover
 
 ## 3. Scraping Architecture
