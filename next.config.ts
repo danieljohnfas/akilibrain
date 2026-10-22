@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
 
 /**
- * Deployment targets:
- *  - Vercel (production): leave NEXT_OUTPUT unset; Vercel handles the build output itself.
- *  - Docker (local or self-hosted): the Dockerfile sets NEXT_OUTPUT=standalone so `next build`
- *    emits `.next/standalone`, which the Dockerfile copies.
+ * Production Deployment Target:
+ *  - Google Cloud Run (Containerized Standalone Server):
+ *    Emits `.next/standalone`, copied by Dockerfile to run on Google Cloud Run Always Free tier
+ *    behind Cloudflare Edge CDN.
  */
-const useStandalone = process.env.NEXT_OUTPUT === "standalone";
+const useStandalone = process.env.NEXT_OUTPUT !== "export";
 
 /**
  * Content-Security-Policy.

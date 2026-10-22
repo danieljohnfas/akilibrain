@@ -26,24 +26,26 @@ env:
 
 jobs:
   deploy:
-    name: Build & Deploy to Cloud Run
+    name: Build & Deploy to Google Cloud Run
     runs-on: ubuntu-latest
+    env:
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Authenticate to Google Cloud
-        if: ${{ secrets.GCP_SA_KEY != '' }}
+        if: env.GCP_SA_KEY != ''
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: Set up Cloud SDK
-        if: ${{ secrets.GCP_SA_KEY != '' }}
+        if: env.GCP_SA_KEY != ''
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Ensure Artifact Registry repository exists
-        if: ${{ secrets.GCP_SA_KEY != '' }}
+        if: env.GCP_SA_KEY != ''
         run: |
           gcloud artifacts repositories describe "$AR_REPO" \
             --project="$GCP_PROJECT_ID" \
@@ -56,7 +58,7 @@ jobs:
           gcloud auth configure-docker "$GCP_REGION-docker.pkg.dev" --quiet
 
       - name: Build & Push Standalone Docker Image
-        if: ${{ secrets.GCP_SA_KEY != '' }}
+        if: env.GCP_SA_KEY != ''
         run: |
           IMAGE="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/$AR_REPO/$SERVICE_NAME:$GITHUB_SHA"
           docker build \
@@ -73,7 +75,7 @@ jobs:
           docker push "$IMAGE"
 
       - name: Deploy to Cloud Run (us-central1 Always Free Tier)
-        if: ${{ secrets.GCP_SA_KEY != '' }}
+        if: env.GCP_SA_KEY != ''
         run: |
           IMAGE="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/$AR_REPO/$SERVICE_NAME:$GITHUB_SHA"
           gcloud run deploy "$SERVICE_NAME" \
@@ -89,4 +91,11 @@ jobs:
             --max-instances=3 \
             --concurrency=80 \
             --timeout=60s \
-            --set-env-vars="NODE_ENV=production,NEXT_PUBLIC_APP_URL=https://akilibrain.com"
+            --set-env-vars="NODE_ENV=production,NEXT_PUBLIC_APP_URL=https://akilibrain.com,DATABASE_URL=${{ secrets.DATABASE_URL }},DIRECT_URL=${{ secrets.DIRECT_URL }},NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }},NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }},GOOGLE_GENERATIVE_AI_API_KEY=${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }},SERPER_API_KEY=${{ secrets.SERPER_API_KEY }}"
+
+      - name: Verify Cloud Run Deployment URL
+        if: env.GCP_SA_KEY != ''
+        run: |
+          URL=$(gcloud run services describe "$SERVICE_NAME" --project="$GCP_PROJECT_ID" --region="$GCP_REGION" --format="value(status.url)")
+          echo "✅ AkiliBrain is live on Google Cloud Run: $URL"
+          curl -sSf "$URL/api/health" || echo "Health check returned non-200"
