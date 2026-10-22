@@ -1,6 +1,7 @@
 import { db, safeQuery } from '@/lib/db/client';
 import { tenders, tenderSectors } from '@/lib/db/schema/tenders';
 import { countries } from '@/lib/db/schema/shared';
+import { getArchivedTender } from '@/lib/db/d1-archive';
 import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import { Calendar, Building2, MapPin, DollarSign, ExternalLink, ArrowLeft, Download, FileText } from 'lucide-react';
@@ -41,14 +42,25 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       .limit(1)
   );
 
-  if (!data.length) {
-    return { 
-      title: 'Tender Not Found',
-      robots: { index: false, follow: false }
-    };
+  let tender = data[0];
+  if (!tender) {
+    const archived = await getArchivedTender(resolvedParams.id);
+    if (!archived) {
+      return { 
+        title: 'Tender Not Found',
+        robots: { index: false, follow: false }
+      };
+    }
+    tender = {
+      title: archived.tender.title,
+      authority: archived.tender.contractingAuthority,
+      description: archived.tender.description,
+      country: archived.country,
+      publishedAt: archived.tender.publishedAt,
+      status: 'closed',
+      deadline: archived.tender.deadline,
+    } as any;
   }
-
-  const tender = data[0];
   const title = `${tender.title} | AkiliBrain Procurement`;
   const desc = tender.description
     ? (tender.description.slice(0, 150) + (tender.description.length > 150 ? '...' : ''))
@@ -110,11 +122,23 @@ export default async function TenderDetailPage({
     .where(eq(tenders.id, resolvedParams.id))
     .limit(1));
 
+  let tenderRecord = data[0];
+  let isFromArchive = false;
+
   if (!data.length) {
-    notFound();
+    const archived = await getArchivedTender(resolvedParams.id);
+    if (!archived) {
+      notFound();
+    }
+    tenderRecord = {
+      tender: archived.tender as any,
+      country: archived.country,
+      sector: archived.sector,
+    };
+    isFromArchive = true;
   }
 
-  const { tender, country, sector } = data[0];
+  const { tender, country, sector } = tenderRecord;
   const isExpired = tender.deadline ? tender.deadline < new Date() : false;
   const targetUrl = tender.employerUrl ?? tender.sourceUrl;
   const provenance = getSourceProvenance(targetUrl, 'tender');
