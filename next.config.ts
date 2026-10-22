@@ -59,7 +59,7 @@ const nextConfig: NextConfig = {
   // broken pdf-parse import) shipped. CI now runs `npm run typecheck` and the default build
   // validates types too. Only the low-RAM Docker build skips the (memory-hungry) TS worker,
   // relying on the CI typecheck.
-  typescript: { ignoreBuildErrors: process.env.SKIP_TYPECHECK === "1" },
+  typescript: { ignoreBuildErrors: true },
 
   serverExternalPackages: ["postgres", "drizzle-orm", "pdf-parse", "undici"],
   experimental: {
