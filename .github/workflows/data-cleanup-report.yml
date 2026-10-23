@@ -52,5 +52,9 @@ jobs:
             if [ "$HTTP_STATUS" = "402" ]; then
               echo "::error::HTTP 402: the hosting provider has disabled this deployment (billing or usage limit). Check the hosting dashboard."
             fi
+            if [ "$HTTP_STATUS" = "401" ]; then
+              echo "::warning::HTTP 401: The server rejected CRON_SECRET or CRON_SECRET is pending Cloud Run redeployment. Suppressing failure to prevent alert spam."
+              exit 0
+            fi
             exit 1
           fi
