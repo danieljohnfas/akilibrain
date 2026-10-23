@@ -3,6 +3,9 @@ name: Check D1 Archive Status
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest

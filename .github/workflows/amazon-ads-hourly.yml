@@ -2,10 +2,16 @@ name: Amazon Associates Hourly Analytics & Product Health Sync
 
 on:
   schedule:
-    # Runs every hour on the hour to update Cloudflare site traffic, product clicks,
-    # detect "Dogs of Amazon" / 404 product pages, and rotate zero-click products.
-    - cron: '0 * * * *'
+    # Runs hourly (jittered to :12 past the hour to avoid :00 scheduler congestion)
+    - cron: '12 * * * *'
   workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: amazon-ads-hourly
+  cancel-in-progress: false
 
 jobs:
   sync-amazon-ads:

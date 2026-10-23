@@ -7,6 +7,13 @@ on:
     - cron: "15 5 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-health
+  cancel-in-progress: false
+
 jobs:
   health:
     runs-on: ubuntu-latest

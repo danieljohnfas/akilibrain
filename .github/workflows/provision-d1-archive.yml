@@ -3,6 +3,9 @@ name: Provision D1 Archive Database
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   provision:
     runs-on: ubuntu-latest

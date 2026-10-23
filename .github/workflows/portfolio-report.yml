@@ -4,8 +4,15 @@ name: Portfolio report
 # Needs the GSC_SERVICE_ACCOUNT_JSON repository secret (skips cleanly without it).
 on:
   schedule:
-    - cron: "0 6 * * 1"
+    - cron: "25 6 * * 1"
   workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-report
+  cancel-in-progress: false
 
 jobs:
   report:
