@@ -6,6 +6,7 @@ on:
 jobs:
   provision:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: List D1 Databases and Create akilibrain-archive
         env:
