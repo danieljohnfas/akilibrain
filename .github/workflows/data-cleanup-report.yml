@@ -56,5 +56,9 @@ jobs:
               echo "::warning::HTTP 401: The server rejected CRON_SECRET or CRON_SECRET is pending Cloud Run redeployment. Suppressing failure to prevent alert spam."
               exit 0
             fi
+            if [ -f /tmp/report_response.txt ] && grep -q "RESEND_API_KEY not configured" /tmp/report_response.txt; then
+              echo "::warning::HTTP 500: RESEND_API_KEY is not configured on the live deployment. Report dispatch skipped gracefully."
+              exit 0
+            fi
             exit 1
           fi
