@@ -28,6 +28,7 @@ jobs:
   deploy:
     name: Build & Deploy to Google Cloud Run
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     env:
       GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
     steps:
