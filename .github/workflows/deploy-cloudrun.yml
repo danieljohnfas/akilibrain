@@ -35,6 +35,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check required credentials
+        run: |
+          if [ -z "$GCP_SA_KEY" ]; then
+            echo "::error::GCP_SA_KEY secret is not set in this repository. Cloud Run deployment cannot proceed."
+            exit 1
+          fi
+
       - name: Authenticate to Google Cloud
         if: env.GCP_SA_KEY != ''
         uses: google-github-actions/auth@v2

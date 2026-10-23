@@ -6,6 +6,9 @@ on:
     - cron: '0 3 * * 0'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 concurrency:
   group: hot-to-cold-archival
   cancel-in-progress: false
