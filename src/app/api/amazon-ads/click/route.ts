@@ -34,6 +34,23 @@ export async function GET(request: NextRequest) {
     pageUrl: request.headers.get('referer') || undefined,
   });
 
+  // Mirror conversion event to central D1 telemetry engine
+  try {
+    fetch('https://tiketichap.com/api/amazon-ads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: JSON.stringify({
+        site: 'akilibrain',
+        type: 'click',
+        slot,
+        productId: productId || result.product?.id,
+        asin: asin || result.product?.asin,
+        country,
+        associateTag: AMAZON_ASSOCIATE_TAG,
+      }),
+    }).catch(() => {});
+  } catch (_) {}
+
   let targetUrl: string;
   if (result.product) {
     targetUrl = localizeAmazonUrl(result.product.productUrl, country, AMAZON_ASSOCIATE_TAG);
