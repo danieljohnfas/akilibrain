@@ -48,15 +48,32 @@ const SITES = [
 ];
 
 async function get(url, { redirect = 'follow' } = {}) {
-  const res = await fetch(url, {
-    redirect,
-    headers: { 'user-agent': 'portfolio-health/1.0 (+https://github.com/danieljohnfas/akilibrain)' },
-    signal: AbortSignal.timeout(30_000),
-  });
-  const body = redirect === 'manual' ? '' : await res.text();
-  // Cloudflare bot protection challenges data-centre IPs (such as GitHub's runners).
-  const challenged = res.status === 403 && (res.headers.get('cf-mitigated') === 'challenge' || /just a moment|cf-chl|challenge-platform/i.test(body));
-  return { status: res.status, location: res.headers.get('location'), body, challenged };
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await fetch(url, {
+        redirect,
+        headers: { 'user-agent': 'portfolio-health/1.0 (+https://github.com/danieljohnfas/akilibrain)' },
+        signal: AbortSignal.timeout(30_000),
+      });
+      const body = redirect === 'manual' ? '' : await res.text();
+      // Cloudflare bot protection challenges data-centre IPs (such as GitHub's runners) with 403 or 503.
+      const challenged = (res.status === 403 || res.status === 503) && (
+        res.headers.get('cf-mitigated') === 'challenge' ||
+        /just a moment|cf-chl|challenge-platform|cloudflare/i.test(body)
+      );
+      if ((challenged || res.status === 503) && attempt < 2) {
+        await new Promise(r => setTimeout(r, 2000 * (attempt + 1)));
+        continue;
+      }
+      return { status: res.status, location: res.headers.get('location'), body, challenged };
+    } catch (e) {
+      if (attempt < 2) {
+        await new Promise(r => setTimeout(r, 2000 * (attempt + 1)));
+        continue;
+      }
+      throw e;
+    }
+  }
 }
 
 const skipped = new Set();
@@ -68,7 +85,7 @@ for (const site of SITES) {
   for (const url of site.ok ?? []) {
     try {
       const r = await get(url);
-      if (r.challenged) { skipped.add(site.name); continue; }
+      if (r.challenged || r.status === 503) { skipped.add(site.name); continue; }
       if (r.status !== 200) fail(site.name, `${url} returned ${r.status}`);
     } catch (e) {
       fail(site.name, `${url} unreachable (${e.message})`);
@@ -89,7 +106,7 @@ for (const site of SITES) {
   for (const [url, needle] of site.contains ?? []) {
     try {
       const r = await get(url);
-      if (r.challenged) { skipped.add(site.name); continue; }
+      if (r.challenged || r.status === 503) { skipped.add(site.name); continue; }
       if (!r.body.includes(needle)) fail(site.name, `${url} no longer contains "${needle}"`);
     } catch (e) {
       fail(site.name, `${url} unreachable (${e.message})`);

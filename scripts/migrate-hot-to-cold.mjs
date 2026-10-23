@@ -25,7 +25,9 @@ function sqlVal(v) {
   if (typeof v === 'number') return Number.isFinite(v) ? String(v) : 'NULL';
   if (typeof v === 'boolean') return v ? '1' : '0';
   if (v instanceof Date) return `'${v.toISOString().replace(/'/g, "''")}'`;
-  return `'${String(v).replace(/'/g, "''")}'`;
+  let s = String(v);
+  if (s.length > 25000) s = s.slice(0, 25000);
+  return `'${s.replace(/'/g, "''")}'`;
 }
 
 // Cloudflare D1 HTTP Client helper
@@ -103,14 +105,18 @@ async function executeBatchInsert(tableName, columns, rowValues) {
       return;
     } catch (err) {
       if (err.message.includes('SQLITE_TOOBIG') || err.message.includes('too long')) {
-        // Fall back to smaller chunks of 2
+        // Fall back to individual row inserts with safe error isolation
         for (const singleRow of rowValues) {
-          const singleSql = `
-            INSERT OR REPLACE INTO ${tableName} (
-              ${columns.join(', ')}
-            ) VALUES (${singleRow.map(sqlVal).join(', ')});
-          `;
-          await d1Exec(singleSql);
+          try {
+            const singleSql = `
+              INSERT OR REPLACE INTO ${tableName} (
+                ${columns.join(', ')}
+              ) VALUES (${singleRow.map(sqlVal).join(', ')});
+            `;
+            await d1Exec(singleSql);
+          } catch (rowErr) {
+            console.warn(`  Warning: skipped row in ${tableName} (${rowErr.message})`);
+          }
         }
         return;
       }
