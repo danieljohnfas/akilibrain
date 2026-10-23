@@ -1,0 +1,16 @@
+# AkiliBrain — East African Job Vacancies, Public Tenders & Salary Surveys
+> https://akilibrain.com
+
+AkiliBrain is an automated intelligence platform indexing verified employment opportunities, public procurement tenders, and industry salary benchmarks across Tanzania, Kenya, Uganda, and Rwanda. Data is continuously scraped, structured, and refreshed multiple times daily from corporate career portals, public gazettes, and official procurement boards.
+
+## Core Features
+- **Verified Job Vacancies**: Active job listings categorized by industry (Banking & Finance, Engineering, Healthcare, NGO & Development, IT & Telecom, Education, Hospitality).
+- **Public Procurement Tenders**: Government tender notifications and bidding documents from TANROPS, PPRA, and international development agencies.
+- **Tiered Cloud Architecture**: Hot active vacancies are served instantly from high-speed Supabase instances; expired historical jobs and closed tenders remain permanently indexed for search engines and career researchers via Cloudflare D1 cold storage.
+- **Career Exam & Interview Prep**: Recommended professional study guides, PMP exam certifications, and remote office equipment for international careers.
+
+## Key URLs
+- Job Vacancies Feed: https://akilibrain.com/jobs
+- Government Tenders Portal: https://akilibrain.com/tenders
+- Salary Surveys by Title & Region: https://akilibrain.com/salaries
+- Professional Certification & Interview Guides: https://akilibrain.com/guides

@@ -219,7 +219,7 @@ export function buildAmazonUrl(params: {
   const cc = (params.countryCode || 'US').toUpperCase();
   const host = COUNTRY_TO_AMAZON_DOMAIN[cc] || 'www.amazon.com';
 
-  if (params.asin && params.preferDirectAsin && cc === 'US') {
+  if (params.asin && params.preferDirectAsin !== false) {
     return `https://${host}/dp/${encodeURIComponent(params.asin)}?tag=${encodeURIComponent(tag)}`;
   }
   return `https://${host}/s?k=${encodeURIComponent(params.searchQuery)}&tag=${encodeURIComponent(tag)}`;
