@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Send, MessageSquare, Bell, CheckCircle2 } from 'lucide-react';
 
 export function CommunityAlerts() {

@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
         associateTag: AMAZON_ASSOCIATE_TAG,
       }),
     }).catch(() => {});
-  } catch (_) {}
+  } catch {}
 
   let targetUrl: string;
   if (result.product) {
