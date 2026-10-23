@@ -14,6 +14,7 @@ import { complianceRequirements } from '@/lib/db/schema/compliance';
 import { salarySubmissions } from '@/lib/db/schema/salaries';
 import { healthDataPoints } from '@/lib/db/schema/health';
 import { CVMatcher } from '@/components/home/CVMatcher';
+import { CommunityAlerts } from '@/components/home/CommunityAlerts';
 import { CareerResources } from '@/components/shared/CareerResources';
 import { count, eq, or, isNull, gt, and } from 'drizzle-orm';
 import type { Metadata } from 'next';
@@ -347,6 +348,8 @@ export default async function Home() {
       <Suspense fallback={null}>
         <RelatedGuides title="Latest Insights &amp; Guides" className="container mx-auto px-4 w-full max-w-6xl" />
       </Suspense>
+
+      <CommunityAlerts />
 
       <section className="container mx-auto px-4 w-full max-w-6xl">
         <CareerResources placement="home-featured" />
