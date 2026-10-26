@@ -9,13 +9,18 @@ import postgres from 'postgres';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const CLOUDFLARE_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID || '9213ae688946caea617ba6fd5e4fbc5c';
+const CLOUDFLARE_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
 const CLOUDFLARE_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
-const D1_DATABASE_ID = process.env.CLOUDFLARE_D1_DATABASE_ID || '1e0d9072-50da-4bfb-bbba-9c8596a69b88';
-const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://postgres.pywienffahvmylssnorr:REDACTED_PASSWORD@aws-1-eu-central-1.pooler.supabase.com:6543/postgres';
+const D1_DATABASE_ID = process.env.CLOUDFLARE_D1_DATABASE_ID;
+const DATABASE_URL = process.env.DATABASE_URL;
 
-if (!CLOUDFLARE_API_TOKEN) {
-  console.error('ERROR: CLOUDFLARE_API_TOKEN environment variable is required.');
+if (!CLOUDFLARE_ACCOUNT_ID || !CLOUDFLARE_API_TOKEN || !D1_DATABASE_ID) {
+  console.error('ERROR: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN, and CLOUDFLARE_D1_DATABASE_ID environment variables are required.');
+  process.exit(1);
+}
+
+if (!DATABASE_URL) {
+  console.error('ERROR: DATABASE_URL environment variable is required.');
   process.exit(1);
 }
 
