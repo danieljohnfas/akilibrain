@@ -1,0 +1,6 @@
+Contact: mailto:security@akilibrain.com
+Contact: mailto:fictionentertained@gmail.com
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://akilibrain.com/.well-known/security.txt
+Policy: https://akilibrain.com/security
