@@ -169,3 +169,6 @@ _archive/
 
 # keep the documented template trackable (must come after the .env* patterns)
 !.env.example
+
+graphify-out/cache/
+graphify-out/2026-10-26/

@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     template: "%s | AkiliBrain",
   },
   description: "East Africa's unified intelligence hub for curated government tenders, verified job openings, business compliance, and market salaries.",
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "1a6fa8804679f9060c20d8c1b2c56706",
+  },
   keywords: [
     "government tenders Kenya",
     "procurement East Africa",
