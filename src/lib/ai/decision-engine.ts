@@ -80,8 +80,78 @@ async function runClef(
   return data.result;
 }
 
+async function runShieldstral(request: unknown, timeoutMs: number): Promise<unknown> {
+  const token = process.env.SHIELDSTRAL_API_KEY || process.env.MISTRAL_API_KEY;
+  const endpoint = process.env.SHIELDSTRAL_ENDPOINT || 'https://api.mistral.ai/v1/moderations';
+  if (!token && !process.env.SHIELDSTRAL_ENDPOINT) return null;
+
+  const { state, questions } = request as { state: unknown; questions: Record<string, unknown> };
+  const text = typeof state === 'string'
+    ? state
+    : Object.values(state || {}).filter(Boolean).join('\n');
+  if (!text.trim()) return null;
+
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'shieldstral-latest',
+      input: text,
+    }),
+    signal: AbortSignal.timeout(timeoutMs),
+  });
+
+  const data = (await res.json().catch(() => null)) as { results?: Array<{ categories: Record<string, boolean>; category_scores: Record<string, number> }> } | null;
+  if (!res.ok || !data?.results?.[0]) {
+    throw new Error(`Shieldstral HTTP ${res.status}: ${JSON.stringify(data)}`.slice(0, 200));
+  }
+
+  const result = data.results[0];
+  const categories = result.categories || {};
+  const scores = result.category_scores || {};
+  const answers: Record<string, unknown> = {};
+
+  for (const [key] of Object.entries(questions)) {
+    if (key === 'verdict') {
+      let v = 'ok';
+      if (categories.spam) v = 'spam';
+      else if (categories.sexual_minors || categories.hate_and_discrimination || categories.violence_and_threats || categories.dangerous_content) {
+        v = 'harmful';
+      }
+      answers[key] = { choice: v };
+    } else if (key === 'spam') {
+      answers[key] = { choice: categories.spam ? 'spam' : 'ok', noul: scores.spam ?? (categories.spam ? 0.95 : 0.05) };
+    } else if (key === 'harmful' || key.includes('safety') || key.includes('policy')) {
+      const isHarmful = Boolean(categories.sexual_minors || categories.hate_and_discrimination || categories.violence_and_threats || categories.dangerous_content);
+      answers[key] = { choice: isHarmful ? 'harmful' : 'ok', noul: isHarmful ? 0.95 : 0.05 };
+    }
+  }
+
+  return Object.keys(answers).length > 0 ? { answers } : null;
+}
+
 const systemOne = (async (request: unknown, options?: { timeout?: number }) => {
   const timeoutMs = options?.timeout ?? DEFAULT_TIMEOUT_MS;
+  const { questions } = (request || {}) as { questions?: Record<string, unknown> };
+
+  // If questions contain safety criteria, attempt Shieldstral 1.0 first
+  const isSafetyQuestion = questions && Object.keys(questions).some(k =>
+    k === 'verdict' || k === 'spam' || k === 'harmful' || k.includes('safety') || k.includes('policy')
+  );
+
+  if (isSafetyQuestion) {
+    try {
+      const shieldResult = await runShieldstral(request, timeoutMs);
+      if (shieldResult) return shieldResult;
+    } catch (err) {
+      console.warn('[Shieldstral] failed, falling back to Clef/Jev:', err instanceof Error ? err.message : err);
+    }
+  }
+
   const creds = clefCredentials();
   let clefError: unknown = null;
 
