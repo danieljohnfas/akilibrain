@@ -58,7 +58,7 @@
     "react-markdown": "^10.1.0",
     "recharts": "^3.9.1",
     "remark-gfm": "^4.0.1",
-    "resend": "^6.16.0",
+    "resend": "^6.34.1",
     "sanitize-html": "^2.17.7",
     "sonner": "^2.0.7",
     "ssh2": "^1.17.0",
