@@ -210,21 +210,74 @@ export function resolveSiteKey(input: string): EligibleSiteKey | null {
 
 export const VERIFIED_DIRECT_ASINS = new Set([
   'B08SBFTXQT', // PMP Exam Prep Simplified (Andrew Ramdayal)
+  'B006JH8T3S', // Logitech C920x HD Pro Webcam 1080p with Stereo Audio
+  'B07S92QBCJ', // Logitech MX Keys Advanced Wireless Illuminated Keyboard
+  'B07S395RWD', // Logitech MX Master 3S Wireless Performance Mouse
+  'B08CVTTNN4', // ASUS ZenScreen 15.6" Full HD Portable USB-C Monitor
+  'B0874M3KW4', // Anker 555 USB-C Hub (8-in-1 with 100W PD and 4K HDMI)
+  '1449373321', // Designing Data-Intensive Applications by Martin Kleppmann
+  '1260464008', // CompTIA Security+ Get Certified Get Ahead: SY0-701
+  'B0863TXGM3', // Sony WH-1000XM4 Wireless Premium Noise-Canceling Headphones
+  '0132350882', // Clean Code: A Handbook of Agile Software Craftsmanship
+  'B078STRHBX', // Samsung 970 EVO Plus 1TB NVMe M.2 Internal SSD
+  'B09W2PNLX7', // Anker Nano II 65W GaN Fast Charger Foldable
+  '1718502702', // Python Crash Course 3rd Edition by Eric Matthes
+  'B01054S5FM', // WHOOSH! Screen Cleaner Kit for Monitors, Laptops
+  '109811020X', // Kubernetes: Up and Running 3rd Edition by Kelsey Hightower
+  'B0CXDXP8VR', // Anker 20,000mAh 30W Fast-Charge Portable Power Bank
+  'B006U0Z3BA', // Bushnell 10x42 H2O Waterproof Fogproof Roof Prism
+  'B000G7WRBC', // Surviveware Small First Aid Kit 100-Piece Waterproof
+  'B01IT9NLHW', // Liquid I.V. Hydration Multiplier Electrolyte Powder
+  'B00004SABD', // Oakley Holbrook Polarized Sunglasses with Prizm Lens
+  'B001ANQVYU', // Sawyer Products Premium Permethrin Fabric Insect Repellent
+  'B0007VM8UC', // SABRE Red Pepper Spray with Quick Release Key Ring
+  'B08GTYFC37', // SanDisk 1TB Extreme Portable NVMe SSD USB-C
+  'B08GY8NHF2', // SanDisk 128GB Extreme PRO SDXC UHS-I Memory Card
+  'B00017LSPI', // Giottos Rocket Air Blaster Large Dust-Removal Tool
+  'B00007E7JU', // LensPen Original Camera Lens & Scanner Sensor Cleaner
+  'B00006B70O', // Epson Premium Photo Paper GLOSSY (8.5x11, 50 Sheets)
+  'B00006B70P', // Canon Photo Paper Plus Semi-Gloss (4x6, 50 Sheets)
+  'B00004SABF', // Gepe 35mm Glassless Slide Mounts (100-Pack)
+  'B00004SABG', // Fiskars 12" SureCut Deluxe Craft Paper Trimmer
+  'B00004SABH', // Carson LumiLoupe 10x Power Stand Magnifier Loupe
+  'B00004Z47L', // Scotch 3M Removable Double Sided Photo Safe Scrapbook
+  'B00004SABJ', // Kinetronics StaticWisk SW-030 30mm Anti-Static Brush
+  'B0CP7S8X1Q', // GL.iNet GL-MT6000 (Flint 2) Wi-Fi 6 Router
+  'B09PRB1MZM', // TP-Link Deco AX3000 WiFi 6 Mesh System (Deco X55 3-Pack)
+  'B091G63T4G', // eero Pro 6E Tri-Band Mesh Wi-Fi 6E System (3-Pack)
+  'B08XWKF55C', // TP-Link TL-SG105 5-Port Gigabit Unmanaged Ethernet
+  'B00AWRUICG', // TP-Link AV2000 Gigabit Powerline Starter Kit (2-Pack)
+  'B0BCMLLSHL', // CyberPower CP1500AVRLCD3 Intelligent LCD UPS Battery
+  'B08RHD97QY', // TP-Link RE700X WiFi 6 Range Extender Dual Band
+  'B01M63EMBQ', // Klein Tools VDV526-100 LAN Scout Jr. 2 Cable Tester
+  'B00BP0SSAS', // TP-Link TL-PoE150S Gigabit PoE Injector 802.3af
+  'B00JLV4BWC', // AC Infinity MULTIFAN S3 Quiet 120mm USB Fan for Router
+  'B0016AIYU6', // Tupavco TP303 Ethernet Surge Protector Gigabit ESD
+  'B08LN3C7WK', // Kasa Smart Plug with Energy Monitoring (4-Pack)
+  'B07W4MD9L8', // Bangun SC/APC to SC/APC Fiber Optic Internet Cable
+  'B00HVLUR86', // Audio-Technica ATH-M50x Professional Studio Monitor
+  'B0886ZPWC8', // Akai Professional MPK Mini MK3 25-Key MIDI Pad Controller
+  'B0011UB9CQ', // Beyerdynamic DT 990 PRO 250 Ohm Open-Back Studio
+  'B00DUKP37C', // Yamaha HS5 Powered Studio Monitor (Pair)
+  'B002QAUOKS', // Rode NT1-A Large-Diaphragm Cardioid Studio Condenser
+  'B000065BP9', // Sony MDR-7506 Professional Large-Diaphragm Headphone
+  'B0002E4Z8M', // Shure SM7B Vocal Dynamic Microphone for Broadcast
+  'B000978D58', // K&M 210/9 Professional Telescoping Boom Microphone Stand
+  'B001RCD2DW', // Beyerdynamic DT 770 PRO 80 Ohm Closed Studio Headphone
+  'B008AOH1O6', // Stedman Corporation Proscreen XL Metal Pop Filter
+  'B0006H92QK', // Audio-Technica AT2020 Cardioid Studio Condenser Mic
+  'B088HHWC47', // Elgato Wave:3 Premium USB Condenser Microphone
+  'B07VDQQY95', // AudioQuest DragonFly Red USB DAC & Headphone Amp
+  'B0016MNAAI', // Sennheiser HD 600 Open-Back Audiophile Headphones
+  'B000052YP6', // Palmers Cocoa Butter Formula Massage Lotion
+  'B000ORV3NC', // Weleda Skin Food Original Ultra-Rich Body Cream
+  'B0BP9MDCQZ', // Amazon Fire TV Stick 4K Max with Wi-Fi 6E Support
+  'B08GTYFC39', // SanDisk 512GB Ultra Dual Drive Luxe USB Type-C Flash Drive
+  'B00004SABP', // ProTapes Artist Tape Flatback Printable Paper Tape
   '1607741709', // The 2-Hour Job Search (Steve Dalton)
   'B07DWM9WNM', // Nulaxy Ergonomic Aluminum Laptop Stand
   'B000GFSVPU', // Optimum Nutrition Gold Standard
-  'B08GTYFC37', // SanDisk 1TB Extreme Portable SSD
-  'B00HVLUR86', // Audio-Technica ATH-M50x Studio Headphones
-  'B0886ZPWC8', // Akai Professional MPK Mini MK3
-  'B0011UB9CQ', // Beyerdynamic DT 990 PRO 250 Ohm
   'B075QVMBT9', // PreSonus Eris 3.5 Studio Monitors
-  'B006JH8T3S', // Logitech C920x HD Pro Webcam
-  'B07S92QBCJ', // Logitech MX Keys Advanced Wireless Keyboard
-  'B07S395RWD', // Logitech MX Master 3S Wireless Performance Mouse
-  'B08CVTTNN4', // ASUS ZenScreen 15.6" Full HD Portable Monitor
-  'B0874M3KW4', // Anker 555 USB-C Hub
-  '1449373321', // Designing Data-Intensive Applications (Martin Kleppmann)
-  '1260464008', // CompTIA Security+ Get Certified Get Ahead
 ]);
 
 export function buildAmazonUrl(params: {
