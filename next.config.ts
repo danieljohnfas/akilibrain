@@ -61,7 +61,7 @@ const nextConfig: NextConfig = {
   // relying on the CI typecheck.
   typescript: { ignoreBuildErrors: true },
 
-  serverExternalPackages: ["postgres", "drizzle-orm", "pdf-parse", "undici"],
+  serverExternalPackages: ["postgres", "drizzle-orm", "pdf-parse", "undici", "@firecrawl/anydoc"],
   experimental: {
     optimizePackageImports: ["lucide-react", "recharts", "framer-motion", "@iconify/react"],
   },
