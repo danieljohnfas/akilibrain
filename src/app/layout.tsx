@@ -7,6 +7,7 @@ import { AIChatPanel } from "@/components/ai/AIChatPanel";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildOrganizationSchema, buildWebSiteSchema } from "@/components/seo/schemas";
 import { ClarityAnalytics } from "@/components/analytics/Clarity";
+import { UmamiAnalytics } from "@/components/analytics/UmamiAnalytics";
 import { ConsentProvider } from "@/components/consent/ConsentProvider";
 import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { AdSenseScript } from "@/components/consent/AdSenseScript";
@@ -114,6 +115,7 @@ export default function RootLayout({
         <ConsentProvider>
         <AdSenseScript pubId={process.env.NEXT_PUBLIC_ADSENSE_PUB_ID || 'ca-pub-2501499631331261'} />
         <ClarityAnalytics />
+        <UmamiAnalytics />
         <ActivityTracker />
         <PostHogProvider>
           <ThemeProvider

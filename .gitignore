@@ -145,6 +145,7 @@ __pycache__/
 _archive/
 # --- hygiene (review follow-up): never commit scratch output, datasets or ad-hoc DB scripts ---
 /dataset_*.json
+/data/inbox/
 /*_log.txt
 /scrape_*.txt
 /grok_response.txt
