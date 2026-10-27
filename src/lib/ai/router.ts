@@ -334,7 +334,8 @@ function detectImageMimeType(buf: Buffer): string {
 interface VisionModelCandidate {
   id: string;
   name: string;
-  model: LanguageModel;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  model: any;
   /** Accepts application/pdf as a file part (image-only models do not). */
   supportsPdf: boolean;
 }
