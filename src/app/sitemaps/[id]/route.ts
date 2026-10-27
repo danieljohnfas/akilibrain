@@ -63,7 +63,10 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
       'uganda', 'kenya', 'tanzania', 'rwanda', 'ethiopia', 'somalia', 'burundi', 'south-sudan', 'drc',
       'uganda/kampala', 'kenya/nairobi', 'tanzania/dar-es-salaam', 'rwanda/kigali', 'ethiopia/addis-ababa',
       'kenya/biomedical-engineering', 'kenya/medical-engineering', 'kenya/nursing', 'kenya/research-assistant',
+      'kenya/customer-service', 'kenya/tax', 'kenya/internal-audit', 'kenya/java-house',
       'uganda/human-resources', 'uganda/banking', 'uganda/engineering', 'uganda/electrical-engineering', 'uganda/sales',
+      'uganda/seaowl', 'uganda/ura', 'uganda/latest-jobs-today',
+      'tanzania/engineering', 'rwanda/nursing', 'zambia/un-jobs', 'ghana/newmont',
       'software-engineer', 'software-developer', 'medical-engineering', 'biomedical-engineering', 'internship', 'graduate',
     ];
     const jobHubPages = jobHubSlugs.map((slug) => ({

@@ -417,6 +417,48 @@ async function JobsList({ params }: { params: ReturnType<typeof parseGlobalSearc
 
       {/* SEO-rich Content Block for AdSense / Googlebot */}
       <section className="mt-16 space-y-8 text-muted-foreground border-t border-white/5 pt-12">
+        {/* Trending Job Specializations & Striking-Distance Category Hubs */}
+        <div className="border border-emerald-500/20 bg-emerald-500/5 rounded-xl p-6">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-emerald-400 font-bold text-xs uppercase tracking-wider">Verified High-Intent Search Hubs</span>
+          </div>
+          <h2 className="text-xl font-bold text-foreground mb-4">Trending Career Sectors &amp; High-Demand Specializations in East Africa (2026)</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 text-sm">
+            <Link href="/jobs/kenya/biomedical-engineering" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Biomedical Engineering</span>
+              <span className="text-xs text-muted-foreground">Kenya vacancies</span>
+            </Link>
+            <Link href="/jobs/kenya/medical-engineering" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Medical Engineering</span>
+              <span className="text-xs text-muted-foreground">Hospital &amp; clinic jobs</span>
+            </Link>
+            <Link href="/jobs/kenya/nursing" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Nursing &amp; Healthcare</span>
+              <span className="text-xs text-muted-foreground">Registered nurse roles</span>
+            </Link>
+            <Link href="/jobs/software-engineer" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Software Engineering</span>
+              <span className="text-xs text-muted-foreground">Frontend, backend &amp; fullstack</span>
+            </Link>
+            <Link href="/jobs/uganda/banking" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Banking &amp; Microfinance</span>
+              <span className="text-xs text-muted-foreground">Uganda financial sector</span>
+            </Link>
+            <Link href="/jobs/uganda/electrical-engineering" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Electrical Engineering</span>
+              <span className="text-xs text-muted-foreground">Power &amp; utility projects</span>
+            </Link>
+            <Link href="/jobs/kenya/customer-service" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Customer Service</span>
+              <span className="text-xs text-muted-foreground">BPO &amp; client relations</span>
+            </Link>
+            <Link href="/jobs/uganda/latest-jobs-today" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Jobs in Uganda Today</span>
+              <span className="text-xs text-muted-foreground">Fresh daily postings</span>
+            </Link>
+          </div>
+        </div>
+
         <div className="border border-white/10 rounded-xl p-6 bg-white/5">
           <h2 className="text-2xl font-bold text-foreground mb-4">The Ultimate Guide to Finding Jobs in East Africa</h2>
           <p className="leading-relaxed mb-4">
