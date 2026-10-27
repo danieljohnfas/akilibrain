@@ -208,20 +208,47 @@ export function resolveSiteKey(input: string): EligibleSiteKey | null {
   return null;
 }
 
+export const VERIFIED_DIRECT_ASINS = new Set([
+  'B08SBFTXQT', // PMP Exam Prep Simplified (Andrew Ramdayal)
+  '1607741709', // The 2-Hour Job Search (Steve Dalton)
+  'B07DWM9WNM', // Nulaxy Ergonomic Aluminum Laptop Stand
+  'B000GFSVPU', // Optimum Nutrition Gold Standard
+  'B08GTYFC37', // SanDisk 1TB Extreme Portable SSD
+  'B00HVLUR86', // Audio-Technica ATH-M50x Studio Headphones
+  'B0886ZPWC8', // Akai Professional MPK Mini MK3
+  'B0011UB9CQ', // Beyerdynamic DT 990 PRO 250 Ohm
+  'B075QVMBT9', // PreSonus Eris 3.5 Studio Monitors
+  'B006JH8T3S', // Logitech C920x HD Pro Webcam
+  'B07S92QBCJ', // Logitech MX Keys Advanced Wireless Keyboard
+  'B07S395RWD', // Logitech MX Master 3S Wireless Performance Mouse
+  'B08CVTTNN4', // ASUS ZenScreen 15.6" Full HD Portable Monitor
+  'B0874M3KW4', // Anker 555 USB-C Hub
+  '1449373321', // Designing Data-Intensive Applications (Martin Kleppmann)
+  '1260464008', // CompTIA Security+ Get Certified Get Ahead
+]);
+
 export function buildAmazonUrl(params: {
   asin?: string | null;
   searchQuery: string;
   countryCode?: string;
   tag?: string;
-   preferDirectAsin?: boolean;
+  preferDirectAsin?: boolean;
 }): string {
   const tag = params.tag || AMAZON_ASSOCIATE_TAG;
   const cc = (params.countryCode || 'US').toUpperCase();
   const host = COUNTRY_TO_AMAZON_DOMAIN[cc] || 'www.amazon.com';
 
-  if (params.asin && params.preferDirectAsin !== false) {
-    return `https://${host}/dp/${encodeURIComponent(params.asin)}?tag=${encodeURIComponent(tag)}`;
+  // Normalize legacy or typo ASINs
+  let effectiveAsin = params.asin;
+  if (effectiveAsin === 'B08M8K9L3N') {
+    effectiveAsin = 'B08SBFTXQT';
   }
+
+  // Direct DP link only if strictly verified live on Amazon
+  if (effectiveAsin && params.preferDirectAsin !== false && VERIFIED_DIRECT_ASINS.has(effectiveAsin)) {
+    return `https://${host}/dp/${encodeURIComponent(effectiveAsin)}?tag=${encodeURIComponent(tag)}`;
+  }
+  // Guaranteed 100% live zero-dog fallback: keyword search with associate tag
   return `https://${host}/s?k=${encodeURIComponent(params.searchQuery)}&tag=${encodeURIComponent(tag)}`;
 }
 
@@ -845,7 +872,7 @@ export const INITIAL_PRODUCT_CATALOG: SeedAmazonProduct[] = [
     domain: 'akilibrain.com',
     slotKey: 'career-resources',
     category: 'career-books',
-    asin: 'B08M8K9L3N',
+    asin: 'B08SBFTXQT',
     title: 'PMP Exam Prep Simplified (PMBOK 7th Edition + Agile Practice Guide)',
     description: 'Top-rated Project Management Professional certification guide required by UN, World Bank, and East African NGOs.',
     searchQuery: 'PMP Exam Prep Simplified PMBOK 7th Edition Andrew Ramdayal',
@@ -899,7 +926,7 @@ export const INITIAL_PRODUCT_CATALOG: SeedAmazonProduct[] = [
     domain: 'akilibrain.com',
     slotKey: 'career-resources',
     category: 'career-books',
-    asin: 'B004X2M8K9',
+    asin: '1607741709',
     title: 'The 2-Hour Job Search & Cracking the Coding / Case Interview Bundle',
     description: 'Proven frameworks for landing interviews and negotiating top-quartile salaries.',
     searchQuery: 'The 2-Hour Job Search Steve Dalton career interview book',

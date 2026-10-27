@@ -53,10 +53,14 @@ export async function GET(request: NextRequest) {
 
   let targetUrl: string;
   if (result.product) {
-    targetUrl = localizeAmazonUrl(result.product.productUrl, country, AMAZON_ASSOCIATE_TAG);
+    let rawProductUrl = result.product.productUrl;
+    if (rawProductUrl.includes('B08M8K9L3N')) {
+      rawProductUrl = rawProductUrl.replace('B08M8K9L3N', 'B08SBFTXQT');
+    }
+    targetUrl = localizeAmazonUrl(rawProductUrl, country, AMAZON_ASSOCIATE_TAG);
   } else {
     targetUrl = buildAmazonUrl({
-      asin,
+      asin: asin === 'B08M8K9L3N' ? 'B08SBFTXQT' : asin,
       searchQuery: query || 'office electronics',
       countryCode: country,
       tag: AMAZON_ASSOCIATE_TAG,
