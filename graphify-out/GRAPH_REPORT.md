@@ -1,23 +1,23 @@
-# Graph Report - akilibrain  (2026-10-26)
+# Graph Report - akilibrain  (2026-10-27)
 
 ## Corpus Check
-- 994 files · ~5,903,373 words
+- 1005 files · ~5,910,502 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 5320 nodes · 9431 edges · 618 communities (357 shown, 150 thin omitted)
+- 5381 nodes · 9505 edges · 624 communities (359 shown, 154 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 48 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `005b9014`
+- Built from commit: `e3da3e0e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - account/page.tsx
 - cn
-- regions
+- shared.ts
 - clean-employer-urls.ts
 - workbox-860c9203.js
 - card.tsx
@@ -26,38 +26,38 @@
 - scrape-tenders.ts
 - developers/page.tsx
 - inngest/route.ts
-- employer-resolver.ts
-- ingestion-standards.ts
 - database-data-reviewer.ts
+- ingestion-standards.ts
+- broad-search-engine-tenders.ts
 - compilerOptions
 - compliance/page.tsx
 - main.py
 - compliance-base.ts
 - templates.tsx
 - scrape-jobs.ts
-- seed-tz-businesses.ts
-- button.tsx
+- compliance.ts
+- Navbar.tsx
 - amazon-ads/engine.ts
-- tenders.ts
+- schema/salaries.ts
 - dom-cluster.ts
 - ai/router.ts
 - TenderCard.tsx
-- safeQuery
+- JobDetail.tsx
 - components.json
-- [id]/route.ts
+- safeQuery
 - _extract.py
 - rate-limit.ts
 - dropdown-menu.tsx
 - dependencies
 - broad-search-engine.ts
-- health-world-bank.ts
+- scrape-salaries.ts
 - orchestrator/src/server.ts
-- setup/route.ts
+- login/route.ts
 - dependencies
 - run-jev-data-review.mjs
 - dependencies
 - devDependencies
-- input.tsx
+- button.tsx
 - FakeExchange
 - monitor.js
 - typescript
@@ -68,8 +68,8 @@
 - report.py
 - enrich-shallow-data.ts
 - get_proxies
-- audit-urls-and-employers.ts
-- deep-url-audit.ts
+- complianceRequirements
+- isUuid
 - test-jobs-query.js
 - devDependencies
 - src/app/layout.tsx
@@ -80,7 +80,7 @@
 - test-random-batch.ts
 - jev-client.ts
 - TendersChart.tsx
-- sync-health-data.ts
+- harvest_real_jobs_master.mjs
 - KeyPool
 - jev-full-review-enrichment.mjs
 - compilerOptions
@@ -116,7 +116,7 @@
 - test-apis.ts
 - tiktok-10k-search/manifest.json
 - AkiliHub — Scrapling Sidecar
-- seed-tz-other-dropdowns.ts
+- src/app/page.tsx
 - migrate.js
 - next.config.ts
 - deploy/package.json
@@ -161,7 +161,7 @@
 - engine.py
 - setup-auth-trigger.ts
 - bot.py
-- vercel.json
+- pdf-extract.ts
 - @ai-sdk/cohere
 - @ai-sdk/google
 - @ai-sdk/mistral
@@ -169,7 +169,7 @@
 - @base-ui/react
 - bcryptjs
 - bulk-resolve-cf-emails.mjs
-- affiliates.ts
+- parse/route.ts
 - 5 Google AI Tools (July 2026)
 - cheerio
 - class-variance-authority
@@ -186,18 +186,18 @@
 - @faker-js/faker
 - bulk-pass2-smart-requirements.mjs
 - harvest-jobweb-batch10.mjs
-- framer-motion
+- mass-scrape-tz.ts
 - harvest-jobweb-batch11.mjs
 - @iconify/react
 - inngest
 - @lottiefiles/dotlottie-react
-- lucide-react
+- harvest_ajirayako_tz.mjs
 - harvest-jobweb-batch12.mjs
 - next
 - next-themes
 - otpauth
 - drizzle-orm
-- pdf-parse
+- mass-generate-fresh-jobs.mjs
 - postgres
 - harvest-jobweb-batch13.mjs
 - harvest-jobweb-batch14.mjs
@@ -210,7 +210,7 @@
 - recharts
 - harvest-jobweb-batch8.mjs
 - resend
-- sanitize-html
+- audit_all_tables.mjs
 - shadcn
 - harvest-jobweb-batch9.mjs
 - sonner
@@ -383,7 +383,7 @@
 - resolve-more-companies.mjs
 - revert-false-matches.mjs
 - sample-unresolved.mjs
-- seed-tz-tenders.ts
+- clef-review-tenders.mjs
 - tag-authentic-confidential-listings.mjs
 - terminate-pid.mjs
 - test-company-extractor.mjs
@@ -394,7 +394,7 @@
 - verify-all-data-standards.mjs
 - verify-purification-scorecard.mjs
 - view-target-job-desc.mjs
-- provenance.ts
+- check_current_db_count.mjs
 - web/index.ts
 - tiktok-follower-checker/content.js
 - auto-purge-expired.mjs
@@ -427,7 +427,7 @@
 - Rescrape Final Report (Full Run)
 - test-cf-ai.mjs
 - test-cf-ai2.mjs
-- amazon-photoid03-20/page.tsx
+- amazon-ads/page.tsx
 - amazon-ads.ts
 - DocumensoClient
 - OpenVoiceClient
@@ -445,11 +445,11 @@
 - classify-unresolved.mjs
 - clean-bad-records.mjs
 - clef-businesses-deep.mjs
-- clef-review-compliance.mjs
+- check-db.ts
 - db-stats.mjs
 - db-summary.mjs
 - find-leak.mjs
-- fix-data-standards.ts
+- massive-scrape.ts
 - $
 - inspect-real-source-links.mjs
 - inspect-short-desc.mjs
@@ -458,11 +458,11 @@
 - probe-workable-more.mjs
 - quick-stat.mjs
 - seed-ai-resilience.ts
-- seed-countries.ts
+- clef-review-employers.mjs
 - test-single-drc.mjs
 - verify-resolved-urls.mjs
-- cleanup.ts
-- cleanup-aggregator-urls.ts
+- inspect_jobs_status.mjs
+- purge_synthetic_jobs.mjs
 - interface/README.md
 - interface/src/app/layout.tsx
 - apply-gold-standards.ts
@@ -485,7 +485,7 @@
 - test-single-fetch.mjs
 - test-workable-boards.mjs
 - topup.ts
-- buildWebSearchQuery
+- verify_portfolio_authenticity.mjs
 - integration/vercel.json
 - interface/next.config.mjs
 - ApprovalCard.tsx
@@ -522,6 +522,12 @@
 - privacypolicy/README.md
 - tiktok-10k-search/background.js
 - config.py
+- get_country_codes.mjs
+- cmdk
+- googleapis
+- @mendable/firecrawl-js
+- qrcode
+- remark-gfm
 
 ## God Nodes (most connected - your core abstractions)
 1. `DB` - 141 edges
@@ -542,27 +548,27 @@
   scripts/test-newsletter.ts → src/lib/email/templates.tsx
 - `cleanBadEmployerUrls()` --calls--> `isEmployerUrl()`  [EXTRACTED]
   scripts/clean-bad-employer-urls.ts → src/lib/sources/aggregators.ts
-- `main()` --calls--> `saveCompliance()`  [EXTRACTED]
-  scripts/comprehensive-scrape.ts → src/inngest/scrape-compliance.ts
+- `run()` --calls--> `configureSearchBreaker()`  [EXTRACTED]
+  scripts/company-discovery.ts → src/lib/scrapers/search-health.ts
 - `main()` --calls--> `saveHealthData()`  [EXTRACTED]
   scripts/comprehensive-scrape.ts → src/inngest/scrape-health.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (618 total, 150 thin omitted)
+## Communities (624 total, 154 thin omitted)
 
 ### Community 0 - "account/page.tsx"
-Cohesion: 0.09
-Nodes (35): createAlert(), deleteAccount(), deleteAlert(), toggleAlert(), toggleEmailUpdates(), updateProfile(), ACCOUNT_ERRORS, AccountPage() (+27 more)
+Cohesion: 0.08
+Nodes (37): createAlert(), deleteAccount(), deleteAlert(), toggleAlert(), toggleEmailUpdates(), updateProfile(), ACCOUNT_ERRORS, AccountPage() (+29 more)
 
 ### Community 1 - "cn"
 Cohesion: 0.05
 Nodes (59): InterviewPage(), MagicCard, AIChatPanel(), CvState, DotLottieReact, SUGGESTED_PROMPTS, ChatMessage(), ChatMessageProps (+51 more)
 
-### Community 2 - "regions"
-Cohesion: 0.10
-Nodes (14): client, db, tzRegionsAndDistricts, db, dbUrl, sql, db, dbUrl (+6 more)
+### Community 2 - "shared.ts"
+Cohesion: 0.07
+Nodes (25): client, db, client, db, tzRegionsAndDistricts, authorities, categories, client (+17 more)
 
 ### Community 3 - "clean-employer-urls.ts"
 Cohesion: 0.40
@@ -573,20 +579,20 @@ Cohesion: 0.05
 Nodes (25): a, b(), constructor(), deleteCacheAndMetadata(), et, F, G, get() (+17 more)
 
 ### Community 5 - "card.tsx"
-Cohesion: 0.08
-Nodes (37): KeyStatus, PoolStatus, DashboardPayload, ManagedProduct, RotationLog, SearchResultItem, SiteMetrics, TimeSeriesRow (+29 more)
+Cohesion: 0.09
+Nodes (34): KeyStatus, PoolStatus, metadata, Message, metadata, metadata, revalidate, ApplyPage() (+26 more)
 
 ### Community 6 - "lib/db/client.ts"
 Cohesion: 0.04
-Nodes (27): AGGREGATOR_DOMAINS, client, db, employers, queries, inputSchema, dynamic, revalidate (+19 more)
+Nodes (37): AGGREGATOR_DOMAINS, AuditResult, SecurityHeadersResult, inputSchema, dynamic, revalidate, bodySchema, bodySchema (+29 more)
 
 ### Community 7 - "buildBreadcrumbSchema"
 Cohesion: 0.06
-Nodes (46): AboutPage(), dataPrinciples, metadata, modules, dynamic, EmployerHub(), generateMetadata(), toTitleCase() (+38 more)
+Nodes (42): AboutPage(), dataPrinciples, metadata, modules, dynamic, EmployerHub(), generateMetadata(), toTitleCase() (+34 more)
 
 ### Community 8 - "scrape-tenders.ts"
-Cohesion: 0.06
-Nodes (46): COMPLIANCE_QUERIES, getCountryId(), HEALTH_QUERIES, JOB_QUERIES, main(), PORTALS, SALARY_QUERIES, buildStrategyEngine() (+38 more)
+Cohesion: 0.08
+Nodes (39): COMPLIANCE_QUERIES, getCountryId(), HEALTH_QUERIES, JOB_QUERIES, main(), PORTALS, SALARY_QUERIES, saveCompliance() (+31 more)
 
 ### Community 9 - "developers/page.tsx"
 Cohesion: 0.26
@@ -594,19 +600,19 @@ Nodes (9): DevelopersPage(), metadata, CodeSnippet(), CodeSnippetProps, Tabs(), 
 
 ### Community 10 - "inngest/route.ts"
 Cohesion: 0.05
-Nodes (67): main(), main(), SALARY_QUERIES, dynamic, { GET, POST, PUT }, maxDuration, POST(), checkDataStatusJob (+59 more)
+Nodes (55): COUNTRIES, MODULES, triggerMassScrape(), dynamic, { GET, POST, PUT }, maxDuration, atsSyncCronJob, checkDataStatusJob (+47 more)
 
-### Community 11 - "employer-resolver.ts"
-Cohesion: 0.12
-Nodes (30): cleanBadEmployerUrls(), conn, db, conn, db, runBackfill(), sleep(), conn (+22 more)
+### Community 11 - "database-data-reviewer.ts"
+Cohesion: 0.09
+Nodes (44): cleanBadEmployerUrls(), conn, db, conn, db, runBackfill(), sleep(), conn (+36 more)
 
 ### Community 12 - "ingestion-standards.ts"
-Cohesion: 0.13
-Nodes (41): main(), main(), main(), main(), atsSyncCronJob, fetchAshbyJobs(), fetchBreezyJobs(), CITY_TO_COUNTRY_NAME (+33 more)
+Cohesion: 0.14
+Nodes (39): main(), main(), main(), main(), fetchAshbyJobs(), fetchBreezyJobs(), CITY_TO_COUNTRY_NAME, CountryResolver (+31 more)
 
-### Community 13 - "database-data-reviewer.ts"
-Cohesion: 0.12
-Nodes (33): main(), runTests(), normalizeLocationAndGetRegionId(), discoverTenders(), extractTendersWithAI(), BANNED_EMPLOYER_DOMAINS, COUNTRY_HINTS, CURRENCY_PATTERNS (+25 more)
+### Community 13 - "broad-search-engine-tenders.ts"
+Cohesion: 0.15
+Nodes (24): main(), runTests(), normalizeLocationAndGetRegionId(), extractJobsWithAI(), BroadTenderResource, extractTendersWithAI(), BANNED_EMPLOYER_DOMAINS, COUNTRY_HINTS (+16 more)
 
 ### Community 14 - "compilerOptions"
 Cohesion: 0.06
@@ -614,71 +620,71 @@ Nodes (32): *.config.ts, crawl_data, e2e/**/*.ts, .next/dev/types/**/*.ts, scrap
 
 ### Community 15 - "compliance/page.tsx"
 Cohesion: 0.05
-Nodes (56): BusinessesList(), CompliancePage(), dynamic, getUniqueCountries, metadata, ResourcesList(), revalidate, GlobalError() (+48 more)
+Nodes (54): BusinessesList(), CompliancePage(), dynamic, getUniqueCountries, metadata, ResourcesList(), revalidate, CountryPage() (+46 more)
 
 ### Community 16 - "main.py"
 Cohesion: 0.10
 Nodes (42): get, browser_agent_endpoint(), BrowserAgentRequest, BrowserAgentResponse, crawl4ai_extract(), Crawl4AiRequest, Crawl4AiResponse, extract_document() (+34 more)
 
 ### Community 17 - "compliance-base.ts"
-Cohesion: 0.07
-Nodes (63): run(), COUNTRIES, DOMAINS_COMPLIANCE, DOMAINS_HEALTH, DOMAINS_TENDERS, getCategoryId(), getCountryId(), getExistingUrls() (+55 more)
+Cohesion: 0.10
+Nodes (46): run(), auditCompliance(), auditHealth(), auditJobs(), AuditTelemetry, auditTenders(), main(), safeDbUpdate() (+38 more)
 
 ### Community 18 - "templates.tsx"
 Cohesion: 0.07
 Nodes (31): RFC-2369, testNewsletter(), sendDailyDigestJob, sendTenderAlertsJob, sendWeeklyNewsletterJob, chunkArray(), sendWelcomeEmailsJob, BuiltEmail (+23 more)
 
 ### Community 19 - "scrape-jobs.ts"
+Cohesion: 0.07
+Nodes (38): COUNTRIES, JOB_QUERIES, runMassScrape(), main(), run(), client, db, employers (+30 more)
+
+### Community 20 - "compliance.ts"
 Cohesion: 0.08
-Nodes (36): COUNTRIES, JOB_QUERIES, runMassScrape(), cities, extraModifiers, getJobCount(), queries, run() (+28 more)
+Nodes (27): BusinessSeed, client, db, SEED_DATA, BusinessSeed, client, db, EXTRA_TYPES (+19 more)
 
-### Community 20 - "seed-tz-businesses.ts"
-Cohesion: 0.09
-Nodes (19): BusinessSeed, client, db, SEED_DATA, BusinessSeed, client, db, EXTRA_TYPES (+11 more)
-
-### Community 21 - "button.tsx"
-Cohesion: 0.09
-Nodes (20): toggleBookmark(), resend, submitContactForm(), BookmarkButton(), BookmarkButtonProps, ContactForm(), Navbar(), DesktopNav() (+12 more)
+### Community 21 - "Navbar.tsx"
+Cohesion: 0.14
+Nodes (13): GlobalSearch(), DesktopNav(), MobileNavLinks(), navLinks, ThemeToggle(), Sheet(), SheetContent(), SheetDescription() (+5 more)
 
 ### Community 22 - "amazon-ads/engine.ts"
-Cohesion: 0.08
-Nodes (53): dynamic, GET(), dynamic, GET(), CORS_HEADERS, dynamic, POST(), dynamic (+45 more)
+Cohesion: 0.06
+Nodes (65): dynamic, GET(), dynamic, GET(), CORS_HEADERS, dynamic, POST(), dynamic (+57 more)
 
-### Community 23 - "tenders.ts"
-Cohesion: 0.05
-Nodes (53): AuditTelemetry, telemetry, TELEMETRY_FILE, client, compTypes, db, rand(), run() (+45 more)
+### Community 23 - "schema/salaries.ts"
+Cohesion: 0.06
+Nodes (32): BUSINESS_TYPES, client, db, JOB_CATEGORIES, run(), slugify(), TENDER_SECTORS, client (+24 more)
 
 ### Community 24 - "dom-cluster.ts"
-Cohesion: 0.07
-Nodes (47): GET(), attachmentTypeEnum, tenderAttachments, scraperParsers, generateParserSpecWithAI(), htmlSample(), loadSpec(), memoryCache (+39 more)
+Cohesion: 0.08
+Nodes (40): GET(), scraperParsers, generateParserSpecWithAI(), htmlSample(), loadSpec(), memoryCache, parseJobsFromHtml(), saveSpec() (+32 more)
 
 ### Community 25 - "ai/router.ts"
 Cohesion: 0.09
 Nodes (24): testAll(), testModels(), withTimeout(), AiUnavailableError, BACKGROUND, detectImageMimeType(), extractVisionTextWithFallback(), generateTextWithFallback() (+16 more)
 
 ### Community 26 - "TenderCard.tsx"
-Cohesion: 0.10
-Nodes (25): SearchResult, SubmitSalaryModal(), GlobalSearch(), moduleIcons, moduleLabels, ShareButton(), ShareButtonProps, TenderCardProps (+17 more)
+Cohesion: 0.12
+Nodes (22): SearchResult, SubmitSalaryModal(), moduleIcons, moduleLabels, TenderCardProps, Command(), CommandDialog(), CommandEmpty() (+14 more)
 
-### Community 27 - "safeQuery"
+### Community 27 - "JobDetail.tsx"
 Cohesion: 0.07
-Nodes (43): GET(), generateMetadata(), GuideDetailPage(), revalidate, SANITIZE_OPTIONS, generateMetadata(), JobDetail(), jobTypeColors (+35 more)
+Nodes (38): generateMetadata(), JobDetail(), jobTypeColors, jobTypeLabels, revalidate, dynamic, generateMetadata(), isUUID() (+30 more)
 
 ### Community 28 - "components.json"
 Cohesion: 0.09
 Nodes (21): aliases, components, hooks, lib, ui, utils, iconLibrary, menuAccent (+13 more)
 
-### Community 29 - "[id]/route.ts"
-Cohesion: 0.10
-Nodes (16): AuditResult, SecurityHeadersResult, articles, articles, dynamic, GET(), runtime, buildUrlSet() (+8 more)
+### Community 29 - "safeQuery"
+Cohesion: 0.06
+Nodes (34): articles, articles, GET(), jobTypeLabels, NOTE: these were `export`ed as if this were an opengraph-image metadata file.…, size, GET(), generateMetadata() (+26 more)
 
 ### Community 30 - "_extract.py"
 Cohesion: 0.09
 Nodes (27): Response, css_selectors.py — CSS selector maps for each East African procurement portal.…, build_tender(), clean(), extract_tenders(), is_adaptive_ready(), now_plus_days(), fetchers/_extract.py — Shared extraction utilities for AkiliHub scrapers.… (+19 more)
 
 ### Community 31 - "rate-limit.ts"
-Cohesion: 0.12
-Nodes (24): clampScore(), POST(), POST(), post(), GET(), checkRateLimit(), clientIp(), clientIpFromHeaders() (+16 more)
+Cohesion: 0.13
+Nodes (22): POST(), post(), GET(), checkRateLimit(), clientIp(), clientIpFromHeaders(), enforceRateLimit(), getUpstashLimiter() (+14 more)
 
 ### Community 32 - "dropdown-menu.tsx"
 Cohesion: 0.13
@@ -689,20 +695,20 @@ Cohesion: 0.04
 Nodes (45): @neondatabase/serverless, pgvector, dependencies, cors, dotenv, drizzle-orm, express, express-async-errors (+37 more)
 
 ### Community 34 - "broad-search-engine.ts"
-Cohesion: 0.07
-Nodes (54): discoverCompanies(), findCareerPage(), loadRegistry(), REGISTRY_PATH, run(), saveRegistry(), discoverAtsBoardsAllCountries(), REGISTRY_PATH (+46 more)
+Cohesion: 0.11
+Nodes (36): budgetMinutes, countriesMap, outOfTime(), run(), titles, BLOCKED_DOMAINS, discoverJobs(), extractJsonLdJobs() (+28 more)
 
-### Community 35 - "health-world-bank.ts"
-Cohesion: 0.24
-Nodes (8): COUNTRIES, fetchWHOFallbackIndicator(), fetchWorldBankIndicator(), ISO2_TO_ISO3, ISO3_TO_ISO2, upsertHealthPoints(), WB_INDICATORS, WHO_FALLBACK_INDICATORS
+### Community 35 - "scrape-salaries.ts"
+Cohesion: 0.08
+Nodes (34): main(), main(), SALARY_QUERIES, POST(), getCountryInfo(), makeSalaryScraper(), runSalaryQueries(), saveSalaries() (+26 more)
 
 ### Community 36 - "orchestrator/src/server.ts"
 Cohesion: 0.10
 Nodes (25): chatCompletion(), ChatMessage, geminiCompletion(), mapJsonSchemaToGeminiSchema(), openRouterCompletion(), Role, getPendingApprovals(), pendingApprovals (+17 more)
 
-### Community 37 - "setup/route.ts"
-Cohesion: 0.24
-Nodes (7): client, db, GET(), POST(), setupGate(), AdminConfig, dataVerificationLog
+### Community 37 - "login/route.ts"
+Cohesion: 0.25
+Nodes (13): INVALID(), POST(), GET(), POST(), setupGate(), decryptSecret(), encryptSecret(), getKey() (+5 more)
 
 ### Community 38 - "dependencies"
 Cohesion: 0.05
@@ -714,18 +720,18 @@ Nodes (36): AGGREGATOR_DOMAINS, AGGREGATORS_ONLY, args, ATS_DOMAINS, BANNED_EMPL
 
 ### Community 40 - "dependencies"
 Cohesion: 0.15
-Nodes (13): ai, cmdk, googleapis, @mendable/firecrawl-js, dependencies, ai, cmdk, googleapis (+5 more)
+Nodes (13): ai, @firecrawl/anydoc, framer-motion, lucide-react, dependencies, ai, @firecrawl/anydoc, framer-motion (+5 more)
 
 ### Community 41 - "devDependencies"
 Cohesion: 0.15
 Nodes (13): @axe-core/playwright, @eslint/eslintrc, devDependencies, @axe-core/playwright, drizzle-kit, eslint, @eslint/eslintrc, tailwindcss (+5 more)
 
-### Community 42 - "input.tsx"
-Cohesion: 0.15
-Nodes (9): resolveManualLink(), ResolveItem(), metadata, forgotPassword(), metadata, LeadCapture, Status, Input() (+1 more)
+### Community 42 - "button.tsx"
+Cohesion: 0.10
+Nodes (14): toggleBookmark(), resend, submitContactForm(), resolveManualLink(), ResolveItem(), LeadCapture, Status, BookmarkButton() (+6 more)
 
 ### Community 43 - "FakeExchange"
-Cohesion: 0.14
+Cohesion: 0.13
 Nodes (22): FakeExchange, go(), Checks the live-trading safety limits against a fake exchange. No internet, no…, refused(), test_already_long_and_breakout_continues_holds(), test_buy_is_capped_at_the_20_dollar_limit_even_with_500_in_the_account(), test_buy_limit_price_is_at_most_half_a_percent_above_the_ask(), test_circuit_breaker_blocks_new_positions_but_not_exits() (+14 more)
 
 ### Community 44 - "monitor.js"
@@ -737,12 +743,12 @@ Cohesion: 0.12
 Nodes (19): config, fetchPage(), firecrawlFetch(), looksJsOnly(), plainFetch(), checkRobots(), isBlocked(), nextSlot (+11 more)
 
 ### Community 47 - "verifyAdminSession"
-Cohesion: 0.12
-Nodes (26): AdminLayout(), navItems, dynamic, GET(), INVALID(), POST(), authorized(), dynamic (+18 more)
+Cohesion: 0.17
+Nodes (17): AdminLayout(), navItems, dynamic, GET(), authorized(), dynamic, GET(), GET() (+9 more)
 
 ### Community 48 - "cv-session.ts"
-Cohesion: 0.11
-Nodes (25): dynamic, GET(), POST(), RFC-8058, DELETE(), POST(), runtime, setEmailPreference() (+17 more)
+Cohesion: 0.20
+Nodes (12): DELETE(), POST(), runtime, purgeExpiredDocumentsJob, summarizeTenderDocumentJob, CV_COOKIE, CV_RETENTION_DAYS, ensureCvSessionId() (+4 more)
 
 ### Community 49 - "devDependencies"
 Cohesion: 0.06
@@ -753,20 +759,20 @@ Cohesion: 0.14
 Nodes (26): fill_price(), The price you actually get: buying (+1) pays above the quote, selling (-1)…, How many units to trade. Returns (units, balance_needed); units == 0 means no…, Result, size_position(), Trade, append_paper_log(), buy_and_hold() (+18 more)
 
 ### Community 51 - "enrich-shallow-data.ts"
-Cohesion: 0.27
-Nodes (16): dataReviewDispatcherJob, enrichComplianceWorker, enrichJobWorker, enrichShallowDataJob, enrichTenderWorker, isDirectDocumentUrl(), isRealUrl(), refetchAndExtractTenders() (+8 more)
+Cohesion: 0.25
+Nodes (19): dataReviewDispatcherJob, enrichComplianceWorker, enrichJobWorker, enrichShallowDataJob, enrichTenderWorker, isDirectDocumentUrl(), isRealUrl(), refetchAndExtractCompliance() (+11 more)
 
 ### Community 52 - "get_proxies"
 Cohesion: 0.27
 Nodes (9): _fetch_geonode(), _fetch_proxyscrape(), get_proxies(), get_random_proxy(), fetchers/proxies.py — Free proxy fetching and management for AkiliHub. Zero-…, Return a list of proxy strings ready to pass to Scrapling's ProxyRotation.…, Return a single random proxy string, or None if none are available., Fetch a fresh list of working HTTP proxies from ProxyScrape's free API. Returns… (+1 more)
 
-### Community 53 - "audit-urls-and-employers.ts"
-Cohesion: 0.24
-Nodes (9): ATS_DOMAINS, audit(), classifyDomain(), conn, db, DomainStats, extractDomain(), GOV_TLDS (+1 more)
+### Community 53 - "complianceRequirements"
+Cohesion: 0.09
+Nodes (24): ATS_DOMAINS, audit(), classifyDomain(), conn, db, DomainStats, extractDomain(), GOV_TLDS (+16 more)
 
-### Community 54 - "deep-url-audit.ts"
-Cohesion: 0.22
-Nodes (9): ATS_DOMAINS, conn, db, deepAudit(), extractDomain(), GOV_TLDS, KNOWN_AGGREGATORS, SOCIAL_SHARE_DOMAINS (+1 more)
+### Community 54 - "isUuid"
+Cohesion: 0.19
+Nodes (13): dynamic, GET(), POST(), RFC-8058, setEmailPreference(), dynamic, ERRORS, metadata (+5 more)
 
 ### Community 55 - "test-jobs-query.js"
 Cohesion: 0.20
@@ -777,8 +783,8 @@ Cohesion: 0.07
 Nodes (28): dependencies, next, react, react-dom, devDependencies, eslint, eslint-config-next, @types/node (+20 more)
 
 ### Community 57 - "src/app/layout.tsx"
-Cohesion: 0.14
-Nodes (18): inter, metadata, RootLayout(), ClarityAnalytics(), AdSenseScript(), ConsentBanner(), Consent, ConsentContext (+10 more)
+Cohesion: 0.11
+Nodes (22): inter, metadata, RootLayout(), ClarityAnalytics(), UmamiAnalytics(), UmamiAnalyticsProps, AdSenseScript(), ConsentBanner() (+14 more)
 
 ### Community 58 - "scripts"
 Cohesion: 0.18
@@ -802,15 +808,15 @@ Nodes (8): ATS_DOMAINS, conn, db, isCleanEmployerUrl(), JUNK_DOMAINS, resolveJob
 
 ### Community 63 - "jev-client.ts"
 Cohesion: 0.13
-Nodes (20): POST(), clefCredentials(), DecisionClient, getDecisionClient(), getJevClient(), isClefAvailable(), isDecisionEngineAvailable(), isTypeSafeJevAvailable() (+12 more)
+Nodes (20): classifyRecordWithJevFallback(), clefCredentials(), DecisionClient, getDecisionClient(), getJevClient(), isClefAvailable(), isDecisionEngineAvailable(), isTypeSafeJevAvailable() (+12 more)
 
 ### Community 64 - "TendersChart.tsx"
 Cohesion: 0.22
 Nodes (8): Bar, BarChart, ChartData, ResponsiveContainer, TendersChart(), Tooltip, XAxis, YAxis
 
-### Community 65 - "sync-health-data.ts"
-Cohesion: 0.28
-Nodes (8): DHIS2_COUNTRIES, EAC_COUNTRIES, fetchDHIS2Indicator(), fetchWHOIndicator(), INDICATORS, syncHealthDataJob, WHO_COUNTRY_MAP, WHO_INDICATOR_MAP
+### Community 65 - "harvest_real_jobs_master.mjs"
+Cohesion: 0.29
+Nodes (14): cleanText(), COUNTRY_IDS, COUNTRY_NAMES, envPath, extractRequirements(), GREENHOUSE_BOARDS, harvestGreenhouse(), harvestJobInRwanda() (+6 more)
 
 ### Community 66 - "KeyPool"
 Cohesion: 0.11
@@ -845,12 +851,12 @@ Cohesion: 0.19
 Nodes (18): ATS_PLATFORMS, BANNED_COMPANIES, BANNED_TITLE_PATTERNS, CITIES, envPath, harvestAjirayako(), harvestDDGQueries(), harvestGreenhouseBoards() (+10 more)
 
 ### Community 74 - "match-cv/route.ts"
-Cohesion: 0.17
-Nodes (14): bodySchema, maxDuration, POST(), bodySchema, dynamic, ExtractedSkillsSchema, MatchSchema, maxDuration (+6 more)
+Cohesion: 0.22
+Nodes (11): POST(), GET(), bodySchema, dynamic, ExtractedSkillsSchema, MatchSchema, maxDuration, POST() (+3 more)
 
 ### Community 75 - "subscribe/route.ts"
-Cohesion: 0.19
-Nodes (14): ACCEPTED, BASE_URL, bodySchema, escapeHtml(), POST(), confirmSubscription(), ConfirmSubscriptionPage(), dynamic (+6 more)
+Cohesion: 0.18
+Nodes (15): ACCEPTED, BASE_URL, bodySchema, escapeHtml(), POST(), confirmSubscription(), ConfirmSubscriptionPage(), dynamic (+7 more)
 
 ### Community 76 - "dom_agent.py"
 Cohesion: 0.18
@@ -881,16 +887,16 @@ Cohesion: 0.50
 Nodes (4): conn, db, isValidHttpUrl(), reviewAllData()
 
 ### Community 83 - "systemOne"
-Cohesion: 0.16
-Nodes (12): systemOne(), jev, run(), sql, jev, run(), sql, envPath (+4 more)
+Cohesion: 0.22
+Nodes (8): systemOne(), jev, run(), sql, jev, run(), sql, jev
 
 ### Community 84 - "live.py"
-Cohesion: 0.20
-Nodes (15): datetime, Exception, make_exchange(), NotFilled, orders_today(), place(), DataFrame, Live spot trading with hard limits. Uses the same strategy code as the backtest… (+7 more)
+Cohesion: 0.17
+Nodes (19): datetime, Exception, make_exchange(), NotFilled, orders_today(), place(), DataFrame, Live spot trading with hard limits. Uses the same strategy code as the backtest… (+11 more)
 
 ### Community 85 - "backtest"
-Cohesion: 0.30
-Nodes (16): backtest(), DataFrame, make_instrument(), candles_from_closes(), random_walk(), Checks that the backtester is honest, using made-up prices so no internet is…, test_cent_account_lets_a_tiny_forex_account_trade(), test_crypto_trade_matches_hand_calculation() (+8 more)
+Cohesion: 0.37
+Nodes (14): backtest(), DataFrame, make_instrument(), candles_from_closes(), random_walk(), Checks that the backtester is honest, using made-up prices so no internet is…, test_cent_account_lets_a_tiny_forex_account_trade(), test_crypto_trade_matches_hand_calculation() (+6 more)
 
 ### Community 86 - "Web Scraping & Data Sourcing Guidelines"
 Cohesion: 0.12
@@ -905,7 +911,7 @@ Cohesion: 0.67
 Nodes (3): main(), postgres, sql
 
 ### Community 92 - "sidecarHeaders"
-Cohesion: 0.18
+Cohesion: 0.16
 Nodes (12): aiUsage, runStressTest(), client, db, fetchCareerPage(), KNOWN_CAREER_PAGES, processCareerPage(), run() (+4 more)
 
 ### Community 95 - "test-fixes.ts"
@@ -928,9 +934,9 @@ Nodes (14): storage, webNavigation, action, default_popup, background, service_w
 Cohesion: 0.13
 Nodes (14): Adding a New Portal, AkiliHub — Scrapling Sidecar, API, Ethics & Compliance, Key Features, Pause / Resume for Large Crawls, Portal Types, `POST /browser_agent` (DOM-Indexed Interactive Navigation) (+6 more)
 
-### Community 101 - "seed-tz-other-dropdowns.ts"
-Cohesion: 0.15
-Nodes (13): BUSINESS_TYPES, client, db, JOB_CATEGORIES, run(), slugify(), TENDER_SECTORS, client (+5 more)
+### Community 101 - "src/app/page.tsx"
+Cohesion: 0.19
+Nodes (9): dynamic, getPlatformStats, Home(), homeFAQSchema, LiveStats, metadata, CommunityAlerts(), CVMatcher() (+1 more)
 
 ### Community 103 - "next.config.ts"
 Cohesion: 0.29
@@ -961,8 +967,8 @@ Cohesion: 0.14
 Nodes (14): 1. Core Stack, 2. Hosting & Infrastructure, 3. Scraping Architecture, 4. Database Schema, 5. Key Systems, 6. Inngest Job Registry, 7. Security & privacy features (map), A. Jobs Scraper (`src/inngest/scrape-jobs.ts`) (+6 more)
 
 ### Community 113 - "data.py"
-Cohesion: 0.30
-Nodes (13): DatetimeIndex, clean(), fetch_ccxt(), fetch_mt5(), fetch_yahoo(), get_candles(), load_csv(), _naive_days() (+5 more)
+Cohesion: 0.24
+Nodes (15): DatetimeIndex, clean(), fetch_ccxt(), fetch_mt5(), fetch_yahoo(), get_candles(), load_csv(), _naive_days() (+7 more)
 
 ### Community 117 - "personalagent/package.json"
 Cohesion: 0.14
@@ -1005,24 +1011,24 @@ Cohesion: 0.15
 Nodes (11): client, dotenv, hrEmail, levels, postgres, projectRoot, require, skills (+3 more)
 
 ### Community 143 - "engine.py"
-Cohesion: 0.19
-Nodes (9): The backtester. It walks through history one day at a time, exactly as the bot…, Skip, Instrument, How a symbol trades: what it costs, how small a position can be, and how its…, Multiplier that turns a profit measured in the quote currency into account…, add_channels(), decide(), The trading rules: a daily breakout (Donchian channel) trend follower. - Flat,… (+1 more)
+Cohesion: 0.29
+Nodes (5): The backtester. It walks through history one day at a time, exactly as the bot…, Skip, Instrument, How a symbol trades: what it costs, how small a position can be, and how its…, Multiplier that turns a profit measured in the quote currency into account…
 
 ### Community 145 - "bot.py"
 Cohesion: 0.33
 Nodes (11): ArgumentParser, build_parser(), cmd_backtest(), cmd_live(), cmd_optimize(), cmd_paper(), load(), main() (+3 more)
 
-### Community 146 - "vercel.json"
-Cohesion: 0.50
-Nodes (3): framework, headers, redirects
+### Community 146 - "pdf-extract.ts"
+Cohesion: 0.31
+Nodes (8): attachmentTypeEnum, tenderAttachments, DOC_EXTENSIONS, downloadDocument(), extractAndSaveAttachments(), extractDocumentLinks(), getFileType(), parsePdf()
 
 ### Community 153 - "bulk-resolve-cf-emails.mjs"
 Cohesion: 0.23
 Nodes (11): cheerio, decodeCloudflareEmail(), dotenv, fetchPage(), postgres, processJob(), projectRoot, PUBLIC_EMAIL_DOMAINS (+3 more)
 
-### Community 154 - "affiliates.ts"
-Cohesion: 0.30
-Nodes (9): GET(), AffiliatePartner, buildAffiliateUrl(), enabledAffiliatePartners(), isAffiliatePartner(), PartnerConfig, PARTNERS, templateFor() (+1 more)
+### Community 154 - "parse/route.ts"
+Cohesion: 0.32
+Nodes (6): dynamic, POST(), runtime, COMMON_SKILLS, ParsedResume, parseResumeDocument()
 
 ### Community 155 - "5 Google AI Tools (July 2026)"
 Cohesion: 0.18
@@ -1056,13 +1062,25 @@ Nodes (9): dotenv, extractSmartRequirements(), jev, postgres, projectRoot, requi
 Cohesion: 0.29
 Nodes (9): BANNED_EMPLOYERS, cleanText(), envPath, extractCompanyFromTitle(), harvestBatch10(), HEADERS, isLegitEmployer(), sql (+1 more)
 
+### Community 171 - "mass-scrape-tz.ts"
+Cohesion: 0.33
+Nodes (6): cities, extraModifiers, getJobCount(), queries, run(), titles
+
 ### Community 172 - "harvest-jobweb-batch11.mjs"
 Cohesion: 0.29
 Nodes (9): BANNED_EMPLOYERS, cleanText(), envPath, extractCompanyFromTitle(), harvestBatch11(), HEADERS, isLegitEmployer(), sql (+1 more)
 
+### Community 176 - "harvest_ajirayako_tz.mjs"
+Cohesion: 0.47
+Nodes (5): cleanText(), envPath, harvestAjiraYako(), HEADERS, insertJobBatch()
+
 ### Community 177 - "harvest-jobweb-batch12.mjs"
 Cohesion: 0.29
 Nodes (9): BANNED_EMPLOYERS, cleanText(), envPath, extractCompanyFromTitle(), harvestBatch12(), HEADERS, isLegitEmployer(), sql (+1 more)
+
+### Community 182 - "mass-generate-fresh-jobs.mjs"
+Cohesion: 0.33
+Nodes (4): COMPANIES_BY_COUNTRY, COUNTRIES, HEADERS, SECTORS_AND_ROLES
 
 ### Community 184 - "harvest-jobweb-batch13.mjs"
 Cohesion: 0.29
@@ -1075,6 +1093,10 @@ Nodes (9): BANNED_EMPLOYERS, cleanText(), decodeCloudflareEmail(), envPath, harv
 ### Community 193 - "harvest-jobweb-batch8.mjs"
 Cohesion: 0.29
 Nodes (9): BANNED_EMPLOYERS, cleanText(), envPath, extractCompanyFromTitle(), harvestBatch8(), HEADERS, isLegitEmployer(), sql (+1 more)
+
+### Community 195 - "audit_all_tables.mjs"
+Cohesion: 0.50
+Nodes (4): auditTable(), envPath, HEADERS, run()
 
 ### Community 197 - "harvest-jobweb-batch9.mjs"
 Cohesion: 0.29
@@ -1680,9 +1702,9 @@ Nodes (6): dotenv, postgres, projectRoot, require, revert(), sql
 Cohesion: 0.33
 Nodes (6): dotenv, main(), postgres, projectRoot, require, sql
 
-### Community 388 - "seed-tz-tenders.ts"
-Cohesion: 0.33
-Nodes (6): authorities, categories, client, db, rand(), run()
+### Community 388 - "clef-review-tenders.mjs"
+Cohesion: 0.50
+Nodes (4): envPath, jev, main(), sql
 
 ### Community 389 - "tag-authentic-confidential-listings.mjs"
 Cohesion: 0.33
@@ -1724,9 +1746,9 @@ Nodes (6): dotenv, postgres, projectRoot, require, sql, verifyPurification()
 Cohesion: 0.33
 Nodes (6): dotenv, postgres, projectRoot, require, sql, viewDesc()
 
-### Community 399 - "provenance.ts"
-Cohesion: 0.29
-Nodes (6): ATS_DOMAINS, KNOWN_ADVISORIES, KNOWN_AGENCIES, KNOWN_AGGREGATORS, SourceProvenance, SourceProvenanceType
+### Community 399 - "check_current_db_count.mjs"
+Cohesion: 0.50
+Nodes (3): compCounts, envPath, headers
 
 ### Community 400 - "web/index.ts"
 Cohesion: 0.57
@@ -1856,9 +1878,9 @@ Nodes (3): dotenv, projectRoot, require
 Cohesion: 0.40
 Nodes (3): dotenv, projectRoot, require
 
-### Community 432 - "amazon-photoid03-20/page.tsx"
-Cohesion: 0.40
-Nodes (3): AmazonAdsCentralDashboard(), dynamic, metadata
+### Community 432 - "amazon-ads/page.tsx"
+Cohesion: 0.18
+Nodes (9): AmazonAdsCentralDashboard(), DashboardPayload, ManagedProduct, RotationLog, SearchResultItem, SiteMetrics, TimeSeriesRow, dynamic (+1 more)
 
 ### Community 433 - "amazon-ads.ts"
 Cohesion: 0.40
@@ -1912,10 +1934,6 @@ Nodes (3): clean(), envPath, sql
 Cohesion: 0.83
 Nodes (3): normalizeName(), run(), sql
 
-### Community 450 - "clef-review-compliance.mjs"
-Cohesion: 0.67
-Nodes (3): jev, run(), sql
-
 ### Community 451 - "db-stats.mjs"
 Cohesion: 0.67
 Nodes (3): envPath, run(), sql
@@ -1928,9 +1946,9 @@ Nodes (3): env, run(), sql
 Cohesion: 0.67
 Nodes (3): envPath, findAndFix(), sql
 
-### Community 454 - "fix-data-standards.ts"
-Cohesion: 1.00
-Nodes (3): main(), processChunk(), sql
+### Community 454 - "massive-scrape.ts"
+Cohesion: 0.10
+Nodes (29): discoverCompanies(), findCareerPage(), loadRegistry(), REGISTRY_PATH, run(), saveRegistry(), discoverAtsBoardsAllCountries(), REGISTRY_PATH (+21 more)
 
 ### Community 455 - "$"
 Cohesion: 0.67
@@ -1960,6 +1978,10 @@ Nodes (3): checkWorkable(), main(), workableCandidates
 Cohesion: 0.67
 Nodes (3): check(), envPath, sql
 
+### Community 463 - "clef-review-employers.mjs"
+Cohesion: 0.67
+Nodes (3): jev, run(), sql
+
 ### Community 464 - "test-single-drc.mjs"
 Cohesion: 0.67
 Nodes (3): envPath, sql, testInsert()
@@ -1968,37 +1990,29 @@ Nodes (3): envPath, sql, testInsert()
 Cohesion: 0.67
 Nodes (3): envPath, sql, verify()
 
-### Community 466 - "cleanup.ts"
-Cohesion: 0.83
-Nodes (3): cleanupExpiredJobs(), cleanupExpiredTenders(), runCleanup()
-
-### Community 467 - "cleanup-aggregator-urls.ts"
-Cohesion: 0.83
-Nodes (3): cleanupJobs(), cleanupTenders(), main()
-
 ### Community 470 - "interface/README.md"
 Cohesion: 0.50
 Nodes (3): Deploy on Vercel, Getting Started, Learn More
 
 ## Knowledge Gaps
-- **1897 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+1892 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 2446 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **150 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **1926 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+1921 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 2479 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **154 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `DB` connect `lib/db/client.ts` to `account/page.tsx`, `regions`, `card.tsx`, `buildBreadcrumbSchema`, `scrape-tenders.ts`, `inngest/route.ts`, `ingestion-standards.ts`, `database-data-reviewer.ts`, `compliance/page.tsx`, `compliance-base.ts`, `templates.tsx`, `scrape-jobs.ts`, `seed-tz-businesses.ts`, `button.tsx`, `amazon-ads/engine.ts`, `tenders.ts`, `dom-cluster.ts`, `affiliates.ts`, `safeQuery`, `[id]/route.ts`, `broad-search-engine.ts`, `health-world-bank.ts`, `setup/route.ts`, `verifyAdminSession`, `cv-session.ts`, `enrich-shallow-data.ts`, `sync-health-data.ts`, `match-cv/route.ts`, `subscribe/route.ts`, `cleanup.ts`, `cleanup-aggregator-urls.ts`, `local-regex-extractor.ts`?**
-  _High betweenness centrality (0.018) - this node is a cross-community bridge._
-- **Why does `jobs` connect `lib/db/client.ts` to `account/page.tsx`, `regions`, `clean-employer-urls.ts`, `buildBreadcrumbSchema`, `scrape-tenders.ts`, `ingestion-standards.ts`, `database-data-reviewer.ts`, `compliance/page.tsx`, `compliance-base.ts`, `scrape-jobs.ts`, `seed-tz-businesses.ts`, `tenders.ts`, `safeQuery`, `[id]/route.ts`, `enrich-shallow-data.ts`, `audit-urls-and-employers.ts`, `deep-url-audit.ts`, `match-cv/route.ts`, `cleanup.ts`, `cleanup-aggregator-urls.ts`, `seed-all-countries-jobs.ts`, `seed-tz-jobs-new.ts`, `sidecarHeaders`, `local-regex-extractor.ts`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Why does `cn()` connect `cn` to `dropdown-menu.tsx`, `card.tsx`, `developers/page.tsx`, `input.tsx`, `button.tsx`, `TenderCard.tsx`, `safeQuery`?**
-  _High betweenness centrality (0.008) - this node is a cross-community bridge._
+- **Why does `DB` connect `lib/db/client.ts` to `account/page.tsx`, `shared.ts`, `card.tsx`, `buildBreadcrumbSchema`, `scrape-tenders.ts`, `inngest/route.ts`, `database-data-reviewer.ts`, `ingestion-standards.ts`, `compliance/page.tsx`, `compliance-base.ts`, `templates.tsx`, `scrape-jobs.ts`, `compliance.ts`, `pdf-extract.ts`, `amazon-ads/engine.ts`, `schema/salaries.ts`, `dom-cluster.ts`, `JobDetail.tsx`, `safeQuery`, `scrape-salaries.ts`, `login/route.ts`, `button.tsx`, `mass-scrape-tz.ts`, `verifyAdminSession`, `cv-session.ts`, `enrich-shallow-data.ts`, `isUuid`, `massive-scrape.ts`, `match-cv/route.ts`, `subscribe/route.ts`, `src/app/page.tsx`, `local-regex-extractor.ts`?**
+  _High betweenness centrality (0.023) - this node is a cross-community bridge._
+- **Why does `getDecisionClient()` connect `jev-client.ts` to `database-data-reviewer.ts`, `systemOne`?**
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+- **Why does `systemOne()` connect `systemOne` to `clef-review-businesses.mjs`, `jev-full-review-enrichment.mjs`, `clef-review-tenders.mjs`, `clef-salaries.mjs`, `clef-review-employers.mjs`, `jev-client.ts`?**
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _1897 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1926 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `account/page.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.09343200740055504 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08326530612244898 - nodes in this community are weakly interconnected._
 - **Should `cn` be split into smaller, more focused modules?**
   _Cohesion score 0.05081081081081081 - nodes in this community are weakly interconnected._
-- **Should `regions` be split into smaller, more focused modules?**
-  _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
+- **Should `shared.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.06606606606606606 - nodes in this community are weakly interconnected._

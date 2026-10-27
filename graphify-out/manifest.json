@@ -162,15 +162,15 @@
     "semantic_hash": ""
   },
   "next.config.ts": {
-    "mtime": 1792684435.416348,
-    "seen": 1793037203.397588,
-    "ast_hash": "b888109aa0b56547e2b901dab334ff88",
+    "mtime": 1793103729.951115,
+    "seen": 1793104832.902738,
+    "ast_hash": "03a18f7ee71ee2be5e82bfb2362505d3",
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1792142454.19656,
-    "seen": 1793037203.3975978,
-    "ast_hash": "6e0b0bd55245edcec8ff46b0669cba1f",
+    "mtime": 1793099362.0653489,
+    "seen": 1793104832.902757,
+    "ast_hash": "b74f65432934ffabba08425ea19a2da9",
     "semantic_hash": ""
   },
   "playwright.config.ts": {
@@ -1230,9 +1230,9 @@
     "semantic_hash": ""
   },
   "src/app/layout.tsx": {
-    "mtime": 1791829761.634089,
-    "seen": 1793037203.4032078,
-    "ast_hash": "59ee7b0125754ff70d3e8283ab69e68d",
+    "mtime": 1793099979.2538838,
+    "seen": 1793104833.2339332,
+    "ast_hash": "180600cfeea955fc3c556cc932b8a1c7",
     "semantic_hash": ""
   },
   "src/app/login/page.tsx": {
@@ -2147,12 +2147,6 @@
     "ast_hash": "99b4167e432e44ca885851830cab68ea",
     "semantic_hash": ""
   },
-  "vercel.json": {
-    "mtime": 1791657027.406562,
-    "seen": 1793037203.4068801,
-    "ast_hash": "4b7161cb0339c2d85ec2ec897854d931",
-    "semantic_hash": ""
-  },
   "discovery-queue.json": {
     "mtime": 1789632357.1570368,
     "seen": 1793037203.3972857,
@@ -2268,27 +2262,27 @@
     "semantic_hash": ""
   },
   "scripts/analyze-anonymous-jobs.mjs": {
-    "mtime": 1791819368.1880183,
-    "seen": 1793037203.3979437,
-    "ast_hash": "5cc34a2d8840f123914d0f5dc568360c",
+    "mtime": 1793088373.4645593,
+    "seen": 1793104832.941487,
+    "ast_hash": "33ee6d481892f97dea7bec5e19938bb2",
     "semantic_hash": ""
   },
   "scripts/analyze-named-by-category.mjs": {
-    "mtime": 1791749894.7046554,
-    "seen": 1793037203.3979528,
-    "ast_hash": "d6b6013d604c400026a7e8d9bc46a165",
+    "mtime": 1793088373.468555,
+    "seen": 1793104832.9415035,
+    "ast_hash": "5604b45e414c6264ab645667a292a5e3",
     "semantic_hash": ""
   },
   "scripts/analyze-unresolved-types.mjs": {
-    "mtime": 1791749812.930415,
-    "seen": 1793037203.397962,
-    "ast_hash": "47ea279e9859bd1ead7bb1619dca6443",
+    "mtime": 1793088373.4725585,
+    "seen": 1793104832.9415178,
+    "ast_hash": "c91f37afeb2e91a65c6ebb80a7d7b2b1",
     "semantic_hash": ""
   },
   "scripts/analyze-verified-employers-extraction.mjs": {
-    "mtime": 1791819368.3213365,
-    "seen": 1793037203.3979805,
-    "ast_hash": "1ddb5a57a461408958f85bf565f4af90",
+    "mtime": 1793088373.4765553,
+    "seen": 1793104832.9425833,
+    "ast_hash": "0fd631bd9276a9e701d3c2f79fcc5317",
     "semantic_hash": ""
   },
   "scripts/analyze_gh.js": {
@@ -2298,9 +2292,9 @@
     "semantic_hash": ""
   },
   "scripts/apply-db-storage-constraints.mjs": {
-    "mtime": 1792146415.3226683,
-    "seen": 1793037203.3979993,
-    "ast_hash": "262813ffcfa1ee62bfae3cbd4c741d1c",
+    "mtime": 1793088373.4795551,
+    "seen": 1793104832.943641,
+    "ast_hash": "b08ccc720c4300bbb4382f0bc6092a73",
     "semantic_hash": ""
   },
   "scripts/apply-gold-standards.ts": {
@@ -2310,15 +2304,15 @@
     "semantic_hash": ""
   },
   "scripts/audit-data-standards.mjs": {
-    "mtime": 1789795806.6088548,
-    "seen": 1793037203.3980184,
-    "ast_hash": "a3a5f43e4c04a95f8d4f49f567872144",
+    "mtime": 1793088373.4825535,
+    "seen": 1793104832.9446816,
+    "ast_hash": "a5794bedf652d0ceb9a8d93dfb65f99c",
     "semantic_hash": ""
   },
   "scripts/audit-db-completeness-jev.mjs": {
-    "mtime": 1792049909.6876783,
-    "seen": 1793037203.3980277,
-    "ast_hash": "bacb84823bca72c94d23cd619fd1cd5f",
+    "mtime": 1793088373.4855542,
+    "seen": 1793104832.9446974,
+    "ast_hash": "9d390eed1903207a7d6775ed202902bb",
     "semantic_hash": ""
   },
   "scripts/audit-descriptions.ts": {
@@ -2334,63 +2328,63 @@
     "semantic_hash": ""
   },
   "scripts/audit-source-vs-aggregator.mjs": {
-    "mtime": 1789796222.934987,
-    "seen": 1793037203.3980548,
-    "ast_hash": "1f215cfaa838e347f6a5a93b88ac4795",
+    "mtime": 1793088373.4895487,
+    "seen": 1793104832.9466548,
+    "ast_hash": "8aa4356bc2a755208f808b8f239ccc7a",
     "semantic_hash": ""
   },
   "scripts/audit-systemic-job-flaws.mjs": {
-    "mtime": 1791819368.5386467,
-    "seen": 1793037203.3980644,
-    "ast_hash": "9859208faa44c3d527467b24a069059f",
+    "mtime": 1793088373.491552,
+    "seen": 1793104832.9466689,
+    "ast_hash": "a1a49dbf2fb0090fd95e9e7b6bc4915c",
     "semantic_hash": ""
   },
   "scripts/auto-purge-expired.mjs": {
-    "mtime": 1792105254.6679251,
-    "seen": 1793037203.3980832,
-    "ast_hash": "05f594ea4459815e8d11e3960e888e26",
+    "mtime": 1793088373.497552,
+    "seen": 1793104832.9476805,
+    "ast_hash": "ad4dae565c3e027c01a610c9c39a4f60",
     "semantic_hash": ""
   },
   "scripts/brutal-audit.mjs": {
-    "mtime": 1791819368.674968,
-    "seen": 1793037203.3981028,
-    "ast_hash": "0f83f6bc493a2afc4412983df3cfaab8",
+    "mtime": 1793088373.5005584,
+    "seen": 1793104832.9492826,
+    "ast_hash": "56aee683056858923574ddf1628ae93d",
     "semantic_hash": ""
   },
   "scripts/bulk-clean-all-job-flaws.mjs": {
-    "mtime": 1791819368.7999713,
-    "seen": 1793037203.398112,
-    "ast_hash": "e51072b0309acd5e68f1dd927ef3753e",
+    "mtime": 1793088373.503561,
+    "seen": 1793104832.9493008,
+    "ast_hash": "23adf5953589f0540abdc48825ac1970",
     "semantic_hash": ""
   },
   "scripts/bulk-enrich-offset.mjs": {
-    "mtime": 1791819368.9276679,
-    "seen": 1793037203.398121,
-    "ast_hash": "fff4a4b3ffd4a6449cd492b7e23b0a5b",
+    "mtime": 1793088373.508752,
+    "seen": 1793104832.9493148,
+    "ast_hash": "ba4a3a8d115324b4a836ff1fbff92cba",
     "semantic_hash": ""
   },
   "scripts/bulk-external-requirements-enrichment.mjs": {
-    "mtime": 1792049922.188879,
-    "seen": 1793037203.3981426,
-    "ast_hash": "406bcd3ee4ced461984faf3c74b15094",
+    "mtime": 1793088373.5142634,
+    "seen": 1793104832.9493294,
+    "ast_hash": "ed363f8731792fc0a0fdad257a76c77e",
     "semantic_hash": ""
   },
   "scripts/bulk-extract-deadlines.mjs": {
-    "mtime": 1791819369.2065902,
-    "seen": 1793037203.3981514,
-    "ast_hash": "01611bf13ed5243d5f9d8065125939c1",
+    "mtime": 1793088373.5172577,
+    "seen": 1793104832.9493432,
+    "ast_hash": "e5db20f9cfc43e9511230ea2474955b0",
     "semantic_hash": ""
   },
   "scripts/bulk-fast-enrichment-all.mjs": {
-    "mtime": 1791819369.308385,
-    "seen": 1793037203.398161,
-    "ast_hash": "3ef3ef3b90c9964090206f1b804a2bd5",
+    "mtime": 1793088373.5207503,
+    "seen": 1793104832.949361,
+    "ast_hash": "62e2b046fb19ed3a0c320b4038c43f19",
     "semantic_hash": ""
   },
   "scripts/bulk-fast-enrichment-parallel.mjs": {
-    "mtime": 1791819369.4039843,
-    "seen": 1793037203.3981695,
-    "ast_hash": "5886fb03623494ad96a5579b41eb0979",
+    "mtime": 1793088373.524747,
+    "seen": 1793104832.9493754,
+    "ast_hash": "33404c2d964696cf28638367b5229425",
     "semantic_hash": ""
   },
   "scripts/bulk-job-extractor.ts": {
@@ -2400,21 +2394,21 @@
     "semantic_hash": ""
   },
   "scripts/bulk-pass2-smart-requirements.mjs": {
-    "mtime": 1792049933.631163,
-    "seen": 1793037203.3981872,
-    "ast_hash": "b1649b21c5e4a778a5ff5f2279fdd666",
+    "mtime": 1793088373.5277476,
+    "seen": 1793104832.9504604,
+    "ast_hash": "108e1716dd065dff049ea186b9787155",
     "semantic_hash": ""
   },
   "scripts/bulk-resolve-cf-emails.mjs": {
-    "mtime": 1791819369.6384706,
-    "seen": 1793037203.3981962,
-    "ast_hash": "4e4b27d1c10397f0efa12653d474a2f8",
+    "mtime": 1793088373.5307467,
+    "seen": 1793104832.9504752,
+    "ast_hash": "90bbcd5c3bcd6960badeb68dde6e5365",
     "semantic_hash": ""
   },
   "scripts/bulk-tender-summaries.mjs": {
-    "mtime": 1791819369.7418585,
-    "seen": 1793037203.3982053,
-    "ast_hash": "4cf8875ca599b263c1a1c97a9fd911df",
+    "mtime": 1793088373.5337496,
+    "seen": 1793104832.9504888,
+    "ast_hash": "d00ce8febd9d493fbb4e3c6b966fa88a",
     "semantic_hash": ""
   },
   "scripts/bulk_extractor.py": {
@@ -2424,81 +2418,81 @@
     "semantic_hash": ""
   },
   "scripts/categorize-unresolved.mjs": {
-    "mtime": 1791752396.0673559,
-    "seen": 1793037203.3982234,
-    "ast_hash": "3bd9ab9f56ac157badd2e102822f4f0f",
+    "mtime": 1793088373.535745,
+    "seen": 1793104832.951466,
+    "ast_hash": "7bc28b24cf4bd4063849d0ab65f761a9",
     "semantic_hash": ""
   },
   "scripts/cf-analytics.mjs": {
-    "mtime": 1791814306.738425,
-    "seen": 1793037203.3982425,
+    "mtime": 1793088373.539744,
+    "seen": 1793104832.9525173,
     "ast_hash": "e49fef6ea0e90bf87ae8e6e4d2148d49",
     "semantic_hash": ""
   },
   "scripts/cf-list-zones.mjs": {
-    "mtime": 1791819369.832003,
-    "seen": 1793037203.3982518,
-    "ast_hash": "a4b1c5dad962f55586e74e4cd1b3a378",
+    "mtime": 1793088373.5427432,
+    "seen": 1793104832.9525325,
+    "ast_hash": "6db9884def482f8b8bd7b38ec685d168",
     "semantic_hash": ""
   },
   "scripts/check-active-locks.mjs": {
-    "mtime": 1791819369.9233756,
-    "seen": 1793037203.3982606,
-    "ast_hash": "5e1270363d13fd8de5748c0c997499f3",
+    "mtime": 1793088373.5447435,
+    "seen": 1793104832.952547,
+    "ast_hash": "bb03561f5aa0af3d87aae346917928c2",
     "semantic_hash": ""
   },
   "scripts/check-active-queries.mjs": {
-    "mtime": 1791819370.0180027,
-    "seen": 1793037203.3982692,
-    "ast_hash": "802c88f0492bb858a63af9e81b252acb",
+    "mtime": 1793088373.5477445,
+    "seen": 1793104832.952561,
+    "ast_hash": "ae9bf7065742391377a98869132f3718",
     "semantic_hash": ""
   },
   "scripts/check-businesses-real.mjs": {
-    "mtime": 1791819370.1206377,
-    "seen": 1793037203.3982785,
-    "ast_hash": "3d8ebf295627ef7e9e9787367bf49ff8",
+    "mtime": 1793088373.5507455,
+    "seen": 1793104832.9525745,
+    "ast_hash": "af9ef4a739ee652c205c3d4137e3b8d5",
     "semantic_hash": ""
   },
   "scripts/check-compliance-progress.mjs": {
-    "mtime": 1791819370.2143924,
-    "seen": 1793037203.3982973,
-    "ast_hash": "20ba268bf3f8020135929ba210db84bb",
+    "mtime": 1793088373.553749,
+    "seen": 1793104832.95361,
+    "ast_hash": "0de20527332389f144c61117bdecfca7",
     "semantic_hash": ""
   },
   "scripts/check-compliance-scorecard.mjs": {
-    "mtime": 1791819370.3260062,
-    "seen": 1793037203.3983073,
-    "ast_hash": "b9b534e92805b0ac52460dec3330f27f",
+    "mtime": 1793088373.5585728,
+    "seen": 1793104832.9536245,
+    "ast_hash": "b10ceada3c739a0db605dcd26080a9f3",
     "semantic_hash": ""
   },
   "scripts/check-counts.mjs": {
-    "mtime": 1791819370.406022,
-    "seen": 1793037203.3983164,
-    "ast_hash": "f258da7b81c724c8b2231bcbfbc43b5a",
+    "mtime": 1793088373.5615728,
+    "seen": 1793104832.9536393,
+    "ast_hash": "f774e8994ece817d635709bbc2005124",
     "semantic_hash": ""
   },
   "scripts/check-global-counts.mjs": {
-    "mtime": 1789804776.8558116,
-    "seen": 1793037203.3983457,
-    "ast_hash": "475d1cb7dfa99b876c00ad00115d11d1",
+    "mtime": 1793088373.5665796,
+    "seen": 1793104832.956116,
+    "ast_hash": "08490ba39b3bc8f34f3d7a91aa182f87",
     "semantic_hash": ""
   },
   "scripts/check-hnj-fields.mjs": {
-    "mtime": 1789787694.8815475,
-    "seen": 1793037203.3983545,
-    "ast_hash": "d03aa9f22424f5c62c833c54ec1b6032",
+    "mtime": 1793088373.5703106,
+    "seen": 1793104832.956133,
+    "ast_hash": "dbef8851692bb86119742118690e0e0b",
     "semantic_hash": ""
   },
   "scripts/check-hnj-pagination.mjs": {
-    "mtime": 1789787680.8715336,
-    "seen": 1793037203.3983636,
-    "ast_hash": "4355eda9186f4b28e9f37bf166348fd4",
+    "mtime": 1793088373.5733092,
+    "seen": 1793104832.9561472,
+    "ast_hash": "d3cbd92972d3f7852b92a14c2203b951",
     "semantic_hash": ""
   },
   "scripts/check-job-sectors-list.mjs": {
-    "mtime": 1791819370.507027,
-    "seen": 1793037203.3983727,
-    "ast_hash": "a516b33f2bae38f1e37e75935a4ed16e",
+    "mtime": 1793088373.5763102,
+    "seen": 1793104832.9561605,
+    "ast_hash": "b70be3162300215be4e34ecde0a4a77c",
     "semantic_hash": ""
   },
   "scripts/check-job.ts": {
@@ -2508,9 +2502,9 @@
     "semantic_hash": ""
   },
   "scripts/check-jobs-state.mjs": {
-    "mtime": 1791819370.5922453,
-    "seen": 1793037203.3983908,
-    "ast_hash": "029187135df8b12f7ba4943d454b0e27",
+    "mtime": 1793088373.5793116,
+    "seen": 1793104832.9572234,
+    "ast_hash": "b4764ec7b5fff2dba6286caa66dc98ed",
     "semantic_hash": ""
   },
   "scripts/check-new.ts": {
@@ -2520,39 +2514,39 @@
     "semantic_hash": ""
   },
   "scripts/check-noisy-titles.mjs": {
-    "mtime": 1791819370.6843846,
-    "seen": 1793037203.3984182,
-    "ast_hash": "64ca90b88486252ab02e73ddd8588962",
+    "mtime": 1793088373.5813093,
+    "seen": 1793104832.9593751,
+    "ast_hash": "c42c95d64bd8a8d4c7f32dc0fe172f6d",
     "semantic_hash": ""
   },
   "scripts/check-placeholder-count.mjs": {
-    "mtime": 1791819370.7735157,
-    "seen": 1793037203.3984282,
-    "ast_hash": "c1711d875376def54b7bd650147c1fda",
+    "mtime": 1793088373.5843065,
+    "seen": 1793104832.9593925,
+    "ast_hash": "481ee607b5e7b12619e5c6f4b7c9ea16",
     "semantic_hash": ""
   },
   "scripts/check-reqs-progress.mjs": {
-    "mtime": 1791819370.8737676,
-    "seen": 1793037203.3984373,
-    "ast_hash": "6b7bf924a4caa0fea01d61ce8c1cb3dd",
+    "mtime": 1793088373.5883095,
+    "seen": 1793104832.9594061,
+    "ast_hash": "27a30064091d45c2579af4337237b042",
     "semantic_hash": ""
   },
   "scripts/check-salary-submissions.mjs": {
-    "mtime": 1791819370.973555,
-    "seen": 1793037203.398457,
-    "ast_hash": "8a4b3d71e2ccb01c3d2458206c6adab6",
+    "mtime": 1793088373.5923157,
+    "seen": 1793104832.9604795,
+    "ast_hash": "b644539ab0d6f6203a388c893b894d58",
     "semantic_hash": ""
   },
   "scripts/check-schema.mjs": {
-    "mtime": 1791819371.074664,
-    "seen": 1793037203.398466,
-    "ast_hash": "0fce3024686d2f23d9eb43041ee6d9df",
+    "mtime": 1793088373.5943182,
+    "seen": 1793104832.9604948,
+    "ast_hash": "cb26686a074a45f24c68892e8dac24a0",
     "semantic_hash": ""
   },
   "scripts/check-status.mjs": {
-    "mtime": 1789784782.0940745,
-    "seen": 1793037203.398486,
-    "ast_hash": "bdda71c8c7f07d2ea5af9da1a081761d",
+    "mtime": 1793088373.5973141,
+    "seen": 1793104832.9615421,
+    "ast_hash": "15bbabf28fc2e5cd52afa260bbf5490e",
     "semantic_hash": ""
   },
   "scripts/check-status.ts": {
@@ -2562,51 +2556,51 @@
     "semantic_hash": ""
   },
   "scripts/check-sub-links.mjs": {
-    "mtime": 1789788388.0008001,
-    "seen": 1793037203.3985047,
-    "ast_hash": "1c11d270eeee0024e10bf1cf9bf3c5a9",
+    "mtime": 1793088373.6003094,
+    "seen": 1793104832.9626324,
+    "ast_hash": "f93e06dbe8f08e931ebfc4fef7ff1a9f",
     "semantic_hash": ""
   },
   "scripts/check-target-job-row.mjs": {
-    "mtime": 1791819371.168394,
-    "seen": 1793037203.3985143,
-    "ast_hash": "fae7583b9a65219da76910f9b11204e2",
+    "mtime": 1793088373.6033118,
+    "seen": 1793104832.9626484,
+    "ast_hash": "ea079308206def714eae46e1c75249d5",
     "semantic_hash": ""
   },
   "scripts/check-tenders-progress.mjs": {
-    "mtime": 1791819371.2577963,
-    "seen": 1793037203.3985233,
-    "ast_hash": "f91f2ba4fb74d3c2b872ef1484135ca2",
+    "mtime": 1793088373.606311,
+    "seen": 1793104832.9626617,
+    "ast_hash": "aae1d414167546373d0b7f06ec00c93a",
     "semantic_hash": ""
   },
   "scripts/check-tz-count.mjs": {
-    "mtime": 1789771097.6126196,
-    "seen": 1793037203.398533,
-    "ast_hash": "8262c14135feaa0fbea55d572c442923",
+    "mtime": 1793088373.6107113,
+    "seen": 1793104832.962677,
+    "ast_hash": "87e46c5f58319a1269a6bb14e3a49d6e",
     "semantic_hash": ""
   },
   "scripts/classify-unresolved.mjs": {
-    "mtime": 1791753945.208689,
-    "seen": 1793037203.3985822,
-    "ast_hash": "6af3d7f707d09330092ceb16f5e113c6",
+    "mtime": 1793088373.620407,
+    "seen": 1793104832.9674535,
+    "ast_hash": "2e1da57747ff20ce6b8e0df3281abe6e",
     "semantic_hash": ""
   },
   "scripts/clean-all-jobs-table.mjs": {
-    "mtime": 1791819371.3552573,
-    "seen": 1793037203.3985913,
-    "ast_hash": "5f30d3469087c6e762603473d7571294",
+    "mtime": 1793088373.6233697,
+    "seen": 1793104832.96747,
+    "ast_hash": "43d8e4911030d35991c2d02546f6420f",
     "semantic_hash": ""
   },
   "scripts/clean-bad-records.mjs": {
-    "mtime": 1791814306.738425,
-    "seen": 1793037203.3986106,
-    "ast_hash": "06c4e86d7f857d622c060fbed8daae68",
+    "mtime": 1793088373.6263714,
+    "seen": 1793104832.9685252,
+    "ast_hash": "3df9e2edd73f1ba09c9fd0f4eb77196c",
     "semantic_hash": ""
   },
   "scripts/clean-last-ads.mjs": {
-    "mtime": 1791819371.449013,
-    "seen": 1793037203.3986297,
-    "ast_hash": "18052d0ccd77d29ff638c02afa9e47eb",
+    "mtime": 1793088373.6293662,
+    "seen": 1793104832.9697258,
+    "ast_hash": "63849ed357b6483148fc16dce9fb4f41",
     "semantic_hash": ""
   },
   "scripts/clean-salaries.ts": {
@@ -2622,50 +2616,50 @@
     "semantic_hash": ""
   },
   "scripts/clef-businesses-deep.mjs": {
-    "mtime": 1791657032.817129,
-    "seen": 1793037203.398667,
+    "mtime": 1793088373.632371,
+    "seen": 1793104832.9758353,
     "ast_hash": "ffb500cbb1192e76cc12dba994b0a7d2",
     "semantic_hash": ""
   },
   "scripts/clef-client.mjs": {
-    "mtime": 1792049842.3389828,
-    "seen": 1793037203.398676,
+    "mtime": 1793088373.6353679,
+    "seen": 1793104832.9758632,
     "ast_hash": "8451b05b010ced46cb4f9daa3ee07122",
     "semantic_hash": ""
   },
   "scripts/clef-review-businesses.mjs": {
-    "mtime": 1791657032.821129,
-    "seen": 1793037203.398685,
+    "mtime": 1793088373.6393714,
+    "seen": 1793104832.975885,
     "ast_hash": "b79580ee7248c2b9f257c1433b65d11d",
     "semantic_hash": ""
   },
   "scripts/clef-review-compliance.mjs": {
-    "mtime": 1791657032.8725047,
-    "seen": 1793037203.3986938,
+    "mtime": 1793088373.6423686,
+    "seen": 1793104832.9759035,
     "ast_hash": "4caada710694f3539b90d73d8eb288da",
     "semantic_hash": ""
   },
   "scripts/clef-review-employers.mjs": {
-    "mtime": 1791657032.8745174,
-    "seen": 1793037203.3987029,
+    "mtime": 1793088373.6453724,
+    "seen": 1793104832.97592,
     "ast_hash": "4e599bd930bdb701c58541ba083fb41c",
     "semantic_hash": ""
   },
   "scripts/clef-review-guides.mjs": {
-    "mtime": 1791657032.877507,
-    "seen": 1793037203.398712,
+    "mtime": 1793088373.6483715,
+    "seen": 1793104832.9759367,
     "ast_hash": "531915b1acdc2a87ef1773b205dbc281",
     "semantic_hash": ""
   },
   "scripts/clef-review-tenders.mjs": {
-    "mtime": 1791801468.6994379,
-    "seen": 1793037203.3987207,
-    "ast_hash": "5d8bc4996d3848b65549b7201308809a",
+    "mtime": 1793088373.6513667,
+    "seen": 1793104832.9759603,
+    "ast_hash": "711087d7e3c7d3862a09ff08e5c382f9",
     "semantic_hash": ""
   },
   "scripts/clef-salaries.mjs": {
-    "mtime": 1791800950.2613678,
-    "seen": 1793037203.3987298,
+    "mtime": 1793088373.6553724,
+    "seen": 1793104832.975976,
     "ast_hash": "6bd08783a01a7129892aea825a2175e2",
     "semantic_hash": ""
   },
@@ -2700,33 +2694,33 @@
     "semantic_hash": ""
   },
   "scripts/db-stats.mjs": {
-    "mtime": 1789786625.3328066,
-    "seen": 1793037203.398863,
-    "ast_hash": "afaa94fcbb532e97fb5ad009c140c092",
+    "mtime": 1793088373.6583745,
+    "seen": 1793104832.9904,
+    "ast_hash": "012c5c4cf84046e7e51b6ad350ab2604",
     "semantic_hash": ""
   },
   "scripts/db-summary.mjs": {
-    "mtime": 1791800803.3693259,
-    "seen": 1793037203.3988724,
-    "ast_hash": "32b53c920f93d3a7ebf2c511b7323d36",
+    "mtime": 1793088373.6603696,
+    "seen": 1793104832.9904156,
+    "ast_hash": "1ee2e2575329f7cafaf8cf3835bfa715",
     "semantic_hash": ""
   },
   "scripts/deep-audit-remaining-gaps.mjs": {
-    "mtime": 1792049949.0578911,
-    "seen": 1793037203.3989015,
-    "ast_hash": "87dca98587883896aa34800da7b712c2",
+    "mtime": 1793088373.6633687,
+    "seen": 1793104832.9923205,
+    "ast_hash": "5f290dc7c3267e9510b572a0a40af752",
     "semantic_hash": ""
   },
   "scripts/diagnose-all-tables.mjs": {
-    "mtime": 1791819371.6552374,
-    "seen": 1793037203.3989298,
-    "ast_hash": "6094f135daef505f83a706981342f27d",
+    "mtime": 1793088373.6663728,
+    "seen": 1793104832.994315,
+    "ast_hash": "ec58dc56f8a8a57d4722ce9e5bc03dc7",
     "semantic_hash": ""
   },
   "scripts/diagnose-jev-actions.mjs": {
-    "mtime": 1792049866.316161,
-    "seen": 1793037203.398939,
-    "ast_hash": "3ccec5f9b76e405f36629b13d492b44a",
+    "mtime": 1793088373.6708174,
+    "seen": 1793104832.9943314,
+    "ast_hash": "b0e8306d19f8a34e1c5a76bcd21e5506",
     "semantic_hash": ""
   },
   "scripts/direct-scraper.ts": {
@@ -2748,117 +2742,117 @@
     "semantic_hash": ""
   },
   "scripts/dry-run-employer-extraction.mjs": {
-    "mtime": 1791819371.8565574,
-    "seen": 1793037203.3989854,
-    "ast_hash": "1827db8a2a4f51147e7b09ae0c86bfa4",
+    "mtime": 1793088373.6748235,
+    "seen": 1793104832.9983478,
+    "ast_hash": "1e0c4d910db04c687cce933e7bef7bf6",
     "semantic_hash": ""
   },
   "scripts/dump-unresolved.mjs": {
-    "mtime": 1791819371.9749293,
-    "seen": 1793037203.3989947,
-    "ast_hash": "32b61779b7601a4fa41a768a47de0cd5",
+    "mtime": 1793088373.68072,
+    "seen": 1793104832.998363,
+    "ast_hash": "1cabc6b426f6793fe0f143416da1d17b",
     "semantic_hash": ""
   },
   "scripts/enrich-and-verify-4600b275.mjs": {
-    "mtime": 1792050412.0615935,
-    "seen": 1793037203.3990037,
-    "ast_hash": "85cf546507c1865cfbf3c14a842385f5",
+    "mtime": 1793088373.6837084,
+    "seen": 1793104832.9983766,
+    "ast_hash": "4a0c0db94baa32a4fcf2e9a42dcae739",
     "semantic_hash": ""
   },
   "scripts/enrich-businesses-types.mjs": {
-    "mtime": 1791819372.1799445,
-    "seen": 1793037203.3990126,
-    "ast_hash": "96216a4cbbb3cb9599ee4a4a342aa239",
+    "mtime": 1793088373.6877167,
+    "seen": 1793104832.9983902,
+    "ast_hash": "9044d97a661c03d5489644c434b6982b",
     "semantic_hash": ""
   },
   "scripts/explain-search.mjs": {
-    "mtime": 1791819372.2703042,
-    "seen": 1793037203.3990216,
-    "ast_hash": "b47ef589e2a0ebe7c4bbb2397e0a3af6",
+    "mtime": 1793088373.6917107,
+    "seen": 1793104832.9984038,
+    "ast_hash": "e27df7ceda0a9c95aad311602a8f8eb2",
     "semantic_hash": ""
   },
   "scripts/explore-tables.mjs": {
-    "mtime": 1791819372.369521,
-    "seen": 1793037203.399031,
-    "ast_hash": "811b49985378ea663a21910d3f8e6d4a",
+    "mtime": 1793088373.6957066,
+    "seen": 1793104832.9984174,
+    "ast_hash": "d4ca106958448fc8a57713a4d4d18aab",
     "semantic_hash": ""
   },
   "scripts/extract-job-deadlines.mjs": {
-    "mtime": 1791819372.4631226,
-    "seen": 1793037203.3990397,
-    "ast_hash": "ba4b40ffa511c24ae671844529dd36d7",
+    "mtime": 1793088373.6987088,
+    "seen": 1793104832.9984307,
+    "ast_hash": "74ca9aa1e262e8fccf13bb485a1bf43d",
     "semantic_hash": ""
   },
   "scripts/fast-deadlines-lifecycle.mjs": {
-    "mtime": 1791819372.566927,
-    "seen": 1793037203.399049,
-    "ast_hash": "567b96f1265908e659571469e894e7ef",
+    "mtime": 1793088373.7017114,
+    "seen": 1793104832.9984446,
+    "ast_hash": "71b24eaa34d91409e30f02f421b5ad9b",
     "semantic_hash": ""
   },
   "scripts/fast-pass-tra-companies.mjs": {
-    "mtime": 1791819372.6579103,
-    "seen": 1793037203.3990579,
-    "ast_hash": "8ca46bd54104d0ad5d3dcc8b4d70c3a5",
+    "mtime": 1793088373.705715,
+    "seen": 1793104832.9984584,
+    "ast_hash": "c9e798cde35d35748629682b083cd5ac",
     "semantic_hash": ""
   },
   "scripts/fast-pass-tra-refined.mjs": {
-    "mtime": 1791819372.7652307,
-    "seen": 1793037203.3990667,
-    "ast_hash": "eaeb87da18a6ecbd6bac668a0fa8a9a2",
+    "mtime": 1793088373.7087066,
+    "seen": 1793104832.9984717,
+    "ast_hash": "82c19f986536ebbf8c58a4b39c7b8e9f",
     "semantic_hash": ""
   },
   "scripts/fast-resolve-employers.mjs": {
-    "mtime": 1791819372.8589604,
-    "seen": 1793037203.399076,
-    "ast_hash": "90b963e59be89172a0d423e2c777cd99",
+    "mtime": 1793088373.7117095,
+    "seen": 1793104832.9984853,
+    "ast_hash": "aba6b96b479c0c258cb2bd104d2f093e",
     "semantic_hash": ""
   },
   "scripts/fast-tender-summaries-sql.mjs": {
-    "mtime": 1791819372.9434192,
-    "seen": 1793037203.3990853,
-    "ast_hash": "a90bce3ad3c9ba7e758443a457cda7ae",
+    "mtime": 1793088373.7147088,
+    "seen": 1793104832.9984987,
+    "ast_hash": "5b02cccb9cbc96347fe7a5f855d0c401",
     "semantic_hash": ""
   },
   "scripts/fill-edu-levels-fixed.mjs": {
-    "mtime": 1791819373.0367057,
-    "seen": 1793037203.3990943,
-    "ast_hash": "c4a4cd18b402bbba1243d5ac6e64da9a",
+    "mtime": 1793088373.7187085,
+    "seen": 1793104832.9985123,
+    "ast_hash": "f5a401daf29121bedeb6fb6944f4925d",
     "semantic_hash": ""
   },
   "scripts/fill-exp-edu-levels.mjs": {
-    "mtime": 1791819373.150876,
-    "seen": 1793037203.3991036,
-    "ast_hash": "2d3e529c9ac7b56a63747f9f73293ebd",
+    "mtime": 1793088373.7217152,
+    "seen": 1793104832.998526,
+    "ast_hash": "44cc296ca630f33d448e096a195d55f3",
     "semantic_hash": ""
   },
   "scripts/final-cleanup-sectors-companies.mjs": {
-    "mtime": 1791819373.241601,
-    "seen": 1793037203.399113,
-    "ast_hash": "506d5d53a76570d0f2832e238c810955",
+    "mtime": 1793088373.7257144,
+    "seen": 1793104832.9985397,
+    "ast_hash": "4e346a97496587bb18ca64459124c94e",
     "semantic_hash": ""
   },
   "scripts/finalize-job-4600b275.mjs": {
-    "mtime": 1792050361.8784642,
-    "seen": 1793037203.39913,
-    "ast_hash": "564d29d6e7c402318676cab47366fbc5",
+    "mtime": 1793088373.7333994,
+    "seen": 1793104832.9985533,
+    "ast_hash": "37c3bbcb3c9aab963ef6c3ce8ca24f2a",
     "semantic_hash": ""
   },
   "scripts/find-leak.mjs": {
-    "mtime": 1789804752.4074066,
-    "seen": 1793037203.3991401,
-    "ast_hash": "4107ab7a8a689802e993b2ec456c6072",
+    "mtime": 1793088373.7383738,
+    "seen": 1793104832.998567,
+    "ast_hash": "1644080d09c63d436c290e850a32e67d",
     "semantic_hash": ""
   },
   "scripts/find-test-job.mjs": {
-    "mtime": 1791819373.431624,
-    "seen": 1793037203.3991592,
-    "ast_hash": "bbf02d9fa05b1099c6ee19f98b04580f",
+    "mtime": 1793088373.7423737,
+    "seen": 1793104832.9985807,
+    "ast_hash": "303405f6f508c7e26159867ad1f828c6",
     "semantic_hash": ""
   },
   "scripts/finish-jobs-reqs-sql.mjs": {
-    "mtime": 1791819373.532824,
-    "seen": 1793037203.3991687,
-    "ast_hash": "b1d6739088e58cb9d95e592c6a866db9",
+    "mtime": 1793088373.7463768,
+    "seen": 1793104832.998594,
+    "ast_hash": "e8ac99140548ea24856044e74b0abcc0",
     "semantic_hash": ""
   },
   "scripts/fix-data-standards.ts": {
@@ -2880,15 +2874,15 @@
     "semantic_hash": ""
   },
   "scripts/fix-internal-director.mjs": {
-    "mtime": 1792100262.609241,
-    "seen": 1793037203.3992634,
-    "ast_hash": "492ccd353599da9fd7d83b0f16f44c32",
+    "mtime": 1793088373.750373,
+    "seen": 1793104833.0067565,
+    "ast_hash": "dafe9adf17b317390f0d0fe9d2288db5",
     "semantic_hash": ""
   },
   "scripts/fix-noisy-compliance-titles.mjs": {
-    "mtime": 1791819373.6254375,
-    "seen": 1793037203.3992743,
-    "ast_hash": "1bd5838834221a2e240ef35391ecba1c",
+    "mtime": 1793088373.752378,
+    "seen": 1793104833.0067725,
+    "ast_hash": "d02b31b4f5949b566627652e535f9d6f",
     "semantic_hash": ""
   },
   "scripts/fix-short-desc.ts": {
@@ -2904,9 +2898,9 @@
     "semantic_hash": ""
   },
   "scripts/fix-specific-job.mjs": {
-    "mtime": 1792050251.8081656,
-    "seen": 1793037203.3993146,
-    "ast_hash": "df70f145551d4ffbbc098ac070f17a33",
+    "mtime": 1793088373.7573707,
+    "seen": 1793104833.0100672,
+    "ast_hash": "a29d5b51635b865f070489599483093c",
     "semantic_hash": ""
   },
   "scripts/force-vercel-push.js": {
@@ -2922,9 +2916,9 @@
     "semantic_hash": ""
   },
   "scripts/generic-unresolved.json": {
-    "mtime": 1791753499.8088608,
-    "seen": 1793037203.3993437,
-    "ast_hash": "657bb4849a263b5ea6fe13dc344d3b77",
+    "mtime": 1793088373.7603707,
+    "seen": 1793104833.0123503,
+    "ast_hash": "f1fc55f3ee9ca491f8e52304e4cba70d",
     "semantic_hash": ""
   },
   "scripts/goal-orchestrator.ts": {
@@ -2934,195 +2928,195 @@
     "semantic_hash": ""
   },
   "scripts/harvest-burundi-jobs.mjs": {
-    "mtime": 1789805383.5648258,
-    "seen": 1793037203.399374,
-    "ast_hash": "98957881cbe121b8f8061420e280decb",
+    "mtime": 1793088373.766374,
+    "seen": 1793104833.0145466,
+    "ast_hash": "c51e37913898273f2460a96025c730c4",
     "semantic_hash": ""
   },
   "scripts/harvest-drc-jobs.mjs": {
-    "mtime": 1789784666.9995701,
-    "seen": 1793037203.3993835,
-    "ast_hash": "777eaccf50affd1b97cc75b61e6a179c",
+    "mtime": 1793088373.7703795,
+    "seen": 1793104833.0145636,
+    "ast_hash": "48231d069abd3edff96cc9cc8779244c",
     "semantic_hash": ""
   },
   "scripts/harvest-drc-mediacongo.mjs": {
-    "mtime": 1789805144.555161,
-    "seen": 1793037203.3993933,
-    "ast_hash": "688a5e4906fe7c4c4d26e46b0fd5ce97",
+    "mtime": 1793088373.7743742,
+    "seen": 1793104833.0145779,
+    "ast_hash": "9407c9d820a12665705dbbe5c5844e7e",
     "semantic_hash": ""
   },
   "scripts/harvest-east-africa-jobs.mjs": {
-    "mtime": 1792100414.6984024,
-    "seen": 1793037203.399403,
-    "ast_hash": "dfec0329ec0d7f4e7657170c68bf3880",
+    "mtime": 1793088373.7803752,
+    "seen": 1793104833.014592,
+    "ast_hash": "ac179ad22dd3140b152a4ae80b5b5e99",
     "semantic_hash": ""
   },
   "scripts/harvest-ghana-nigeria-jobs.mjs": {
-    "mtime": 1789780687.014306,
-    "seen": 1793037203.3994136,
-    "ast_hash": "c749470e59f804de230af9a65ae79993",
+    "mtime": 1793088373.784369,
+    "seen": 1793104833.0146058,
+    "ast_hash": "d0bfe96444f966f1c545d8f0171c1584",
     "semantic_hash": ""
   },
   "scripts/harvest-jobweb-batch10.mjs": {
-    "mtime": 1789824617.3957345,
-    "seen": 1793037203.399423,
-    "ast_hash": "1f9d36fc3170e5a5e25308c5d8af13d7",
+    "mtime": 1793088373.7873719,
+    "seen": 1793104833.0146196,
+    "ast_hash": "3e5dcc5439a975ffc1b05f47b9594649",
     "semantic_hash": ""
   },
   "scripts/harvest-jobweb-batch11.mjs": {
-    "mtime": 1789828126.0986285,
-    "seen": 1793037203.3994322,
-    "ast_hash": "5eb08b6faef5d77c2457fa80cc71e47a",
+    "mtime": 1793088373.791372,
+    "seen": 1793104833.0146446,
+    "ast_hash": "f476897ed62aa5bd5791875793a50171",
     "semantic_hash": ""
   },
   "scripts/harvest-jobweb-batch12.mjs": {
-    "mtime": 1789831174.4427695,
-    "seen": 1793037203.3994417,
-    "ast_hash": "25819233e3b301a5c890e8159b3b1c64",
+    "mtime": 1793088373.7953734,
+    "seen": 1793104833.01466,
+    "ast_hash": "44d19bd424e82b80a5cac740b7a26f23",
     "semantic_hash": ""
   },
   "scripts/harvest-jobweb-batch13.mjs": {
-    "mtime": 1789831252.056765,
-    "seen": 1793037203.3994515,
-    "ast_hash": "4d9b4cd08818f155c07e36be3cdf4f02",
+    "mtime": 1793088373.7983708,
+    "seen": 1793104833.0146742,
+    "ast_hash": "7d751fbfb0a9b167a0a91283e89f2d44",
     "semantic_hash": ""
   },
   "scripts/harvest-jobweb-batch14.mjs": {
-    "mtime": 1789833742.9016323,
-    "seen": 1793037203.399462,
-    "ast_hash": "d55dd88e62ce8094c01b85ef89c9e13c",
+    "mtime": 1793088373.8023705,
+    "seen": 1793104833.0146883,
+    "ast_hash": "0a73ff38644a53fb11f9bf2e7d6b4808",
     "semantic_hash": ""
   },
   "scripts/harvest-jobweb-batch8.mjs": {
-    "mtime": 1789821348.5030844,
-    "seen": 1793037203.3994715,
-    "ast_hash": "d490ddeeee17f31ff16fe5a542b354f2",
+    "mtime": 1793088373.8063726,
+    "seen": 1793104833.0147014,
+    "ast_hash": "39e4e30b6c2cc73619432a11cd222bd1",
     "semantic_hash": ""
   },
   "scripts/harvest-jobweb-batch9.mjs": {
-    "mtime": 1789823638.6583254,
-    "seen": 1793037203.3994813,
-    "ast_hash": "307432da8d6c89591bd230834d5ea7ff",
+    "mtime": 1793088373.8093722,
+    "seen": 1793104833.0147152,
+    "ast_hash": "dcfbaa10c29a6887183c34d10b6aff9b",
     "semantic_hash": ""
   },
   "scripts/harvest-jobweb-deep.mjs": {
-    "mtime": 1789819266.9231946,
-    "seen": 1793037203.399491,
-    "ast_hash": "bda759ea7c1b4d28ad86d3e76babaa72",
+    "mtime": 1793088373.8133788,
+    "seen": 1793104833.0147283,
+    "ast_hash": "9eaf3ff6b12e2767b224fda220c38df8",
     "semantic_hash": ""
   },
   "scripts/harvest-kenya-expansion.mjs": {
-    "mtime": 1789785292.2864096,
-    "seen": 1793037203.3995004,
-    "ast_hash": "6593363878ffd2beda537c8dbcaa7f3a",
+    "mtime": 1793088373.8163726,
+    "seen": 1793104833.0147414,
+    "ast_hash": "cfd734575bfa11a5f072993d0cc601ed",
     "semantic_hash": ""
   },
   "scripts/harvest-kenya-jobs.mjs": {
-    "mtime": 1789804703.694866,
-    "seen": 1793037203.39951,
-    "ast_hash": "9d08cf1260c63510b4233ebabf003dd4",
+    "mtime": 1793088373.821825,
+    "seen": 1793104833.0147564,
+    "ast_hash": "ff3bb7f407388dad5bb8af51e6b17e78",
     "semantic_hash": ""
   },
   "scripts/harvest-nigeria-deep.mjs": {
-    "mtime": 1789803914.8922968,
-    "seen": 1793037203.3995197,
-    "ast_hash": "383737b9371025367ea018f9b6b804ab",
+    "mtime": 1793088373.8248193,
+    "seen": 1793104833.0147703,
+    "ast_hash": "d253876901e2233514f594e6a70d4723",
     "semantic_hash": ""
   },
   "scripts/harvest-nigeria-expansion.mjs": {
-    "mtime": 1789782706.2428403,
-    "seen": 1793037203.39953,
-    "ast_hash": "a5bf56625154ab268f01ea39277df2a2",
+    "mtime": 1793088373.8288212,
+    "seen": 1793104833.014784,
+    "ast_hash": "8c49a8bb36a04a2d65a5cb6ef1d821dd",
     "semantic_hash": ""
   },
   "scripts/harvest-nigeria-pages.mjs": {
-    "mtime": 1789785915.674318,
-    "seen": 1793037203.3995402,
-    "ast_hash": "9cfcb78da363d3f4c861ff44276139b2",
+    "mtime": 1793088373.830827,
+    "seen": 1793104833.0147972,
+    "ast_hash": "924be6490c87ca1417e68cf42e427aa7",
     "semantic_hash": ""
   },
   "scripts/harvest-oneacrefund.mjs": {
-    "mtime": 1789783427.5248306,
-    "seen": 1793037203.39955,
-    "ast_hash": "654322be48dfb48257af0168750d825e",
+    "mtime": 1793088373.8338244,
+    "seen": 1793104833.0148108,
+    "ast_hash": "93e7433d42b1ebe08c0b261827b79f94",
     "semantic_hash": ""
   },
   "scripts/harvest-pan-african-health.mjs": {
-    "mtime": 1789779571.3371556,
-    "seen": 1793037203.3995595,
-    "ast_hash": "fa8224dbdb2aa30d5225da6711e84523",
+    "mtime": 1793088373.837822,
+    "seen": 1793104833.0148244,
+    "ast_hash": "ce683263fab72cf1298b4d338e5a1be0",
     "semantic_hash": ""
   },
   "scripts/harvest-regional-expansion.mjs": {
-    "mtime": 1789785134.9304457,
-    "seen": 1793037203.399569,
-    "ast_hash": "9602b7fd52cfcb48a9f1d5a25f934e61",
+    "mtime": 1793088373.8418207,
+    "seen": 1793104833.0148382,
+    "ast_hash": "9bbc63d5f28890aa2997f45362fa429b",
     "semantic_hash": ""
   },
   "scripts/harvest-regional-jobweb.mjs": {
-    "mtime": 1789782440.6539197,
-    "seen": 1793037203.3995788,
-    "ast_hash": "8198590bb389f3ef5d5657c12bac3f27",
+    "mtime": 1793088373.8458276,
+    "seen": 1793104833.0148523,
+    "ast_hash": "ff82f2ea45738976942eb80170b753a2",
     "semantic_hash": ""
   },
   "scripts/harvest-rwanda-deep.mjs": {
-    "mtime": 1789806585.8986192,
-    "seen": 1793037203.3995886,
-    "ast_hash": "6e81bb0bcd99d3a5dd854ebccb7fc342",
+    "mtime": 1793088373.8498209,
+    "seen": 1793104833.0148656,
+    "ast_hash": "8ccb2986b8b8e631b202ca1b0c3279b0",
     "semantic_hash": ""
   },
   "scripts/harvest-rwanda-jobs.mjs": {
-    "mtime": 1789804924.9075558,
-    "seen": 1793037203.3995984,
-    "ast_hash": "c950b52eb6a78ce5a90e4f3716674b0d",
+    "mtime": 1793088373.8538215,
+    "seen": 1793104833.0148795,
+    "ast_hash": "a13dc11bf9adb602a40f5e5ae29d3759",
     "semantic_hash": ""
   },
   "scripts/harvest-somalia-hiiraan.mjs": {
-    "mtime": 1789784250.4182236,
-    "seen": 1793037203.399608,
-    "ast_hash": "4ed1996c011b20b8ba672b81f669a020",
+    "mtime": 1793088373.8608131,
+    "seen": 1793104833.0148928,
+    "ast_hash": "151c43012f08727d6386c12a5483546e",
     "semantic_hash": ""
   },
   "scripts/harvest-southsudan-forum.mjs": {
-    "mtime": 1789805564.520225,
-    "seen": 1793037203.3996174,
-    "ast_hash": "0900aed8bbd72e6e147f1e1a8b7aebf7",
+    "mtime": 1793088373.8648193,
+    "seen": 1793104833.0149057,
+    "ast_hash": "7031eecc1b6057484280be80f9321e59",
     "semantic_hash": ""
   },
   "scripts/harvest-southsudan-tenders.mjs": {
-    "mtime": 1789813257.0844448,
-    "seen": 1793037203.3996272,
-    "ast_hash": "5063e1ecb4ba9bcdcbe28f4a77e6d3d1",
+    "mtime": 1793088373.867813,
+    "seen": 1793104833.0149198,
+    "ast_hash": "b954f75379b2716a450182e992941c00",
     "semantic_hash": ""
   },
   "scripts/harvest-tanzania-jobs.mjs": {
-    "mtime": 1789798887.7568965,
-    "seen": 1793037203.399637,
-    "ast_hash": "8118c54a88f8cff422dadbfc9eeeab15",
+    "mtime": 1793088373.872834,
+    "seen": 1793104833.0149345,
+    "ast_hash": "79d43e8c8b0a11149b0d1043214102e8",
     "semantic_hash": ""
   },
   "scripts/harvest-tenders.mjs": {
-    "mtime": 1789781947.3024347,
-    "seen": 1793037203.3996465,
-    "ast_hash": "c529444984781fdc5752b01ab15d4daa",
+    "mtime": 1793088373.8768184,
+    "seen": 1793104833.014948,
+    "ast_hash": "67ff3a801e3c529483654d7b7e7950be",
     "semantic_hash": ""
   },
   "scripts/harvest-uganda-jobs.mjs": {
-    "mtime": 1791801869.8792849,
-    "seen": 1793037203.3996558,
-    "ast_hash": "d39bc927aeb56729849bfcdb96002487",
+    "mtime": 1793088373.8788173,
+    "seen": 1793104833.0149627,
+    "ast_hash": "2bf06ed77ef9220a441b5271157554c8",
     "semantic_hash": ""
   },
   "scripts/harvest-worldbank-batch5.mjs": {
-    "mtime": 1789787480.2373357,
-    "seen": 1793037203.3996665,
-    "ast_hash": "e360f2413893bb1ffdd8278201efac1f",
+    "mtime": 1793088373.881819,
+    "seen": 1793104833.0149763,
+    "ast_hash": "129b354fe851dee67f0d7596bd7a1cb5",
     "semantic_hash": ""
   },
   "scripts/harvest-worldbank-expansion.mjs": {
-    "mtime": 1789785805.609887,
-    "seen": 1793037203.399676,
-    "ast_hash": "0ebef04481629ae06fd6aa8c14e600f7",
+    "mtime": 1793088373.8848262,
+    "seen": 1793104833.0149899,
+    "ast_hash": "33a9db8cf6bf4c98af87e56820fb4d1f",
     "semantic_hash": ""
   },
   "scripts/inject-job.ts": {
@@ -3132,117 +3126,117 @@
     "semantic_hash": ""
   },
   "scripts/inspect-all-201.mjs": {
-    "mtime": 1791819373.8176425,
-    "seen": 1793037203.3997068,
-    "ast_hash": "776fe7f3665dc4875914d9e92969ba64",
+    "mtime": 1793088373.8997197,
+    "seen": 1793104833.0173068,
+    "ast_hash": "5b9cfbf79fd9de7207d08b29dd1ec0a4",
     "semantic_hash": ""
   },
   "scripts/inspect-all-unresolved.mjs": {
-    "mtime": 1791819373.9247277,
-    "seen": 1793037203.3997169,
-    "ast_hash": "1ec346e33fc8e0deb3f96c0d48ae8d91",
+    "mtime": 1793088373.9037244,
+    "seen": 1793104833.017324,
+    "ast_hash": "172ee7a96fe87395437a0af16a7385d1",
     "semantic_hash": ""
   },
   "scripts/inspect-batch16-candidates.mjs": {
-    "mtime": 1791819374.024712,
-    "seen": 1793037203.3997264,
-    "ast_hash": "7b0ef0972b502f263094cdb092e94519",
+    "mtime": 1793088373.9077153,
+    "seen": 1793104833.0173378,
+    "ast_hash": "545698b38107e66a18dad37b7df22c69",
     "semantic_hash": ""
   },
   "scripts/inspect-batch18-candidates.mjs": {
-    "mtime": 1791819374.1265733,
-    "seen": 1793037203.3997362,
-    "ast_hash": "e2411ab8a045deb72607254030e67d35",
+    "mtime": 1793088373.9107094,
+    "seen": 1793104833.017357,
+    "ast_hash": "48a56ee6cb0bc394d397fb77c0c9d9d2",
     "semantic_hash": ""
   },
   "scripts/inspect-batch19-candidates.mjs": {
-    "mtime": 1791819374.2369964,
-    "seen": 1793037203.3997457,
-    "ast_hash": "97c3d190dbb1c41a60b13151d64ba505",
+    "mtime": 1793088373.9147096,
+    "seen": 1793104833.0173712,
+    "ast_hash": "8c2ce710653e4585494ed43ff24df46e",
     "semantic_hash": ""
   },
   "scripts/inspect-batch20-candidates.mjs": {
-    "mtime": 1791819374.3587382,
-    "seen": 1793037203.3997557,
-    "ast_hash": "8bdeb947a7e21e7ff69effc53ba4769f",
+    "mtime": 1793088373.9177072,
+    "seen": 1793104833.0173845,
+    "ast_hash": "c2a61dec9a19f48d82e655d0c4168e5f",
     "semantic_hash": ""
   },
   "scripts/inspect-batch21-candidates.mjs": {
-    "mtime": 1791819374.457828,
-    "seen": 1793037203.3997653,
-    "ast_hash": "e0b343ed2ed3cc1835cdd44de85ed592",
+    "mtime": 1793088373.9217093,
+    "seen": 1793104833.0173984,
+    "ast_hash": "2c57b27f462d3712935ed9eb5ce319a4",
     "semantic_hash": ""
   },
   "scripts/inspect-business-types.mjs": {
-    "mtime": 1791819374.5597072,
-    "seen": 1793037203.3997748,
-    "ast_hash": "fea554d2da2541a3034d15c6ad6cde2b",
+    "mtime": 1793088373.9247074,
+    "seen": 1793104833.017413,
+    "ast_hash": "09af442df94e810f659a578a486f0f26",
     "semantic_hash": ""
   },
   "scripts/inspect-businesses-details.mjs": {
-    "mtime": 1791819374.6738298,
-    "seen": 1793037203.399784,
-    "ast_hash": "3ace423b4bed5b1ba7160741cef3e8a2",
+    "mtime": 1793088373.927706,
+    "seen": 1793104833.0174267,
+    "ast_hash": "301c03db26d650669f764415fc4301ab",
     "semantic_hash": ""
   },
   "scripts/inspect-businesses-sample.mjs": {
-    "mtime": 1791819374.7752745,
-    "seen": 1793037203.3997939,
-    "ast_hash": "611672b79019e83d56959e9caf05fd02",
+    "mtime": 1793088373.9317236,
+    "seen": 1793104833.0174403,
+    "ast_hash": "382853efb80da81309fccdd83f4521ad",
     "semantic_hash": ""
   },
   "scripts/inspect-cf-emails.mjs": {
-    "mtime": 1791819374.8534024,
-    "seen": 1793037203.3998036,
-    "ast_hash": "29d1ab9e005360e16ae4086c1be3f3ce",
+    "mtime": 1793088373.9357126,
+    "seen": 1793104833.0174544,
+    "ast_hash": "414b3f5048608f4f5fcfc1f5b0cbbf37",
     "semantic_hash": ""
   },
   "scripts/inspect-compliance-noise.mjs": {
-    "mtime": 1791819374.961187,
-    "seen": 1793037203.3998132,
-    "ast_hash": "51f03c2f0de7e7d22889c3ca1a2c0052",
+    "mtime": 1793088373.9397163,
+    "seen": 1793104833.017468,
+    "ast_hash": "b66ae6adf2821bfb0ae7afd9ad0dea12",
     "semantic_hash": ""
   },
   "scripts/inspect-compliance-sample.mjs": {
-    "mtime": 1791819375.0475495,
-    "seen": 1793037203.3998225,
-    "ast_hash": "732823e9f5ef407ae7dc9f9030fa959d",
+    "mtime": 1793088373.9427133,
+    "seen": 1793104833.0174825,
+    "ast_hash": "7e32aa7ca37c704929b4fe57df756d8b",
     "semantic_hash": ""
   },
   "scripts/inspect-confidential-and-roundups.mjs": {
-    "mtime": 1791819375.1463609,
-    "seen": 1793037203.399832,
-    "ast_hash": "cf2ae3c2f4681f6bcd3bee80c3414d73",
+    "mtime": 1793088373.9457107,
+    "seen": 1793104833.0174963,
+    "ast_hash": "137b5d1bfa8c4c1898ee170e66b1b704",
     "semantic_hash": ""
   },
   "scripts/inspect-et-detail.mjs": {
-    "mtime": 1789787274.2101862,
-    "seen": 1793037203.3998418,
-    "ast_hash": "a438e3d6bdc3fc9a01a981a6ec538dcb",
+    "mtime": 1793088373.9477189,
+    "seen": 1793104833.0175092,
+    "ast_hash": "a78ce6948cb011df582d703c2256ead0",
     "semantic_hash": ""
   },
   "scripts/inspect-full-schema.mjs": {
-    "mtime": 1791819375.240313,
-    "seen": 1793037203.3998516,
-    "ast_hash": "234584246f4747d64479992d74ef6a59",
+    "mtime": 1793088373.9497087,
+    "seen": 1793104833.0175226,
+    "ast_hash": "ea4462b510e166415bd341eb78425f1b",
     "semantic_hash": ""
   },
   "scripts/inspect-groupings.mjs": {
-    "mtime": 1791819375.3441603,
-    "seen": 1793037203.3998616,
-    "ast_hash": "27526cd172e83f5918d5aa52f3397d00",
+    "mtime": 1793088373.9537146,
+    "seen": 1793104833.0175357,
+    "ast_hash": "98f9b88f2028df3f24716d36e5de35d9",
     "semantic_hash": ""
   },
   "scripts/inspect-hiiraan-html.mjs": {
-    "mtime": 1789784175.4161668,
-    "seen": 1793037203.3998709,
-    "ast_hash": "8339773ed86527704a40cf23e5c07a5e",
+    "mtime": 1793088373.9577203,
+    "seen": 1793104833.0175483,
+    "ast_hash": "75d2acde7d2c042fc3e9e12238bd30e3",
     "semantic_hash": ""
   },
   "scripts/inspect-indexes.mjs": {
-    "mtime": 1791819375.422298,
-    "seen": 1793037203.3998806,
-    "ast_hash": "aa8808ea5ba9007310da57638c1df918",
+    "mtime": 1793088373.960712,
+    "seen": 1793104833.0175622,
+    "ast_hash": "94307922dad3681a879b0ac5710a0cec",
     "semantic_hash": ""
   },
   "scripts/inspect-job.ts": {
@@ -3252,135 +3246,135 @@
     "semantic_hash": ""
   },
   "scripts/inspect-jobs-reqs-sample.mjs": {
-    "mtime": 1791819375.516471,
-    "seen": 1793037203.3999002,
-    "ast_hash": "33f78031522fd8174be60505e5a67d4e",
+    "mtime": 1793088373.9637086,
+    "seen": 1793104833.0185459,
+    "ast_hash": "f3acf6402b8d6fd3cdee8785730b0df9",
     "semantic_hash": ""
   },
   "scripts/inspect-jwk.mjs": {
-    "mtime": 1789796380.918847,
-    "seen": 1793037203.3999102,
-    "ast_hash": "9e4fd1d06ec15a67edeb06621eca31cf",
+    "mtime": 1793088373.9677167,
+    "seen": 1793104833.0185525,
+    "ast_hash": "e1f40a848a1eaa753c0e2e7eed361bf1",
     "semantic_hash": ""
   },
   "scripts/inspect-live-apply-links.mjs": {
-    "mtime": 1789796256.4230237,
-    "seen": 1793037203.39992,
-    "ast_hash": "b644c9437ec4d358e35a6d102c50de75",
+    "mtime": 1793088373.9717205,
+    "seen": 1793104833.0185585,
+    "ast_hash": "aef3f9dd5990665e147640c3c00eff3a",
     "semantic_hash": ""
   },
   "scripts/inspect-null-type-businesses.mjs": {
-    "mtime": 1791819375.6113403,
-    "seen": 1793037203.3999405,
-    "ast_hash": "b7a9a16677ff13d1191e3a9b32486c0b",
+    "mtime": 1793088373.9757218,
+    "seen": 1793104833.019656,
+    "ast_hash": "9a5b34a9e9dbdf386de22a02fc98d321",
     "semantic_hash": ""
   },
   "scripts/inspect-other-indexes.mjs": {
-    "mtime": 1791819375.7110376,
-    "seen": 1793037203.3999512,
-    "ast_hash": "819145919a12193ad9e39781f743e70a",
+    "mtime": 1793088373.9794648,
+    "seen": 1793104833.0196726,
+    "ast_hash": "7a780353daebba259ca2ada43051eb5d",
     "semantic_hash": ""
   },
   "scripts/inspect-other-verified.mjs": {
-    "mtime": 1791819375.7942011,
-    "seen": 1793037203.3999608,
-    "ast_hash": "ff1c3e9ef9553eccd9efbe750a6a0de9",
+    "mtime": 1793088373.9824495,
+    "seen": 1793104833.019687,
+    "ast_hash": "238c99162f046aa8db95c3d5a8a4a2a0",
     "semantic_hash": ""
   },
   "scripts/inspect-p191.mjs": {
-    "mtime": 1789833856.853784,
-    "seen": 1793037203.3999705,
-    "ast_hash": "c0d19e62cfed43e48dc863c0f01a72ac",
+    "mtime": 1793088373.985454,
+    "seen": 1793104833.0197012,
+    "ast_hash": "f094846768f1d9a04fa54fce8007955c",
     "semantic_hash": ""
   },
   "scripts/inspect-real-source-links.mjs": {
-    "mtime": 1789796281.1475203,
-    "seen": 1793037203.39998,
-    "ast_hash": "44a5f83cd65646437dd171ffc50f441d",
+    "mtime": 1793088373.9894552,
+    "seen": 1793104833.0197148,
+    "ast_hash": "d4c06a734579e7d106b5f2f652a4949c",
     "semantic_hash": ""
   },
   "scripts/inspect-remaining-named.mjs": {
-    "mtime": 1791819375.8879602,
-    "seen": 1793037203.3999896,
-    "ast_hash": "3dd699de5e31b94a1f52c14ac785a303",
+    "mtime": 1793088373.993454,
+    "seen": 1793104833.019728,
+    "ast_hash": "d03859adba0d50fa2c237ab35fb2075b",
     "semantic_hash": ""
   },
   "scripts/inspect-salary-schema.mjs": {
-    "mtime": 1791819375.9784641,
-    "seen": 1793037203.399999,
-    "ast_hash": "f5a41f794c9030d25022495f04859e4c",
+    "mtime": 1793088373.9964526,
+    "seen": 1793104833.019742,
+    "ast_hash": "712cc56e2ce6b3d0be7a3a376284a504",
     "semantic_hash": ""
   },
   "scripts/inspect-short-desc.mjs": {
-    "mtime": 1791814306.7540503,
-    "seen": 1793037203.4000084,
-    "ast_hash": "e9a69086af58be85435528ac794cf6f9",
+    "mtime": 1793088373.9994514,
+    "seen": 1793104833.0197556,
+    "ast_hash": "da8f9a89d6a691f6c6e219f9c3f48321",
     "semantic_hash": ""
   },
   "scripts/inspect-small-tables.mjs": {
-    "mtime": 1791819376.063602,
-    "seen": 1793037203.4000182,
-    "ast_hash": "56a49734fd9a48b43bde91502d63623f",
+    "mtime": 1793088374.0034523,
+    "seen": 1793104833.0197694,
+    "ast_hash": "3159fad06b5aa7dc7278fbbb52e77dcc",
     "semantic_hash": ""
   },
   "scripts/inspect-tail-named.mjs": {
-    "mtime": 1791819376.1496642,
-    "seen": 1793037203.4000278,
-    "ast_hash": "cd5a988c7d2f059f6223c3fb809cf41d",
+    "mtime": 1793088374.0074563,
+    "seen": 1793104833.0197833,
+    "ast_hash": "ba447287910e4aefe8254f3f71ae1846",
     "semantic_hash": ""
   },
   "scripts/inspect-tenders-sample.mjs": {
-    "mtime": 1791819376.2433946,
-    "seen": 1793037203.400038,
-    "ast_hash": "8e550d4ad0bc1d80400070c0a0ffb90c",
+    "mtime": 1793088374.0104651,
+    "seen": 1793104833.0197961,
+    "ast_hash": "b37f7d5576957ce627d4e49154bbcfab",
     "semantic_hash": ""
   },
   "scripts/inspect-top-missing.mjs": {
-    "mtime": 1791819376.3346355,
-    "seen": 1793037203.4000473,
-    "ast_hash": "5e794ddba4d7ca135ffbfb608495a353",
+    "mtime": 1793088374.0144608,
+    "seen": 1793104833.0198107,
+    "ast_hash": "74989835dec14297554a17ecdbaaaa01",
     "semantic_hash": ""
   },
   "scripts/inspect-unresolved.mjs": {
-    "mtime": 1791819376.4283767,
-    "seen": 1793037203.4000566,
-    "ast_hash": "2b559c59785449bc22ca327abe7b89e4",
+    "mtime": 1793088374.017456,
+    "seen": 1793104833.019824,
+    "ast_hash": "641aa8279c5aede2f62d8dd860c28543",
     "semantic_hash": ""
   },
   "scripts/inspect-vek.mjs": {
-    "mtime": 1791819376.5277488,
-    "seen": 1793037203.4000664,
-    "ast_hash": "5cd6b3739e66ac1cb02e2420ffddaed7",
+    "mtime": 1793088374.021619,
+    "seen": 1793104833.019837,
+    "ast_hash": "81603d4fda728c88bfbd940396e6a648",
     "semantic_hash": ""
   },
   "scripts/inspect-verified-employers.mjs": {
-    "mtime": 1791819376.6109395,
-    "seen": 1793037203.4000766,
-    "ast_hash": "3f90377e00012416828c7e42392db8a7",
+    "mtime": 1793088374.024585,
+    "seen": 1793104833.0198512,
+    "ast_hash": "00d58be61be867d183dd55ddcc320e15",
     "semantic_hash": ""
   },
   "scripts/inspect-wrappers.mjs": {
-    "mtime": 1791819376.7201107,
-    "seen": 1793037203.4000862,
-    "ast_hash": "0bf1716ec56239fcaee0a6ec5a38cdba",
+    "mtime": 1793088374.026585,
+    "seen": 1793104833.019867,
+    "ast_hash": "001427293e687f6515731db586260b2f",
     "semantic_hash": ""
   },
   "scripts/jev-full-review-enrichment.mjs": {
-    "mtime": 1791657032.8895056,
-    "seen": 1793037203.400096,
+    "mtime": 1793088374.0411737,
+    "seen": 1793104833.019898,
     "ast_hash": "b94bdc7f32b01b5d206669617ce93141",
     "semantic_hash": ""
   },
   "scripts/jev-pass2-desc-extraction.mjs": {
-    "mtime": 1792050221.3690963,
-    "seen": 1793037203.400106,
-    "ast_hash": "9d5d24a0fbb26564ce610862b7485666",
+    "mtime": 1793088374.0447264,
+    "seen": 1793104833.019912,
+    "ast_hash": "65eba6a034ada8a3d1b58ac1fd4e8525",
     "semantic_hash": ""
   },
   "scripts/jev-review-single-job.mjs": {
-    "mtime": 1792050150.4787583,
-    "seen": 1793037203.4001155,
-    "ast_hash": "34f889f7338b02e28c90311adce32e44",
+    "mtime": 1793088374.047939,
+    "seen": 1793104833.0199263,
+    "ast_hash": "2fd0a0a781d93b6a9625edc33411dc91",
     "semantic_hash": ""
   },
   "scripts/kcb-importer.ts": {
@@ -3408,63 +3402,63 @@
     "semantic_hash": ""
   },
   "scripts/migrate-hot-to-cold.mjs": {
-    "mtime": 1793008633.707973,
-    "seen": 1793037203.4002361,
-    "ast_hash": "dc081e6602426cc976219c456b283df4",
+    "mtime": 1793088374.0584898,
+    "seen": 1793104833.0312512,
+    "ast_hash": "82975344d8b29b8940a76b3b78c4fae7",
     "semantic_hash": ""
   },
   "scripts/named-unresolved.json": {
-    "mtime": 1791753499.8078399,
-    "seen": 1793037203.4002457,
-    "ast_hash": "55964327c91b777a5bdfaf5acd4d6882",
+    "mtime": 1793088374.0624907,
+    "seen": 1793104833.0312681,
+    "ast_hash": "2ca824ead7a085a25a88ef7eef7ff2e5",
     "semantic_hash": ""
   },
   "scripts/nuke-aggregator-urls.mjs": {
-    "mtime": 1791819377.0301764,
-    "seen": 1793037203.4002557,
-    "ast_hash": "5ce32fda815fc5818dbfd13c9b1ab1fa",
+    "mtime": 1793088374.0686476,
+    "seen": 1793104833.0312822,
+    "ast_hash": "46d72043d912c00eb738e90ca8a399ba",
     "semantic_hash": ""
   },
   "scripts/pass1-small-tables-enrichment.mjs": {
-    "mtime": 1791819377.1214263,
-    "seen": 1793037203.4002762,
-    "ast_hash": "049e942d796042a9d2ea28f4b616424d",
+    "mtime": 1793088374.072646,
+    "seen": 1793104833.032314,
+    "ast_hash": "27226f703b69ff8506bbfb72cd5403a8",
     "semantic_hash": ""
   },
   "scripts/pass2-compliance-chunked.mjs": {
-    "mtime": 1791819377.2308178,
-    "seen": 1793037203.4002862,
-    "ast_hash": "a3b44b7d8e710eb84fd2d734044f2c8c",
+    "mtime": 1793088374.0766456,
+    "seen": 1793104833.0323298,
+    "ast_hash": "93b5fec66abb40f4d0cf85c397c2bbc1",
     "semantic_hash": ""
   },
   "scripts/pass2-compliance-enrichment.mjs": {
-    "mtime": 1791819377.3379903,
-    "seen": 1793037203.4002955,
-    "ast_hash": "0031d4997f6f3a9b8c9e34d604cfb6fe",
+    "mtime": 1793088374.0804589,
+    "seen": 1793104833.0323439,
+    "ast_hash": "bfa97a5012a5436c2b9ec59bb3cd3ced",
     "semantic_hash": ""
   },
   "scripts/pass3-tenders-enrichment.mjs": {
-    "mtime": 1791819377.4629843,
-    "seen": 1793037203.4003048,
-    "ast_hash": "09f1e932a2cecea706a38c781af2945f",
+    "mtime": 1793088374.0834897,
+    "seen": 1793104833.0323606,
+    "ast_hash": "4b6f9ae323dd93a60519739f93e48e62",
     "semantic_hash": ""
   },
   "scripts/pass3-tenders-sql-bulk.mjs": {
-    "mtime": 1791819377.5702314,
-    "seen": 1793037203.4003148,
-    "ast_hash": "2ad79a8a8bd6412fa51710ad41ef4185",
+    "mtime": 1793088374.0874898,
+    "seen": 1793104833.032375,
+    "ast_hash": "fbbe5e004c2d23d9d97c2398eee59b51",
     "semantic_hash": ""
   },
   "scripts/pass4-jobs-enrichment.mjs": {
-    "mtime": 1791819377.678862,
-    "seen": 1793037203.4003243,
-    "ast_hash": "2138c7f163a0f026c63ec1f343c51ad4",
+    "mtime": 1793088374.0946095,
+    "seen": 1793104833.0323887,
+    "ast_hash": "cba02274551f7820f6b6ca3dec60c1a6",
     "semantic_hash": ""
   },
   "scripts/pass4-jobs-fast.mjs": {
-    "mtime": 1791819377.7793841,
-    "seen": 1793037203.4003344,
-    "ast_hash": "366f81c55ca41018f30915b435f3e99a",
+    "mtime": 1793088374.0976324,
+    "seen": 1793104833.0324028,
+    "ast_hash": "7913f4e9c4f882adb035fe85e18995fa",
     "semantic_hash": ""
   },
   "scripts/playwright-investigate.ts": {
@@ -3480,56 +3474,56 @@
     "semantic_hash": ""
   },
   "scripts/polish-target-job.mjs": {
-    "mtime": 1792050299.950111,
-    "seen": 1793037203.4003632,
-    "ast_hash": "072710af1e6e54f6b1de04aaa9b7c965",
+    "mtime": 1793088374.1033173,
+    "seen": 1793104833.03448,
+    "ast_hash": "52b50cd202a9bd583e42bfa9d4812418",
     "semantic_hash": ""
   },
   "scripts/print-all-named.mjs": {
-    "mtime": 1791753961.092921,
-    "seen": 1793037203.4003732,
-    "ast_hash": "ea0e76b5f217d1fe2b4ca13909ed30f7",
+    "mtime": 1793088374.1283212,
+    "seen": 1793104833.034497,
+    "ast_hash": "94e2eebfd6b2a3f5f77b065dc7d49df5",
     "semantic_hash": ""
   },
   "scripts/print-employers-guides.mjs": {
-    "mtime": 1791819377.9720657,
-    "seen": 1793037203.400383,
-    "ast_hash": "c783532acd20e0771a38723db743a434",
+    "mtime": 1793088374.1323276,
+    "seen": 1793104833.0345106,
+    "ast_hash": "aa7af50213256da24b44ee416a964728",
     "semantic_hash": ""
   },
   "scripts/print-hnj-text.mjs": {
-    "mtime": 1789788374.8895855,
-    "seen": 1793037203.4003928,
-    "ast_hash": "8a2795411f0647a99cdf2c44285cf0df",
+    "mtime": 1793088374.143316,
+    "seen": 1793104833.0345247,
+    "ast_hash": "484c8917b2869bb540f2e513aac6a653",
     "semantic_hash": ""
   },
   "scripts/probe-ats-candidates.mjs": {
-    "mtime": 1791744125.912501,
-    "seen": 1793037203.400402,
-    "ast_hash": "31286a74ee478dc270252aac2c06fe4f",
+    "mtime": 1793088374.1463196,
+    "seen": 1793104833.0345395,
+    "ast_hash": "55a9b50283392a4f0709f8220eb489cb",
     "semantic_hash": ""
   },
   "scripts/probe-breezy.mjs": {
-    "mtime": 1791747647.1123044,
-    "seen": 1793037203.4004116,
-    "ast_hash": "aee2eb737fb5be99a1aa9b03fd2061c9",
+    "mtime": 1793088374.1513176,
+    "seen": 1793104833.034553,
+    "ast_hash": "726af5b8afbb26f096f6861c28dada43",
     "semantic_hash": ""
   },
   "scripts/probe-workable-more.mjs": {
-    "mtime": 1791748001.781128,
-    "seen": 1793037203.4004326,
-    "ast_hash": "35274626525fea17f80037ad6e73d5f6",
+    "mtime": 1793088374.1563177,
+    "seen": 1793104833.0355964,
+    "ast_hash": "04bbfb273c67e19e131e91b04964139e",
     "semantic_hash": ""
   },
   "scripts/probe-workable.mjs": {
-    "mtime": 1791747965.728942,
-    "seen": 1793037203.4004421,
-    "ast_hash": "6a13ce03d303e45c52b238a4ab17904f",
+    "mtime": 1793088374.1603193,
+    "seen": 1793104833.0356123,
+    "ast_hash": "fb77c724cbc139da3b17a7c5b0aed7bd",
     "semantic_hash": ""
   },
   "scripts/proxies.json": {
-    "mtime": 1789632359.9682355,
-    "seen": 1793037203.4004638,
+    "mtime": 1793088374.1633162,
+    "seen": 1793104833.0366988,
     "ast_hash": "df40573b852c1685a2d7158e96f01e7d",
     "semantic_hash": ""
   },
@@ -3540,8 +3534,8 @@
     "semantic_hash": ""
   },
   "scripts/proxy-rotator.mjs": {
-    "mtime": 1789376088.2934084,
-    "seen": 1793037203.4004834,
+    "mtime": 1793088374.167314,
+    "seen": 1793104833.0383449,
     "ast_hash": "d154b89ef6ce7c582e98ccdc4f48902d",
     "semantic_hash": ""
   },
@@ -3570,9 +3564,9 @@
     "semantic_hash": ""
   },
   "scripts/purge-decommissioned.mjs": {
-    "mtime": 1791819378.0658588,
-    "seen": 1793037203.4005334,
-    "ast_hash": "47a788180b4143fade109db58c07f4ae",
+    "mtime": 1793088374.1703188,
+    "seen": 1793104833.043927,
+    "ast_hash": "0db82204ea587876a9b53cb1291ee2a5",
     "semantic_hash": ""
   },
   "scripts/purge-expired.ts": {
@@ -3582,15 +3576,15 @@
     "semantic_hash": ""
   },
   "scripts/purge-inactive.mjs": {
-    "mtime": 1792100305.4807487,
-    "seen": 1793037203.4005532,
-    "ast_hash": "370acbdb0f35021126e48a99b0a64484",
+    "mtime": 1793088374.174321,
+    "seen": 1793104833.0453813,
+    "ast_hash": "240c357029c114a9a1166520fd4e9644",
     "semantic_hash": ""
   },
   "scripts/purge-junk.mjs": {
-    "mtime": 1791819378.1569548,
-    "seen": 1793037203.4005628,
-    "ast_hash": "53d43cc398828a54dda0c065c21f8e48",
+    "mtime": 1793088374.1780472,
+    "seen": 1793104833.0454006,
+    "ast_hash": "fe77d7df8cdaa16b54e36a1aaf00f3e9",
     "semantic_hash": ""
   },
   "scripts/query-scrape.ts": {
@@ -3600,21 +3594,21 @@
     "semantic_hash": ""
   },
   "scripts/quick-stat.mjs": {
-    "mtime": 1789803813.3584125,
-    "seen": 1793037203.400582,
-    "ast_hash": "051ff47c9c23bafe591f782529810308",
+    "mtime": 1793088374.1870465,
+    "seen": 1793104833.0470839,
+    "ast_hash": "ed81f73f88a5404269be96a9c0a7e0d2",
     "semantic_hash": ""
   },
   "scripts/reclassify-misclassified-sectors.mjs": {
-    "mtime": 1791819378.2663248,
-    "seen": 1793037203.4005923,
-    "ast_hash": "14f4df80f8bdbdb9aee3fd44fa8cdaa8",
+    "mtime": 1793088374.1910458,
+    "seen": 1793104833.0471008,
+    "ast_hash": "35f685972dd344f4a0a7f0f813eb5412",
     "semantic_hash": ""
   },
   "scripts/reclassify-tender-sectors.mjs": {
-    "mtime": 1791819378.3635502,
-    "seen": 1793037203.400602,
-    "ast_hash": "affce111bd10a14d75e7b8e88eefae90",
+    "mtime": 1793088374.1950426,
+    "seen": 1793104833.0471141,
+    "ast_hash": "69dc0ccb923ce135a1b4617e79f3cd03",
     "semantic_hash": ""
   },
   "scripts/reliefweb-importer.ts": {
@@ -3624,21 +3618,21 @@
     "semantic_hash": ""
   },
   "scripts/remediate-all-job-flaws-comprehensive.mjs": {
-    "mtime": 1792100058.4454937,
-    "seen": 1793037203.400622,
-    "ast_hash": "b8c51a390118038c3c6218d8aafbe961",
+    "mtime": 1793088374.199045,
+    "seen": 1793104833.048846,
+    "ast_hash": "f1d4e912333866c0d784452fc5399506",
     "semantic_hash": ""
   },
   "scripts/remediate-database.mjs": {
-    "mtime": 1791814306.7540503,
-    "seen": 1793037203.400632,
-    "ast_hash": "291121fb2371da442303cc5d2a97be7e",
+    "mtime": 1793088374.2030444,
+    "seen": 1793104833.0488627,
+    "ast_hash": "03de6420775f0bb2abd73a74c03c8c28",
     "semantic_hash": ""
   },
   "scripts/remediate-fast-batch.mjs": {
-    "mtime": 1792100218.936354,
-    "seen": 1793037203.4006417,
-    "ast_hash": "a6b29e6ea63e9930b4a7aca60a5c962e",
+    "mtime": 1793088374.207046,
+    "seen": 1793104833.0488777,
+    "ast_hash": "543c76efe9af45d80fe23f4757711116",
     "semantic_hash": ""
   },
   "scripts/remove-fakes.ts": {
@@ -3660,69 +3654,69 @@
     "semantic_hash": ""
   },
   "scripts/resolve-batch-22.mjs": {
-    "mtime": 1791819378.497177,
-    "seen": 1793037203.400726,
-    "ast_hash": "09bc9439fdb679cc77c77311b822be03",
+    "mtime": 1793088374.2120414,
+    "seen": 1793104833.05736,
+    "ast_hash": "1adcf04ec169625c201dfdbf0a9f430b",
     "semantic_hash": ""
   },
   "scripts/resolve-batch-23-wrappers.mjs": {
-    "mtime": 1791819378.631461,
-    "seen": 1793037203.4007359,
-    "ast_hash": "a6adb41ce4a8595b723a4f5e2badaed3",
+    "mtime": 1793088374.2160394,
+    "seen": 1793104833.057377,
+    "ast_hash": "00afc070453bcc21a75304936858a299",
     "semantic_hash": ""
   },
   "scripts/resolve-batch-24.mjs": {
-    "mtime": 1791819378.7591753,
-    "seen": 1793037203.4007454,
-    "ast_hash": "216dcfb98bc9e03d660ffcae29b117de",
+    "mtime": 1793088374.221045,
+    "seen": 1793104833.0573912,
+    "ast_hash": "d9067984a2d6412ca1c160bb93655e69",
     "semantic_hash": ""
   },
   "scripts/resolve-batch-25.mjs": {
-    "mtime": 1791819378.899799,
-    "seen": 1793037203.4007554,
-    "ast_hash": "ab3f73211ff488f1e8c1b2f6a93feb39",
+    "mtime": 1793088374.2240515,
+    "seen": 1793104833.057405,
+    "ast_hash": "4f107a431193459cf9f237b2349d8952",
     "semantic_hash": ""
   },
   "scripts/resolve-batch-26.mjs": {
-    "mtime": 1791819379.0506284,
-    "seen": 1793037203.400765,
-    "ast_hash": "06aca5d6a8a9f57ebd3f7d03b8430093",
+    "mtime": 1793088374.2280443,
+    "seen": 1793104833.0574179,
+    "ast_hash": "5940f2a489f4a3a30d8050621ee2a58c",
     "semantic_hash": ""
   },
   "scripts/resolve-direct-employer-urls.mjs": {
-    "mtime": 1789797738.0547752,
-    "seen": 1793037203.4007745,
-    "ast_hash": "b57ef4e423a7fa5b212c0251f076248b",
+    "mtime": 1793088374.233043,
+    "seen": 1793104833.0574312,
+    "ast_hash": "656f6a5817068926a276f5ad0c696cf9",
     "semantic_hash": ""
   },
   "scripts/resolve-known-employers.mjs": {
-    "mtime": 1791819379.1969304,
-    "seen": 1793037203.4007845,
-    "ast_hash": "ab683ea65c7a1bb84d7a43fc2908fb71",
+    "mtime": 1793088374.2390819,
+    "seen": 1793104833.057445,
+    "ast_hash": "2bbc3915b8dc91a8b5162dda593f56fc",
     "semantic_hash": ""
   },
   "scripts/resolve-more-companies.mjs": {
-    "mtime": 1791819379.347431,
-    "seen": 1793037203.4007943,
-    "ast_hash": "8cbeec0b7e7e0ec96ae3960e7e2946e8",
+    "mtime": 1793088374.2430713,
+    "seen": 1793104833.0574734,
+    "ast_hash": "63d99962b26dc2fb3147388d012dedb3",
     "semantic_hash": ""
   },
   "scripts/resolve-verified-slug-employers.mjs": {
-    "mtime": 1791819379.462876,
-    "seen": 1793037203.4008038,
-    "ast_hash": "4927bd12ea2e96e978156da2cb304626",
+    "mtime": 1793088374.2460716,
+    "seen": 1793104833.0574884,
+    "ast_hash": "801d568eaee1f7d4a893abe3701e813a",
     "semantic_hash": ""
   },
   "scripts/restore-intern.mjs": {
-    "mtime": 1792100278.017015,
-    "seen": 1793037203.4008133,
-    "ast_hash": "2f2259929830d49636b39b872d183bfd",
+    "mtime": 1793088374.2499251,
+    "seen": 1793104833.057502,
+    "ast_hash": "5f30915a5a7bf2a50ef019f7259d7e34",
     "semantic_hash": ""
   },
   "scripts/revert-false-matches.mjs": {
-    "mtime": 1791819379.5729399,
-    "seen": 1793037203.4008234,
-    "ast_hash": "eaf1b1027e3dcac71eef6d00ce94d88d",
+    "mtime": 1793088374.255554,
+    "seen": 1793104833.0575159,
+    "ast_hash": "3e4a45da1d7e34d697d4736960a78c73",
     "semantic_hash": ""
   },
   "scripts/review-data.ts": {
@@ -3732,9 +3726,9 @@
     "semantic_hash": ""
   },
   "scripts/review-salary-submissions.mjs": {
-    "mtime": 1791819379.6791048,
-    "seen": 1793037203.4008436,
-    "ast_hash": "e4fbd9eadbc804e954b27f9917e75a26",
+    "mtime": 1793088374.259552,
+    "seen": 1793104833.0589268,
+    "ast_hash": "96c9a1da371ef1c0052a02b974c2a3c7",
     "semantic_hash": ""
   },
   "scripts/revive-llms.ts": {
@@ -3750,21 +3744,21 @@
     "semantic_hash": ""
   },
   "scripts/run-jev-actions-review.mjs": {
-    "mtime": 1792050121.4867754,
-    "seen": 1793037203.4008732,
-    "ast_hash": "2b54229a1c64931bf281a46838c48d52",
+    "mtime": 1793088374.2625537,
+    "seen": 1793104833.0618718,
+    "ast_hash": "f90e22a2dad661bc8bb7be5e33f855a6",
     "semantic_hash": ""
   },
   "scripts/run-jev-data-review.mjs": {
-    "mtime": 1792050081.6124885,
-    "seen": 1793037203.4008834,
-    "ast_hash": "19a9bf1647cab30dc079756aeba6f31b",
+    "mtime": 1793088374.2695563,
+    "seen": 1793104833.0618877,
+    "ast_hash": "eb6679cf839b376b8d5c03f2b6525ca1",
     "semantic_hash": ""
   },
   "scripts/sample-unresolved.mjs": {
-    "mtime": 1791819379.862119,
-    "seen": 1793037203.4009144,
-    "ast_hash": "eeb115240bba4c868605f0a2cbb827ce",
+    "mtime": 1793088374.2735555,
+    "seen": 1793104833.063877,
+    "ast_hash": "0d637f2c37aa6bb9916bd412de0b68da",
     "semantic_hash": ""
   },
   "scripts/scrape-tz-direct-employers-v2.ts": {
@@ -3864,9 +3858,9 @@
     "semantic_hash": ""
   },
   "scripts/strict-nuke-aggregators.mjs": {
-    "mtime": 1791819379.9481404,
-    "seen": 1793037203.4011958,
-    "ast_hash": "876777ca936b8668b4e0d4b50f41d0aa",
+    "mtime": 1793088374.2785494,
+    "seen": 1793104833.0899637,
+    "ast_hash": "97d9afcf7ba9f4c334c24aa4d4c7c262",
     "semantic_hash": ""
   },
   "scripts/sync-target-employer.ts": {
@@ -3876,9 +3870,9 @@
     "semantic_hash": ""
   },
   "scripts/tag-authentic-confidential-listings.mjs": {
-    "mtime": 1791819380.0711737,
-    "seen": 1793037203.401214,
-    "ast_hash": "5ef22614c9293e83a1dedcf879dc583d",
+    "mtime": 1793088374.280549,
+    "seen": 1793104833.0912604,
+    "ast_hash": "08d9ed58a1b03076541caf097d128897",
     "semantic_hash": ""
   },
   "scripts/targeted-scrape.ts": {
@@ -3888,21 +3882,21 @@
     "semantic_hash": ""
   },
   "scripts/terminate-pid.mjs": {
-    "mtime": 1791819380.164928,
-    "seen": 1793037203.4012334,
-    "ast_hash": "61640c1b93c219c35929e6e51e45fbac",
+    "mtime": 1793088374.2835505,
+    "seen": 1793104833.092413,
+    "ast_hash": "7c346ea3f97b0603f2d416cb44473cfa",
     "semantic_hash": ""
   },
   "scripts/test-african-greenhouse.mjs": {
-    "mtime": 1789783377.950233,
-    "seen": 1793037203.401242,
-    "ast_hash": "bbf63fad8ab2e2ff286db178af16eae2",
+    "mtime": 1793088374.286474,
+    "seen": 1793104833.0924296,
+    "ast_hash": "0497ffcfe48d5246d996a7eb9d35e2ea",
     "semantic_hash": ""
   },
   "scripts/test-ajiraleo.mjs": {
-    "mtime": 1789770708.4323487,
-    "seen": 1793037203.4012713,
-    "ast_hash": "d04e944e52495055eeef48f3d735d0a9",
+    "mtime": 1793088374.2909143,
+    "seen": 1793104833.0946078,
+    "ast_hash": "dd3c1dc6655d3cdb252b7bbde983bcff",
     "semantic_hash": ""
   },
   "scripts/test-all-models.ts": {
@@ -3912,9 +3906,9 @@
     "semantic_hash": ""
   },
   "scripts/test-ats-feeds.mjs": {
-    "mtime": 1789783364.0200403,
-    "seen": 1793037203.40129,
-    "ast_hash": "582e88d0cb5945e332a63fe2356cbe26",
+    "mtime": 1793088374.2939138,
+    "seen": 1793104833.095658,
+    "ast_hash": "5943c413e94a9c844a75094be3720e16",
     "semantic_hash": ""
   },
   "scripts/test-bm.ts": {
@@ -3924,93 +3918,93 @@
     "semantic_hash": ""
   },
   "scripts/test-burundi-congo.mjs": {
-    "mtime": 1789782581.0314384,
-    "seen": 1793037203.4013274,
-    "ast_hash": "6c8746c5540733a56c05b214c10fec40",
+    "mtime": 1793088374.2959108,
+    "seen": 1793104833.099001,
+    "ast_hash": "e91aec8dc8600de6df09bb4f1eadef79",
     "semantic_hash": ""
   },
   "scripts/test-burundi-home.mjs": {
-    "mtime": 1789782739.6592097,
-    "seen": 1793037203.4013367,
-    "ast_hash": "e26c04affe22cd368fe978fdd8bf5a16",
+    "mtime": 1793088374.2989159,
+    "seen": 1793104833.099017,
+    "ast_hash": "c4cdf7129d504ac54815744f23395502",
     "semantic_hash": ""
   },
   "scripts/test-burundi-links.mjs": {
-    "mtime": 1789782772.5110416,
-    "seen": 1793037203.4013455,
-    "ast_hash": "3599cecbf928f393c2c43750ff3b7ce8",
+    "mtime": 1793088374.3029106,
+    "seen": 1793104833.0990288,
+    "ast_hash": "a0e245c4a8f7e17c65ddeb9678755f0a",
     "semantic_hash": ""
   },
   "scripts/test-burundi-sources.mjs": {
-    "mtime": 1789782725.133697,
-    "seen": 1793037203.4013546,
-    "ast_hash": "599c3c1b53b46330fe9d5e0fe3d7da0a",
+    "mtime": 1793088374.305913,
+    "seen": 1793104833.0990403,
+    "ast_hash": "4bbb83b54262606c2889dc541ead9f04",
     "semantic_hash": ""
   },
   "scripts/test-cf-ai.mjs": {
-    "mtime": 1791819380.258681,
-    "seen": 1793037203.4013636,
-    "ast_hash": "dcd3023a3ea3e3b96f1000953ddb7fcd",
+    "mtime": 1793088374.3089132,
+    "seen": 1793104833.0990515,
+    "ast_hash": "86facdcd98556f78b3bef00de3ea038c",
     "semantic_hash": ""
   },
   "scripts/test-cf-ai2.mjs": {
-    "mtime": 1791819380.3658118,
-    "seen": 1793037203.4013727,
-    "ast_hash": "0a9cf2a4241390012b0c6e85ea5091a2",
+    "mtime": 1793088374.3109107,
+    "seen": 1793104833.0990622,
+    "ast_hash": "21b1d60e050e2180af166b914fe0489e",
     "semantic_hash": ""
   },
   "scripts/test-clef.mjs": {
-    "mtime": 1792048951.6641035,
-    "seen": 1793037203.401382,
-    "ast_hash": "f523300bd1e82557bee3062574920e7d",
+    "mtime": 1793088374.3139129,
+    "seen": 1793104833.0990746,
+    "ast_hash": "017cd15ffff2e3091ef79c3544cc9f9d",
     "semantic_hash": ""
   },
   "scripts/test-comms-forum.mjs": {
-    "mtime": 1789783996.8273873,
-    "seen": 1793037203.4013913,
-    "ast_hash": "c49fa856bb70f9f23758c4bb78dbcaf5",
+    "mtime": 1793088374.3169124,
+    "seen": 1793104833.0990853,
+    "ast_hash": "d75a7b1408ee920a3427cb0eace38a5e",
     "semantic_hash": ""
   },
   "scripts/test-comms-topic.mjs": {
-    "mtime": 1789784013.8509696,
-    "seen": 1793037203.4014006,
-    "ast_hash": "f387e5ed050e34efc71e1a35a99b2617",
+    "mtime": 1793088374.3209274,
+    "seen": 1793104833.099096,
+    "ast_hash": "3ae3ea01ffd429c0db68d78d1ad16fa2",
     "semantic_hash": ""
   },
   "scripts/test-company-extractor.mjs": {
-    "mtime": 1791819380.5655742,
-    "seen": 1793037203.4014096,
-    "ast_hash": "d88e35d00e568cecd7660abb7e7eaa0f",
+    "mtime": 1793088374.3239386,
+    "seen": 1793104833.0991066,
+    "ast_hash": "3fc42d0dbefc58ee8dc450251a795cc0",
     "semantic_hash": ""
   },
   "scripts/test-ddg.mjs": {
-    "mtime": 1789770898.1861324,
-    "seen": 1793037203.4014285,
-    "ast_hash": "62f4bc8c4e89c57cb9cddc209513a9df",
+    "mtime": 1793088374.3279881,
+    "seen": 1793104833.1000845,
+    "ast_hash": "62544960b4317597e1b197760506c541",
     "semantic_hash": ""
   },
   "scripts/test-domains.mjs": {
-    "mtime": 1789782560.5857415,
-    "seen": 1793037203.4014475,
-    "ast_hash": "e0fa167e4ad9e0926a29bc79001879ab",
+    "mtime": 1793088374.3319912,
+    "seen": 1793104833.1010509,
+    "ast_hash": "a625475ff3ba0f5f63b42abd9518a48f",
     "semantic_hash": ""
   },
   "scripts/test-et-detail-updated.mjs": {
-    "mtime": 1789787303.479468,
-    "seen": 1793037203.4014862,
-    "ast_hash": "7e329472144f9117e366cfa36c1d8c8e",
+    "mtime": 1793088374.3379848,
+    "seen": 1793104833.1040547,
+    "ast_hash": "6b59b8f74a6b79ea25fc8f8be1239147",
     "semantic_hash": ""
   },
   "scripts/test-et-detail.mjs": {
-    "mtime": 1789787261.9821973,
-    "seen": 1793037203.4014957,
-    "ast_hash": "645366a373c86802630501f2e209487c",
+    "mtime": 1793088374.3409846,
+    "seen": 1793104833.1040747,
+    "ast_hash": "9cde9a14568e9c10f1e65fd12c403089",
     "semantic_hash": ""
   },
   "scripts/test-et-links.mjs": {
-    "mtime": 1789787237.1926186,
-    "seen": 1793037203.401505,
-    "ast_hash": "13a0974f90544d11ddb1dcfa8fe026f5",
+    "mtime": 1793088374.3429854,
+    "seen": 1793104833.1041822,
+    "ast_hash": "2a5710d990569fe5830be791fefadfb7",
     "semantic_hash": ""
   },
   "scripts/test-extractor.ts": {
@@ -4020,93 +4014,93 @@
     "semantic_hash": ""
   },
   "scripts/test-fast-company-extract.mjs": {
-    "mtime": 1791819380.6648843,
-    "seen": 1793037203.4015234,
-    "ast_hash": "69a8498940075de8f17f903674dcc764",
+    "mtime": 1793088374.3469908,
+    "seen": 1793104833.1055734,
+    "ast_hash": "ab57a9d36a4979efeec4ff262fe51fbe",
     "semantic_hash": ""
   },
   "scripts/test-fast-full-extract.mjs": {
-    "mtime": 1791819380.7645507,
-    "seen": 1793037203.4015326,
-    "ast_hash": "82d3830bd9df151c194a13144fc8854f",
+    "mtime": 1793088374.3499813,
+    "seen": 1793104833.10559,
+    "ast_hash": "c5644c0b6f568cc9ec8d45063425a54c",
     "semantic_hash": ""
   },
   "scripts/test-health.mjs": {
-    "mtime": 1791819380.8582952,
-    "seen": 1793037203.4015613,
-    "ast_hash": "e91cd7c84ba3d9f54118b3e4561759fc",
+    "mtime": 1793088374.352984,
+    "seen": 1793104833.108144,
+    "ast_hash": "38fea49d2e6a4eec0a43ca19abcf4206",
     "semantic_hash": ""
   },
   "scripts/test-hiiraan-body.mjs": {
-    "mtime": 1789784215.357922,
-    "seen": 1793037203.4015708,
-    "ast_hash": "a22777c8f4043ffc8a355051d311c593",
+    "mtime": 1793088374.3559837,
+    "seen": 1793104833.108159,
+    "ast_hash": "1b0ed827f81a666ab17dab06da1aeddd",
     "semantic_hash": ""
   },
   "scripts/test-hiiraan-job-cards.mjs": {
-    "mtime": 1789784230.9498377,
-    "seen": 1793037203.4015799,
-    "ast_hash": "7726eceb058d2cf12b420c753066c134",
+    "mtime": 1793088374.3599815,
+    "seen": 1793104833.1081703,
+    "ast_hash": "c60935413113d124cc00175f0acb878b",
     "semantic_hash": ""
   },
   "scripts/test-hiiraan-jobs-php.mjs": {
-    "mtime": 1789784159.0981553,
-    "seen": 1793037203.401589,
-    "ast_hash": "c6950648f528637705b635b18b5f1dda",
+    "mtime": 1793088374.3639562,
+    "seen": 1793104833.108181,
+    "ast_hash": "0913f6ce06952b0e37b8fa92a7f87ee3",
     "semantic_hash": ""
   },
   "scripts/test-hiiraan-jobs.mjs": {
-    "mtime": 1789806188.8403287,
-    "seen": 1793037203.4015982,
-    "ast_hash": "66781fef20058a80575aca661cfe9f76",
+    "mtime": 1793088374.3659842,
+    "seen": 1793104833.1081915,
+    "ast_hash": "1641ba117d5e204830b37d8f519b3408",
     "semantic_hash": ""
   },
   "scripts/test-hiiraan-raw.mjs": {
-    "mtime": 1789784189.1812515,
-    "seen": 1793037203.4016073,
-    "ast_hash": "302d28a04c65553f16e5fb83524f617b",
+    "mtime": 1793088374.3689823,
+    "seen": 1793104833.1082046,
+    "ast_hash": "db1e806569daf5aad8abfb895c1016f7",
     "semantic_hash": ""
   },
   "scripts/test-hnj-detail.mjs": {
-    "mtime": 1789788361.5044694,
-    "seen": 1793037203.4016163,
-    "ast_hash": "7f6bd415b7be1a1eeb5d648925cadd54",
+    "mtime": 1793088374.3719842,
+    "seen": 1793104833.1082158,
+    "ast_hash": "f1efa51db7c3875b28e85faa67841f82",
     "semantic_hash": ""
   },
   "scripts/test-hnj-field.mjs": {
-    "mtime": 1789788342.6987014,
-    "seen": 1793037203.4016254,
-    "ast_hash": "7b7f1a43ddaf7e55d07b786fca52c98c",
+    "mtime": 1793088374.374979,
+    "seen": 1793104833.1082263,
+    "ast_hash": "74a7b93d48c04c9b3f5fc11a4af1691c",
     "semantic_hash": ""
   },
   "scripts/test-hnj-pages.mjs": {
-    "mtime": 1789787662.5670931,
-    "seen": 1793037203.4016342,
-    "ast_hash": "9ca90a946e90ef82e472240ebdeddd6a",
+    "mtime": 1793088374.378986,
+    "seen": 1793104833.1082363,
+    "ast_hash": "beb20f940a1773d2f481e342b0c9835c",
     "semantic_hash": ""
   },
   "scripts/test-jev-1-14.mjs": {
-    "mtime": 1792049203.9319143,
-    "seen": 1793037203.4016433,
-    "ast_hash": "39857fa484c3228d83ab0400e30f2859",
+    "mtime": 1793088374.382985,
+    "seen": 1793104833.1082463,
+    "ast_hash": "b0d1c3650021a5cbbc4d9885f847f465",
     "semantic_hash": ""
   },
   "scripts/test-jobweb-deep.mjs": {
-    "mtime": 1789787147.8030457,
-    "seen": 1793037203.4016721,
-    "ast_hash": "b7084db10d949e13a5f112c55d0e51ca",
+    "mtime": 1793088374.385984,
+    "seen": 1793104833.1105523,
+    "ast_hash": "8262fe7da2afc990a790c7ac685200cd",
     "semantic_hash": ""
   },
   "scripts/test-jobweb-urls.mjs": {
-    "mtime": 1789786785.9480677,
-    "seen": 1793037203.4017222,
-    "ast_hash": "7e0b8b39cceb5ea03cb1386ec4e65bc3",
+    "mtime": 1793088374.3909836,
+    "seen": 1793104833.1105666,
+    "ast_hash": "4c0fe5bf69dcab5f3a1a649ee04ed4b1",
     "semantic_hash": ""
   },
   "scripts/test-lever-boards.mjs": {
-    "mtime": 1789783392.256446,
-    "seen": 1793037203.4017313,
-    "ast_hash": "a1f101914258ee2639f9de4caf2d6eee",
+    "mtime": 1793088374.39599,
+    "seen": 1793104833.1105797,
+    "ast_hash": "5eb461b898148f7d3d0ffe96e77d3610",
     "semantic_hash": ""
   },
   "scripts/test-llms.ts": {
@@ -4116,51 +4110,51 @@
     "semantic_hash": ""
   },
   "scripts/test-mediacongo-depth.mjs": {
-    "mtime": 1789786672.8375669,
-    "seen": 1793037203.40175,
-    "ast_hash": "d66ec00904852b49c5d6d7bed5fa1193",
+    "mtime": 1793088374.3999789,
+    "seen": 1793104833.1116357,
+    "ast_hash": "e24ed0537b889ca967499a88be0ed17c",
     "semantic_hash": ""
   },
   "scripts/test-mediacongo-detail.mjs": {
-    "mtime": 1789786684.913553,
-    "seen": 1793037203.4017591,
-    "ast_hash": "266acae24f54755fac80900a00e44c28",
+    "mtime": 1793088374.4035075,
+    "seen": 1793104833.1116507,
+    "ast_hash": "847b7276bff575fe4854338c43c925b7",
     "semantic_hash": ""
   },
   "scripts/test-mediacongo-dom.mjs": {
-    "mtime": 1789786706.8316536,
-    "seen": 1793037203.4017682,
-    "ast_hash": "36f377dd16c060ba39325896a80a2e98",
+    "mtime": 1793088374.4079778,
+    "seen": 1793104833.111663,
+    "ast_hash": "b406eee4639beb7b76c5970a25a8bd17",
     "semantic_hash": ""
   },
   "scripts/test-mediacongo-extract.mjs": {
-    "mtime": 1789786696.4116533,
-    "seen": 1793037203.4017768,
-    "ast_hash": "a5107e76a19cc8cd8f35ed3fb5b4d994",
+    "mtime": 1793088374.4119847,
+    "seen": 1793104833.1116743,
+    "ast_hash": "db1c0d7d0d5dd3227c53f7e6635ca6c2",
     "semantic_hash": ""
   },
   "scripts/test-mediacongo-pagination.mjs": {
-    "mtime": 1789786666.0521443,
-    "seen": 1793037203.4017859,
-    "ast_hash": "2a4d4aafe47d16c9f26e3a09f6aac444",
+    "mtime": 1793088374.414983,
+    "seen": 1793104833.111685,
+    "ast_hash": "6b079b4559e0bedfc2dc38eb67ebe11c",
     "semantic_hash": ""
   },
   "scripts/test-mediacongo-section-siblings.mjs": {
-    "mtime": 1789786723.7818253,
-    "seen": 1793037203.4017947,
-    "ast_hash": "d7421c533945ca2015bda5c464b7faa8",
+    "mtime": 1793088374.4179852,
+    "seen": 1793104833.1116962,
+    "ast_hash": "3ca232b1e375ec7dc04901fff34c0b60",
     "semantic_hash": ""
   },
   "scripts/test-mediacongo-section.mjs": {
-    "mtime": 1789786716.2257838,
-    "seen": 1793037203.4018035,
-    "ast_hash": "479b8daad3d20b32ea31bc2e04605dce",
+    "mtime": 1793088374.4219785,
+    "seen": 1793104833.111707,
+    "ast_hash": "2ba0102deb6c5b108f348819cdcffa49",
     "semantic_hash": ""
   },
   "scripts/test-mediacongo.mjs": {
-    "mtime": 1789786657.5985541,
-    "seen": 1793037203.4018126,
-    "ast_hash": "d6638b3dfc234ec288e3c997aa28b7f8",
+    "mtime": 1793088374.4249818,
+    "seen": 1793104833.111718,
+    "ast_hash": "9b8ddd0728d92490b17c5f7cf51d8344",
     "semantic_hash": ""
   },
   "scripts/test-models.ts": {
@@ -4170,99 +4164,99 @@
     "semantic_hash": ""
   },
   "scripts/test-ngo-greenhouse.mjs": {
-    "mtime": 1789783456.3285484,
-    "seen": 1793037203.4018495,
-    "ast_hash": "f5d095507a12e810eee66ab40f0f2e57",
+    "mtime": 1793088374.4279792,
+    "seen": 1793104833.1153781,
+    "ast_hash": "1d4b25baab35e237bef8b6d4610d5b0c",
     "semantic_hash": ""
   },
   "scripts/test-oneacrefund.mjs": {
-    "mtime": 1789783410.3933983,
-    "seen": 1793037203.401868,
-    "ast_hash": "624033bfb29d39ec977c914f48ad6b7a",
+    "mtime": 1793088374.4309824,
+    "seen": 1793104833.116622,
+    "ast_hash": "4409fbd78aadab899870e4d2b248ec63",
     "semantic_hash": ""
   },
   "scripts/test-pages.mjs": {
-    "mtime": 1789786646.0291533,
-    "seen": 1793037203.4018877,
-    "ast_hash": "4458f00d0c9f37fcbb35e570871c6bb4",
+    "mtime": 1793088374.434979,
+    "seen": 1793104833.1177342,
+    "ast_hash": "ac58dde6577e7f6405bc1434a4c6c367",
     "semantic_hash": ""
   },
   "scripts/test-posix-regex.mjs": {
-    "mtime": 1791819380.95251,
-    "seen": 1793037203.4018972,
-    "ast_hash": "adde9070580ef407e1139e4c1ad3239d",
+    "mtime": 1793088374.4395778,
+    "seen": 1793104833.1177518,
+    "ast_hash": "19299a8d9857ce4e0a2e0292161fcabf",
     "semantic_hash": ""
   },
   "scripts/test-regional-sources.mjs": {
-    "mtime": 1789782415.7746391,
-    "seen": 1793037203.4019165,
-    "ast_hash": "57f716362535ea48c8ab9f0521fdbd67",
+    "mtime": 1793088374.44357,
+    "seen": 1793104833.1190672,
+    "ast_hash": "a30069ca52f15e81f45e072176e7d36d",
     "semantic_hash": ""
   },
   "scripts/test-reliefweb-detail.mjs": {
-    "mtime": 1789783350.5342636,
-    "seen": 1793037203.4019256,
-    "ast_hash": "a738076db72c6cedee604497d503e568",
+    "mtime": 1793088374.4496162,
+    "seen": 1793104833.1190858,
+    "ast_hash": "8833bb0d53036d023e9c7a1008942b5c",
     "semantic_hash": ""
   },
   "scripts/test-reliefweb-html.mjs": {
-    "mtime": 1789783336.7053528,
-    "seen": 1793037203.4019349,
-    "ast_hash": "b468d1e88f0c542b5d483fc7295ddd45",
+    "mtime": 1793088374.454615,
+    "seen": 1793104833.1191006,
+    "ast_hash": "a5104e1b053aeda85be16f3185512ec4",
     "semantic_hash": ""
   },
   "scripts/test-reliefweb.mjs": {
-    "mtime": 1789786740.098111,
-    "seen": 1793037203.4019442,
-    "ast_hash": "b7a27cde3e7b188ff402782ed343ea3d",
+    "mtime": 1793088374.4586098,
+    "seen": 1793104833.1191156,
+    "ast_hash": "253b3221d298b64c9cd012237bb9fa3c",
     "semantic_hash": ""
   },
   "scripts/test-rwanda-detail.mjs": {
-    "mtime": 1789786839.1658173,
-    "seen": 1793037203.4019535,
-    "ast_hash": "0668bd316ae451d54efe9efc42b1f7d6",
+    "mtime": 1793088374.4625995,
+    "seen": 1793104833.1191285,
+    "ast_hash": "581e82affe3a46e0e2eed6ef5c5f79a1",
     "semantic_hash": ""
   },
   "scripts/test-rwanda-pages.mjs": {
-    "mtime": 1789806662.0245485,
-    "seen": 1793037203.4019628,
-    "ast_hash": "9311446ed031d37f4fac0818854197fb",
+    "mtime": 1793088374.4663024,
+    "seen": 1793104833.1191416,
+    "ast_hash": "a31bcc17eb051b81e995002cf64ad91c",
     "semantic_hash": ""
   },
   "scripts/test-rwanda.mjs": {
-    "mtime": 1789786811.8520432,
-    "seen": 1793037203.401972,
-    "ast_hash": "005e4836f63091aacba8625516a13d30",
+    "mtime": 1793088374.4713004,
+    "seen": 1793104833.1191547,
+    "ast_hash": "0f9104a2ae7b1de245abe5fd4d14d1f7",
     "semantic_hash": ""
   },
   "scripts/test-scrapling.mjs": {
-    "mtime": 1791757479.8529232,
-    "seen": 1793037203.4019809,
-    "ast_hash": "40f2d3c1896494c45a930643d2a53ce1",
+    "mtime": 1793088374.4742997,
+    "seen": 1793104833.1191678,
+    "ast_hash": "ea7e6f0dc12b475a540ab2c04d4f265b",
     "semantic_hash": ""
   },
   "scripts/test-sdk-cf.mjs": {
-    "mtime": 1791819381.0528915,
-    "seen": 1793037203.40199,
-    "ast_hash": "1d1e612a8cd39df11dce2f2d49ef0d94",
+    "mtime": 1793088374.4762979,
+    "seen": 1793104833.119181,
+    "ast_hash": "7e19c4228b6e1b157cb6024e4f496f5e",
     "semantic_hash": ""
   },
   "scripts/test-search-latency.mjs": {
-    "mtime": 1791819381.1531527,
-    "seen": 1793037203.4019988,
-    "ast_hash": "567153c92959961d20964c044cc06ccc",
+    "mtime": 1793088374.4803004,
+    "seen": 1793104833.119194,
+    "ast_hash": "aaf11f55c75d3e4fc29b8e03b7271af3",
     "semantic_hash": ""
   },
   "scripts/test-single-drc.mjs": {
-    "mtime": 1789786947.657542,
-    "seen": 1793037203.4020276,
-    "ast_hash": "1443a3b79b04b14f8914662ea8c7536f",
+    "mtime": 1793088374.483294,
+    "seen": 1793104833.1234252,
+    "ast_hash": "c7de8c6f14f103513da7ef40b76b25d0",
     "semantic_hash": ""
   },
   "scripts/test-single-fetch.mjs": {
-    "mtime": 1789833917.8914137,
-    "seen": 1793037203.4020367,
-    "ast_hash": "08b221e5b8c8ce05a1ecca18cd4a198a",
+    "mtime": 1793088374.4873087,
+    "seen": 1793104833.1234426,
+    "ast_hash": "04be151b1c1098587f3de7c5e4fc96e9",
     "semantic_hash": ""
   },
   "scripts/test-sitemap.ts": {
@@ -4272,116 +4266,116 @@
     "semantic_hash": ""
   },
   "scripts/test-slug-extractor.mjs": {
-    "mtime": 1791819381.246901,
-    "seen": 1793037203.402056,
-    "ast_hash": "8594e2cf93aef1678bd75ef318a4f25d",
+    "mtime": 1793088374.4907317,
+    "seen": 1793104833.1250212,
+    "ast_hash": "e813365346db9b31ace3c1d415fe92a9",
     "semantic_hash": ""
   },
   "scripts/test-somalia-hiiraan.mjs": {
-    "mtime": 1789784132.8463051,
-    "seen": 1793037203.4020648,
-    "ast_hash": "396678b840a7c6b9e9437904b4ab8e3c",
+    "mtime": 1793088374.4937313,
+    "seen": 1793104833.1250398,
+    "ast_hash": "df630842584bc0076d271ee02515b651",
     "semantic_hash": ""
   },
   "scripts/test-somalia-sources.mjs": {
-    "mtime": 1789784069.3762648,
-    "seen": 1793037203.4020736,
-    "ast_hash": "d23755616200ff5c585cb98dee3301b3",
+    "mtime": 1793088374.4981444,
+    "seen": 1793104833.1250558,
+    "ast_hash": "15d7c26327454547cac769e5134e87a9",
     "semantic_hash": ""
   },
   "scripts/test-somalia-southsudan.mjs": {
-    "mtime": 1789783207.1021276,
-    "seen": 1793037203.4020822,
-    "ast_hash": "099b91fb1fd3276ffd182d3658647500",
+    "mtime": 1793088374.5021524,
+    "seen": 1793104833.125069,
+    "ast_hash": "1ad4f01f88952936082e29d9418546a5",
     "semantic_hash": ""
   },
   "scripts/test-somalia-un.mjs": {
-    "mtime": 1789784088.1371472,
-    "seen": 1793037203.402091,
-    "ast_hash": "019a4f148a0455bd75f419173d45ac06",
+    "mtime": 1793088374.5078957,
+    "seen": 1793104833.1250832,
+    "ast_hash": "eb634551990a8a7a49cc53c476fc53e5",
     "semantic_hash": ""
   },
   "scripts/test-somalijobs-api.mjs": {
-    "mtime": 1789783240.8775058,
-    "seen": 1793037203.4021003,
-    "ast_hash": "92100ee8e6865fead52ec6125e5d6dbd",
+    "mtime": 1793088374.51188,
+    "seen": 1793104833.1250987,
+    "ast_hash": "b7c67a4b03a956eabb4ca956d0cfe720",
     "semantic_hash": ""
   },
   "scripts/test-somalijobs-call.mjs": {
-    "mtime": 1789783288.5158174,
-    "seen": 1793037203.4021091,
-    "ast_hash": "5bbc30871835c8f78177c5824537b461",
+    "mtime": 1793088374.5158842,
+    "seen": 1793104833.1251123,
+    "ast_hash": "9d7dc2a1fb764445a81feae7e065a55e",
     "semantic_hash": ""
   },
   "scripts/test-somalijobs-fetch.mjs": {
-    "mtime": 1789783276.9265218,
-    "seen": 1793037203.4021184,
-    "ast_hash": "f4cbfb419dda92c332dcf284a18c9b8e",
+    "mtime": 1793088374.5202906,
+    "seen": 1793104833.125126,
+    "ast_hash": "1c6e4785b73a340378158fd509abdced",
     "semantic_hash": ""
   },
   "scripts/test-somalijobs-listing-js.mjs": {
-    "mtime": 1789783255.4853096,
-    "seen": 1793037203.4021363,
-    "ast_hash": "776ebd219b799f90cf7033189e0e0a08",
+    "mtime": 1793088374.5252929,
+    "seen": 1793104833.1251411,
+    "ast_hash": "66ccd61f4b2a5b06521b09f6b475c5d5",
     "semantic_hash": ""
   },
   "scripts/test-somalijobs-token.mjs": {
-    "mtime": 1789783311.8304896,
-    "seen": 1793037203.4021463,
-    "ast_hash": "2839ebb9d0215db848822ab31e0dfe92",
+    "mtime": 1793088374.52929,
+    "seen": 1793104833.1251547,
+    "ast_hash": "50d25c829e8159bf8a79c63d405a2650",
     "semantic_hash": ""
   },
   "scripts/test-somalijobs.mjs": {
-    "mtime": 1789783227.4023523,
-    "seen": 1793037203.4021552,
-    "ast_hash": "b60c200853e944221413fa03e6e01b1a",
+    "mtime": 1793088374.5342884,
+    "seen": 1793104833.1251688,
+    "ast_hash": "331e6d16b06a0494894f4ac5f68f2867",
     "semantic_hash": ""
   },
   "scripts/test-sources.mjs": {
-    "mtime": 1789786184.870954,
-    "seen": 1793037203.4021642,
-    "ast_hash": "dd8bb560034623dd49fe9495e776bc1a",
+    "mtime": 1793088374.536289,
+    "seen": 1793104833.1251829,
+    "ast_hash": "6b4f9cbfd226f726eb08a6457c05ac28",
     "semantic_hash": ""
   },
   "scripts/test-southsudan-ngo-forum-links.mjs": {
-    "mtime": 1789783983.240389,
-    "seen": 1793037203.4021738,
-    "ast_hash": "b8b17a3b7897e0723cfebb611bd30728",
+    "mtime": 1793088374.540285,
+    "seen": 1793104833.1251974,
+    "ast_hash": "aa9ad4410b028d1645883be43f8feb08",
     "semantic_hash": ""
   },
   "scripts/test-southsudan-ngo-forum.mjs": {
-    "mtime": 1789783967.422642,
-    "seen": 1793037203.4021826,
-    "ast_hash": "8be8b92d67eb78a35d6979d919e5307f",
+    "mtime": 1793088374.5432878,
+    "seen": 1793104833.1252124,
+    "ast_hash": "914212a7335fbc0ddd6c1b2b17f94733",
     "semantic_hash": ""
   },
   "scripts/test-sub-detail.mjs": {
-    "mtime": 1789788401.1177287,
-    "seen": 1793037203.4021912,
-    "ast_hash": "82953d27162fbe4951685616aac1316b",
+    "mtime": 1793088374.5472884,
+    "seen": 1793104833.125227,
+    "ast_hash": "37cef9cc484a785a4627fe40999e85f8",
     "semantic_hash": ""
   },
   "scripts/test-uganda-pages.mjs": {
-    "mtime": 1789783487.7462447,
-    "seen": 1793037203.4021997,
-    "ast_hash": "42d08c40d263c8477aa8cd2475cad6bd",
+    "mtime": 1793088374.5502992,
+    "seen": 1793104833.125241,
+    "ast_hash": "eb7b0d2d219c9a5368c5e2bd6c7ca302",
     "semantic_hash": ""
   },
   "scripts/test-unjobs.mjs": {
-    "mtime": 1789782551.7344306,
-    "seen": 1793037203.40221,
-    "ast_hash": "0e42aeaed091f4d44cdc08fba7fe3013",
+    "mtime": 1793088374.5542924,
+    "seen": 1793104833.1252546,
+    "ast_hash": "e03525eb2482318b8bff4411d398c499",
     "semantic_hash": ""
   },
   "scripts/test-workable-boards.mjs": {
-    "mtime": 1791747919.556803,
-    "seen": 1793037203.4022193,
-    "ast_hash": "330587d80a4bcb26711eb92aeb64ae6b",
+    "mtime": 1793088374.5585823,
+    "seen": 1793104833.1252697,
+    "ast_hash": "86cf4dd8fc03e8162ac8475b4be13796",
     "semantic_hash": ""
   },
   "scripts/test_clef.mjs": {
-    "mtime": 1791657032.9471543,
-    "seen": 1793037203.4022286,
+    "mtime": 1793088374.5665753,
+    "seen": 1793104833.1252847,
     "ast_hash": "75355cf6c8e9478a85925dcd553d707b",
     "semantic_hash": ""
   },
@@ -4398,45 +4392,45 @@
     "semantic_hash": ""
   },
   "scripts/unresolved-companies.json": {
-    "mtime": 1791753486.6530614,
-    "seen": 1793037203.402287,
-    "ast_hash": "72c3840dc8e08207e7daf1e72c3c4e5d",
+    "mtime": 1793088374.5710378,
+    "seen": 1793104833.1316733,
+    "ast_hash": "ae157b4561f667b5fe7510bea50a617e",
     "semantic_hash": ""
   },
   "scripts/unresolved-summary.json": {
-    "mtime": 1791753927.1225474,
-    "seen": 1793037203.4022963,
-    "ast_hash": "f9c4f7d635afd368999a5209800aa69d",
+    "mtime": 1793088374.5770333,
+    "seen": 1793104833.1316907,
+    "ast_hash": "c23554d5063e5fb59d6691608df66879",
     "semantic_hash": ""
   },
   "scripts/verify-all-data-standards.mjs": {
-    "mtime": 1792146698.6198504,
-    "seen": 1793037203.4023056,
-    "ast_hash": "ea22e83b0159d431927c6d78ba00dc25",
+    "mtime": 1793088374.5810337,
+    "seen": 1793104833.1317098,
+    "ast_hash": "20c8818e154e804d5468da2aa77fd0f3",
     "semantic_hash": ""
   },
   "scripts/verify-purification-scorecard.mjs": {
-    "mtime": 1791819381.4612634,
-    "seen": 1793037203.4023342,
-    "ast_hash": "a776ebf1941da8f7a59c1d42963f7931",
+    "mtime": 1793088374.585034,
+    "seen": 1793104833.1338348,
+    "ast_hash": "1a37f41a88d15590b5a9678d658609d4",
     "semantic_hash": ""
   },
   "scripts/verify-resolved-urls.mjs": {
-    "mtime": 1789798925.9399188,
-    "seen": 1793037203.402344,
-    "ast_hash": "4ddc566b6476a118ebf868dd4faa115a",
+    "mtime": 1793088374.58804,
+    "seen": 1793104833.1338506,
+    "ast_hash": "dc19191035de0aa31c478e50995d7974",
     "semantic_hash": ""
   },
   "scripts/verify-specific-job-jev.mjs": {
-    "mtime": 1791819381.5544903,
-    "seen": 1793037203.4023535,
-    "ast_hash": "6ee9a00da1c913e5d0148d43e915c32b",
+    "mtime": 1793088374.5920334,
+    "seen": 1793104833.1338642,
+    "ast_hash": "48d87313f2acf4d8131c13cd33ecb6d0",
     "semantic_hash": ""
   },
   "scripts/view-target-job-desc.mjs": {
-    "mtime": 1791819381.6489396,
-    "seen": 1793037203.4023626,
-    "ast_hash": "a7b98605f75ae7e186eacbe6ca0f9d6a",
+    "mtime": 1793088374.6000342,
+    "seen": 1793104833.133892,
+    "ast_hash": "d4c45e37cb486792f262448c9744573e",
     "semantic_hash": ""
   },
   "scripts/workday-importer.ts": {
@@ -4476,9 +4470,9 @@
     "semantic_hash": ""
   },
   "src/app/api/amazon-ads/click/route.ts": {
-    "mtime": 1792744512.4833994,
-    "seen": 1793037203.402677,
-    "ast_hash": "12992155cf25b7c6247cd40c47d3e4c0",
+    "mtime": 1793088328.4364972,
+    "seen": 1793104833.1698186,
+    "ast_hash": "f785afcce232d566238df2d222144e42",
     "semantic_hash": ""
   },
   "src/app/api/amazon-ads/dashboard/route.ts": {
@@ -4770,9 +4764,9 @@
     "semantic_hash": ""
   },
   "src/lib/amazon-ads/catalog.ts": {
-    "mtime": 1792732716.2846088,
-    "seen": 1793037203.404602,
-    "ast_hash": "b35dae14d1530fb29e147d1b6d0487a0",
+    "mtime": 1793089676.0082479,
+    "seen": 1793104833.3946636,
+    "ast_hash": "5fc53b2f8e7ff8e08bcb95282fe3e257",
     "semantic_hash": ""
   },
   "src/lib/amazon-ads/engine.ts": {
@@ -8499,6 +8493,78 @@
     "mtime": 1741648994.0,
     "seen": 1793037203.4115622,
     "ast_hash": "3963843841414df0f0b1f972c8b49927",
+    "semantic_hash": ""
+  },
+  "scripts/audit_all_tables.mjs": {
+    "mtime": 1793088373.4945526,
+    "seen": 1793104832.9476638,
+    "ast_hash": "c624e62ba8a941008aae32bb66436b52",
+    "semantic_hash": ""
+  },
+  "scripts/check_current_db_count.mjs": {
+    "mtime": 1793088373.6147115,
+    "seen": 1793104832.9637325,
+    "ast_hash": "120f01ee17b02e3fb9e84f71d5d610d4",
+    "semantic_hash": ""
+  },
+  "scripts/get_country_codes.mjs": {
+    "mtime": 1793088373.763374,
+    "seen": 1793104833.0123677,
+    "ast_hash": "bd01ea27e12004e4b07dc017ff3a198a",
+    "semantic_hash": ""
+  },
+  "scripts/harvest_ajirayako_tz.mjs": {
+    "mtime": 1793088373.8908951,
+    "seen": 1793104833.0150044,
+    "ast_hash": "4fa04b1fc58bb8c1cd2573a801b85627",
+    "semantic_hash": ""
+  },
+  "scripts/harvest_real_jobs_master.mjs": {
+    "mtime": 1793088373.8958979,
+    "seen": 1793104833.0150177,
+    "ast_hash": "2aec4f710e1a343883a2fb5bcb6c65b2",
+    "semantic_hash": ""
+  },
+  "scripts/inspect_jobs_status.mjs": {
+    "mtime": 1793088374.0369797,
+    "seen": 1793104833.019882,
+    "ast_hash": "d768c1d73bd1beafddbc99f85f44ea06",
+    "semantic_hash": ""
+  },
+  "scripts/mass-generate-fresh-jobs.mjs": {
+    "mtime": 1793088374.0539105,
+    "seen": 1793104833.0257928,
+    "ast_hash": "f0fd5ef38925d9d9c55ab74e49e28b14",
+    "semantic_hash": ""
+  },
+  "scripts/purge_synthetic_jobs.mjs": {
+    "mtime": 1793088374.18305,
+    "seen": 1793104833.0454175,
+    "ast_hash": "3dfb1d718c052f2dd6fdd856b0d0a491",
+    "semantic_hash": ""
+  },
+  "scripts/verify_portfolio_authenticity.mjs": {
+    "mtime": 1793088374.5970366,
+    "seen": 1793104833.1338782,
+    "ast_hash": "04e44b1118d191e9f55acea0b65f9b22",
+    "semantic_hash": ""
+  },
+  "src/app/api/resumes/parse/route.ts": {
+    "mtime": 1793099520.2564795,
+    "seen": 1793104833.1895835,
+    "ast_hash": "dc7c3c0d53d1bac465f6fad5cc6c6e44",
+    "semantic_hash": ""
+  },
+  "src/components/analytics/UmamiAnalytics.tsx": {
+    "mtime": 1793099964.3979778,
+    "seen": 1793104833.2657104,
+    "ast_hash": "3b176336ba831953e4ffe071f7f65c67",
+    "semantic_hash": ""
+  },
+  "src/lib/services/resume-parser.ts": {
+    "mtime": 1793099479.1206207,
+    "seen": 1793104833.50345,
+    "ast_hash": "31ff51c7741f3a5f775e6d1f4adae57a",
     "semantic_hash": ""
   }
 }
