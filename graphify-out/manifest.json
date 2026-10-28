@@ -1218,21 +1218,21 @@
     "semantic_hash": ""
   },
   "src/app/jobs/apply/[id]/page.tsx": {
-    "mtime": 1789632360.7084184,
-    "seen": 1793037203.4031882,
-    "ast_hash": "fca1648dafd1cbf09735d1cd0ebbc665",
+    "mtime": 1793174275.0214405,
+    "seen": 1793184410.048768,
+    "ast_hash": "89c10b5cca96f213130045714cc92a2e",
     "semantic_hash": ""
   },
   "src/app/jobs/page.tsx": {
-    "mtime": 1791814306.8524196,
-    "seen": 1793037203.4031978,
-    "ast_hash": "8fafed6c3d03f85ed460657028f0f888",
+    "mtime": 1793174661.8560433,
+    "seen": 1793184410.0487852,
+    "ast_hash": "9d75e08f560f4268a764e29faf9a0fd9",
     "semantic_hash": ""
   },
   "src/app/layout.tsx": {
-    "mtime": 1793099979.2538838,
-    "seen": 1793104833.2339332,
-    "ast_hash": "180600cfeea955fc3c556cc932b8a1c7",
+    "mtime": 1793183931.07556,
+    "seen": 1793184410.0487971,
+    "ast_hash": "987e63b9f214602b75fd13b1eb7c3773",
     "semantic_hash": ""
   },
   "src/app/login/page.tsx": {
@@ -1332,9 +1332,9 @@
     "semantic_hash": ""
   },
   "src/components/ai/AIChatPanel.tsx": {
-    "mtime": 1791814306.8836706,
-    "seen": 1793037203.4034317,
-    "ast_hash": "bcc216d1004eab0df6f108597bbde467",
+    "mtime": 1793171596.2307715,
+    "seen": 1793184410.0729818,
+    "ast_hash": "10c07ee9a3d806986658cfce331f5de6",
     "semantic_hash": ""
   },
   "src/components/ai/ChatMessage.tsx": {
@@ -1362,9 +1362,9 @@
     "semantic_hash": ""
   },
   "src/components/auth/GoogleSignInButton.tsx": {
-    "mtime": 1789632360.8725047,
-    "seen": 1793037203.4034815,
-    "ast_hash": "66b14296c4b04a672f1c873e27b644a9",
+    "mtime": 1793183948.1478386,
+    "seen": 1793184410.0777612,
+    "ast_hash": "d9619189fcc09faff10df3a88e19ab24",
     "semantic_hash": ""
   },
   "src/components/compliance/BusinessCard.tsx": {
@@ -1812,9 +1812,9 @@
     "semantic_hash": ""
   },
   "src/lib/ai/key-pool.ts": {
-    "mtime": 1791814306.9673352,
-    "seen": 1793037203.4045708,
-    "ast_hash": "063bcbc3681979ec256ef219595c5b17",
+    "mtime": 1793167535.092214,
+    "seen": 1793184410.1880536,
+    "ast_hash": "69c124b0b1517cb088515c6b81d16e51",
     "semantic_hash": ""
   },
   "src/lib/ai/location.ts": {
@@ -1824,9 +1824,9 @@
     "semantic_hash": ""
   },
   "src/lib/ai/router.ts": {
-    "mtime": 1791814306.9673352,
-    "seen": 1793037203.4045923,
-    "ast_hash": "e08d30423cb5f7974256f5a6507816a2",
+    "mtime": 1793167540.315797,
+    "seen": 1793184410.1889822,
+    "ast_hash": "e67b4028c5d29f249fef75b1ae30b64b",
     "semantic_hash": ""
   },
   "src/lib/apis/dhis2.ts": {
@@ -2082,9 +2082,9 @@
     "semantic_hash": ""
   },
   "src/lib/sources/aggregators.ts": {
-    "mtime": 1789797727.5722475,
-    "seen": 1793037203.4058259,
-    "ast_hash": "a7a65e8f70cc642fe30a867b6ac33de9",
+    "mtime": 1793171411.254656,
+    "seen": 1793184410.2760653,
+    "ast_hash": "cb8902afb270eb4b2b90c30484e5d01b",
     "semantic_hash": ""
   },
   "src/lib/sources/employer-resolver.ts": {
@@ -4548,9 +4548,9 @@
     "semantic_hash": ""
   },
   "src/app/sitemaps/[id]/route.ts": {
-    "mtime": 1792645431.8978732,
-    "seen": 1793037203.403314,
-    "ast_hash": "35d0c3b97f5388cfbafa75940f0554e4",
+    "mtime": 1793116417.9505658,
+    "seen": 1793184410.0586102,
+    "ast_hash": "4b15401e55578fa96e55188e16a6ef22",
     "semantic_hash": ""
   },
   "src/app/subscribe/confirm/actions.ts": {
@@ -4596,9 +4596,9 @@
     "semantic_hash": ""
   },
   "src/components/home/CVMatcher.tsx": {
-    "mtime": 1791814306.8992958,
-    "seen": 1793037203.4035869,
-    "ast_hash": "45f6b4b7c7e714d92697ca64d80d8c8b",
+    "mtime": 1793171611.0009193,
+    "seen": 1793184410.0877922,
+    "ast_hash": "f21031219a743d163dcccf549b8e3711",
     "semantic_hash": ""
   },
   "src/components/home/CommunityAlerts.tsx": {
@@ -4704,9 +4704,9 @@
     "semantic_hash": ""
   },
   "src/lib/__tests__/pdf.test.ts": {
-    "mtime": 1791814306.9517064,
-    "seen": 1793037203.4044614,
-    "ast_hash": "46ad61a3d38eab728fe6c4f14b109233",
+    "mtime": 1793171933.1084092,
+    "seen": 1793184410.179549,
+    "ast_hash": "bd8643fa659523e78649f3795dee1a41",
     "semantic_hash": ""
   },
   "src/lib/admin/__tests__/crypto-session.test.ts": {
@@ -4860,9 +4860,9 @@
     "semantic_hash": ""
   },
   "src/lib/pdf.ts": {
-    "mtime": 1791814306.9829578,
-    "seen": 1793037203.4052916,
-    "ast_hash": "ef39a6afc021165a09e3cfe6806866ae",
+    "mtime": 1793171459.92249,
+    "seen": 1793184410.2289953,
+    "ast_hash": "01cc0969498b5553f9074c35ff1dd3e2",
     "semantic_hash": ""
   },
   "src/lib/scrapers/__tests__/ingestion-standards.test.ts": {
@@ -5088,9 +5088,9 @@
     "semantic_hash": ""
   },
   "src/lib/sources/discovered-careers.json": {
-    "mtime": 1789642354.21314,
-    "seen": 1793037203.4058547,
-    "ast_hash": "bf148fcbf64c3c01894d4577bb2fc39e",
+    "mtime": 1793169472.3636189,
+    "seen": 1793184410.277743,
+    "ast_hash": "f2d42ad7c6bf37167d7ae141fc1d15e4",
     "semantic_hash": ""
   },
   "src/lib/sources/massive-discovered-careers.json": {
@@ -5724,9 +5724,9 @@
     "semantic_hash": ""
   },
   ".github/workflows/deploy-cloudrun.yml": {
-    "mtime": 1792757957.5551565,
-    "seen": 1793037203.406965,
-    "ast_hash": "e1b24ab3851b093dccf881b3e46cfd17",
+    "mtime": 1793171640.8610797,
+    "seen": 1793184410.4041271,
+    "ast_hash": "a734d2e0d19461f15ead615bc8ed68b5",
     "semantic_hash": ""
   },
   ".github/workflows/mass-scrape.yml": {
@@ -8520,9 +8520,9 @@
     "semantic_hash": ""
   },
   "scripts/harvest_real_jobs_master.mjs": {
-    "mtime": 1793088373.8958979,
-    "seen": 1793104833.0150177,
-    "ast_hash": "2aec4f710e1a343883a2fb5bcb6c65b2",
+    "mtime": 1793172106.7300115,
+    "seen": 1793184409.6992645,
+    "ast_hash": "6ca0597243773e3e48daf5a6ae63fcf1",
     "semantic_hash": ""
   },
   "scripts/inspect_jobs_status.mjs": {
@@ -8565,6 +8565,78 @@
     "mtime": 1793099479.1206207,
     "seen": 1793104833.50345,
     "ast_hash": "31ff51c7741f3a5f775e6d1f4adae57a",
+    "semantic_hash": ""
+  },
+  "scripts/audit_jobs_by_country.mjs": {
+    "mtime": 1793179750.6426919,
+    "seen": 1793184409.528957,
+    "ast_hash": "ae2d22ab5f2a88ce2d0e732dfcbaced3",
+    "semantic_hash": ""
+  },
+  "scripts/check-all-employer-hosts.mjs": {
+    "mtime": 1793179792.0809586,
+    "seen": 1793184409.549762,
+    "ast_hash": "793ab4861bb1056b318822c37a484751",
+    "semantic_hash": ""
+  },
+  "scripts/check-existing-clean-sources.mjs": {
+    "mtime": 1793179707.3159912,
+    "seen": 1793184409.5577726,
+    "ast_hash": "c5c53b6646a034e1c94524f097ebeec2",
+    "semantic_hash": ""
+  },
+  "scripts/check_aggregators_count.mjs": {
+    "mtime": 1793170886.78486,
+    "seen": 1793184409.5807154,
+    "ast_hash": "be8ee20d7e96e992f430438b95f99c21",
+    "semantic_hash": ""
+  },
+  "scripts/fix_job_standards.mjs": {
+    "mtime": 1793181108.21292,
+    "seen": 1793184409.6611626,
+    "ast_hash": "5a7599f5826cb40e3066f959ae40ee82",
+    "semantic_hash": ""
+  },
+  "scripts/harvest_10x_direct_employers.mjs": {
+    "mtime": 1793180353.486066,
+    "seen": 1793184409.6974733,
+    "ast_hash": "212d5c7cd9b2ed34ea6e063fe21918d8",
+    "semantic_hash": ""
+  },
+  "scripts/list-countries.mjs": {
+    "mtime": 1793179557.1785443,
+    "seen": 1793184409.7448628,
+    "ast_hash": "1a7693b5ab4b176815c349c519af49ce",
+    "semantic_hash": ""
+  },
+  "scripts/purge-remaining-aggregators.mjs": {
+    "mtime": 1793179830.8190906,
+    "seen": 1793184409.79503,
+    "ast_hash": "a67ac839dbf28d11f7b29af0ab5a51aa",
+    "semantic_hash": ""
+  },
+  "scripts/purge_aggregator_jobs.mjs": {
+    "mtime": 1793170932.4202795,
+    "seen": 1793184409.7950373,
+    "ast_hash": "44abfd0a3e7bdceb52f471fcf90a562f",
+    "semantic_hash": ""
+  },
+  "scripts/verify_hosts_with_clef.mjs": {
+    "mtime": 1793179810.250604,
+    "seen": 1793184409.9592729,
+    "ast_hash": "729daf975dc4ff7ec8c87c86e7cc9c21",
+    "semantic_hash": ""
+  },
+  "src/app/api/jobs/route.ts": {
+    "mtime": 1793171687.2945654,
+    "seen": 1793184410.004351,
+    "ast_hash": "942180dff8daedf38c47252583fad4b1",
+    "semantic_hash": ""
+  },
+  "src/components/jobs/JobsInfiniteFeed.tsx": {
+    "mtime": 1793174653.986812,
+    "seen": 1793184410.0976307,
+    "ast_hash": "99a73f558a94f759e61b54e63df4d093",
     "semantic_hash": ""
   }
 }

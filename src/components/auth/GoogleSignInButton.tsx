@@ -3,10 +3,16 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
-import { AlertCircle } from 'lucide-react';
-import { GoogleLogin } from '@react-oauth/google';
+import { AlertCircle, ShieldAlert } from 'lucide-react';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 
-function GoogleSignInButtonInner({ isSignUp = false }: { isSignUp?: boolean }) {
+function GoogleSignInButtonInner({
+  isSignUp = false,
+  clientId,
+}: {
+  isSignUp?: boolean;
+  clientId: string;
+}) {
   const [error, setError] = useState<string | null>(null);
   const [nonce, setNonce] = useState<string>();
   const [hashedNonce, setHashedNonce] = useState<string>();
@@ -60,36 +66,58 @@ function GoogleSignInButtonInner({ isSignUp = false }: { isSignUp?: boolean }) {
   };
 
   return (
-    <div className="w-full space-y-4 flex flex-col items-center">
-      {error && (
-        <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-3 rounded-md text-sm flex items-center gap-2 w-full">
-          <AlertCircle className="w-4 h-4 shrink-0" />
-          <p>{error}</p>
-        </div>
-      )}
-      <div className="w-full flex justify-center">
-        {hashedNonce ? (
+    <GoogleOAuthProvider clientId={clientId}>
+      <div className="w-full space-y-4 flex flex-col items-center">
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-3 rounded-md text-sm flex items-center gap-2 w-full">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <p>{error}</p>
+          </div>
+        )}
+        <div className="w-full flex justify-center">
+          {hashedNonce ? (
             <GoogleLogin
               nonce={hashedNonce}
               onSuccess={handleCredentialResponse}
-              onError={() => setError('Google Login Failed')}
-              useOneTap
+              onError={() => {
+                setError('Google Sign-In failed. Please sign in with email & password below.');
+              }}
+              useOneTap={false}
               theme="outline"
               shape="rectangular"
               text={isSignUp ? "signup_with" : "signin_with"}
             />
-        ) : (
-          <div className="h-10 bg-muted animate-pulse rounded-md w-full max-w-[200px]" />
-        )}
+          ) : (
+            <div className="h-10 bg-muted animate-pulse rounded-md w-full max-w-[200px]" />
+          )}
+        </div>
       </div>
-    </div>
+    </GoogleOAuthProvider>
   );
 }
 
 export default function GoogleSignInButton({ isSignUp = false }: { isSignUp?: boolean }) {
+  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID?.trim() || '';
+  const isConfigured = Boolean(
+    clientId.length > 0 &&
+    !clientId.includes('776003471590') // Guard against suspended project client
+  );
+
+  if (!isConfigured) {
+    return (
+      <div className="w-full p-3.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-xs text-amber-200/90 text-center space-y-1">
+        <div className="flex items-center justify-center gap-1.5 font-semibold text-amber-300">
+          <ShieldAlert className="w-3.5 h-3.5" />
+          <span>Google Sign-In Maintenance</span>
+        </div>
+        <p>Google OAuth credential rotation is in progress. Please use <strong>Email and Password</strong> below.</p>
+      </div>
+    );
+  }
+
   return (
     <Suspense fallback={<div className="h-10 bg-muted animate-pulse rounded-md w-full" />}>
-      <GoogleSignInButtonInner isSignUp={isSignUp} />
+      <GoogleSignInButtonInner isSignUp={isSignUp} clientId={clientId} />
     </Suspense>
   );
 }

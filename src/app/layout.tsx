@@ -13,7 +13,6 @@ import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { AdSenseScript } from "@/components/consent/AdSenseScript";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { PostHogProvider } from "@/components/providers/PostHogProvider";
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ActivityTracker } from "@/components/analytics/ActivityTracker";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -124,14 +123,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '776003471590-qjdg2e6idbbi309qg6lgu69fvjbav2lj.apps.googleusercontent.com'}>
-              <Navbar />
-              <main className="min-h-screen">
-                {children}
-              </main>
-              <Footer />
-              <AIChatPanel />
-            </GoogleOAuthProvider>
+            <Navbar />
+            <main className="min-h-screen">
+              {children}
+            </main>
+            <Footer />
+            <AIChatPanel />
           </ThemeProvider>
         </PostHogProvider>
         <ConsentBanner />
