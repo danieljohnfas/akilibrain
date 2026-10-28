@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, use, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -13,7 +13,7 @@ import { createClient } from '@/lib/supabase/client';
 export default function ApplyPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const id = resolvedParams.id;
-  const router = useRouter();
+
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<'idle' | 'uploading' | 'evaluating' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');

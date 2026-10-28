@@ -2,7 +2,6 @@ import { db, safeQuery } from '@/lib/db/client';
 import { jobs } from '@/lib/db/schema/jobs';
 import { countries, regions } from '@/lib/db/schema/shared';
 import { eq, desc, ilike, and, or, isNull, isNotNull, ne, gt, count, sql } from 'drizzle-orm';
-import { JobCard } from '@/components/jobs/JobCard';
 import { JobsInfiniteFeed } from '@/components/jobs/JobsInfiniteFeed';
 import { GlobalFilterBar } from '@/components/shared/GlobalFilterBar';
 import { buttonVariants } from '@/components/ui/button';
@@ -287,7 +286,7 @@ async function JobsList({ params }: { params: ReturnType<typeof parseGlobalSearc
   const itemListSchema = buildItemListSchema(
     'Jobs & Careers in East Africa',
     'Active job openings across Kenya, Tanzania, Uganda, Rwanda, Ethiopia, DRC, and the wider region.',
-    data.slice(0, 20).map(({ job, country }, idx) => ({
+    data.slice(0, 20).map(({ job }, idx) => ({
       position: idx + 1,
       name: `${job.title} at ${job.companyName}`,
       description: job.description?.slice(0, 120) ?? undefined,
