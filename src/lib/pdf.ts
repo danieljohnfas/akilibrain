@@ -70,7 +70,7 @@ export async function extractPdfText(buffer: Buffer, opts: { maxPages?: number }
   if (text.trim().length < 50) {
     try {
       const { toMarkdownBytes } = await import('@firecrawl/anydoc');
-      const md = await toMarkdownBytes(buffer, 'pdf');
+      const md = await toMarkdownBytes(buffer);
       if (md && md.trim().length > text.trim().length) {
         text = md;
       }
