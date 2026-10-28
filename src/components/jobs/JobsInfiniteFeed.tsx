@@ -139,14 +139,14 @@ export function JobsInfiniteFeed({
               id={job.id}
               title={job.title}
               companyName={job.companyName}
-              description={job.description}
+              description={job.description || ''}
               requirements={job.requirements}
               location={region || null}
               country={country || 'Africa'}
-              jobType={job.jobType ?? 'full_time'}
+              jobType={(job.jobType as any) ?? 'full_time'}
               isAggregatorSource={job.isAggregatorSource}
               employerUrl={job.employerUrl}
-              sourceUrl={job.sourceUrl}
+              sourceUrl={job.sourceUrl || ''}
               postedDate={job.postedDate ? new Date(job.postedDate) : null}
               deadline={job.deadline ? new Date(job.deadline) : null}
               createdAt={new Date(job.createdAt)}
