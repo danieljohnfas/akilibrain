@@ -54,15 +54,6 @@ export function JobsInfiniteFeed({
   const [hasMore, setHasMore] = useState<boolean>(initialJobs.length < totalCount);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
-  // Reset state when search filters change
-  const filterKey = JSON.stringify(searchParams);
-  useEffect(() => {
-    setItems(initialJobs);
-    setPage(1);
-    setHasMore(initialJobs.length < totalCount);
-    setLoading(false);
-  }, [filterKey, initialJobs, totalCount]);
-
   const loadMore = useCallback(async () => {
     if (loading || !hasMore) return;
     setLoading(true);

@@ -350,6 +350,7 @@ async function JobsList({ params }: { params: ReturnType<typeof parseGlobalSearc
             </div>
           </div>
           <JobsInfiniteFeed
+            key={`${q || ''}-${type || ''}-${company || ''}-${country || ''}-${time || ''}`}
             initialJobs={data}
             totalCount={totalCount}
             initialPage={page}
