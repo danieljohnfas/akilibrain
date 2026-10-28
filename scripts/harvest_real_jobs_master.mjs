@@ -4,7 +4,11 @@ import fs from 'fs';
 import path from 'path';
 
 // ── 1. Load Environment ───────────────────────────────────────────────────────
-const envPath = path.resolve(process.cwd(), 'akilibrain', '.env.local');
+const envCandidates = [
+  path.resolve(process.cwd(), '.env.local'),
+  path.resolve(process.cwd(), 'akilibrain', '.env.local')
+];
+const envPath = envCandidates.find(p => fs.existsSync(p)) || envCandidates[0];
 if (fs.existsSync(envPath)) {
   const envContent = fs.readFileSync(envPath, 'utf8');
   for (const line of envContent.split('\n')) {
@@ -200,6 +204,7 @@ const GREENHOUSE_BOARDS = [
   { token: 'dlight', name: 'd.light', defaultCountry: 'KE' },
   { token: 'jumia', name: 'Jumia Group', defaultCountry: 'NI' },
   { token: 'canonical', name: 'Canonical', defaultCountry: 'KE' },
+  { token: 'moniepoint', name: 'Moniepoint', defaultCountry: 'NI' },
   { token: 'gitlab', name: 'GitLab', defaultCountry: 'KE' }
 ];
 
@@ -273,7 +278,9 @@ const LEVER_SITES = [
   { site: 'andela', name: 'Andela', country: 'NI' },
   { site: 'copia', name: 'Copia Global', country: 'KE' },
   { site: 'm-kopa', name: 'M-KOPA Solar', country: 'KE' },
-  { site: 'flutterwave', name: 'Flutterwave', country: 'NI' }
+  { site: 'flutterwave', name: 'Flutterwave', country: 'NI' },
+  { site: 'kokonetworks', name: 'KOKO Networks', country: 'KE' },
+  { site: 'tala', name: 'Tala', country: 'KE' }
 ];
 
 async function harvestLever() {
@@ -355,7 +362,11 @@ async function harvestMyJobMag(domain, countryCode, maxPages = 40) {
         const titleEl = $(el).find('h2 a');
         const title = cleanText(titleEl.text());
         const href = titleEl.attr('href');
-        const company = cleanText($(el).find('.job-comp').text()) || 'Verified Employer';
+        let company = cleanText($(el).find('.job-comp').text());
+        if (!company && title.includes(' at ')) {
+          company = cleanText(title.split(' at ').slice(1).join(' at '));
+        }
+        if (!company) company = 'Verified Employer';
         let desc = cleanText($(el).find('.job-desc').text());
 
         if (title && href && desc.length >= 80) {
@@ -476,6 +487,12 @@ async function main() {
 
   // Step 6: MyJobMag Uganda
   await harvestMyJobMag('myjobmag.co.ug', 'UG', 30);
+
+  // Step 7: MyJobMag Nigeria
+  await harvestMyJobMag('myjobmag.com', 'NI', 30);
+
+  // Step 8: MyJobMag South Africa
+  await harvestMyJobMag('myjobmag.co.za', 'ZA', 20);
 
   // Check final count
   const resCount = await fetch(`${SUPABASE_URL}/rest/v1/jobs?select=id`, {

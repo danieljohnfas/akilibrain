@@ -456,6 +456,38 @@ async function JobsList({ params }: { params: ReturnType<typeof parseGlobalSearc
               <span className="font-semibold block text-foreground">Jobs in Uganda Today</span>
               <span className="text-xs text-muted-foreground">Fresh daily postings</span>
             </Link>
+            <Link href="/jobs/kenya/civil-engineering" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Civil Engineering</span>
+              <span className="text-xs text-muted-foreground">Construction &amp; infrastructure</span>
+            </Link>
+            <Link href="/jobs/kenya/accounting" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Accounting &amp; CPA</span>
+              <span className="text-xs text-muted-foreground">Audit, tax &amp; financial control</span>
+            </Link>
+            <Link href="/jobs/kenya/procurement" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Procurement &amp; Supply Chain</span>
+              <span className="text-xs text-muted-foreground">Logistics &amp; purchasing</span>
+            </Link>
+            <Link href="/jobs/tanzania/mining-energy" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Mining &amp; Energy</span>
+              <span className="text-xs text-muted-foreground">Tanzania extractive industries</span>
+            </Link>
+            <Link href="/jobs/tanzania/hospitality-tourism" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Tourism &amp; Hospitality</span>
+              <span className="text-xs text-muted-foreground">Hotels, lodges &amp; safaris</span>
+            </Link>
+            <Link href="/jobs/rwanda/finance-tech" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Rwanda Tech &amp; Finance</span>
+              <span className="text-xs text-muted-foreground">Kigali innovation hub roles</span>
+            </Link>
+            <Link href="/jobs/ngo-humanitarian" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">NGO &amp; Humanitarian</span>
+              <span className="text-xs text-muted-foreground">UN, USAID &amp; global charities</span>
+            </Link>
+            <Link href="/jobs/agriculture-agribusiness" className="p-3 rounded-lg bg-background/50 border border-white/5 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors">
+              <span className="font-semibold block text-foreground">Agribusiness &amp; Agronomy</span>
+              <span className="text-xs text-muted-foreground">Farming &amp; agricultural value chains</span>
+            </Link>
           </div>
         </div>
 
