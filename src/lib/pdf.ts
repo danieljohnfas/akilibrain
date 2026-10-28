@@ -48,6 +48,10 @@ if (typeof (globalThis as any).DOMRect === 'undefined') {
  * 3. Tertiary: Raw PDF content stream text recovery
  */
 export async function extractPdfText(buffer: Buffer, opts: { maxPages?: number } = {}): Promise<string> {
+  if (!buffer || buffer.length === 0 || !buffer.subarray(0, 1024).includes(Buffer.from('%PDF'))) {
+    throw new Error('Invalid PDF: buffer does not contain %PDF header.');
+  }
+
   let text = '';
 
   // 1. Try pdf-parse v2
