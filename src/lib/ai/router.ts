@@ -1,4 +1,4 @@
-import { generateObject, generateText, type GenerateObjectResult, type GenerateTextResult, type LanguageModel } from 'ai';
+import { generateObject, generateText, type GenerateObjectResult, type GenerateTextResult } from 'ai';
 import type { ZodType } from 'zod';
 import { createGoogle } from '@ai-sdk/google';
 import { createMistral } from '@ai-sdk/mistral';
@@ -334,7 +334,6 @@ function detectImageMimeType(buf: Buffer): string {
 interface VisionModelCandidate {
   id: string;
   name: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   model: any;
   /** Accepts application/pdf as a file part (image-only models do not). */
   supportsPdf: boolean;

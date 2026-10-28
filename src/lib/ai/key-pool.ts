@@ -1,9 +1,6 @@
-import { LanguageModel } from 'ai';
-
 export interface KeyEntry {
   id: string;
   name: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   model: any;
   supportsStructured: boolean;
   coolUntil: number;
