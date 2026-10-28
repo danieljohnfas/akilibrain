@@ -42,16 +42,91 @@ if (typeof (globalThis as any).DOMRect === 'undefined') {
 }
 
 /**
- * Extracts plain text from a PDF using pdf-parse v2 (class-based API — v1's default-export
- * function no longer exists, which silently broke CV uploads and the tender summarizer).
+ * Extracts plain text from a PDF using multi-tiered engines:
+ * 1. Primary: pdf-parse v2 getText()
+ * 2. Secondary: @firecrawl/anydoc (Rust/WASM Markdown extractor)
+ * 3. Tertiary: Raw PDF content stream text recovery
  */
 export async function extractPdfText(buffer: Buffer, opts: { maxPages?: number } = {}): Promise<string> {
-  const { PDFParse } = await import('pdf-parse');
-  const parser = new PDFParse({ data: new Uint8Array(buffer) });
+  let text = '';
+
+  // 1. Try pdf-parse v2
   try {
-    const result = await parser.getText(opts.maxPages ? { first: opts.maxPages } : undefined);
-    return result.text ?? '';
-  } finally {
-    await parser.destroy().catch(() => undefined);
+    const { PDFParse } = await import('pdf-parse');
+    const parser = new PDFParse({ data: new Uint8Array(buffer) });
+    try {
+      const result = await parser.getText(opts.maxPages ? { first: opts.maxPages } : undefined);
+      if (result?.text && result.text.trim().length > 30) {
+        text = result.text;
+      }
+    } finally {
+      await parser.destroy().catch(() => undefined);
+    }
+  } catch (err) {
+    console.warn('[PDF Parser] pdf-parse extraction attempt failed:', (err as Error).message);
   }
+
+  // 2. Fallback to @firecrawl/anydoc if text is too sparse
+  if (text.trim().length < 50) {
+    try {
+      const { toMarkdownBytes } = await import('@firecrawl/anydoc');
+      const md = await toMarkdownBytes(buffer, 'pdf');
+      if (md && md.trim().length > text.trim().length) {
+        text = md;
+      }
+    } catch (err) {
+      console.warn('[PDF Parser] AnyDoc extraction attempt failed:', (err as Error).message);
+    }
+  }
+
+  // 3. Fallback to raw stream regex extraction for text-layer PDFs
+  if (text.trim().length < 50) {
+    try {
+      const raw = extractRawPdfStrings(buffer);
+      if (raw.trim().length > text.trim().length) {
+        text = raw;
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  return text.trim();
+}
+
+/**
+ * Scans raw PDF bytes for embedded JPEG images (universal format for scanned docs/photos).
+ * Returns array of image buffers sorted by size descending (largest pages first).
+ */
+export function extractPdfImages(buffer: Buffer, maxImages = 3): Buffer[] {
+  const images: Buffer[] = [];
+  let startIndex = 0;
+
+  while (startIndex < buffer.length) {
+    const soi = buffer.indexOf(Buffer.from([0xff, 0xd8, 0xff]), startIndex);
+    if (soi === -1) break;
+    const eoi = buffer.indexOf(Buffer.from([0xff, 0xd9]), soi + 3);
+    if (eoi === -1) break;
+
+    const imgBuf = buffer.subarray(soi, eoi + 2);
+    // Only keep scanned pages/photos > 10KB (ignore tiny icon/decoration assets)
+    if (imgBuf.length > 10 * 1024) {
+      images.push(imgBuf);
+    }
+    startIndex = eoi + 2;
+  }
+
+  return images.sort((a, b) => b.length - a.length).slice(0, maxImages);
+}
+
+/**
+ * Basic text recovery from uncompressed / standard PDF text streams.
+ */
+function extractRawPdfStrings(buffer: Buffer): string {
+  const str = buffer.toString('latin1');
+  const matches = str.match(/\(([^)]{2,})\)\s*(?:Tj|'|")/g) || [];
+  return matches
+    .map((m) => m.replace(/^[('"]+|[)'"]+$/g, ''))
+    .filter((s) => /[a-zA-Z0-9]/.test(s))
+    .join(' ');
 }

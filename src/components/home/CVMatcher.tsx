@@ -91,11 +91,11 @@ export function CVMatcher() {
               type="file" 
               ref={fileInputRef} 
               className="hidden" 
-              accept="application/pdf,.pdf" 
+              accept=".pdf,.docx,.doc,.txt,.rtf,.odt,.png,.jpg,.jpeg,.webp" 
               onChange={handleFileUpload} 
             />
             <Upload className="w-12 h-12 text-blue-500 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-800">Upload your PDF CV</h3>
+            <h3 className="text-xl font-semibold text-gray-800">Upload your CV (PDF, Word, or Text)</h3>
             <p className="text-gray-500 mt-2">We will never share your personal data.</p>
           </div>
         )}

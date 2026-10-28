@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { Loader2, CheckCircle2, AlertCircle, Download, Lock } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { Loader2, CheckCircle2, AlertCircle, Download, Lock, Upload, Edit3 } from 'lucide-react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 
@@ -14,7 +15,9 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
   const resolvedParams = use(params);
   const id = resolvedParams.id;
 
+  const [inputMode, setInputMode] = useState<'upload' | 'paste'>('upload');
   const [file, setFile] = useState<File | null>(null);
+  const [pastedText, setPastedText] = useState('');
   const [status, setStatus] = useState<'idle' | 'uploading' | 'evaluating' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [result, setResult] = useState<any>(null);
@@ -31,39 +34,53 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
     checkAuth();
   }, []);
 
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
+      setErrorMsg('');
     }
   };
 
   const handleApply = async () => {
-    if (!file) return;
+    if (inputMode === 'upload' && !file) {
+      setErrorMsg('Please select a resume file to upload.');
+      return;
+    }
+    if (inputMode === 'paste' && pastedText.trim().length < 30) {
+      setErrorMsg('Please paste at least 30 characters of your resume/CV.');
+      return;
+    }
 
     try {
       setStatus('uploading');
       setErrorMsg('');
 
-      // 1. Upload CV
-      const formData = new FormData();
-      formData.append('cv', file);
-      
-      const uploadRes = await fetch('/api/upload-cv', {
-        method: 'POST',
-        body: formData,
-      });
+      let uploadRes: Response;
+      if (inputMode === 'upload') {
+        const formData = new FormData();
+        formData.append('cv', file!);
+        uploadRes = await fetch('/api/upload-cv', {
+          method: 'POST',
+          body: formData,
+        });
+      } else {
+        uploadRes = await fetch('/api/upload-cv', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cvText: pastedText }),
+        });
+      }
 
       let uploadData: any = {};
       try {
         const text = await uploadRes.text();
         uploadData = text ? JSON.parse(text) : {};
       } catch {
-        throw new Error('The server encountered an error processing your document. Please verify your file or try plain text.');
+        throw new Error('The server encountered an error processing your document. Please verify your file or try pasting your text.');
       }
       
       if (!uploadRes.ok) {
-        throw new Error(uploadData?.error || 'Failed to upload CV. Please try again.');
+        throw new Error(uploadData?.error || 'Failed to process CV. Please try again.');
       }
 
       setStatus('evaluating');
@@ -144,35 +161,125 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
     );
   }
 
+  const isSubmitDisabled =
+    status === 'uploading' ||
+    status === 'evaluating' ||
+    (inputMode === 'upload' && !file) ||
+    (inputMode === 'paste' && pastedText.trim().length < 30);
+
   return (
     <div className="container py-12 max-w-3xl mx-auto space-y-8">
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold tracking-tight">AI Job Application</h1>
-        <p className="text-muted-foreground">Upload your CV to get a tailored cover letter and AI match score.</p>
+        <p className="text-muted-foreground">Upload or paste your CV to get a tailored cover letter and AI match score.</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>1. Upload Your Resume</CardTitle>
-          <CardDescription>We accept PDF or Plain Text files.</CardDescription>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <CardTitle>1. Your Resume / CV</CardTitle>
+              <CardDescription>
+                {inputMode === 'upload' 
+                  ? 'Accepts PDF, Word (DOCX/DOC), Plain Text, RTF, and Scanned Images.'
+                  : 'Paste your resume content directly into the text field.'}
+              </CardDescription>
+            </div>
+            <div className="flex items-center rounded-lg border p-1 bg-muted/40 text-xs shrink-0">
+              <button
+                type="button"
+                onClick={() => { setInputMode('upload'); setErrorMsg(''); }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all ${
+                  inputMode === 'upload' 
+                    ? 'bg-background text-foreground shadow-sm' 
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Upload className="w-3.5 h-3.5" />
+                <span>Upload File</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => { setInputMode('paste'); setErrorMsg(''); }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all ${
+                  inputMode === 'paste' 
+                    ? 'bg-background text-foreground shadow-sm' 
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Edit3 className="w-3.5 h-3.5" />
+                <span>Paste Text</span>
+              </button>
+            </div>
+          </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="cv">Resume File</Label>
-            <Input id="cv" type="file" accept=".pdf,.txt" onChange={handleFileChange} disabled={status !== 'idle' && status !== 'error'} />
-          </div>
+          {inputMode === 'upload' ? (
+            <div className="space-y-2">
+              <Label htmlFor="cv">Resume Document</Label>
+              <Input
+                id="cv"
+                type="file"
+                accept=".pdf,.docx,.doc,.txt,.rtf,.odt,.png,.jpg,.jpeg,.webp"
+                onChange={handleFileChange}
+                disabled={status === 'uploading' || status === 'evaluating'}
+                className="cursor-pointer file:cursor-pointer"
+              />
+              <p className="text-xs text-muted-foreground">
+                Supported: PDF, Word (.docx, .doc), Text (.txt, .md), RTF, and Scanned Image pages (up to 10MB).
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="pastedText">Paste Resume Text</Label>
+                <span className="text-xs text-muted-foreground">
+                  {pastedText.length} characters
+                </span>
+              </div>
+              <Textarea
+                id="pastedText"
+                placeholder="Paste your full CV, resume, or LinkedIn summary here (skills, work history, education, certifications)..."
+                rows={10}
+                value={pastedText}
+                onChange={(e) => {
+                  setPastedText(e.target.value);
+                  if (errorMsg) setErrorMsg('');
+                }}
+                disabled={status === 'uploading' || status === 'evaluating'}
+                className="font-mono text-xs leading-relaxed"
+              />
+            </div>
+          )}
 
           {errorMsg && (
-            <div className="flex items-center gap-2 text-destructive text-sm bg-destructive/10 p-3 rounded-md border border-destructive/20">
-              <AlertCircle className="w-4 h-4" />
-              {errorMsg}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-destructive text-sm bg-destructive/10 p-3 rounded-md border border-destructive/20">
+              <div className="flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <p>{errorMsg}</p>
+              </div>
+              {inputMode === 'upload' && (
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  className="shrink-0 text-xs border-destructive/30 hover:bg-destructive/20 text-destructive"
+                  onClick={() => {
+                    setInputMode('paste');
+                    setErrorMsg('');
+                  }}
+                >
+                  <Edit3 className="w-3 h-3 mr-1" />
+                  Paste CV Text Instead
+                </Button>
+              )}
             </div>
           )}
         </CardContent>
         <CardFooter>
           <Button 
             onClick={handleApply} 
-            disabled={!file || status === 'uploading' || status === 'evaluating'}
+            disabled={isSubmitDisabled}
             className="w-full sm:w-auto"
           >
             {status === 'uploading' && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}

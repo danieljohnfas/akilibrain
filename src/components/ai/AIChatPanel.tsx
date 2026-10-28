@@ -254,7 +254,7 @@ export function AIChatPanel() {
       <input
         ref={fileInputRef}
         type="file"
-        accept=".pdf,.txt,application/pdf,text/plain"
+        accept=".pdf,.docx,.doc,.txt,.rtf,.odt,.png,.jpg,.jpeg,.webp"
         className="hidden"
         onChange={handleFileChange}
         aria-label="Upload CV"

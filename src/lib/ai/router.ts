@@ -88,6 +88,13 @@ function registerProviders(): void {
       supportsStructured: true,
       priority: 1,
     });
+    keyPool.register({
+      id: `groq-qwen-27b-${i + 1}`,
+      name: `Groq Qwen 27B (${i + 1})`,
+      model: createGroq({ apiKey: key })('qwen/qwen3.8-27b'),
+      supportsStructured: true,
+      priority: 1,
+    });
   });
 
   getEnvKeys('COHERE_API_KEY').forEach((key, i) => {
@@ -344,6 +351,27 @@ export { keyPool };
 function getVisionModelPool(): VisionModelCandidate[] {
   const pool: VisionModelCandidate[] = [];
 
+  // 1. OpenRouter Vision Models (Active & Fast)
+  getEnvKeys('OPENROUTER_API_KEY').forEach((key, i) => {
+    const openrouter = createOpenAI({
+      baseURL: 'https://openrouter.ai/api/v1',
+      apiKey: key,
+    });
+    pool.push({
+      id: `openrouter-nemotron-vl-${i + 1}`,
+      name: `OpenRouter NVIDIA Nemotron VL (${i + 1})`,
+      model: openrouter('nvidia/nemotron-3.5-super-vl:free'),
+      supportsPdf: false,
+    });
+    pool.push({
+      id: `openrouter-free-vision-${i + 1}`,
+      name: `OpenRouter Free Vision (${i + 1})`,
+      model: openrouter('openrouter/free'),
+      supportsPdf: false,
+    });
+  });
+
+  // 2. Mistral Pixtral
   getEnvKeys('MISTRAL_API_KEY').forEach((key, i) => {
     pool.push({
       id: `mistral-pixtral-${i + 1}`,
@@ -353,12 +381,19 @@ function getVisionModelPool(): VisionModelCandidate[] {
     });
   });
 
+  // 3. Google Gemini Vision (gemini-2.0-flash / gemini-1.5-flash)
   const googleKeys = [...getEnvKeys('GOOGLE_GENERATIVE_AI_API_KEY'), ...getEnvKeys('GEMINI_API_KEY')];
   Array.from(new Set(googleKeys)).forEach((key, i) => {
     pool.push({
-      id: `google-vision-${i + 1}`,
-      name: `Google Gemini 2.5 Flash Vision (${i + 1})`,
-      model: createGoogle({ apiKey: key })('gemini-2.5-flash'),
+      id: `google-vision-20-${i + 1}`,
+      name: `Google Gemini 2.0 Flash Vision (${i + 1})`,
+      model: createGoogle({ apiKey: key })('gemini-2.0-flash'),
+      supportsPdf: true,
+    });
+    pool.push({
+      id: `google-vision-15-${i + 1}`,
+      name: `Google Gemini 1.5 Flash Vision (${i + 1})`,
+      model: createGoogle({ apiKey: key })('gemini-1.5-flash'),
       supportsPdf: true,
     });
   });
