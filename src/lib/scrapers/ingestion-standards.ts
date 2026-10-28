@@ -425,9 +425,10 @@ export const CANONICAL_REGULATORY_AUTHORITY: Record<string, string> = {
   RW: 'Rwanda Development Board (RDB) & Regulatory Authority',
   ET: 'Ethiopian Ministry of Trade & Regional Integration',
   ZM: 'Patents and Companies Registration Agency (PACRA Zambia)',
-  ZA: 'Patents and Companies Registration Agency (PACRA Zambia)',
+  ZA: 'Companies and Intellectual Property Commission (CIPC South Africa)',
   GH: "Registrar General's Department (Ghana)",
-  NI: 'Corporate Affairs Commission (CAC Nigeria)',
+  NG: 'Corporate Affairs Commission (CAC Nigeria)',
+  NI: 'Corporate Affairs Commission (CAC Nigeria)', // backward compatibility alias
   SS: 'Ministry of Justice and Constitutional Affairs (South Sudan)',
   BI: 'Agence de Développement du Burundi (ADB / OBR)',
   CD: "Guichet Unique de Création d'Entreprise (GUCE / DGI DRC)",

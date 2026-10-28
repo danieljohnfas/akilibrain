@@ -18394,7 +18394,7 @@
       "file_type": "code",
       "norm_label": "extractrawpdfstrings()",
       "source_file": "src/lib/pdf.ts",
-      "source_location": "L125"
+      "source_location": "L129"
     },
     {
       "id": "src_lib_pdf_inverse",
@@ -19654,7 +19654,7 @@
       "file_type": "code",
       "norm_label": "extractpdfimages()",
       "source_file": "src/lib/pdf.ts",
-      "source_location": "L101"
+      "source_location": "L105"
     },
     {
       "id": "scripts_fix_heuristics_main",
@@ -78757,7 +78757,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/lib/pdf.ts",
-      "source_location": "L85",
+      "source_location": "L89",
       "weight": 1.0
     },
     {
@@ -160407,7 +160407,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/lib/pdf.ts",
-      "source_location": "L101",
+      "source_location": "L105",
       "weight": 1.0
     },
     {
@@ -160418,7 +160418,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/lib/pdf.ts",
-      "source_location": "L125",
+      "source_location": "L129",
       "weight": 1.0
     },
     {
@@ -173219,5 +173219,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "ac4208f57b736e53f4ac3edb92802e3cd0f7e101"
+  "built_at_commit": "a1cd3b5deb8fdf2ed361157dbb58a0b656b8e403"
 }

@@ -4968,9 +4968,9 @@
     "semantic_hash": ""
   },
   "src/lib/scrapers/ingestion-standards.ts": {
-    "mtime": 1792152225.533306,
-    "seen": 1793037203.4055643,
-    "ast_hash": "413f1e33b06562075ac778d40035460d",
+    "mtime": 1793197803.92002,
+    "seen": 1793198405.4989595,
+    "ast_hash": "17eb3e4f62cba3d29258c0d4886544a6",
     "semantic_hash": ""
   },
   "src/lib/scrapers/parser-spec.ts": {
@@ -8637,6 +8637,18 @@
     "mtime": 1793174653.986812,
     "seen": 1793184410.0976307,
     "ast_hash": "99a73f558a94f759e61b54e63df4d093",
+    "semantic_hash": ""
+  },
+  "scripts/deep_country_audit.py": {
+    "mtime": 1793198017.4421012,
+    "seen": 1793198405.1902664,
+    "ast_hash": "9f8688b1ceb3b13a43a7b54c3219f2e3",
+    "semantic_hash": ""
+  },
+  "scripts/purify_country_assignments.py": {
+    "mtime": 1793198176.8653615,
+    "seen": 1793198405.2932422,
+    "ast_hash": "7fe42fabbe757c434145feccc284f9ba",
     "semantic_hash": ""
   }
 }
