@@ -124,7 +124,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || 'dummy'}>
+            <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '776003471590-qjdg2e6idbbi309qg6lgu69fvjbav2lj.apps.googleusercontent.com'}>
               <Navbar />
               <main className="min-h-screen">
                 {children}

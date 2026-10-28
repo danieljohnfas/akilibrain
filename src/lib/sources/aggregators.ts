@@ -32,6 +32,7 @@ export const KNOWN_SOURCES: KnownSource[] = [
   // ─── GENERAL JOB AGGREGATORS — EAST AFRICA ───────────────────────────────────
 
   { domain: 'myjobmag.co.ke',            name: 'MyJobMag Kenya',           type: 'aggregator', category: 'jobs' },
+  { domain: 'myjobmag.co.za',            name: 'MyJobMag South Africa',    type: 'aggregator', category: 'jobs' },
   { domain: 'myjobmag.com',              name: 'MyJobMag',                 type: 'aggregator', category: 'jobs' },
   { domain: 'myjobmag.co.tz',            name: 'MyJobMag Tanzania',        type: 'aggregator', category: 'jobs' },
   { domain: 'myjobmag.co.ug',            name: 'MyJobMag Uganda',          type: 'aggregator', category: 'jobs' },
@@ -332,6 +333,37 @@ export function getKnownSource(url: string): KnownSource | undefined {
 
 /** True if this URL belongs to a known aggregator (content-scraping intermediary). */
 export function isAggregatorUrl(url: string): boolean {
+  if (!url) return false;
+  const domain = extractDomain(url);
+  if (
+    domain.includes('myjobmag.') ||
+    domain.includes('jobinrwanda.') ||
+    domain.includes('brightermonday.') ||
+    domain.includes('fuzu.') ||
+    domain.includes('ajirayako.') ||
+    domain.includes('mwanampotevu.') ||
+    domain.includes('jobweb') ||
+    domain.includes('hotnigerianjobs.') ||
+    domain.includes('mediacongo.') ||
+    domain.includes('jobinburundi.') ||
+    domain.includes('hiiraan.') ||
+    domain.includes('kenyajob.') ||
+    domain.includes('ugandajob.') ||
+    domain.includes('tanzaniajobs.') ||
+    domain.includes('ethiojobs.') ||
+    domain.includes('reliefweb.') ||
+    domain.includes('unjobs.') ||
+    domain.includes('devex.') ||
+    domain.includes('impactpool.') ||
+    domain.includes('southsudanngoforum.') ||
+    domain.includes('evenbreak.') ||
+    domain.includes('glassdoor.') ||
+    domain.includes('indeed.') ||
+    domain.includes('ziprecruiter.') ||
+    domain.includes('linkedin.com/jobs')
+  ) {
+    return true;
+  }
   const source = getKnownSource(url);
   return source?.type === 'aggregator';
 }

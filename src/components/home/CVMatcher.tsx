@@ -29,16 +29,18 @@ export function CVMatcher() {
         body: formData,
       });
 
-      if (!uploadRes.ok) {
-        let errMessage = 'Failed to parse CV document.';
-        try {
-          const errData = await uploadRes.json();
-          if (errData.error) errMessage = errData.error;
-        } catch(e) {}
-        throw new Error(errMessage);
+      let uploadData: any = {};
+      try {
+        const text = await uploadRes.text();
+        uploadData = text ? JSON.parse(text) : {};
+      } catch {
+        throw new Error('Failed to parse CV document. Please try again.');
       }
 
-      const uploadData = await uploadRes.json();
+      if (!uploadRes.ok) {
+        throw new Error(uploadData?.error || 'Failed to parse CV document.');
+      }
+
       const documentId = uploadData.documentId;
 
       setIsUploading(false);

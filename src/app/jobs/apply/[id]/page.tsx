@@ -53,11 +53,17 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
         method: 'POST',
         body: formData,
       });
-      
-      const uploadData = await uploadRes.json();
+
+      let uploadData: any = {};
+      try {
+        const text = await uploadRes.text();
+        uploadData = text ? JSON.parse(text) : {};
+      } catch {
+        throw new Error('The server encountered an error processing your document. Please verify your file or try plain text.');
+      }
       
       if (!uploadRes.ok) {
-        throw new Error(uploadData.error || 'Failed to upload CV');
+        throw new Error(uploadData?.error || 'Failed to upload CV. Please try again.');
       }
 
       setStatus('evaluating');
@@ -73,10 +79,16 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
         }),
       });
 
-      const evalData = await evalRes.json();
+      let evalData: any = {};
+      try {
+        const text = await evalRes.text();
+        evalData = text ? JSON.parse(text) : {};
+      } catch {
+        throw new Error('AI evaluation timed out or returned an unexpected response. Please retry.');
+      }
 
       if (!evalRes.ok) {
-        throw new Error(evalData.error || 'Evaluation failed');
+        throw new Error(evalData?.error || 'Evaluation failed. Please try again.');
       }
 
       setResult(evalData.application);

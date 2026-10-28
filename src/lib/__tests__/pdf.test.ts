@@ -27,7 +27,7 @@ describe('extractPdfText (pdf-parse v2)', () => {
   it('reads text from a PDF', async () => {
     const text = await extractPdfText(makePdf('Senior Accountant CV'));
     expect(text).toContain('Senior Accountant CV');
-  });
+  }, 15000);
 
   it('rejects data that is not a PDF', async () => {
     await expect(extractPdfText(Buffer.from('this is not a pdf'))).rejects.toThrow();

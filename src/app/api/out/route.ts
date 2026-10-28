@@ -9,6 +9,7 @@ import { complianceRequirements } from '@/lib/db/schema/compliance';
 import { appendTrackingTag } from '@/lib/utils';
 import { isSafeHttpUrl, sameUrl } from '@/lib/security/safe-url';
 import { enforceRateLimit } from '@/lib/security/rate-limit';
+import { isAggregatorUrl } from '@/lib/sources/aggregators';
 
 const querySchema = z.object({
   url: z.string().max(2048),
@@ -75,6 +76,10 @@ export async function GET(request: Request) {
   const stored = await storedUrlsFor(entityType, entityId);
   if (!stored.some((s) => sameUrl(s, targetUrl))) {
     return new NextResponse('Unknown destination', { status: 400 });
+  }
+
+  if (entityType === 'job' && isAggregatorUrl(targetUrl)) {
+    return new NextResponse('Outbound links to third-party aggregators are disallowed. Please apply directly through the employer.', { status: 400 });
   }
 
   // Fire-and-forget click log; never block or fail the redirect on analytics.

@@ -203,7 +203,14 @@ export function AIChatPanel() {
         body: formData,
       });
 
-      const data = await res.json();
+      let data: any = {};
+      try {
+        const text = await res.text();
+        data = text ? JSON.parse(text) : {};
+      } catch {
+        setCvState({ status: 'error', message: 'The server returned an unexpected response. Please try pasting your CV as text.' });
+        return;
+      }
 
       if (!res.ok) {
         setCvState({ status: 'error', message: data.error || 'Failed to process CV.' });

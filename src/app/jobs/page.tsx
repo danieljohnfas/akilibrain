@@ -1,8 +1,9 @@
 import { db, safeQuery } from '@/lib/db/client';
 import { jobs } from '@/lib/db/schema/jobs';
 import { countries, regions } from '@/lib/db/schema/shared';
-import { eq, desc, ilike, and, or, isNull, gt, count, sql } from 'drizzle-orm';
+import { eq, desc, ilike, and, or, isNull, isNotNull, ne, gt, count, sql } from 'drizzle-orm';
 import { JobCard } from '@/components/jobs/JobCard';
+import { JobsInfiniteFeed } from '@/components/jobs/JobsInfiniteFeed';
 import { GlobalFilterBar } from '@/components/shared/GlobalFilterBar';
 import { buttonVariants } from '@/components/ui/button';
 import { Briefcase, Building2, MapPin, LayoutGrid, List } from 'lucide-react';
@@ -206,7 +207,10 @@ async function JobsList({ params }: { params: ReturnType<typeof parseGlobalSearc
 
   const activeCondition = and(
     eq(jobs.isActive, true),
-    or(isNull(jobs.deadline), gt(jobs.deadline, sql`now()`))
+    or(isNull(jobs.deadline), gt(jobs.deadline, sql`now()`)),
+    eq(jobs.isAggregatorSource, false),
+    isNotNull(jobs.employerUrl),
+    ne(jobs.employerUrl, '')
   );
 
   let countryId: string | undefined;
@@ -346,74 +350,17 @@ async function JobsList({ params }: { params: ReturnType<typeof parseGlobalSearc
               </Link>
             </div>
           </div>
-          <div className={layout === 'grid' ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "flex flex-col gap-3"}>
-            {data.map(({ job, country, region }, idx) => (
-              <React.Fragment key={job.id}>
-                <JobCard
-                  id={job.id}
-                  title={job.title}
-                  companyName={job.companyName}
-                  description={job.description}
-                  requirements={job.requirements}
-                  location={region || null}
-                  country={country || 'Africa'}
-                  jobType={job.jobType ?? 'full_time'}
-                  isAggregatorSource={job.isAggregatorSource}
-                  employerUrl={job.employerUrl}
-                  sourceUrl={job.sourceUrl}
-                  postedDate={job.postedDate}
-                  deadline={job.deadline}
-                  createdAt={job.createdAt}
-                  layout={layout}
-                />
-                {idx === 2 && (
-                  <div className={layout === 'grid' ? "col-span-1 md:col-span-2 lg:col-span-3" : "w-full"}>
-                    <CareerResources placement="jobs" />
-                  </div>
-                )}
-                {idx === 8 && (
-                  <div className={layout === 'grid' ? "col-span-1 md:col-span-2 lg:col-span-3" : "w-full"}>
-                    <AdSlot slotId="jobs-feed-1" />
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
+          <JobsInfiniteFeed
+            initialJobs={data}
+            totalCount={totalCount}
+            initialPage={page}
+            searchParams={{ q, type, company, country, time }}
+            layout={layout}
+            careerResourcesSlot={<CareerResources placement="jobs" />}
+            adSlot={<AdSlot slotId="jobs-feed-1" />}
+          />
         </div>
       )}
-
-      {/* Pagination */}
-      {data.length > 0 && (() => {
-        const baseParams: Record<string, string> = {
-          ...(q ? { q } : {}),
-          ...(type ? { type } : {}),
-          ...(company ? { company } : {}),
-          ...(country ? { country } : {}),
-          ...(time ? { time } : {}),
-          ...(layout ? { layout } : {}),
-        };
-        return (
-          <div className="flex items-center justify-center gap-4 pt-6 border-t border-white/5 mt-8">
-            {page > 1 && (
-              <Link
-                href={`/jobs?${new URLSearchParams({ ...baseParams, page: String(page - 1) }).toString()}`}
-                className={buttonVariants({ variant: 'outline' })}
-              >
-                ← Previous
-              </Link>
-            )}
-            <span className="text-sm text-muted-foreground">Page {page}</span>
-            {data.length === PAGE_SIZE && (
-              <Link
-                href={`/jobs?${new URLSearchParams({ ...baseParams, page: String(page + 1) }).toString()}`}
-                className={buttonVariants({ variant: 'outline' })}
-              >
-                Next →
-              </Link>
-            )}
-          </div>
-        );
-      })()}
 
       {/* SEO-rich Content Block for AdSense / Googlebot */}
       <section className="mt-16 space-y-8 text-muted-foreground border-t border-white/5 pt-12">
