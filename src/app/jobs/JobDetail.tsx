@@ -12,6 +12,8 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { JobCard } from '@/components/jobs/JobCard';
 import { AmazonGearBox } from '@/components/shared/AmazonGearBox';
+import { CareerResources } from '@/components/shared/CareerResources';
+import { AdSlot } from '@/components/shared/AdSlot';
 
 import { AutoLinker } from '@/components/seo/AutoLinker';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -485,13 +487,19 @@ export async function JobDetail({
             </div>
 
             {/* Contextual Amazon Remote Interview & Career Gear */}
-            <div className="pt-4 border-t border-white/10">
+            <div className="pt-4 border-t border-white/10 space-y-6">
               <AmazonGearBox
                 slot="job-detail-sidebar"
                 context={`${job.title} ${job.profession || ''}`}
                 title="Interview & Remote Work Kit"
-                compact
+                limit={9}
               />
+              <CareerResources
+                topic={job.profession || job.title}
+                placement="job-detail-resources"
+                limit={12}
+              />
+              <AdSlot slotId="job-detail-bottom" context={job.title} limit={8} />
             </div>
           </div>
         </div>

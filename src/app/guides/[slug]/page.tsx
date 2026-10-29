@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import sanitizeHtml from 'sanitize-html';
 import { AmazonGearBox } from '@/components/shared/AmazonGearBox';
+import { CareerResources } from '@/components/shared/CareerResources';
+import { AdSlot } from '@/components/shared/AdSlot';
 
 // Allowlist of tags and attributes safe for editorial article content
 const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
@@ -116,7 +118,14 @@ export default async function GuideDetailPage(props: { params: Promise<{ slug: s
           slot="guide-compliance-inline"
           context={`${guide.title} ${guide.category}`}
           title="Recommended Books & Professional Equipment"
+          limit={9}
         />
+        <CareerResources
+          topic={`${guide.title} ${guide.category}`}
+          placement="guide-detail-resources"
+          limit={12}
+        />
+        <AdSlot slotId="guide-detail-bottom" context={guide.title} limit={8} />
 
         <nav className="border-t border-white/10 pt-6 flex flex-col sm:flex-row gap-4 justify-between">
           <Link href="/guides" className="text-sm text-muted-foreground hover:text-primary transition-colors">

@@ -5,19 +5,21 @@ import { AMAZON_ASSOCIATE_TAG } from '@/lib/amazon-ads/catalog';
 export function AmazonGearBox({
   slot = 'job-detail-sidebar',
   context = '',
-  title = 'Remote Interview & Office Gear',
+  title = 'Remote Interview, Executive & Tender Office Gear',
   compact = false,
+  limit,
 }: {
   slot?: string;
   context?: string;
   title?: string;
   compact?: boolean;
+  limit?: number;
 }) {
   const feed = serveDynamicProducts({
     site: 'akilibrain',
     slot,
     context,
-    limit: compact ? 2 : 3,
+    limit: limit ?? (compact ? 6 : 9),
     recordImpression: true,
   });
 

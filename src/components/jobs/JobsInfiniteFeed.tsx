@@ -154,7 +154,7 @@ export function JobsInfiniteFeed({
                 {careerResourcesSlot}
               </div>
             )}
-            {idx === 8 && adSlot && (
+            {(idx === 5 || idx === 11 || idx === 17 || idx === 23) && adSlot && (
               <div
                 className={
                   layout === 'grid'

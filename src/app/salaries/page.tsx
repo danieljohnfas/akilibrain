@@ -14,6 +14,7 @@ import { parseGlobalSearchParams } from '@/lib/filters';
 import { GlobalFilterBar, FilterConfig } from '@/components/shared/GlobalFilterBar';
 import { CareerResources } from '@/components/shared/CareerResources';
 import { AdSlot } from '@/components/shared/AdSlot';
+import { AmazonGearBox } from '@/components/shared/AmazonGearBox';
 import { DataLoadingState } from '@/components/shared/DataLoadingState';
 import React, { Suspense } from 'react';
 
@@ -294,7 +295,8 @@ async function SalariesList({ params }: { params: ReturnType<typeof parseGlobalS
                 />
                 {idx === 8 && (
                   <div className="col-span-1 md:col-span-2 lg:col-span-3">
-                    <AdSlot slotId="salaries-sidebar-1" />
+                    <AdSlot slotId="salaries-sidebar-1" limit={8} />
+                    <AmazonGearBox slot="job-detail-sidebar" title="Executive Remote Work & Salary Negotiation Kit" limit={9} />
                   </div>
                 )}
               </React.Fragment>

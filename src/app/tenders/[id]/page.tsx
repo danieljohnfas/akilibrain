@@ -12,6 +12,8 @@ import Link from 'next/link';
 
 import { AutoLinker } from '@/components/seo/AutoLinker';
 import { AmazonGearBox } from '@/components/shared/AmazonGearBox';
+import { CareerResources } from '@/components/shared/CareerResources';
+import { AdSlot } from '@/components/shared/AdSlot';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildTenderSchema, buildBreadcrumbSchema } from '@/components/seo/schemas';
 import { isGeneratedSlug } from '@/lib/utils';
@@ -364,11 +366,19 @@ export default async function TenderDetailPage({
                 context={`${tender.title} ${sector || ''}`}
                 title="Tender Bid & Office Gear"
                 compact
+                limit={6}
               />
             </div>
           </div>
         </div>
       </div>
+
+      <CareerResources
+        topic={sector || 'Procurement & Contract Management'}
+        placement="tender-detail-resources"
+        limit={12}
+      />
+      <AdSlot slotId="tender-detail-bottom" context={tender.title} limit={8} />
     </div>
   );
 }

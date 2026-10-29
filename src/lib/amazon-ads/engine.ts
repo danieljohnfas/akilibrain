@@ -481,7 +481,7 @@ export function serveDynamicProducts(params: {
   }
 
   const state = loadEngineState();
-  const limit = Math.min(Math.max(params.limit || 4, 1), 12);
+  const limit = Math.min(Math.max(params.limit || 8, 1), 60);
   const country = (params.country || 'US').toUpperCase();
   const contextLower = (params.context || '').toLowerCase().trim();
 

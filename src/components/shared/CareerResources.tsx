@@ -6,17 +6,33 @@ import { AMAZON_ASSOCIATE_TAG } from '@/lib/amazon-ads/catalog';
  * Contextual Amazon Associates (photoid03-20) Career Books, Certification Guides & Remote Interview Gear
  * Dynamically pulled from the Central Amazon Ads Engine with impression & click telemetry.
  */
-export function CareerResources({ topic, placement }: { topic?: string; placement: string }) {
+export function CareerResources({
+  topic,
+  placement,
+  limit = 12,
+}: {
+  topic?: string;
+  placement: string;
+  limit?: number;
+}) {
   const subject = topic?.trim() || '';
   const feed = serveDynamicProducts({
     site: 'akilibrain',
     slot: 'career-resources',
     context: subject,
-    limit: 3,
+    limit,
     recordImpression: true,
   });
 
   const products = feed.products;
+  const quickCategories = [
+    { label: '📚 PMP & Agile Certs', q: 'PMP PMBOK 7th Edition exam prep book' },
+    { label: '☁️ AWS & Cloud Guides', q: 'AWS Certified Solutions Architect study guide' },
+    { label: '💻 Software & System Design', q: 'System Design Interview Cracking the Coding Interview' },
+    { label: '🛡️ Cybersecurity & CompTIA', q: 'CompTIA Security+ CISSP official study guide' },
+    { label: '🎧 Zoom Interview Headsets', q: 'wireless headset noise cancelling microphone zoom' },
+    { label: '🖨️ Tender & Office Scanners', q: 'Brother Epson duplex document scanner pdf' },
+  ];
 
   return (
     <aside
@@ -28,8 +44,8 @@ export function CareerResources({ topic, placement }: { topic?: string; placemen
           <h3 className="text-base md:text-lg font-semibold flex items-center gap-2 text-foreground">
             <GraduationCap className="w-5 h-5 text-amber-400 shrink-0" />
             {subject
-              ? `Top Books & Remote Interview Gear for ${subject} Professionals`
-              : 'Recommended Career Prep Books & Remote Work Equipment'}
+              ? `Top Books, Certifications & Remote Work Gear for ${subject} Professionals`
+              : 'Recommended Career Prep Books, Certification Guides & Remote Work Equipment'}
           </h3>
           <p className="text-xs text-muted-foreground mt-0.5">
             As an Amazon Associate (ID: {AMAZON_ASSOCIATE_TAG}) AkiliBrain earns from qualifying purchases.
@@ -47,7 +63,7 @@ export function CareerResources({ topic, placement }: { topic?: string; placemen
         </a>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {products.map((prod) => (
           <a
             key={prod.id}
@@ -62,10 +78,10 @@ export function CareerResources({ topic, placement }: { topic?: string; placemen
           >
             <div className="space-y-1.5">
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[11px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                <span className="text-[11px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 truncate">
                   {prod.badge}
                 </span>
-                <span className="text-xs font-mono text-emerald-400 font-semibold">{prod.priceEstimate}</span>
+                <span className="text-xs font-mono text-emerald-400 font-semibold shrink-0">{prod.priceEstimate}</span>
               </div>
               <h4 className="text-sm font-semibold text-foreground group-hover:text-amber-300 transition-colors line-clamp-2">
                 {prod.title}
@@ -78,6 +94,21 @@ export function CareerResources({ topic, placement }: { topic?: string; placemen
               </span>
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </div>
+          </a>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-white/10">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-300">Explore Categories:</span>
+        {quickCategories.map((cat) => (
+          <a
+            key={cat.label}
+            href={`https://www.amazon.com/s?k=${encodeURIComponent(cat.q)}&tag=${AMAZON_ASSOCIATE_TAG}`}
+            target="_blank"
+            rel="sponsored nofollow noopener"
+            className="text-xs px-3 py-1 rounded-full bg-background/60 border border-white/10 hover:border-amber-400/50 hover:text-amber-300 transition-colors"
+          >
+            {cat.label} ↗
           </a>
         ))}
       </div>

@@ -16,6 +16,8 @@ import { healthDataPoints } from '@/lib/db/schema/health';
 import { CVMatcher } from '@/components/home/CVMatcher';
 import { CommunityAlerts } from '@/components/home/CommunityAlerts';
 import { CareerResources } from '@/components/shared/CareerResources';
+import { AmazonGearBox } from '@/components/shared/AmazonGearBox';
+import { AdSlot } from '@/components/shared/AdSlot';
 import { count, eq, or, isNull, gt, and } from 'drizzle-orm';
 import type { Metadata } from 'next';
 
@@ -351,8 +353,14 @@ export default async function Home() {
 
       <CommunityAlerts />
 
-      <section className="container mx-auto px-4 w-full max-w-6xl">
-        <CareerResources placement="home-featured" />
+      <section className="container mx-auto px-4 w-full max-w-6xl space-y-6">
+        <CareerResources placement="home-featured" limit={12} />
+        <AmazonGearBox
+          slot="tender-office-gear"
+          title="East Africa Executive, Tender & Procurement Office Hardware"
+          limit={9}
+        />
+        <AdSlot slotId="home-bottom-showcase" limit={8} />
       </section>
     </div>
     </>

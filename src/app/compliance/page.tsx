@@ -8,6 +8,8 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { buildBreadcrumbSchema } from '@/components/seo/schemas';
 import { parseGlobalSearchParams } from '@/lib/filters';
 import { AdSlot } from '@/components/shared/AdSlot';
+import { CareerResources } from '@/components/shared/CareerResources';
+import { AmazonGearBox } from '@/components/shared/AmazonGearBox';
 import { DataLoadingState } from '@/components/shared/DataLoadingState';
 import React, { Suspense } from 'react';
 import { GlobalFilterBar, FilterConfig } from '@/components/shared/GlobalFilterBar';
@@ -304,7 +306,9 @@ async function ResourcesList({ params }: { params: ReturnType<typeof parseGlobal
             />
             {idx === 8 && (
               <div className="col-span-1 md:col-span-2 lg:col-span-3">
-                <AdSlot slotId="compliance-resources-1" />
+                <AdSlot slotId="compliance-resources-1" limit={8} />
+                <CareerResources topic="Tax, Legal & Corporate Compliance" placement="compliance-resources-shelf" limit={12} />
+                <AmazonGearBox slot="guide-compliance-inline" title="Tax Audit, OCR Scanners & Encrypted Storage" limit={9} />
               </div>
             )}
           </React.Fragment>
@@ -478,7 +482,8 @@ async function BusinessesList({ params }: { params: ReturnType<typeof parseGloba
               />
               {idx === 8 && (
                 <div className="col-span-1 md:col-span-2 lg:col-span-3">
-                  <AdSlot slotId="compliance-businesses-1" />
+                  <AdSlot slotId="compliance-businesses-1" limit={8} />
+                  <AmazonGearBox slot="tender-office-gear" title="Corporate Registry & Office Equipment" limit={9} />
                 </div>
               )}
             </React.Fragment>
