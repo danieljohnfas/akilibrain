@@ -8,7 +8,7 @@ import { classifySourceUrl, resolveEmployerUrl } from "@/lib/sources/employer-re
 import { scrapersDisabled, jobInsertTarget, jobSecondPassEnabled } from '@/lib/scrapers/cost-controls';
 import { isJevAvailable, isRelevantOpportunity } from "@/lib/ai/jev-client";
 import { ScrapelabYield } from "@/lib/scrapers/compliance-base";
-import { normalizeJobRecordForIngestion, isForeignMisattribution } from "@/lib/scrapers/ingestion-standards";
+import { normalizeJobRecordForIngestion, isForeignMisattribution, inferCountryCodeFromLocation } from "@/lib/scrapers/ingestion-standards";
 
 // ── Thresholds ────────────────────────────────────────────────────────────────
 const JOB_TARGET = jobInsertTarget(); // env SCRAPE_JOB_TARGET
@@ -85,12 +85,13 @@ async function saveJobsInner(
       return null;
     }
 
-    // If AI found a country, see if we have it in the DB. Otherwise, fallback to the cron's target country.
+    // If AI found a country, see if we have it in the DB. Otherwise, infer from location before fallback.
     let jobCountry = null;
-    if (job.countryCode) {
-      jobCountry = await getCountryInfo(job.countryCode);
-      // If the AI explicitly found a country code but we don't support it, reject the job!
-      if (!jobCountry) {
+    const targetCountryCode = job.countryCode || inferCountryCodeFromLocation(job.location, job.companyName);
+    if (targetCountryCode) {
+      jobCountry = await getCountryInfo(targetCountryCode);
+      // If the AI explicitly found an unsupported country code, reject the job!
+      if (!jobCountry && job.countryCode) {
         console.log(`[scrape-jobs] Rejecting job for unsupported country code: ${job.countryCode}`);
         yieldReport.record(job.sourceUrl, 'rejected');
         return null;

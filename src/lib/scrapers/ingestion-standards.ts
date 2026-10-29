@@ -29,6 +29,65 @@ export function isForeignMisattribution(text: string): boolean {
 }
 
 /**
+ * Deterministically infers ISO 3166-1 alpha-2 country code from location and employer context.
+ */
+export function inferCountryCodeFromLocation(location?: string | null, companyName?: string | null): string | null {
+  if (!location) return null;
+  const loc = location.trim().toLowerCase();
+  const comp = (companyName || '').trim().toLowerCase();
+
+  // 1. Sovereign entity keywords & major patterns
+  if (/\b(germany|deutschland)\b/i.test(loc) || /\b(ulm|renningen|gerlingen|salzgitter|stuttgart|ergolding|leipzig|dresden|nuremberg|nürnberg|mannheim|karlsruhe|munich|münchen|frankfurt|berlin|hamburg|cologne|köln)\b/i.test(loc) || (/\b(bw|by|ni|nw|he|sn)\b/i.test(loc) && comp.includes('bosch'))) {
+    return 'DE';
+  }
+  if (/\b(canada)\b/i.test(loc) || /\b(toronto|vancouver|montreal|ottawa|calgary|edmonton|waterloo)\b/i.test(loc) || /\b(ontario|british columbia|alberta|quebec|\bbc\b|\bon\b|\bqc\b|\bab\b)\b/i.test(loc)) {
+    return 'CA';
+  }
+  if (/\b(united kingdom|\buk\b|great britain|england|scotland|wales|london|manchester|birmingham|edinburgh|bristol|cambridge|oxford)\b/i.test(loc) || (comp.includes('canonical') && !loc.includes('taiwan')) || comp.includes('deliveroo')) {
+    return 'GB';
+  }
+  if (/\b(taiwan|taipei)\b/i.test(loc)) {
+    return 'TW';
+  }
+  if (/\b(united states|\busa\b|u\.s\.a\.|u\.s\.|\bus\b)\b/i.test(loc) || /\b(california|new york|texas|washington|florida|illinois|massachusetts|georgia|colorado|virginia|ohio|pennsylvania|north carolina|michigan|arizona)\b/i.test(loc) || /\b(san francisco|seattle|austin|chicago|boston|los angeles|san mateo|mountain view|palo alto|sunnyvale|atlanta|denver|dallas|houston|san diego|\bsf\b|\bnyc\b|silicon valley|bay area)\b/i.test(loc) || /\b(remote\s*[-–]\s*usa?|remote us|us remote)\b/i.test(loc)) {
+    return 'US';
+  }
+  if (/\b(india)\b/i.test(loc) || /\b(bengaluru|bangalore|mumbai|hyderabad|pune|delhi|new delhi|noida|gurugram|gurgaon|chennai|kolkata)\b/i.test(loc)) {
+    return 'IN';
+  }
+  if (/\b(australia|sydney|melbourne|brisbane|perth)\b/i.test(loc)) return 'AU';
+  if (/\b(france|paris|lyon|marseille)\b/i.test(loc)) return 'FR';
+  if (/\b(singapore)\b/i.test(loc)) return 'SG';
+  if (/\b(japan|tokyo|osaka|kyoto)\b/i.test(loc)) return 'JP';
+  if (/\b(china|shanghai|beijing|shenzhen|guangzhou)\b/i.test(loc)) return 'CN';
+  if (/\b(spain|madrid|barcelona|valencia)\b/i.test(loc)) return 'ES';
+  if (/\b(netherlands|amsterdam|rotterdam|utrecht)\b/i.test(loc)) return 'NL';
+  if (/\b(ireland|dublin|cork)\b/i.test(loc)) return 'IE';
+  if (/\b(brazil|brasil|sao paulo|são paulo|rio de janeiro)\b/i.test(loc)) return 'BR';
+  if (/\b(mexico|méxico|mexico city|guadalajara|monterrey)\b/i.test(loc)) return 'MX';
+  if (/\b(chile|santiago)\b/i.test(loc)) return 'CL';
+  if (/\b(peru|perú|callao|lima)\b/i.test(loc)) return 'PE';
+  if (/\b(colombia|bogota|bogotá|medellin|medellín)\b/i.test(loc)) return 'CO';
+  if (/\b(vietnam|viet nam|ho chi minh|hanoi)\b/i.test(loc)) return 'VN';
+  if (/\b(philippines|manila|cebu)\b/i.test(loc)) return 'PH';
+  if (/\b(switzerland|zurich|zürich|geneva|genève)\b/i.test(loc)) return 'CH';
+  if (/\b(poland|polska|warsaw|krakow)\b/i.test(loc)) return 'PL';
+  if (/\b(sweden|sverige|stockholm|malmo|malmö)\b/i.test(loc)) return 'SE';
+  if (/\b(south africa|johannesburg|cape town|durban|pretoria)\b/i.test(loc)) return 'ZA';
+  if (/\b(kenya|nairobi|mombasa|kisumu|nakuru|eldoret|kitui)\b/i.test(loc)) return 'KE';
+  if (/\b(tanzania|dar es salaam|dodoma|arusha|mwanza|zanzibar)\b/i.test(loc)) return 'TZ';
+  if (/\b(uganda|kampala|entebbe|jinja)\b/i.test(loc)) return 'UG';
+  if (/\b(rwanda|kigali)\b/i.test(loc)) return 'RW';
+  if (/\b(burundi|bujumbura|gitega)\b/i.test(loc)) return 'BI';
+  if (/\b(ethiopia|addis ababa)\b/i.test(loc)) return 'ET';
+  if (/\b(egypt|cairo|alexandria)\b/i.test(loc)) return 'EG';
+  if (/\b(nigeria|lagos|abuja|port harcourt)\b/i.test(loc)) return 'NG';
+  if (/\b(ghana|accra|kumasi)\b/i.test(loc)) return 'GH';
+
+  return null;
+}
+
+/**
  * Deterministically infers experience_level ('executive' | 'senior' | 'mid_level' | 'entry_level')
  * from job title, description, and requirements.
  */
