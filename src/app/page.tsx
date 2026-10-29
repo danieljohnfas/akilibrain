@@ -109,7 +109,7 @@ const getPlatformStats = unstable_cache(async () => {
 
   return {
     jobsTotal: activeJobsCount?.[0]?.value ?? 5400,
-    tendersTotal: openTendersCount?.[0]?.value ?? 7000,
+    tendersTotal: (openTendersCount?.[0]?.value && openTendersCount[0].value > 0) ? openTendersCount[0].value : 7000,
     countriesTotal: countriesCount?.[0]?.value ?? 12,
     complianceTotal: complianceCount?.[0]?.value ?? 1322,
     healthTotal: healthCount?.[0]?.value ?? 2869,
@@ -135,7 +135,7 @@ export default async function Home() {
       href: "/tenders",
       color: "text-blue-500",
       bg: "bg-blue-500/10",
-      badge: `${tendersTotal.toLocaleString()} Open Tenders`,
+      badge: tendersTotal > 0 ? `${tendersTotal.toLocaleString()} Open Tenders` : "Verified Tenders",
       badgeStyle: "border-blue-500/30 text-blue-600 dark:text-blue-400 bg-blue-500/10",
     },
     {
@@ -200,7 +200,7 @@ export default async function Home() {
           East Africa Professional <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">Intelligence</span>
         </h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-medium">
-          {jobsTotal.toLocaleString()}+ Active Jobs | {tendersTotal.toLocaleString()} Tenders | {complianceTotal.toLocaleString()} Compliance Requirements | {countriesTotal} Countries
+          {jobsTotal > 0 ? `${jobsTotal.toLocaleString()}+ Active Jobs` : "Active Jobs"} | {tendersTotal > 0 ? `${tendersTotal.toLocaleString()} Tenders` : "Public Tenders"} | {complianceTotal.toLocaleString()} Compliance Requirements | {countriesTotal} Countries
         </p>
         
         <div className="max-w-2xl mx-auto mt-8">

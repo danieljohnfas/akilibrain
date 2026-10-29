@@ -137,29 +137,7 @@ export default function ApplyPage({ params }: { params: Promise<{ id: string }> 
     );
   }
 
-  if (!user) {
-    return (
-      <div className="container py-24 max-w-xl mx-auto space-y-6 text-center">
-        <div className="flex justify-center mb-4">
-          <div className="p-4 bg-muted rounded-full">
-            <Lock className="w-10 h-10 text-muted-foreground" />
-          </div>
-        </div>
-        <h1 className="text-3xl font-bold tracking-tight">Login Required</h1>
-        <p className="text-muted-foreground text-lg">
-          Please sign in or create an account to use the AI Job Assistant and evaluate your CV.
-        </p>
-        <div className="flex items-center justify-center gap-4 pt-4">
-          <Link href={`/login?callbackUrl=/jobs/apply/${id}`}>
-            <Button size="lg">Log In</Button>
-          </Link>
-          <Link href={`/signup?callbackUrl=/jobs/apply/${id}`}>
-            <Button size="lg" variant="outline">Sign Up</Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+// Unauthenticated users can parse CV and see their match score preview before login wall
 
   const isSubmitDisabled =
     status === 'uploading' ||

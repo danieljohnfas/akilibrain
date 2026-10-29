@@ -31,6 +31,14 @@ export async function Navbar() {
         
         <div className="flex items-center gap-4">
           <GlobalSearch />
+          <a
+            href="https://buymeacoffee.com/codey"
+            target="_blank"
+            rel="noopener"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-400 text-neutral-900 hover:bg-amber-300 transition shrink-0"
+          >
+            <span>☕ Buy Me a Coffee</span>
+          </a>
           <ThemeToggle />
           
           <div className="hidden md:flex items-center gap-2">

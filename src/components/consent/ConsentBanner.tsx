@@ -10,6 +10,7 @@ export function ConsentBanner() {
   return (
     <div
       role="dialog"
+      data-nosnippet="true"
       aria-label="Cookie and privacy choices"
       className="fixed inset-x-0 bottom-0 z-[100] border-t border-white/10 bg-background/95 p-4 shadow-2xl backdrop-blur"
     >
