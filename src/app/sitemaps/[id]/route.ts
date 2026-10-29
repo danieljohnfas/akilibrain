@@ -90,10 +90,12 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
       url: `${BASE_URL}/guides/${g.slug}`, lastModified: g.updatedAt || now, changeFrequency: 'monthly', priority: 0.9
     }));
 
-    const countryPages = countryRows.map((c) => ({
-      url: `${BASE_URL}/countries/${COUNTRY_SLUGS[c.name] ?? c.name.toLowerCase().replace(/\s+/g, '-')}`,
-      lastModified: c.createdAt || now, changeFrequency: 'daily', priority: 0.85
-    }));
+    const countryPages = countryRows
+      .filter((c) => Boolean(COUNTRY_SLUGS[c.name]))
+      .map((c) => ({
+        url: `${BASE_URL}/countries/${COUNTRY_SLUGS[c.name]}`,
+        lastModified: c.createdAt || now, changeFrequency: 'daily', priority: 0.85
+      }));
 
     const xml = buildUrlSet([...staticPages, ...jobHubPages, ...tenderPages, ...guidePages, ...countryPages]);
     return new NextResponse(xml, { headers: { 'Content-Type': 'application/xml' } });

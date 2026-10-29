@@ -23,8 +23,8 @@ export async function GET() {
     safeQuery(db.select({ value: count() }).from(businesses).where(eq(businesses.status, 'active')))
   ]);
 
-  const jobsCount = jobsCountRes?.[0]?.value || 0;
-  const bizCount = bizCountRes?.[0]?.value || 0;
+  const jobsCount = Number(jobsCountRes?.[0]?.value || 0);
+  const bizCount = Number(bizCountRes?.[0]?.value || 0);
 
   const PAGE_SIZE = 10000;
   const jobSitemapsCount = Math.ceil(jobsCount / PAGE_SIZE) || 1;
