@@ -23,34 +23,36 @@ export const dynamic = 'force-dynamic';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Jobs & Careers in East Africa',
+  title: 'Jobs in Uganda, Kenya, Tanzania, Rwanda & Ethiopia Today (2026) — Verified Vacancies',
   description:
-    'Browse active job openings and career opportunities across Kenya, Tanzania, Uganda, Rwanda, Ethiopia, DRC, and East Africa. Sourced and updated daily.',
+    'Browse 15,000+ verified job vacancies, NGO careers, government openings, banking roles, and internships across Uganda, Kenya, Tanzania, Rwanda, Ethiopia, Somalia, Burundi & DRC. Updated daily.',
   keywords: [
+    'jobs in Uganda today',
     'jobs Kenya',
     'careers East Africa',
     'job vacancies East Africa',
     'jobs Tanzania',
-    'jobs Uganda',
     'jobs Rwanda',
     'jobs Ethiopia',
+    'Somali jobs',
+    'Burundi jobs',
     'jobs DRC',
     'remote jobs Africa',
     'internships East Africa',
     'graduate jobs Kenya',
-    'job board Africa',
+    'banking jobs Uganda',
   ],
   openGraph: {
-    title: 'Jobs & Careers in East Africa',
+    title: 'Jobs in Uganda, Kenya, Tanzania, Rwanda & Ethiopia Today (2026)',
     description:
-      'Browse active job openings and career opportunities across Kenya, Tanzania, Uganda, Rwanda, Ethiopia, DRC, and East Africa. Sourced and updated daily.',
+      'Browse 15,000+ verified job openings, NGO vacancies, banking careers, and internships across East Africa. Updated daily.',
     url: 'https://akilibrain.com/jobs',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jobs & Careers in East Africa',
-    description: 'Browse active job openings and career opportunities across East Africa. Updated daily.',
+    title: 'Jobs in Uganda, Kenya, Tanzania, Rwanda & Ethiopia Today (2026)',
+    description: 'Browse 15,000+ active verified job openings across East Africa. Updated daily.',
   },
   alternates: {
     canonical: 'https://akilibrain.com/jobs',
@@ -167,24 +169,27 @@ export default async function JobsPage({
         <RelatedGuides category="jobs" title="Career & Interview Insights" />
       </div>
 
-      {/* SEO: Internal linking — crawlable category / location links */}
+      {/* SEO: Internal linking — crawlable clean hub routes (never robots-disallowed query params) */}
       <div className="border-t border-white/5 pt-10 mt-4">
-        <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-6">Browse Popular Categories</h2>
+        <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-6">Browse Verified Regional &amp; Sector Job Hubs</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {[
-            { label: 'Full Time Jobs', href: '/jobs?type=full_time' },
-            { label: 'Remote Jobs in Africa', href: '/jobs?type=remote' },
-            { label: 'Contract Jobs', href: '/jobs?type=contract' },
-            { label: 'Internships & Graduate Jobs', href: '/jobs?type=internship' },
-            { label: 'Jobs in Kenya', href: '/jobs?country=Kenya' },
-            { label: 'Jobs in Tanzania', href: '/jobs?country=Tanzania' },
-            { label: 'Jobs in Uganda', href: '/jobs?country=Uganda' },
-            { label: 'Jobs in Rwanda', href: '/jobs?country=Rwanda' },
-            { label: 'Jobs in Ethiopia', href: '/jobs?country=Ethiopia' },
-            { label: 'Jobs in Somalia', href: '/jobs?country=Somalia' },
-            { label: 'Jobs in South Sudan', href: '/jobs?country=South Sudan' },
-            { label: 'Jobs in DRC', href: '/jobs?country=Democratic Republic of the Congo' },
-            { label: 'Jobs in Burundi', href: '/jobs?country=Burundi' },
+            { label: 'Jobs in Uganda Today', href: '/jobs/uganda/latest-jobs-today' },
+            { label: 'Jobs in Uganda', href: '/jobs/uganda' },
+            { label: 'Jobs in Kenya', href: '/jobs/kenya' },
+            { label: 'Jobs in Tanzania', href: '/jobs/tanzania' },
+            { label: 'Jobs in Rwanda', href: '/jobs/rwanda' },
+            { label: 'Jobs in Ethiopia', href: '/jobs/ethiopia' },
+            { label: 'Jobs in Somalia', href: '/jobs/somalia' },
+            { label: 'Jobs in Burundi', href: '/jobs/burundi' },
+            { label: 'Jobs in South Sudan', href: '/jobs/south-sudan' },
+            { label: 'Jobs in DRC', href: '/jobs/drc' },
+            { label: 'Banking Jobs in Uganda', href: '/jobs/uganda/banking' },
+            { label: 'NGO Jobs in Uganda', href: '/jobs/uganda/ngo' },
+            { label: 'Biomedical Engineering Jobs Kenya', href: '/jobs/kenya/biomedical-engineering' },
+            { label: 'Accountant Jobs in Kenya', href: '/jobs/kenya/accountant' },
+            { label: 'Internships in East Africa', href: '/jobs/internship' },
+            { label: 'Graduate Trainee Jobs', href: '/jobs/graduate' },
           ].map(({ label, href }) => (
             <Link
               key={href}

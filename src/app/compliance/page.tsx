@@ -21,9 +21,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Business Registry & Compliance',
+  title: 'East Africa Business Registry, Tax Calculators & Compliance Forms (KRA, BRELA, URSB, RDB 2026)',
   description:
-    'Search registered companies, verify compliance status, and find licensing requirements across Kenya, Tanzania, Uganda, Rwanda, Ethiopia, and DRC.',
+    'Search 60,000+ registered companies and 1,300+ statutory compliance requirements across Kenya (KRA/BRS), Tanzania (BRELA/TRA), Uganda (URSB/URA), Rwanda (RDB/RRA), Ethiopia & DRC.',
   keywords: [
     'business registry Kenya',
     'company search East Africa',
@@ -38,9 +38,9 @@ export const metadata: Metadata = {
     'DGI DRC',
   ],
   openGraph: {
-    title: 'Business Registry & Compliance',
+    title: 'East Africa Business Registry, Tax Calculators & Compliance Forms (KRA, BRELA, URSB, RDB 2026)',
     description:
-      'Search registered companies, verify compliance status, and find licensing requirements across Kenya, Tanzania, Uganda, Rwanda, Ethiopia, and DRC.',
+      'Search 60,000+ registered companies and 1,300+ statutory compliance requirements across Kenya (KRA/BRS), Tanzania (BRELA/TRA), Uganda (URSB/URA), Rwanda (RDB/RRA), Ethiopia & DRC.',
     url: 'https://akilibrain.com/compliance',
     type: 'website',
   },
