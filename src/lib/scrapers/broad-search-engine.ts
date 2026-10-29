@@ -31,6 +31,7 @@ export interface BroadJobResource {
   salaryMax: number | null;
   salaryCurrency: string | null; // ISO 4217, e.g. "KES", "TZS"
   countryCode: string | null; // ISO 3166-1 alpha-2, e.g. "TZ", "KE", "MG"
+  location?: string | null;
   needsAiExtraction?: boolean;
 }
 
