@@ -1,109 +1,2067 @@
 [
-  {"company": "Safaricom", "country": "Kenya", "url": "https://www.safaricom.co.ke/careers/"},
-  {"company": "KCB Group", "country": "Kenya", "url": "https://kcbgroup.com/careers"},
-  {"company": "Equity Group", "country": "Kenya", "url": "https://equitygroupholdings.com/careers/"},
-  {"company": "Co-operative Bank of Kenya", "country": "Kenya", "url": "https://www.co-opbank.co.ke/careers"},
-  {"company": "NCBA Group", "country": "Kenya", "url": "https://ncbagroup.com/careers"},
-  {"company": "Absa Bank Kenya", "country": "Kenya", "url": "https://www.absabank.co.ke/about-us/careers/"},
-  {"company": "I&M Bank Kenya", "country": "Kenya", "url": "https://www.imbankgroup.com/ke/careers/"},
-  {"company": "Diamond Trust Bank", "country": "Kenya", "url": "https://dtbk.dtbafrica.com/careers"},
-  {"company": "Stanbic Bank Kenya", "country": "Kenya", "url": "https://www.stanbicbank.co.ke/kenya/personal/about-us/careers"},
-  {"company": "EABL", "country": "Kenya", "url": "https://www.eabl.com/en/careers"},
-  {"company": "Bidco Africa", "country": "Kenya", "url": "https://bidco-africa.com/careers/"},
-  {"company": "KenGen", "country": "Kenya", "url": "https://www.kengen.co.ke/careers"},
-  {"company": "Kenya Power", "country": "Kenya", "url": "https://kplc.co.ke/careers"},
-  {"company": "Kenya Airways", "country": "Kenya", "url": "https://www.kenya-airways.com/en/about-us/careers/"},
-  {"company": "Bamburi Cement", "country": "Kenya", "url": "https://www.lafarge.co.ke/careers"},
-  {"company": "Aga Khan University Hospital", "country": "Kenya", "url": "https://www.aku.edu/careers/"},
-  {"company": "The Nairobi Hospital", "country": "Kenya", "url": "https://thenairobihosp.org/careers/"},
-  {"company": "MP Shah Hospital", "country": "Kenya", "url": "https://mpshahhosp.org/careers/"},
-  {"company": "AAR Healthcare", "country": "Kenya", "url": "https://aarhealthcare.com/careers/"},
-  {"company": "Naivas Supermarkets", "country": "Kenya", "url": "https://naivas.online/careers"},
-  {"company": "M-KOPA Solar", "country": "Kenya", "url": "https://m-kopa.com/careers/"},
-  {"company": "KOKO Networks", "country": "Kenya", "url": "https://kokonetworks.com/careers"},
-  {"company": "Sun King", "country": "Kenya", "url": "https://sunking.com/careers/"},
-  {"company": "Tala Kenya", "country": "Kenya", "url": "https://tala.co/careers/"},
-  {"company": "Branch International", "country": "Kenya", "url": "https://branch.co/careers"},
-  {"company": "BasiGo", "country": "Kenya", "url": "https://www.basi-go.com/careers"},
-  {"company": "Roam Electric", "country": "Kenya", "url": "https://www.roammotors.com/careers"},
-  {"company": "NMB Bank", "country": "Tanzania", "url": "https://www.nmbbank.co.tz/careers"},
-  {"company": "CRDB Bank", "country": "Tanzania", "url": "https://crdbbank.co.tz/careers"},
-  {"company": "NBC Tanzania", "country": "Tanzania", "url": "https://www.nbc.co.tz/en/about-us/careers/"},
-  {"company": "Bakhresa Group", "country": "Tanzania", "url": "https://bakhresa.com/careers/"},
-  {"company": "Tigo Tanzania", "country": "Tanzania", "url": "https://www.tigo.co.tz/careers"},
-  {"company": "Airtel Tanzania", "country": "Tanzania", "url": "https://www.airtel.co.tz/careers"},
-  {"company": "Air Tanzania", "country": "Tanzania", "url": "https://www.airtanzania.co.tz/careers"},
-  {"company": "TANESCO", "country": "Tanzania", "url": "https://www.tanesco.co.tz/careers"},
-  {"company": "Kilombero Sugar", "country": "Tanzania", "url": "https://www.kilomberosugar.co.tz/careers"},
-  {"company": "Geita Gold Mine", "country": "Tanzania", "url": "https://www.anglogoldashanti.com/careers/"},
-  {"company": "Aga Khan Health Services Tanzania", "country": "Tanzania", "url": "https://www.agakhanhospitals.org/daressalaam/careers"},
-  {"company": "Stanbic Bank Uganda", "country": "Uganda", "url": "https://www.stanbicbank.co.ug/uganda/personal/about-us/careers"},
-  {"company": "Centenary Bank", "country": "Uganda", "url": "https://www.centenarybank.co.ug/about-us/careers"},
-  {"company": "DFCU Bank", "country": "Uganda", "url": "https://www.dfcugroup.com/careers/"},
-  {"company": "MTN Uganda", "country": "Uganda", "url": "https://www.mtn.co.ug/careers/"},
-  {"company": "Airtel Uganda", "country": "Uganda", "url": "https://www.airtel.co.ug/careers"},
-  {"company": "Uganda Breweries", "country": "Uganda", "url": "https://www.ugandabreweries.com/careers"},
-  {"company": "Umeme Uganda", "country": "Uganda", "url": "https://www.umeme.co.ug/careers"},
-  {"company": "Uganda Airlines", "country": "Uganda", "url": "https://ugandairlines.com/careers"},
-  {"company": "Kakira Sugar", "country": "Uganda", "url": "https://www.kakirasugar.com/careers"},
-  {"company": "Bank of Kigali", "country": "Rwanda", "url": "https://bk.rw/about-us/careers"},
-  {"company": "I&M Bank Rwanda", "country": "Rwanda", "url": "https://www.imbankgroup.com/rw/careers/"},
-  {"company": "MTN Rwanda", "country": "Rwanda", "url": "https://www.mtn.co.rw/careers/"},
-  {"company": "Airtel Rwanda", "country": "Rwanda", "url": "https://www.airtel.rw/careers"},
-  {"company": "RwandAir", "country": "Rwanda", "url": "https://www.rwandair.com/careers/"},
-  {"company": "Bralirwa", "country": "Rwanda", "url": "https://www.bralirwa.co.rw/careers/"},
-  {"company": "Ampersand E-Mobility", "country": "Rwanda", "url": "https://www.ampersand.solar/careers"},
-  {"company": "Dangote Group", "country": "Nigeria", "url": "https://www.dangote.com/careers/"},
-  {"company": "MTN Nigeria", "country": "Nigeria", "url": "https://www.mtn.ng/careers/"},
-  {"company": "Airtel Nigeria", "country": "Nigeria", "url": "https://www.airtel.com.ng/about_airtel/careers"},
-  {"company": "Access Bank", "country": "Nigeria", "url": "https://www.accessbankplc.com/careers/"},
-  {"company": "Zenith Bank", "country": "Nigeria", "url": "https://www.zenithbank.com/careers/"},
-  {"company": "First Bank of Nigeria", "country": "Nigeria", "url": "https://www.firstbanknigeria.com/careers/"},
-  {"company": "Guaranty Trust Bank (GTCO)", "country": "Nigeria", "url": "https://www.gtcoplc.com/careers"},
-  {"company": "United Bank for Africa (UBA)", "country": "Nigeria", "url": "https://www.ubagroup.com/careers/"},
-  {"company": "Moniepoint", "country": "Nigeria", "url": "https://moniepoint.com/careers"},
-  {"company": "Flutterwave", "country": "Nigeria", "url": "https://flutterwave.com/careers"},
-  {"company": "Paystack", "country": "Nigeria", "url": "https://paystack.com/careers"},
-  {"company": "Kuda Bank", "country": "Nigeria", "url": "https://kuda.com/careers"},
-  {"company": "OPay Nigeria", "country": "Nigeria", "url": "https://www.opayweb.com/careers"},
-  {"company": "Interswitch Group", "country": "Nigeria", "url": "https://www.interswitchgroup.com/careers"},
-  {"company": "Jumia Nigeria", "country": "Nigeria", "url": "https://group.jumia.com/careers"},
-  {"company": "Nigerian National Petroleum Company (NNPC)", "country": "Nigeria", "url": "https://www.nnpcgroup.com/careers"},
-  {"company": "Standard Bank", "country": "South Africa", "url": "https://www.standardbank.com/sbg/standard-bank-group/careers"},
-  {"company": "FirstRand", "country": "South Africa", "url": "https://www.firstrand.co.za/careers/"},
-  {"company": "Nedbank", "country": "South Africa", "url": "https://www.nedbank.co.za/careers"},
-  {"company": "Absa Group", "country": "South Africa", "url": "https://www.absa.africa/careers/"},
-  {"company": "Capitec Bank", "country": "South Africa", "url": "https://www.capitecbank.co.za/careers/"},
-  {"company": "Vodacom", "country": "South Africa", "url": "https://www.vodacom.com/careers.php"},
-  {"company": "MTN South Africa", "country": "South Africa", "url": "https://www.mtn.co.za/careers"},
-  {"company": "Sasol", "country": "South Africa", "url": "https://www.sasol.com/careers"},
-  {"company": "Anglo American", "country": "South Africa", "url": "https://www.angloamerican.com/careers"},
-  {"company": "Naspers", "country": "South Africa", "url": "https://www.naspers.com/careers"},
-  {"company": "Shoprite Group", "country": "South Africa", "url": "https://www.shopriteholdings.co.za/careers.html"},
-  {"company": "Woolworths South Africa", "country": "South Africa", "url": "https://www.woolworthsholdings.co.za/careers/"},
-  {"company": "Discovery Limited", "country": "South Africa", "url": "https://www.discovery.co.za/corporate/careers"},
-  {"company": "Sanlam", "country": "South Africa", "url": "https://www.sanlam.co.za/careers"},
-  {"company": "Tullow Oil", "country": "Ghana", "url": "https://www.tullowoil.com/careers/"},
-  {"company": "MTN Ghana", "country": "Ghana", "url": "https://mtn.com.gh/careers/"},
-  {"company": "GCB Bank", "country": "Ghana", "url": "https://www.gcbbank.com.gh/careers"},
-  {"company": "Ecobank Ghana", "country": "Ghana", "url": "https://www.ecobank.com/gh/careers"},
-  {"company": "Gold Fields Ghana", "country": "Ghana", "url": "https://www.goldfields.com/careers.php"},
-  {"company": "Ethio Telecom", "country": "Ethiopia", "url": "https://www.ethiotelecom.et/careers/"},
-  {"company": "Commercial Bank of Ethiopia (CBE)", "country": "Ethiopia", "url": "https://www.combanketh.et/careers"},
-  {"company": "Ethiopian Airlines", "country": "Ethiopia", "url": "https://www.ethiopianairlines.com/careers"},
-  {"company": "Safaricom Ethiopia", "country": "Ethiopia", "url": "https://www.safaricom.et/careers"},
-  {"company": "Dashen Bank", "country": "Ethiopia", "url": "https://dashenbanksc.com/careers/"},
-  {"company": "Awash Bank", "country": "Ethiopia", "url": "https://awashbank.com/careers/"},
-  {"company": "MTN Zambia", "country": "Zambia", "url": "https://www.mtn.zm/careers/"},
-  {"company": "Zambia National Commercial Bank (Zanaco)", "country": "Zambia", "url": "https://www.zanaco.co.zm/careers"},
-  {"company": "ZCCM Investments Holdings", "country": "Zambia", "url": "https://zccm-ih.com.zm/careers/"},
-  {"company": "Kansanshi Mining", "country": "Zambia", "url": "https://www.first-quantum.com/careers/"},
-  {"company": "National Bank of Malawi", "country": "Malawi", "url": "https://www.natbank.co.mw/careers"},
-  {"company": "Illovo Sugar Malawi", "country": "Malawi", "url": "https://www.illovosugarafrica.com/careers"},
-  {"company": "Telecom Egypt", "country": "Egypt", "url": "https://te.eg/wps/portal/te/Personal/Careers"},
-  {"company": "Commercial International Bank (CIB)", "country": "Egypt", "url": "https://www.cibeg.com/en/careers"},
-  {"company": "National Bank of Egypt (NBE)", "country": "Egypt", "url": "https://www.nbe.com.eg/en/careers"},
-  {"company": "Attijariwafa Bank", "country": "Morocco", "url": "https://www.attijariwafabank.com/en/careers"},
-  {"company": "Maroc Telecom", "country": "Morocco", "url": "https://www.iam.ma/careers"},
-  {"company": "OCP Group", "country": "Morocco", "url": "https://www.ocpgroup.ma/careers"}
+  {
+    "company": "Safaricom",
+    "country": "Kenya",
+    "url": "https://www.safaricom.co.ke/careers/"
+  },
+  {
+    "company": "KCB Group",
+    "country": "Kenya",
+    "url": "https://kcbgroup.com/careers"
+  },
+  {
+    "company": "Equity Group",
+    "country": "Kenya",
+    "url": "https://equitygroupholdings.com/careers/"
+  },
+  {
+    "company": "Co-operative Bank of Kenya",
+    "country": "Kenya",
+    "url": "https://www.co-opbank.co.ke/careers"
+  },
+  {
+    "company": "NCBA Group",
+    "country": "Kenya",
+    "url": "https://ncbagroup.com/careers"
+  },
+  {
+    "company": "Absa Bank Kenya",
+    "country": "Kenya",
+    "url": "https://www.absabank.co.ke/about-us/careers/"
+  },
+  {
+    "company": "I&M Bank Kenya",
+    "country": "Kenya",
+    "url": "https://www.imbankgroup.com/ke/careers/"
+  },
+  {
+    "company": "Diamond Trust Bank",
+    "country": "Kenya",
+    "url": "https://dtbk.dtbafrica.com/careers"
+  },
+  {
+    "company": "Stanbic Bank Kenya",
+    "country": "Kenya",
+    "url": "https://www.stanbicbank.co.ke/kenya/personal/about-us/careers"
+  },
+  {
+    "company": "EABL",
+    "country": "Kenya",
+    "url": "https://www.eabl.com/en/careers"
+  },
+  {
+    "company": "Bidco Africa",
+    "country": "Kenya",
+    "url": "https://bidco-africa.com/careers/"
+  },
+  {
+    "company": "KenGen",
+    "country": "Kenya",
+    "url": "https://www.kengen.co.ke/careers"
+  },
+  {
+    "company": "Kenya Power",
+    "country": "Kenya",
+    "url": "https://kplc.co.ke/careers"
+  },
+  {
+    "company": "Kenya Airways",
+    "country": "Kenya",
+    "url": "https://www.kenya-airways.com/en/about-us/careers/"
+  },
+  {
+    "company": "Bamburi Cement",
+    "country": "Kenya",
+    "url": "https://www.lafarge.co.ke/careers"
+  },
+  {
+    "company": "Aga Khan University Hospital",
+    "country": "Kenya",
+    "url": "https://www.aku.edu/careers/"
+  },
+  {
+    "company": "The Nairobi Hospital",
+    "country": "Kenya",
+    "url": "https://thenairobihosp.org/careers/"
+  },
+  {
+    "company": "MP Shah Hospital",
+    "country": "Kenya",
+    "url": "https://mpshahhosp.org/careers/"
+  },
+  {
+    "company": "AAR Healthcare",
+    "country": "Kenya",
+    "url": "https://aarhealthcare.com/careers/"
+  },
+  {
+    "company": "Naivas Supermarkets",
+    "country": "Kenya",
+    "url": "https://naivas.online/careers"
+  },
+  {
+    "company": "M-KOPA Solar",
+    "country": "Kenya",
+    "url": "https://m-kopa.com/careers/"
+  },
+  {
+    "company": "KOKO Networks",
+    "country": "Kenya",
+    "url": "https://kokonetworks.com/careers"
+  },
+  {
+    "company": "Sun King",
+    "country": "Kenya",
+    "url": "https://sunking.com/careers/"
+  },
+  {
+    "company": "Tala Kenya",
+    "country": "Kenya",
+    "url": "https://tala.co/careers/"
+  },
+  {
+    "company": "Branch International",
+    "country": "Kenya",
+    "url": "https://branch.co/careers"
+  },
+  {
+    "company": "BasiGo",
+    "country": "Kenya",
+    "url": "https://www.basi-go.com/careers"
+  },
+  {
+    "company": "Roam Electric",
+    "country": "Kenya",
+    "url": "https://www.roammotors.com/careers"
+  },
+  {
+    "company": "NMB Bank",
+    "country": "Tanzania",
+    "url": "https://www.nmbbank.co.tz/careers"
+  },
+  {
+    "company": "CRDB Bank",
+    "country": "Tanzania",
+    "url": "https://crdbbank.co.tz/careers"
+  },
+  {
+    "company": "NBC Tanzania",
+    "country": "Tanzania",
+    "url": "https://www.nbc.co.tz/en/about-us/careers/"
+  },
+  {
+    "company": "Bakhresa Group",
+    "country": "Tanzania",
+    "url": "https://bakhresa.com/careers/"
+  },
+  {
+    "company": "Tigo Tanzania",
+    "country": "Tanzania",
+    "url": "https://www.tigo.co.tz/careers"
+  },
+  {
+    "company": "Airtel Tanzania",
+    "country": "Tanzania",
+    "url": "https://www.airtel.co.tz/careers"
+  },
+  {
+    "company": "Air Tanzania",
+    "country": "Tanzania",
+    "url": "https://www.airtanzania.co.tz/careers"
+  },
+  {
+    "company": "TANESCO",
+    "country": "Tanzania",
+    "url": "https://www.tanesco.co.tz/careers"
+  },
+  {
+    "company": "Kilombero Sugar",
+    "country": "Tanzania",
+    "url": "https://www.kilomberosugar.co.tz/careers"
+  },
+  {
+    "company": "Geita Gold Mine",
+    "country": "Tanzania",
+    "url": "https://www.anglogoldashanti.com/careers/"
+  },
+  {
+    "company": "Aga Khan Health Services Tanzania",
+    "country": "Tanzania",
+    "url": "https://www.agakhanhospitals.org/daressalaam/careers"
+  },
+  {
+    "company": "Stanbic Bank Uganda",
+    "country": "Uganda",
+    "url": "https://www.stanbicbank.co.ug/uganda/personal/about-us/careers"
+  },
+  {
+    "company": "Centenary Bank",
+    "country": "Uganda",
+    "url": "https://www.centenarybank.co.ug/about-us/careers"
+  },
+  {
+    "company": "DFCU Bank",
+    "country": "Uganda",
+    "url": "https://www.dfcugroup.com/careers/"
+  },
+  {
+    "company": "MTN Uganda",
+    "country": "Uganda",
+    "url": "https://www.mtn.co.ug/careers/"
+  },
+  {
+    "company": "Airtel Uganda",
+    "country": "Uganda",
+    "url": "https://www.airtel.co.ug/careers"
+  },
+  {
+    "company": "Uganda Breweries",
+    "country": "Uganda",
+    "url": "https://www.ugandabreweries.com/careers"
+  },
+  {
+    "company": "Umeme Uganda",
+    "country": "Uganda",
+    "url": "https://www.umeme.co.ug/careers"
+  },
+  {
+    "company": "Uganda Airlines",
+    "country": "Uganda",
+    "url": "https://ugandairlines.com/careers"
+  },
+  {
+    "company": "Kakira Sugar",
+    "country": "Uganda",
+    "url": "https://www.kakirasugar.com/careers"
+  },
+  {
+    "company": "Bank of Kigali",
+    "country": "Rwanda",
+    "url": "https://bk.rw/about-us/careers"
+  },
+  {
+    "company": "I&M Bank Rwanda",
+    "country": "Rwanda",
+    "url": "https://www.imbankgroup.com/rw/careers/"
+  },
+  {
+    "company": "MTN Rwanda",
+    "country": "Rwanda",
+    "url": "https://www.mtn.co.rw/careers/"
+  },
+  {
+    "company": "Airtel Rwanda",
+    "country": "Rwanda",
+    "url": "https://www.airtel.rw/careers"
+  },
+  {
+    "company": "RwandAir",
+    "country": "Rwanda",
+    "url": "https://www.rwandair.com/careers/"
+  },
+  {
+    "company": "Bralirwa",
+    "country": "Rwanda",
+    "url": "https://www.bralirwa.co.rw/careers/"
+  },
+  {
+    "company": "Ampersand E-Mobility",
+    "country": "Rwanda",
+    "url": "https://www.ampersand.solar/careers"
+  },
+  {
+    "company": "Dangote Group",
+    "country": "Nigeria",
+    "url": "https://www.dangote.com/careers/"
+  },
+  {
+    "company": "MTN Nigeria",
+    "country": "Nigeria",
+    "url": "https://www.mtn.ng/careers/"
+  },
+  {
+    "company": "Airtel Nigeria",
+    "country": "Nigeria",
+    "url": "https://www.airtel.com.ng/about_airtel/careers"
+  },
+  {
+    "company": "Access Bank",
+    "country": "Nigeria",
+    "url": "https://www.accessbankplc.com/careers/"
+  },
+  {
+    "company": "Zenith Bank",
+    "country": "Nigeria",
+    "url": "https://www.zenithbank.com/careers/"
+  },
+  {
+    "company": "First Bank of Nigeria",
+    "country": "Nigeria",
+    "url": "https://www.firstbanknigeria.com/careers/"
+  },
+  {
+    "company": "Guaranty Trust Bank (GTCO)",
+    "country": "Nigeria",
+    "url": "https://www.gtcoplc.com/careers"
+  },
+  {
+    "company": "United Bank for Africa (UBA)",
+    "country": "Nigeria",
+    "url": "https://www.ubagroup.com/careers/"
+  },
+  {
+    "company": "Moniepoint",
+    "country": "Nigeria",
+    "url": "https://moniepoint.com/careers"
+  },
+  {
+    "company": "Flutterwave",
+    "country": "Nigeria",
+    "url": "https://flutterwave.com/careers"
+  },
+  {
+    "company": "Paystack",
+    "country": "Nigeria",
+    "url": "https://paystack.com/careers"
+  },
+  {
+    "company": "Kuda Bank",
+    "country": "Nigeria",
+    "url": "https://kuda.com/careers"
+  },
+  {
+    "company": "OPay Nigeria",
+    "country": "Nigeria",
+    "url": "https://www.opayweb.com/careers"
+  },
+  {
+    "company": "Interswitch Group",
+    "country": "Nigeria",
+    "url": "https://www.interswitchgroup.com/careers"
+  },
+  {
+    "company": "Jumia Nigeria",
+    "country": "Nigeria",
+    "url": "https://group.jumia.com/careers"
+  },
+  {
+    "company": "Nigerian National Petroleum Company (NNPC)",
+    "country": "Nigeria",
+    "url": "https://www.nnpcgroup.com/careers"
+  },
+  {
+    "company": "Standard Bank",
+    "country": "South Africa",
+    "url": "https://www.standardbank.com/sbg/standard-bank-group/careers"
+  },
+  {
+    "company": "FirstRand",
+    "country": "South Africa",
+    "url": "https://www.firstrand.co.za/careers/"
+  },
+  {
+    "company": "Nedbank",
+    "country": "South Africa",
+    "url": "https://www.nedbank.co.za/careers"
+  },
+  {
+    "company": "Absa Group",
+    "country": "South Africa",
+    "url": "https://www.absa.africa/careers/"
+  },
+  {
+    "company": "Capitec Bank",
+    "country": "South Africa",
+    "url": "https://www.capitecbank.co.za/careers/"
+  },
+  {
+    "company": "Vodacom",
+    "country": "South Africa",
+    "url": "https://www.vodacom.com/careers.php"
+  },
+  {
+    "company": "MTN South Africa",
+    "country": "South Africa",
+    "url": "https://www.mtn.co.za/careers"
+  },
+  {
+    "company": "Sasol",
+    "country": "South Africa",
+    "url": "https://www.sasol.com/careers"
+  },
+  {
+    "company": "Anglo American",
+    "country": "South Africa",
+    "url": "https://www.angloamerican.com/careers"
+  },
+  {
+    "company": "Naspers",
+    "country": "South Africa",
+    "url": "https://www.naspers.com/careers"
+  },
+  {
+    "company": "Shoprite Group",
+    "country": "South Africa",
+    "url": "https://www.shopriteholdings.co.za/careers.html"
+  },
+  {
+    "company": "Woolworths South Africa",
+    "country": "South Africa",
+    "url": "https://www.woolworthsholdings.co.za/careers/"
+  },
+  {
+    "company": "Discovery Limited",
+    "country": "South Africa",
+    "url": "https://www.discovery.co.za/corporate/careers"
+  },
+  {
+    "company": "Sanlam",
+    "country": "South Africa",
+    "url": "https://www.sanlam.co.za/careers"
+  },
+  {
+    "company": "Tullow Oil",
+    "country": "Ghana",
+    "url": "https://www.tullowoil.com/careers/"
+  },
+  {
+    "company": "MTN Ghana",
+    "country": "Ghana",
+    "url": "https://mtn.com.gh/careers/"
+  },
+  {
+    "company": "GCB Bank",
+    "country": "Ghana",
+    "url": "https://www.gcbbank.com.gh/careers"
+  },
+  {
+    "company": "Ecobank Ghana",
+    "country": "Ghana",
+    "url": "https://www.ecobank.com/gh/careers"
+  },
+  {
+    "company": "Gold Fields Ghana",
+    "country": "Ghana",
+    "url": "https://www.goldfields.com/careers.php"
+  },
+  {
+    "company": "Ethio Telecom",
+    "country": "Ethiopia",
+    "url": "https://www.ethiotelecom.et/careers/"
+  },
+  {
+    "company": "Commercial Bank of Ethiopia (CBE)",
+    "country": "Ethiopia",
+    "url": "https://www.combanketh.et/careers"
+  },
+  {
+    "company": "Ethiopian Airlines",
+    "country": "Ethiopia",
+    "url": "https://www.ethiopianairlines.com/careers"
+  },
+  {
+    "company": "Safaricom Ethiopia",
+    "country": "Ethiopia",
+    "url": "https://www.safaricom.et/careers"
+  },
+  {
+    "company": "Dashen Bank",
+    "country": "Ethiopia",
+    "url": "https://dashenbanksc.com/careers/"
+  },
+  {
+    "company": "Awash Bank",
+    "country": "Ethiopia",
+    "url": "https://awashbank.com/careers/"
+  },
+  {
+    "company": "MTN Zambia",
+    "country": "Zambia",
+    "url": "https://www.mtn.zm/careers/"
+  },
+  {
+    "company": "Zambia National Commercial Bank (Zanaco)",
+    "country": "Zambia",
+    "url": "https://www.zanaco.co.zm/careers"
+  },
+  {
+    "company": "ZCCM Investments Holdings",
+    "country": "Zambia",
+    "url": "https://zccm-ih.com.zm/careers/"
+  },
+  {
+    "company": "Kansanshi Mining",
+    "country": "Zambia",
+    "url": "https://www.first-quantum.com/careers/"
+  },
+  {
+    "company": "National Bank of Malawi",
+    "country": "Malawi",
+    "url": "https://www.natbank.co.mw/careers"
+  },
+  {
+    "company": "Illovo Sugar Malawi",
+    "country": "Malawi",
+    "url": "https://www.illovosugarafrica.com/careers"
+  },
+  {
+    "company": "Telecom Egypt",
+    "country": "Egypt",
+    "url": "https://te.eg/wps/portal/te/Personal/Careers"
+  },
+  {
+    "company": "Commercial International Bank (CIB)",
+    "country": "Egypt",
+    "url": "https://www.cibeg.com/en/careers"
+  },
+  {
+    "company": "National Bank of Egypt (NBE)",
+    "country": "Egypt",
+    "url": "https://www.nbe.com.eg/en/careers"
+  },
+  {
+    "company": "Attijariwafa Bank",
+    "country": "Morocco",
+    "url": "https://www.attijariwafabank.com/en/careers"
+  },
+  {
+    "company": "Maroc Telecom",
+    "country": "Morocco",
+    "url": "https://www.iam.ma/careers"
+  },
+  {
+    "company": "OCP Group",
+    "country": "Morocco",
+    "url": "https://www.ocpgroup.ma/careers"
+  },
+  {
+    "company": "Access Bank Tanzania Limited",
+    "country": "Tanzania",
+    "sector": "Banks",
+    "url": "https://tanzania.accessbankplc.co.tz/careers"
+  },
+  {
+    "company": "Amana Bank Limited",
+    "country": "Tanzania",
+    "sector": "Banks",
+    "url": "https://amanabank.co.tz/banking/careers"
+  },
+  {
+    "company": "Bank of Baroda Tanzania Limited",
+    "country": "Tanzania",
+    "sector": "Banks",
+    "url": "https://www.bankofbaroda.co.tz"
+  },
+  {
+    "company": "CRDB Bank Plc",
+    "country": "Tanzania",
+    "sector": "Banks",
+    "url": "https://crdbbank.co.tz/en/about-us/careers"
+  },
+  {
+    "company": "Fina Bank Tanzania Limited",
+    "country": "Tanzania",
+    "sector": "Banks",
+    "url": "finca.co.tz/career"
+  },
+  {
+    "company": "Guaranty Trust Bank (Tanzania) Limited",
+    "country": "Tanzania",
+    "sector": "Banks",
+    "url": "https://www.gtbank.co.tz/about/careers"
+  },
+  {
+    "company": "NMB Bank Plc",
+    "country": "Tanzania",
+    "sector": "Banks",
+    "url": "https://careers.nmbbank.co.tz"
+  },
+  {
+    "company": "Al Baraka Bank Tanzania Limited",
+    "country": "Tanzania",
+    "sector": "Banks",
+    "url": "https://albaraka.mcidirecthire.com"
+  },
+  {
+    "company": "Tanzania Savings Bank",
+    "country": "Tanzania",
+    "sector": "Banks",
+    "url": "https://crdbbank.co.tz/en/about-us/careers"
+  },
+  {
+    "company": "Tanzania Investment Center (TIC) is a parastatal, not an NGO - *Correction*: Please note that many major development actors in Tanzania are international NGOs, Global South NGOs, or UNA agencies. The prompt asks for NGOs. I will list prominent international and local NGOs known for large-scale operations and employment.",
+    "country": "Tanzania",
+    "sector": "NGOs",
+    "url": "https://procedures.tic.go.tz"
+  },
+  {
+    "company": "Benjamin Mkapa Hospital",
+    "country": "Tanzania",
+    "sector": "Hospitals",
+    "url": "https://www.bmh.or.tz/announcements/job-vacancies"
+  },
+  {
+    "company": "Kilimanjaro Christian Medical Centre",
+    "country": "Tanzania",
+    "sector": "Hospitals",
+    "url": "https://www.kcmc.ac.tz"
+  },
+  {
+    "company": "Bugando Medical Centre",
+    "country": "Tanzania",
+    "sector": "Hospitals",
+    "url": "https://example.com/jobs.html"
+  },
+  {
+    "company": "Mbeya Regional Referral Hospital",
+    "country": "Tanzania",
+    "sector": "Hospitals",
+    "url": "http://mbeyarrh.go.tz/"
+  },
+  {
+    "company": "Iringa Regional Referral Hospital",
+    "country": "Tanzania",
+    "sector": "Hospitals",
+    "url": "https://www.iringaregionalreferralhospital.or.tz/careers"
+  },
+  {
+    "company": "University of Dar es Salaam",
+    "country": "Tanzania",
+    "sector": "Universities",
+    "url": "https://udsm.ac.tz"
+  },
+  {
+    "company": "Muhimbili University of Health and Allied Sciences",
+    "country": "Tanzania",
+    "sector": "Universities",
+    "url": "https://muhas.ac.tz"
+  },
+  {
+    "company": "Aga Khan University, Tanzania",
+    "country": "Tanzania",
+    "sector": "Universities",
+    "url": "https://www.aku.edu/vacancies/pages/job-detail.aspx?JobID=10252&Title=RESEARCH+ASSISTANT+-+FIXED+TERM+CONTRACT+%2818+MONTHS%29"
+  },
+  {
+    "company": "College of Medical Education, Arusha",
+    "country": "Tanzania",
+    "sector": "Universities",
+    "url": "https://cbe.ac.tz/vacancies"
+  },
+  {
+    "company": "College of Education, Chuo Kikuu Cha Mwalimu",
+    "country": "Tanzania",
+    "sector": "Universities",
+    "url": "https://muce.udsm.ac.tz/work-muce"
+  },
+  {
+    "company": "Ivy College (Private, major employer)",
+    "country": "Tanzania",
+    "sector": "Universities",
+    "url": "ivyschools.com/gc/jobs?lang=en-us"
+  },
+  {
+    "company": "American University in Tanzania (Private)",
+    "country": "Tanzania",
+    "sector": "Universities",
+    "url": "https://www.aku.edu/vacancies/Pages/search-jobs.aspx"
+  },
+  {
+    "company": "Aga Khan University Hospital (Clinical staff/majors)",
+    "country": "Tanzania",
+    "sector": "Universities",
+    "url": "https://www.aku.edu/vacancies/Pages/search-jobs.aspx"
+  },
+  {
+    "company": "Moshi University of Medical Education (MUME)",
+    "country": "Tanzania",
+    "sector": "Universities",
+    "url": "https://www.momu.ac.tz/wasiliana-navi/employment"
+  },
+  {
+    "company": "Arusha University (Public)",
+    "country": "Tanzania",
+    "sector": "Universities",
+    "url": "https://www.uoa.ac.tz/"
+  },
+  {
+    "company": "Tanga Cement Company Limited",
+    "country": "Tanzania",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.tangacement.co.tz/careers/"
+  },
+  {
+    "company": "Kibo Cement Limited",
+    "country": "Tanzania",
+    "sector": "Manufacturing Companies",
+    "url": "https://kibo.careers/jobs"
+  },
+  {
+    "company": "Kilombero Sugar Company Limited",
+    "country": "Tanzania",
+    "sector": "Manufacturing Companies",
+    "url": "true"
+  },
+  {
+    "company": "Kagera Sugar Limited",
+    "country": "Tanzania",
+    "sector": "Manufacturing Companies",
+    "url": "https://kagera-sugar.co.tz/careers/"
+  },
+  {
+    "company": "Tanzania Cigarette Company Limited",
+    "country": "Tanzania",
+    "sector": "Manufacturing Companies",
+    "url": "https://jobs.lever.co/tcc-tz/9bcb7508-0599-4f2f-8a36-4b6e5b10448f?functionName=Finance"
+  },
+  {
+    "company": "Kagera Textile Mills Limited",
+    "country": "Tanzania",
+    "sector": "Manufacturing Companies",
+    "url": "https://kagera-sugar.co.tz/careers/"
+  },
+  {
+    "company": "Mabira Sugar Company Limited",
+    "country": "Tanzania",
+    "sector": "Manufacturing Companies",
+    "url": "example.com/path?utm_source=x&utm_medium=y"
+  },
+  {
+    "company": "Dar es Salaam Sugar Refinery Limited",
+    "country": "Tanzania",
+    "sector": "Manufacturing Companies",
+    "url": "https://kilomberosugar.co.tz/en/career"
+  },
+  {
+    "company": "Diamond Resorts International (Tanzania) (Communications Division)",
+    "country": "Tanzania",
+    "sector": "Telecommunications",
+    "url": "https://www.diamondresorts.com/careers"
+  },
+  {
+    "company": "T-Mobile Tanzania",
+    "country": "Tanzania",
+    "sector": "Telecommunications",
+    "url": "https://careers.t-mobile.com/careers"
+  },
+  {
+    "company": "Tandata Tanzania",
+    "country": "Tanzania",
+    "sector": "Telecommunications",
+    "url": "https://career.tadb.co.tz/ArutiHRM/Career.aspx?cc=OvQJar7b9kg%253D&ext=7"
+  },
+  {
+    "company": "Tanzania Ports Authority (TPA) (Communications Division)",
+    "country": "Tanzania",
+    "sector": "Telecommunications",
+    "url": "https://www.ports.go.tz"
+  },
+  {
+    "company": "Tanzania Water Supply and Sanitation Agency (TANWASAR) (Communications Division)",
+    "country": "Tanzania",
+    "sector": "Telecommunications",
+    "url": "https://tanzania-electronic-media-service.honza.space/announcements"
+  },
+  {
+    "company": "Tanzania Investment Center (TIC) (Communications Division)",
+    "country": "Tanzania",
+    "sector": "Telecommunications",
+    "url": "https://jobs.tz.cari.africa/jobs/tic-tanzania-investment-centre"
+  },
+  {
+    "company": "Tanzania Tourism Board (TTB) (Communications Division)",
+    "country": "Tanzania",
+    "sector": "Telecommunications",
+    "url": "https://tanzaniatourism.go.tz/work-with-us/vacancy"
+  },
+  {
+    "company": "Tanzania Revenue Authority (TRA) (Communications Division)",
+    "country": "Tanzania",
+    "sector": "Telecommunications",
+    "url": "https://www.tra.go.tz/sw/vacancies"
+  },
+  {
+    "company": "Bank of Tanzania (BoT) (Communications Division)",
+    "country": "Tanzania",
+    "sector": "Telecommunications",
+    "url": "https://www.bot.go.tz/CareerOpportunities"
+  },
+  {
+    "company": "Standard Chartered Bank Kenya Limited",
+    "country": "Kenya",
+    "sector": "Banks",
+    "url": "https://www.sc.com/ke/careers/"
+  },
+  {
+    "company": "Equity Bank (Kenya) Limited",
+    "country": "Kenya",
+    "sector": "Banks",
+    "url": "https://equitybank.taleo.net/careersection/ext_new"
+  },
+  {
+    "company": "KCB Group Holdings Limited",
+    "country": "Kenya",
+    "sector": "Banks",
+    "url": "https://ke.kcbgroup.com/careers"
+  },
+  {
+    "company": "Credit Bank Limited",
+    "country": "Kenya",
+    "sector": "Banks",
+    "url": "https://creditbank.co.ke/careers/"
+  },
+  {
+    "company": "Diamondtrust Bank Limited",
+    "country": "Kenya",
+    "sector": "Banks",
+    "url": "https://dtbk.dtbafrica.com/careers"
+  },
+  {
+    "company": "Jubilee Bank Kenya Limited",
+    "country": "Kenya",
+    "sector": "Banks",
+    "url": "https://jubileeinsurance.com/ke/careers/"
+  },
+  {
+    "company": "NCBA Group Holdings Limited",
+    "country": "Kenya",
+    "sector": "Banks",
+    "url": "ncbagroup.com/careers/ is likely the official career or jobs page for NCBA Group Holdings Limited. The domain 'ncbagroup.com' is a direct match to the company name 'NCBA Group', and NCBA is a prominent bank in Kenya, confirming it is not an aggregator or news site, but the direct employer's site."
+  },
+  {
+    "company": "Prime First Bank Limited",
+    "country": "Kenya",
+    "sector": "Banks",
+    "url": "https://www.primebank.co.ke/careers/"
+  },
+  {
+    "company": "Zenith Bank plc Nairobi Representative Office",
+    "country": "Kenya",
+    "sector": "Banks",
+    "url": "https://career.zenithbank.com/"
+  },
+  {
+    "company": "Caisse des Depots et de Placement Dubai (CDP) Kenya Office",
+    "country": "Kenya",
+    "sector": "Banks",
+    "url": "https://careers.caisse-des-depots-et-de--placement-dubai.com/jobs/jobs-in-kenya"
+  },
+  {
+    "company": "Reliance Bank Kenya Limited",
+    "country": "Kenya",
+    "sector": "Banks",
+    "url": "https://reliancebankmn.com/careers/"
+  },
+  {
+    "company": "Institute of Development Studies (IDS)",
+    "country": "Kenya",
+    "sector": "NGOs",
+    "url": "https://jobs.ids.ac.uk"
+  },
+  {
+    "company": "Gates Foundation",
+    "country": "Kenya",
+    "sector": "NGOs",
+    "url": "https://www.gatesfoundation.org/about/careers"
+  },
+  {
+    "company": "The Kenyatta Administration (Ministry of Finance, Planning and Economic Development)",
+    "country": "Kenya",
+    "sector": "NGOs",
+    "url": "https://kenyattaadministration.go.ke/career-listing"
+  },
+  {
+    "company": "United Nations Development Programme (UNDP)",
+    "country": "Kenya",
+    "sector": "NGOs",
+    "url": "https://www.undp.org"
+  },
+  {
+    "company": "International Labour Organization (ILO)",
+    "country": "Kenya",
+    "sector": "NGOs",
+    "url": "https://www.ilo.org/about-ilo/employment-opportunities"
+  },
+  {
+    "company": "World Health Organization (WHO)",
+    "country": "Kenya",
+    "sector": "NGOs",
+    "url": "https://careers.who.int"
+  },
+  {
+    "company": "United Nations Children's Fund (UNICEF)",
+    "country": "Kenya",
+    "sector": "NGOs",
+    "url": "https://jobs.unicef.org"
+  },
+  {
+    "company": "Cervical Cancer Screening and Prevention Program - Ministry of Health",
+    "country": "Kenya",
+    "sector": "Hospitals",
+    "url": "https://www.health.go.ke/vacancies-internships"
+  },
+  {
+    "company": "Chez Moyo Hospital",
+    "country": "Kenya",
+    "sector": "Hospitals",
+    "url": "https://careers.mtrh.go.ke/... domain is mtrh.go.ke.\n- MTRH stands for **Moi Teaching and Referral Hospital**.\n- The domain `.go.ke` indicates it is a Kenyan government website.\n- The query asks about \"Chez Moyo Hospital\".\n- \"Chez Moyo Hotel\" is a famous hotel in Nairobi, Kenya, but the query says \"Chez Moyo *Hospital*\".\n- There is no well-known \"Chez Moyo Hospital\" in Kenya that is the employer behind the MTRH careers page.\n- The URL explicitly points to **Moi Teaching and Referral Hospital (MTRH)**, which is a different entity from \"Chez Moyo\".\n- Therefore, the URL is the official career page for **MTRH**, not \"Chez Moyo Hospital\".\n- The prompt asks: "
+  },
+  {
+    "company": "Karura Polyclinic",
+    "country": "Kenya",
+    "sector": "Hospitals",
+    "url": "https://materkenya.com/careers"
+  },
+  {
+    "company": "Kenyatta National Hospital",
+    "country": "Kenya",
+    "sector": "Hospitals",
+    "url": "https://knh.or.ke/index.php/careers/"
+  },
+  {
+    "company": "Kisumu Level 5 Hospital",
+    "country": "Kenya",
+    "sector": "Hospitals",
+    "url": "true"
+  },
+  {
+    "company": "Kivuleo Hospital",
+    "country": "Kenya",
+    "sector": "Hospitals",
+    "url": "https://kijabe-hospital.org/careers"
+  },
+  {
+    "company": "Eldoret Tertiary Hospital",
+    "country": "Kenya",
+    "sector": "Hospitals",
+    "url": "https://www.mtrh.go.ke/"
+  },
+  {
+    "company": "Kisumu National Teaching and Referral Hospital",
+    "country": "Kenya",
+    "sector": "Hospitals",
+    "url": "https://www.kisumunationalhospital.or.ke/medical-faculty/career"
+  },
+  {
+    "company": "University of Nairobi",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://uonbi.ac.ke"
+  },
+  {
+    "company": "Kenyatta University",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://www.ku.ac.ke/career-ku"
+  },
+  {
+    "company": "Jomo Kenyatta University of Agriculture and Technology",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://www.jkuat.ac.ke/vacancies/"
+  },
+  {
+    "company": "Strathmore University",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://strathmore.edu/vacancies"
+  },
+  {
+    "company": "Maseno University",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://maseno.ac.ke/vacancies"
+  },
+  {
+    "company": "Technical University of Mombasa",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://jobs.tum.ac.ke/"
+  },
+  {
+    "company": "University of Eldoret",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://uoeld.ac.ke/updates/career"
+  },
+  {
+    "company": "Daystar University",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://www.daystar.ac.ke/vacancies/...ac"
+  },
+  {
+    "company": "Chuka University",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://www.chuka.ac.ke/vacancies/"
+  },
+  {
+    "company": "South Eastern Kenya University",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://www.seku.ac.ke/open-job-opportunities"
+  },
+  {
+    "company": "Kabarak University",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "/jobs"
+  },
+  {
+    "company": "Mount Kenya University",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "http://mku.ac.ke"
+  },
+  {
+    "company": "Kenya Methodist University",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://kemu.ac.ke/vacancies"
+  },
+  {
+    "company": "Laikipia University",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://www.laikipia.ac.ke/careers"
+  },
+  {
+    "company": "Coast National Polytechnic",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://kenyacoastpoly.ac.ke/careers/"
+  },
+  {
+    "company": "Nyandarua National Polytechnic",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "nynp.ac.ke/vacancies"
+  },
+  {
+    "company": "Machakos University of Science and Technology",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://mksu.ac.ke/careers-page/"
+  },
+  {
+    "company": "Karatina University",
+    "country": "Kenya",
+    "sector": "Universities",
+    "url": "https://jobs.karu.ac.ke/"
+  },
+  {
+    "company": "6. Devki Group",
+    "country": "Kenya",
+    "sector": "Manufacturing Companies",
+    "url": "https://devkigroupke.com/"
+  },
+  {
+    "company": "8. Haco Industries",
+    "country": "Kenya",
+    "sector": "Manufacturing Companies",
+    "url": "true"
+  },
+  {
+    "company": "16. Spin Knit Limited",
+    "country": "Kenya",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.spinknit.biz"
+  },
+  {
+    "company": "22. Limuru Dairy",
+    "country": "Kenya",
+    "sector": "Manufacturing Companies",
+    "url": "https://limurudairy.co.ke/opportunities/"
+  },
+  {
+    "company": "Telkom Kenya Ltd",
+    "country": "Kenya",
+    "sector": "Telecommunications",
+    "url": "https://www.reveliolabs.com/companies/telkom-kenya/employees"
+  },
+  {
+    "company": "Jamii Telecommunications Ltd",
+    "country": "Kenya",
+    "sector": "Telecommunications",
+    "url": "https://exa.ai/profile/jamiitelecom"
+  },
+  {
+    "company": "Wananchi Group Ltd",
+    "country": "Kenya",
+    "sector": "Telecommunications",
+    "url": "https://zuku.co.ke/careers"
+  },
+  {
+    "company": "DigiCom Kenya Ltd",
+    "country": "Kenya",
+    "sector": "Telecommunications",
+    "url": "https://digicom.co.ke/"
+  },
+  {
+    "company": "Telesure Communications Ltd",
+    "country": "Kenya",
+    "sector": "Telecommunications",
+    "url": "https://telesure.wd3.myworkdayjobs.com/Wday"
+  },
+  {
+    "company": "Lumen Technologies Kenya Ltd",
+    "country": "Kenya",
+    "sector": "Telecommunications",
+    "url": "https://jobs.lumen.com"
+  },
+  {
+    "company": "Cisco Kenya Ltd",
+    "country": "Kenya",
+    "sector": "Telecommunications",
+    "url": "https://careers.cisco.com"
+  },
+  {
+    "company": "Horizon Telecom Ltd",
+    "country": "Kenya",
+    "sector": "Telecommunications",
+    "url": "https://ypage.uk/companies/955203/horizon-telecom-ltd/"
+  },
+  {
+    "company": "Prudential",
+    "country": "Uganda",
+    "sector": "Banks",
+    "url": "https://joinus.prudential.ug"
+  },
+  {
+    "company": "Land bank",
+    "country": "Uganda",
+    "sector": "Banks",
+    "url": "https://careers.landbank.com/ATS/Views/application_form.jsp"
+  },
+  {
+    "company": "Bank of Uganda",
+    "country": "Uganda",
+    "sector": "Banks",
+    "url": "https://www.bou.or.ug/career_opportunities"
+  },
+  {
+    "company": "Equity Bank",
+    "country": "Uganda",
+    "sector": "Banks",
+    "url": "https://equitygroupholdings.com/"
+  },
+  {
+    "company": "Uganda Development Bank",
+    "country": "Uganda",
+    "sector": "Banks",
+    "url": "https://www.udbl.co.ug/careers/"
+  },
+  {
+    "company": "Stanbic Bank",
+    "country": "Uganda",
+    "sector": "Banks",
+    "url": "https://www.stanbicbank.co.ug/careers/WhatWeDo.html"
+  },
+  {
+    "company": "Save the Children",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://www.savethechildren.net/uganda/uganda-jobs"
+  },
+  {
+    "company": "Oxfam",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://uganda.oxfam.org/get-involved/jobs"
+  },
+  {
+    "company": "World Vision",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://worldvision.wd1.myworkdayjobs.com/WorldVisionInternational"
+  },
+  {
+    "company": "CARE",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://careuganda.org/careers/"
+  },
+  {
+    "company": "Action Against Hunger",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "actionagainsthunger.org/careers/current-openings"
+  },
+  {
+    "company": "International Rescue Committee",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://theirc.wd1.myworkdayjobs.com"
+  },
+  {
+    "company": "Danish Refugee Council",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://drc.ngo/jobs/"
+  },
+  {
+    "company": "Norwegian Refugee Council",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://www.nrc.no/careers"
+  },
+  {
+    "company": "Plan International",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://jobs.plan-international.org/"
+  },
+  {
+    "company": "Amref Health Africa",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://careers.amref.org"
+  },
+  {
+    "company": "International Save the Children",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://www.savethechildren.net/careers"
+  },
+  {
+    "company": "BRAC",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://www.bracugandabankltd.com/careers/."
+  },
+  {
+    "company": "Medecins Sans Frontieres",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://www.msf.org/jobs"
+  },
+  {
+    "company": "Food for the Hungry",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://www.fh.org/about/careers"
+  },
+  {
+    "company": "World Food Programme",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://wfp.wd3.myworkdayjobs.com/en-US/extprivateposting/job/Consultant-Partnerships---Communications-Officer-_JR127762"
+  },
+  {
+    "company": "UNICEF",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://jobs.unicef.org/en-us"
+  },
+  {
+    "company": "International Organization for Migration",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://uganda.iom.int/careers"
+  },
+  {
+    "company": "Tearfund",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://jobs.tearfund.org"
+  },
+  {
+    "company": "War Child",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://war-child-alliance.jobs.personio.com"
+  },
+  {
+    "company": "HelpAge International",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://www.helpage.org/work-with-us/vacancies/"
+  },
+  {
+    "company": "Malaria Consortium",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://www.malariaconsortium.org/careers"
+  },
+  {
+    "company": "Farm Africa",
+    "country": "Uganda",
+    "sector": "NGOs",
+    "url": "https://www.farmafrica.org/our-people/jobs-at-farm-africa/"
+  },
+  {
+    "company": "Mbarara Regional Referral Hospital",
+    "country": "Uganda",
+    "sector": "Hospitals",
+    "url": "https://mbararahospital.go.ug"
+  },
+  {
+    "company": "Gulu Regional Referral Hospital",
+    "country": "Uganda",
+    "sector": "Hospitals",
+    "url": "guluhospital.net/job-opportunities-at-gulu-hospital"
+  },
+  {
+    "company": "Uganda Martyrs University",
+    "country": "Uganda",
+    "sector": "Universities",
+    "url": "https://www.umu.ac.ug/"
+  },
+  {
+    "company": "Kampala International University",
+    "country": "Uganda",
+    "sector": "Universities",
+    "url": "https://jobs.kiu.ac.ug/jobs"
+  },
+  {
+    "company": "Busitema University",
+    "country": "Uganda",
+    "sector": "Universities",
+    "url": "https://www.busitema.ac.ug/human-resource/vacancies"
+  },
+  {
+    "company": "Kyambogo University",
+    "country": "Uganda",
+    "sector": "Universities",
+    "url": "https://kyu.ac.ug/job-openings/"
+  },
+  {
+    "company": "Uganda Christian University",
+    "country": "Uganda",
+    "sector": "Universities",
+    "url": "https://ucu.ac.ug/careers/"
+  },
+  {
+    "company": "Mbarara University of Science and Technology",
+    "country": "Uganda",
+    "sector": "Universities",
+    "url": "https://www.must.ac.ug/announcement_type/jobs-careers/"
+  },
+  {
+    "company": "Nkumba University",
+    "country": "Uganda",
+    "sector": "Universities",
+    "url": "nkumbauniversity.ac.ug"
+  },
+  {
+    "company": "Uganda Breweries Limited",
+    "country": "Uganda",
+    "sector": "Manufacturing Companies",
+    "url": "https://openrouter.ai/models/google/openrouter_google"
+  },
+  {
+    "company": "Nile Breweries Limited",
+    "country": "Uganda",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.nilebreweries.com/careers"
+  },
+  {
+    "company": "Roofings Limited",
+    "country": "Uganda",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.roofingsgroup.com/careers.html"
+  },
+  {
+    "company": "Hima Cement Limited",
+    "country": "Uganda",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.himacement.co.ug/careers"
+  },
+  {
+    "company": "Tororo Cement Limited",
+    "country": "Uganda",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.tororocement.com/careers/"
+  },
+  {
+    "company": "Uganda Clays Limited",
+    "country": "Uganda",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.ugandaclays.co.ug"
+  },
+  {
+    "company": "Uganda Steel Works Limited",
+    "country": "Uganda",
+    "sector": "Manufacturing Companies",
+    "url": "https://steelworksuganda.com/job-application/"
+  },
+  {
+    "company": "Equity Bank Rwanda",
+    "country": "Rwanda",
+    "sector": "Banks",
+    "url": "https://equitygroupholdings.com/rw/careers"
+  },
+  {
+    "company": "Access Bank Rwanda",
+    "country": "Rwanda",
+    "sector": "Banks",
+    "url": "https://rwanda.accessbankplc.com/careers"
+  },
+  {
+    "company": "Bank of Africa Rwanda",
+    "country": "Rwanda",
+    "sector": "Banks",
+    "url": "https://www.boarwanda.com/institutional/jobs/"
+  },
+  {
+    "company": "NCBA Bank Rwanda",
+    "country": "Rwanda",
+    "sector": "Banks",
+    "url": "https://rw.ncbagroup.com/fr/job-openings/"
+  },
+  {
+    "company": "UBA Bank Rwanda",
+    "country": "Rwanda",
+    "sector": "Banks",
+    "url": "https://careers.ubagroup.com/job/Global/UBA/Rwanda/All%20Categories/"
+  },
+  {
+    "company": "CBA Bank Rwanda",
+    "country": "Rwanda",
+    "sector": "Banks",
+    "url": "https://jobs.lever.co/rubank"
+  },
+  {
+    "company": "One Acre Fund",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "https://oneacrefund.org/careers"
+  },
+  {
+    "company": "Concern Worldwide",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "https://www.concern.net/vacancies"
+  },
+  {
+    "company": "World Wildlife Fund",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "https://www.worldwildlife.org/about/careers/"
+  },
+  {
+    "company": "Catholic Relief Services",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "https://www.crs.org/about-us/careers"
+  },
+  {
+    "company": "International Justice Mission",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "https://www.ijm.org/careers"
+  },
+  {
+    "company": "World Relief",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "jobs.lever.co"
+  },
+  {
+    "company": "Habitat for Humanity",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "https://www.habitat.org"
+  },
+  {
+    "company": "International Committee of the Red Cross",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "https://www.icrc.org/en/join-icrc-and-help-protect-lives-and-dignity"
+  },
+  {
+    "company": "Partners In Health",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "https://jobs.jobvite.com/pih"
+  },
+  {
+    "company": "IntraHealth International",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "https://www.intrahealth.org/career-opportunities"
+  },
+  {
+    "company": "Jhpiego",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "https://jobs-jhpiego.icims.com/jobs"
+  },
+  {
+    "company": "Population Services International",
+    "country": "Rwanda",
+    "sector": "NGOs",
+    "url": "https://www.psi.org/careers/"
+  },
+  {
+    "company": ",  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , ",
+    "country": "Rwanda",
+    "sector": "Hospitals",
+    "url": "https://jobs.newtimes.co.rw/"
+  },
+  {
+    "company": "University of Rwanda",
+    "country": "Rwanda",
+    "sector": "Universities",
+    "url": "https://ur.ac.rw/?Jobs-and-vacancies="
+  },
+  {
+    "company": "University of Kigali",
+    "country": "Rwanda",
+    "sector": "Universities",
+    "url": "https://uok.ac.rw/vacancies/"
+  },
+  {
+    "company": "Adventist University of Central Africa",
+    "country": "Rwanda",
+    "sector": "Universities",
+    "url": "https://auca.ac.rw/"
+  },
+  {
+    "company": "University of Technology and Arts",
+    "country": "Rwanda",
+    "sector": "Universities",
+    "url": "https://utab.ac.rw/category/job-vacancy/"
+  },
+  {
+    "company": "University of Global Health Equity",
+    "country": "Rwanda",
+    "sector": "Universities",
+    "url": "https://ughe.org/careers/"
+  },
+  {
+    "company": "University of Science, Technology and Arts",
+    "country": "Rwanda",
+    "sector": "Universities",
+    "url": "https://utab.ac.rw"
+  },
+  {
+    "company": "University of Rwanda College of Arts and Social Sciences",
+    "country": "Rwanda",
+    "sector": "Universities",
+    "url": "https://cass.ur.ac.rw/?p=2749"
+  },
+  {
+    "company": "University of Rwanda College of Medicine and Health Sciences",
+    "country": "Rwanda",
+    "sector": "Universities",
+    "url": "https://ur.ac.rw/"
+  },
+  {
+    "company": "University of Rwanda College of Education",
+    "country": "Rwanda",
+    "sector": "Universities",
+    "url": "https://ce.ur.ac.rw"
+  },
+  {
+    "company": "University of Rwanda College of Science and Technology",
+    "country": "Rwanda",
+    "sector": "Universities",
+    "url": "https://cst.ur.ac.rw/spip.php?page=plan"
+  },
+  {
+    "company": "University of Rwanda College of Business and Economics",
+    "country": "Rwanda",
+    "sector": "Universities",
+    "url": "https://ur.ac.rw"
+  },
+  {
+    "company": "Interbrew Rwanda Ltd",
+    "country": "Rwanda",
+    "sector": "Manufacturing Companies",
+    "url": "https://content.skolbrewery.rw/careers/"
+  },
+  {
+    "company": "Acacia Fruits Ltd",
+    "country": "Rwanda",
+    "sector": "Manufacturing Companies",
+    "url": "acaciavegfruits.com"
+  },
+  {
+    "company": "Plastipak Rwanda Ltd",
+    "country": "Rwanda",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.plastipak.com/careers/"
+  },
+  {
+    "company": "Gilat Satcom Rwanda",
+    "country": "Rwanda",
+    "sector": "Telecommunications",
+    "url": "https://www.gilat.com/career/"
+  },
+  {
+    "company": "Tusker Telecom",
+    "country": "Rwanda",
+    "sector": "Telecommunications",
+    "url": "https://jobs.lever.co/tusker"
+  },
+  {
+    "company": "Ison Technologies",
+    "country": "Rwanda",
+    "sector": "Telecommunications",
+    "url": "https://www.isontechnologies.com/careers-ison"
+  },
+  {
+    "company": "Fidelity Bank Ghana",
+    "country": "Ghana",
+    "sector": "Banks",
+    "url": "https://fidelitybank.com.gh/careers"
+  },
+  {
+    "company": "Absa Bank Ghana",
+    "country": "Ghana",
+    "sector": "Banks",
+    "url": "https://absa.wd3.myworkdayjobs.com/en-US/ABSAcareersite/job/Absa-Bank-Head-Office-GH/Corporate-Credit-Manager_R-15990532-1"
+  },
+  {
+    "company": "CalBank",
+    "country": "Ghana",
+    "sector": "Banks",
+    "url": "https://calbank.net"
+  },
+  {
+    "company": "Cal Bank",
+    "country": "Ghana",
+    "sector": "Banks",
+    "url": "https://calbank.net/about/careers/"
+  },
+  {
+    "company": "Credit Bank",
+    "country": "Ghana",
+    "sector": "Banks",
+    "url": "https://jobs.gh.cari.africa/jobs/credit-bank"
+  },
+  {
+    "company": "Trust Bank",
+    "country": "Ghana",
+    "sector": "Banks",
+    "url": "https://www.gtbghana.com/about/careers"
+  },
+  {
+    "company": "World Vision Ghana",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://worldvision.wd1.myworkdayjobs.com/en-US/WorldVisionInternational/job/National-Director---WV-Ghana_JR52349"
+  },
+  {
+    "company": "Plan International Ghana",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://jobs.plan-international.org"
+  },
+  {
+    "company": "ActionAid Ghana",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://ghana.actionaid.org/jobs"
+  },
+  {
+    "company": "UNICEF Ghana",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://jobs.unicef.org/cw/en-us/"
+  },
+  {
+    "company": "Ghana Red Cross Society",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://redcross-ghana.org"
+  },
+  {
+    "company": "African Development Foundation Ghana",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://www.usadf.gov/"
+  },
+  {
+    "company": "Mercy Corps Ghana",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://us.jobvite.com/index.cfm?st=career} \n {\"cleanUrl\": "
+  },
+  {
+    "company": "International Rescue Committee Ghana",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://www.rescue.org/careers"
+  },
+  {
+    "company": "World Wide Fund for Nature Ghana",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://www.wwf.org/es/jobs_wwf"
+  },
+  {
+    "company": "Africa Education Trust",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://africaetf.org/vacancies/"
+  },
+  {
+    "company": "Ghana Climate Innovation Center",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://ghanacic.ashesi.edu.gh/jobs/"
+  },
+  {
+    "company": "Aga Khan Foundation Ghana",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://akf.org/careers/"
+  },
+  {
+    "company": "Hope for Girls Ghana",
+    "country": "Ghana",
+    "sector": "NGOs",
+    "url": "https://hffg.org/category/jobs/"
+  },
+  {
+    "company": "Kumasi Coromandel Teaching Hospital",
+    "country": "Ghana",
+    "sector": "Hospitals",
+    "url": "https://exa.ai/library/organization/2n6wq2n59n4"
+  },
+  {
+    "company": "Tamale Teaching Hospital",
+    "country": "Ghana",
+    "sector": "Hospitals",
+    "url": "https://tth.gov.gh/"
+  },
+  {
+    "company": "Aldongo Hospital",
+    "country": "Ghana",
+    "sector": "Hospitals",
+    "url": "https://example.com/page"
+  },
+  {
+    "company": "Winneba Municipal Hospital",
+    "country": "Ghana",
+    "sector": "Hospitals",
+    "url": "https://www.ghaneps.gov.gh/epps/prepareViewCAOrganisation.do?id=26573"
+  },
+  {
+    "company": "Nkawkaw Municipal Hospital",
+    "country": "Ghana",
+    "sector": "Hospitals",
+    "url": "https://hfhnkawkaw.org/career.html"
+  },
+  {
+    "company": "University of Ghana",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://www.ug.edu.gh/hrodd/vacancy-announcements"
+  },
+  {
+    "company": "Kwame Nkrumah University of Science and Technology",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://www.knust.edu.gh/staff/vacancies"
+  },
+  {
+    "company": "University of Cape Coast",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://ucc.edu.gh/"
+  },
+  {
+    "company": "University for Development Studies",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://jobs.uds.edu.gh/"
+  },
+  {
+    "company": "University of Education, Winneba",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://uew.edu.gh/announcements/call-applications-juniorsenior-staff-promotions-and-appointments"
+  },
+  {
+    "company": "University of Health and Allied Sciences",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://www.uhas.edu.gh"
+  },
+  {
+    "company": "University of Mines and Technology",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://umat.edu.gh/staff/careers-umat"
+  },
+  {
+    "company": "Ghana Institute of Management and Public Administration",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://gimpa.edu.gh/category/vacancies/"
+  },
+  {
+    "company": "University of Professional Studies, Accra",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://upsa.edu.gh"
+  },
+  {
+    "company": "Valley View University",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://vvu.edu.gh/employment_opportunity"
+  },
+  {
+    "company": "Lancaster University Ghana",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://lancaster.edu.gh"
+  },
+  {
+    "company": "Ashesi University",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://ashesi.edu.gh/careers-at-ashesi/ (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default)... (default)} true (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default) (default"
+  },
+  {
+    "company": "Ghana Technology University College",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://site.gctu.edu.gh"
+  },
+  {
+    "company": "Christian Service University College",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://www.csuc.edu.gh/job-vacancies/"
+  },
+  {
+    "company": "Koforidua Technical University",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://www.ktu.edu.gh"
+  },
+  {
+    "company": "Ho Technical University",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://htu.edu.gh/staff-vacancies"
+  },
+  {
+    "company": "Takoradi Technical University",
+    "country": "Ghana",
+    "sector": "Universities",
+    "url": "https://ttu.edu.gh/ttu-staff-vacancies-advertisement/."
+  },
+  {
+    "company": "Unilever Ghana",
+    "country": "Ghana",
+    "sector": "Manufacturing Companies",
+    "url": "https://careers.unilever.com/en/ghana"
+  },
+  {
+    "company": "ASAP Ghana",
+    "country": "Ghana",
+    "sector": "Manufacturing Companies",
+    "url": "https://asap-ghana.com/  "
+  },
+  {
+    "company": "Sodick Ghana",
+    "country": "Ghana",
+    "sector": "Manufacturing Companies",
+    "url": "https://sodick.com/about/careers/"
+  },
+  {
+    "company": "Michelin Ghana",
+    "country": "Ghana",
+    "sector": "Manufacturing Companies",
+    "url": "https\nmichelinhr.wd3.myworkdayjobs.com/"
+  },
+  {
+    "company": "Aveo Group Ghana",
+    "country": "Ghana",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.aveo.com.au/careers/join-us/"
+  },
+  {
+    "company": "AngloGold Ashanti Ghana",
+    "country": "Ghana",
+    "sector": "Manufacturing Companies",
+    "url": "https://careers.anglogoldashanti.com"
+  },
+  {
+    "company": "Telecel Ghana",
+    "country": "Ghana",
+    "sector": "Telecommunications",
+    "url": "https://telecel.zohorecruit.com/jobs/Careers/"
+  },
+  {
+    "company": "AirtelTigo",
+    "country": "Ghana",
+    "sector": "Telecommunications",
+    "url": "https://www.at.com.gh"
+  },
+  {
+    "company": "Ghana Standards Authority",
+    "country": "Ghana",
+    "sector": "Telecommunications",
+    "url": "https://gsa-01-erp2.odoo.com/jobs"
+  },
+  {
+    "company": "Vodafone Ghana",
+    "country": "Ghana",
+    "sector": "Telecommunications",
+    "url": "https://careers.vodafone.com/ghana/"
+  },
+  {
+    "company": "Zenith Bank Plc",
+    "country": "Nigeria",
+    "sector": "Banks",
+    "url": "https://www.zenithbank.com"
+  },
+  {
+    "company": "Union Bank of Nigeria Plc",
+    "country": "Nigeria",
+    "sector": "Banks",
+    "url": "https://www.unionbankng.com/careers/job-board"
+  },
+  {
+    "company": "Access Bank Plc",
+    "country": "Nigeria",
+    "sector": "Banks",
+    "url": "https://apply.workable.com/access-bank/"
+  },
+  {
+    "company": "Standard Chartered Bank Nigeria Plc",
+    "country": "Nigeria",
+    "sector": "Banks",
+    "url": "https://sc.com/en/global-careers"
+  },
+  {
+    "company": "Prestige Bank Plc",
+    "country": "Nigeria",
+    "sector": "Banks",
+    "url": "https://prestigebank.com.ng/careers/"
+  },
+  {
+    "company": "Wema Bank Plc",
+    "country": "Nigeria",
+    "sector": "Banks",
+    "url": "https://www.wemabank.com/careers"
+  },
+  {
+    "company": "Fideelity Bank Plc",
+    "country": "Nigeria",
+    "sector": "Banks",
+    "url": "https://fidelitybank.ng/job_openings"
+  },
+  {
+    "company": "5. Care International Nigeria",
+    "country": "Nigeria",
+    "sector": "NGOs",
+    "url": "https://careinternational.org.careers/jobs/2491/conflict-and-peace-building-officer-nigeria"
+  },
+  {
+    "company": "11. Oxfam in Nigeria",
+    "country": "Nigeria",
+    "sector": "NGOs",
+    "url": "https://nigeria.oxfam.org/get-involved-work-us/jobs"
+  },
+  {
+    "company": "19. Plan International Nigeria",
+    "country": "Nigeria",
+    "sector": "NGOs",
+    "url": "https://jobs.plan-international.org"
+  },
+  {
+    "company": "20. Tearfund Nigeria",
+    "country": "Nigeria",
+    "sector": "NGOs",
+    "url": "https://www.tearfund.org/about-us/work-with-us"
+  },
+  {
+    "company": "24. Society for Family Health",
+    "country": "Nigeria",
+    "sector": "NGOs",
+    "url": "https://sfhnigeria.zohorecruit.com/jobs/Careers"
+  },
+  {
+    "company": "25. Pathfinder International Nigeria",
+    "country": "Nigeria",
+    "sector": "NGOs",
+    "url": "https://www.pathfinder.org/careers/"
+  },
+  {
+    "company": "29. Women for Women International Nigeria",
+    "country": "Nigeria",
+    "sector": "NGOs",
+    "url": "https://careers.womenforwomen.org/"
+  },
+  {
+    "company": "University of Benin Teaching Hospital",
+    "country": "Nigeria",
+    "sector": "Hospitals",
+    "url": "https://ubth.org"
+  },
+  {
+    "company": "University of Ilorin Teaching Hospital",
+    "country": "Nigeria",
+    "sector": "Hospitals",
+    "url": "https://uithilorin.org.ng/residentadvert"
+  },
+  {
+    "company": "National Orthopaedic Hospital, Igbobi, Lagos",
+    "country": "Nigeria",
+    "sector": "Hospitals",
+    "url": "https://nohlagos.gov.ng"
+  },
+  {
+    "company": "Dangote Cement Plc",
+    "country": "Nigeria",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.dangotecement.com/careers/"
+  },
+  {
+    "company": "Lafarge Africa Plc",
+    "country": "Nigeria",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.lafarge.com.ng"
+  },
+  {
+    "company": "BUA Cement Plc",
+    "country": "Nigeria",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.buacement.com/careers"
+  },
+  {
+    "company": "Nigerian Breweries Plc",
+    "country": "Nigeria",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.nbplc.com/careers/"
+  },
+  {
+    "company": "Guinness Nigeria Plc",
+    "country": "Nigeria",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.guinness-nigeria.com/careers"
+  },
+  {
+    "company": "Nestlé Nigeria Plc",
+    "country": "Nigeria",
+    "sector": "Manufacturing Companies",
+    "url": "https://jobdetails.nestle.com"
+  },
+  {
+    "company": "PZ Cussons Nigeria Plc",
+    "country": "Nigeria",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.pzcussons.com/careers/jobs/"
+  },
+  {
+    "company": "Flour Mills of Nigeria Plc",
+    "country": "Nigeria",
+    "sector": "Manufacturing Companies",
+    "url": "https://fmnplc.e-recruiter.ng/vacancy"
+  },
+  {
+    "company": "UAC of Nigeria Plc",
+    "country": "Nigeria",
+    "sector": "Manufacturing Companies",
+    "url": "https://www.uacnig.com/careers"
+  }
 ]
