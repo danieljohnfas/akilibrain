@@ -106,4 +106,8 @@ jobs:
         run: |
           URL=$(gcloud run services describe "$SERVICE_NAME" --project="$GCP_PROJECT_ID" --region="$GCP_REGION" --format="value(status.url)")
           echo "✅ AkiliBrain is live on Google Cloud Run: $URL"
-          curl -sSf "$URL/api/health" || echo "Health check returned non-200"
+          # Fail the deploy if the new revision isn't healthy (retries cover cold starts).
+          if ! curl -sSf --retry 5 --retry-all-errors --retry-delay 10 "$URL/api/health"; then
+            echo "::error::Health check on $URL/api/health did not return 200 after retries."
+            exit 1
+          fi
